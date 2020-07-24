@@ -1,10 +1,10 @@
 Category: "pipeline"
-Description: "a template nf pipeline for styling and standardization"
+Description: "Nextflow pipeline for mtSNV detection from Normal/Tumour BAMs"
 Maintainers: "Boutros Lab Infrastructure BoutrosLabInfrastructure@mednet.ucla.edu"
-Contributors: ["Ben Carlin", "Gina Kim"]
+Contributors: ["Takafumi Yamaguchi", "Andrew Park"]
 Languages: ["Nextflow", "Docker"]
 Dependencies: ["Java", "Nextflow", "Docker", "Slurm"]
 References: "https://uclahs.box.com/s/qfzr99sc8ntmfddn30ii62wx4273utoz"
-Tools: ["tool_a:v1.1.0", "tool_b:v1.1.0"]
+Tools: ["bamql", "MToolbox", "mitocaller"]
 Engineering_Owner: []
 Scientific_Owner: []
