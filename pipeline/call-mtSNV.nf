@@ -93,24 +93,22 @@ process extract_reads {
  * This stage takes a few hours depending on the BAM file size.
 */
 
-process 'run_mtoolbox' {
-  container mtoolbox
+process mtoolbox {
+// Check for the file location
+  container "blcdsdockerregistry/mtoolbox:v1.0.0"
+  containerOptions "-v ${params.mito_ref}:${params.rsrs_out} -v ${params.output_dir}:${params.extract_reads_out}"
 
   publishDir "${params.output_dir}", enabled: true, mode: 'copy'
-  label 'run MToolBox'
+  label 'MToolBox'
 
   input:
-    tuple(file(normal), file(tumour))  from next_stage
-
-  output:
-    file "${genome.baseName}.dict" into genome_dict_ch
+  file bam from next_stage
 
   script:
   """
-  
-
-
-  
+  pushd /src/MToolBox
+  printf "input_type=${params.input_file_type}\nref=${params.mt_ref_type}\ninput_path=${params.extract_reads_out}\noutput_name=${params.rsrs_out}" > ${params.extract_reads_out}/config.sh
+  ./MToolBox.sh -i ${params.extract_reads_out}/config.sh -m '-t 4'
   """
 }
 
