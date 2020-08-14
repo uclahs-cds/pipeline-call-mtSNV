@@ -94,9 +94,11 @@ process extract_reads {
 */
 
 process mtoolbox {
-// Check for the file location
   container "blcdsdockerregistry/mtoolbox:v1.0.0"
   containerOptions "-v ${params.mito_ref}:${params.rsrs_out} -v ${params.output_dir}:${params.extract_reads_out}"
+
+  def refFile = new File(params.mt_ref)
+  assert refFile.exists() : "reference file not found"
 
   publishDir "${params.output_dir}", enabled: true, mode: 'copy'
   label 'MToolBox'
