@@ -2,8 +2,7 @@
  * Copyright (c) 2020, UCLA JCCC
  *
  */
- 
-  
+
 /* 
  * 'Call-mtSNV' - A Nextflow pipeline for somatic mtSNV (heteroplasmy) calling with NGS data
  * 
@@ -17,13 +16,12 @@
  */ 
 
 def bamql = "blcdsdockerregistry/bamql:1.5"
-//def mtoolbox = "blcdsdockerregistry/mtoolbox:x"
+def mtoolbox = "blcdsdockerregistry/mtoolbox:1.0.0"
 //def mitocaller = "blcdsdockerregistry/mitocaller:x"
 
 /*
  * Default parameters should be defined in config
  */ 
-
 
 log.info """\
 C A L L I N G S  -  N F    v 1.0 
@@ -54,7 +52,6 @@ Channel
  * Process 1: Use bamql to extract reads mapped to mitochondria genome in the input BAM (hg19/GRCh37)
  * This stage is quite fast and memory efficient (it only takes a few min to process one BAM)
  */
-
 process extract_reads { 
   container bamql
 
@@ -76,7 +73,6 @@ process extract_reads {
       -f ${input_bam} \
       ' ${params.query} '
   """
-}
 
 /*
  *  END OF PART 1
@@ -94,7 +90,7 @@ process extract_reads {
 */
 
 process mtoolbox {
-  container "blcdsdockerregistry/mtoolbox:v1.0.0"
+  container mtoolbox
   containerOptions "-v ${params.mito_ref}:${params.rsrs_out} -v ${params.output_dir}:${params.extract_reads_out}"
 
   def refFile = new File(params.mt_ref)
@@ -102,14 +98,14 @@ process mtoolbox {
 
   publishDir "${params.output_dir}", enabled: true, mode: 'copy'
   label 'MToolBox'
-
+/*
   input:
   file bam from next_stage
-
+*/
   script:
   """
   pushd /src/MToolBox
-  printf "input_type=${params.input_file_type}\nref=${params.mt_ref_type}\ninput_path=${params.extract_reads_out}\noutput_name=${params.rsrs_out}" > ${params.extract_reads_out}/config.sh
+  printf "input_type=${params.input_file_type}\nref=${params.mt_ref_type}\ninput_path=${params.extract_reads_out}\noutput_name=${params.rsrs_out}\n" > ${params.extract_reads_out}/config.sh
   ./MToolBox.sh -i ${params.extract_reads_out}/config.sh -m '-t 4'
   """
 }
@@ -177,3 +173,4 @@ process '1D_prepare_vcf_file' {
   """
 }
 */
+
