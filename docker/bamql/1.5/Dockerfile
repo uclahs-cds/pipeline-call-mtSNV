@@ -1,8 +1,8 @@
 FROM ubuntu:18.04
 
-MAINTAINER Takafumi Yamaguchi <tyamaguchi@mednet.ucla.edu>
-ENV TERM=vt100
+LABEL maintainer="1)Alfredo Enrique Gonzalez <alfgonzalez@mednet.ucla.edu> "
 
+# Install utilities
 RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
    &&  apt-get update &&  apt-get -y upgrade \
    &&  apt-get install -y autotools-dev build-essential libhts-dev libtool libpcre++-dev llvm-dev pkg-config uuid-dev zlib1g-dev \
@@ -12,6 +12,7 @@ RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
 RUN mkdir /src/
 WORKDIR /src/
 
+# Install bamql from Boutros Github & Establish directories 
 RUN wget https://github.com/BoutrosLaboratory/bamql/archive/v1.5.tar.gz \
    && tar -xzvf v1.5.tar.gz \
    && rm v1.5.tar.gz
@@ -21,8 +22,10 @@ RUN autoreconf -i \
    &&  make \
    &&  make install 
 
+# Set environment variables
 ENV LD_LIBRARY_PATH=/usr/local/lib
 
 WORKDIR /
 
+# Define default command
 CMD ["/bin/bash"]
