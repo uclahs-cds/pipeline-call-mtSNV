@@ -19,7 +19,23 @@ def docker_image_vcf_tools = "biocontainers/vcftools:v0.1.16-1-deb_cv1"
 def docker_image_sha512sum = "blcdsdockerregistry/align-dna:sha512sum-1.0"
 
 // resource information
+// resource information
+def number_of_cpus = (int) (Runtime.getRuntime().availableProcessors() / params.max_number_of_parallel_jobs)
+if (number_of_cpus < 1) {
+   number_of_cpus = 1
+}
+def amount_of_memory = ((int) (((java.lang.management.ManagementFactory.getOperatingSystemMXBean()
+   .getTotalPhysicalMemorySize() / (1024.0 * 1024.0 * 1024.0)) * 0.9) / params.max_number_of_parallel_jobs ))
+if (amount_of_memory < 1) {
+   amount_of_memory = 1
+}
+amount_of_memory = amount_of_memory.toString() + " GB"
+
+
 /* 
+
+
+
 
 def number_of_cpus = (int) (Runtime.getRuntime().availableProcessors() / params.max_number_of_parallel_jobs)
 if (number_of_cpus < 1) {
@@ -112,8 +128,10 @@ process extract_reads {
   container 'blcdsdockerregistry/call-mtsnv:bamql-1.5.1'
   containerOptions "--volume ${params.temp_dir}:/tmp"
   publishDir "${params.bamql_out_dir}", enabled: true, mode: 'copy'
-  tag "Extract MT Reads"
- 
+
+  memory amount_of_memory
+   cpus number_of_cpus
+
   input:
     tuple(val(type), path(normal), path(tumour)) from input_ch
     each params.query from input_ch_mt_reads_extraction_query
@@ -147,7 +165,9 @@ process mtoolbox {
   
   //containerptions "-v ${params.mtoolbox_out}:${params.rsrs_out} -v ${params.output_dir}:${params.extract_reads_out}"
   publishDir "${params.mtoolbox_out_dir}", enabled: true, mode: 'copy'
-  label 'MToolBox'
+
+   memory amount_of_memory
+   cpus number_of_cpus
 
   //  input:
   input:
@@ -163,6 +183,9 @@ process mtoolbox {
         ) into next_stage_2 
 
 // !!!NOTE!!! Output file location can not be spceified or it breaks mtoolbox script when running a BAM file
+// explicitly write script commands "i" = "input" etc..
+// add dash and a line for each command for readability 
+// Use mktemp-d over mkdir when all possible 
   script:
   """
 
@@ -172,8 +195,8 @@ process mtoolbox {
   printf "input_type='bam'\nref='RSRS'\ninput_path=${extracted_normal_reads}\n" > config4.conf
   printf "input_type='bam'\nref='RSRS'\ninput_path=${extracted_tumor_reads}\n" > config5.conf
   
-  MToolBox.sh -i config4.conf -m '-t 4'
-  MToolBox.sh -i config5.conf -m '-t 4'
+  MToolBox.sh -i config4.conf -m '-t ${task.cpus}'
+  MToolBox.sh -i config5.conf -m '-t ${task.cpus}'
 
   mv OUT_${extracted_normal_reads}_mtoolbox_out/OUT2-sorted.bam OUT_${extracted_normal_reads.baseName}.bam
   mv OUT_${extracted_tumor_reads}_mtoolbox_out/OUT2-sorted.bam OUT_${extracted_tumor_reads.baseName}.bam
@@ -187,7 +210,6 @@ process mitocaller {
     containerOptions "-v ${params.mito_ref}:/reference/ -v ${params.mitocaller_out_dir}:/output/ -v ${params.output_dir}:/mtoolbox/"
 
     publishDir "${params.mitocaller_out_dir}", enabled: true, mode: 'copy'
-    label 'mitocaller'
 
     input:
         tuple(
