@@ -35,8 +35,6 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 /* 
 
 
-
-
 def number_of_cpus = (int) (Runtime.getRuntime().availableProcessors() / params.max_number_of_parallel_jobs)
 if (number_of_cpus < 1) {
     number_of_cpus = 1
@@ -102,7 +100,7 @@ Boutros Lab
 
 // input.csv
 Channel
-    .fromPath('input.csv')//params.input_csv)
+    .fromPath(params.input_csv)//params.input_csv)
     .ifEmpty { exit 1, "params.input_csv was empty - no input files supplied" }
     .splitCsv(header:true) 
     .map{ row -> tuple(row.type, file(row.normal), file(row.tumour)) }
@@ -130,10 +128,10 @@ process extract_reads {
   publishDir "${params.bamql_out_dir}", enabled: true, mode: 'copy'
 
   memory amount_of_memory
-   cpus number_of_cpus
+  cpus number_of_cpus
 
   input:
-    tuple(val(type), path(normal), path(tumour)) from input_ch
+    tuple(val(type), path(normal)) from input_ch
     each params.query from input_ch_mt_reads_extraction_query
   
   output: 
@@ -146,10 +144,19 @@ process extract_reads {
   script:
   """
   bamql -b -o '${normal.baseName}'_'${type}'_mt.bam -f '${normal}' '${params.query}'
-  bamql -b -o '${tumour.baseName}'_'${type}'_mt.bam -f '${tumour}' '${params.query}'
   
   """
 }
+
+/**
+Commands to put in after testing 
+input:
+   tuple(val(type), path(normal), path(tumour)) from input_ch
+
+script:
+  bamql -b -o '${tumour.baseName}'_'${type}'_mt.bam -f '${tumour}' '${params.query}'
+
+**/
 /**********
  * PART 2: MToolBox
  * Process 1: Run MToolBox.sh on the BAMs generated in the ExtractReads stage. 
