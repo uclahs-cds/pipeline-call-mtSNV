@@ -15,9 +15,9 @@ RUN mkdir /src/
 WORKDIR /src/
 
 # probably delete the ref genomes from the original archive and use one from config
-RUN wget https://lgsun.irp.nia.nih.gov/hsgu/software/mitoAnalyzer/download/mitoCaller.zip \
-   && unzip mitoCaller.zip \
-   && rm mitoCaller.zip
+RUN wget https://github.com/HSGU-NIA/mitoAnalyzer/raw/master/mitoCaller_noRef.zip \
+   && unzip mitoCaller_noRef.zip \
+   && rm mitoCaller_noRef.zip
 
 # Set workdir to mitocaller folder
 WORKDIR /src/mitoCaller-package/mitoCaller/
