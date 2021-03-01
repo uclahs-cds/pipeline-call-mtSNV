@@ -1,3 +1,5 @@
+//// Process ////
+
 process Validate_Inputs {
    container "blcdsdockerregistry/validate:1.0.0"
 

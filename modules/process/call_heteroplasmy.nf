@@ -1,3 +1,5 @@
+//// Resource allocation ////
+
 def number_of_cpus = (int) (Runtime.getRuntime().availableProcessors() / params.max_number_of_parallel_jobs)
 if (number_of_cpus < 1) {
     number_of_cpus = 1
@@ -11,6 +13,7 @@ if (amount_of_memory < 1) {
 amount_of_memory = amount_of_memory.toString() + " GB"
 
 
+//// Process ////
 
 process Call_Heteroplasmy {
     //Memory Allocation//
@@ -46,3 +49,8 @@ process Call_Heteroplasmy {
     
     """
 }
+
+/** Future Work 
+- Change resource allocation to refer to single module
+- make this step optional in the case of single samples
+

@@ -1,3 +1,5 @@
+//// Resource allocation ////
+
 def number_of_cpus = (int) (Runtime.getRuntime().availableProcessors() / params.max_number_of_parallel_jobs)
 if (number_of_cpus < 1) {
     number_of_cpus = 1
@@ -13,6 +15,7 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 
 
 
+//// Process ////
 
 process MITOCALLER_call_mt_reads {
     container 'ubuntu:16.04'
@@ -43,3 +46,9 @@ process MITOCALLER_call_mt_reads {
     /mitocaller2/mitoCaller -m -b "${tumor_out_sorted}"  -r /reference/chrRSRS.fasta -v ${tumor_out_sorted.baseName}_mitocaller.tsv.gz
     """
 }
+
+
+/** Future Work 
+- Change resource allocation to refer to single module
+- Single sample processing
+

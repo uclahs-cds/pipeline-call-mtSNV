@@ -1,3 +1,5 @@
+//// Resource allocation ////
+
 def number_of_cpus = (int) (Runtime.getRuntime().availableProcessors() / params.max_number_of_parallel_jobs)
 if (number_of_cpus < 1) {
     number_of_cpus = 1
@@ -11,6 +13,7 @@ if (amount_of_memory < 1) {
 amount_of_memory = amount_of_memory.toString() + " GB"
 
 
+//// Process ////
 
 process MTOOLBOX_remap_reads {
   container "blcdsdockerregistry/call-mtsnv:mtoolbox-1.0.5" // TODO: rename the tag to 1.0.0
@@ -54,3 +57,8 @@ process MTOOLBOX_remap_reads {
   
   """
 }
+
+/** Future Work 
+- Change resource allocation to refer to single module
+- Single sample processing
+

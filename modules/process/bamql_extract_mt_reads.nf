@@ -1,3 +1,5 @@
+//// Resource allocation ////
+
 def number_of_cpus = (int) (Runtime.getRuntime().availableProcessors() / params.max_number_of_parallel_jobs)
 if (number_of_cpus < 1) {
     number_of_cpus = 1
@@ -11,6 +13,7 @@ if (amount_of_memory < 1) {
 amount_of_memory = amount_of_memory.toString() + " GB"
 
 
+//// Process ////
 
 process BAMQL_extract_mt_reads { 
     container 'blcdsdockerregistry/call-mtsnv:bamql-1.5.1'
@@ -38,3 +41,9 @@ process BAMQL_extract_mt_reads {
 
   """
 }
+
+
+/** Future Work 
+- Change resource allocation to refer to single module
+- Single sample processing
+
