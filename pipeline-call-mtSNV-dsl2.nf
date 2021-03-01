@@ -1,23 +1,34 @@
-/*
- * Copyright (c) 2020, UCLA JCCC
- * 'Call-mtSNV' - A Nextflow pipeline for somatic mtSNV (heteroplasmy) calling with NGS data
- * 
- * Takafumi Yamaguchi
- * Andrew Park
- * Alfredo Enrique Gonzalez
- * Paul Boutros
- */
-// NOTE- docker images have not been pushed to docker hub yet. They will need to be changed once on cluster
+/***
+Copyright (c) 2020, UCLA JCCC
+'Call-mtSNV' - A Nextflow pipeline for somatic mtSNV (heteroplasmy) calling with NGS data
+Takafumi Yamaguchi
+Andrew Park
+Alfredo Enrique Gonzalez
+Paul Boutros
+***/
 
-def docker_image_validate_params = "blcdsdockerregistry/align-dna:sha512sum-1.0"
+//// DSL Version Declaration ////
+nextflow.enable.dsl=2
+
+//// Docker Image Invocation ///
+def docker_image_validate_params = "blcdsdockerregistry/validate:1.0.0"
 def docker_image_bamql = "blcdsdockerregistry/call-mtsnv:bamql-1.5.1"
 def docker_image_mtoolbox = "blcdsdockerregistry/call-mtsnv:mtoolbox-1.0.5"
 def docker_image_mitocaller = "blcdsdockerregistry/call-mtsnv:mitocaller-1.0.1"
 def docker_image_sha512sum = "blcdsdockerregistry/align-dna:sha512sum-1.0"
+def docker_image_call_heteroplasmy = "blcdsdockerregistry/call-mtsnv:call-heteroplasmy-script-1.0"
 
-// resource information
+
+//// Import of Local Modules ////
+
+include { Validate_Inputs           } from './modules/process/validate_inputs'
+include { BAMQL_extract_mt_reads    } from './modules/process/bamql_extract_mt_reads'
+include { MTOOLBOX_remap_reads      } from './modules/process/mtoolbox_remap_reads'
+include { MITOCALLER_call_mt_reads  } from './modules/process/mitocaller_call_mt_reads'
+include { Call_Heteroplasmy         } from './modules/process/call_heteroplasmy'
 
 
+//// Resource Information ////
 def number_of_cpus = (int) (Runtime.getRuntime().availableProcessors() / params.max_number_of_parallel_jobs)
 if (number_of_cpus < 1) {
     number_of_cpus = 1
@@ -30,9 +41,7 @@ if (amount_of_memory < 1) {
 }
 amount_of_memory = amount_of_memory.toString() + " GB"
 
-/*
- * Default parameters should be defined in config
- */
+
 
 log.info """\
 ======================================
@@ -88,18 +97,12 @@ Channel
     .fromPath(params.input_csv)//params.input_csv)
     .ifEmpty { exit 1, "params.input_csv was empty - no input files supplied" }
     .splitCsv(header:true) 
-    .map{ row -> tuple(row.type, row.normal, row.tumour) }
+    .map{ row -> tuple(row.normal, row.tumour) }
     .set { input_ch }
 
 //query = Channel.from('query')
 
 // get the query from param
-
-Channel
-   .from(params.query)
-   .ifEmpty { error "Cannot find bamql query: ${params.query}" }
-   .set { input_ch_mt_reads_extraction_query }
-
 
 /**********
  * PART 1: Extract MT reads
@@ -109,111 +112,26 @@ Channel
  */
 
 // Extract reads with bamql
-process extract_reads { 
-    container 'blcdsdockerregistry/call-mtsnv:bamql-1.5.1'
-    containerOptions "--volume ${params.temp_dir}:/tmp"
-    publishDir "${params.bamql_out_dir}", enabled: true, mode: 'copy'
 
-    memory amount_of_memory
-    cpus number_of_cpus
 
-  input:
-    tuple(val(type), path(normal), path(tumour)) from input_ch
-    each params.query from input_ch_mt_reads_extraction_query
-    //
-  output: 
-    
-    tuple(
-     file("${normal.baseName}_${type}_mt"),
-     file("${tumour.baseName}_${type}_mt")
-     )into next_stage 
-     
-
-  script:
-  """
-bamql -b -o '${normal.baseName}'_'${type}'_mt -f '${normal}' '${params.query}'
-bamql -b -o '${tumour.baseName}'_'${type}'_mt -f '${tumour}' '${params.query}'
-
-"""
+workflow{
+  Validate_Inputs( input_ch ) 
+  BAMQL_extract_mt_reads( input_ch ) 
+  MTOOLBOX_remap_reads( BAMQL_extract_mt_reads.out )
+  MITOCALLER_call_mt_reads(MTOOLBOX_remap_reads.out )
 }
 
 
-process mtoolbox {
-  container docker_image_mtoolbox // TODO: rename the tag to 1.0.0
-  containerOptions "--volume ${params.output_dir}:/src/imported/"
-      
-    memory amount_of_memory
-    cpus number_of_cpus
+ /**
 
-  //containerptions "-v ${params.mtoolbox_out}:${params.rsrs_out} -v ${params.output_dir}:${params.extract_reads_out}"
-  publishDir "${params.mtoolbox_out_dir}", enabled: true, mode: 'copy'
+ 
+ 
 
-  //  input:
-  input:
-    tuple(
-        path(extracted_normal_reads),
-        path(extracted_tumor_reads),
-    )from next_stage
-
-  output: 
-      
-        tuple(        
-        file("OUT2-sorted_${extracted_normal_reads.baseName}.bam"), 
-        file("OUT2-sorted_${extracted_tumor_reads.baseName}.bam")
-         ) into next_stage_2 
-         
-
-// !!!NOTE!!! Output file location can not be spceified or it breaks mtoolbox script when running a BAM file
-  script:
-  """
-  mv ${extracted_normal_reads} '${extracted_normal_reads.baseName}.bam'
-  mv ${extracted_tumor_reads} '${extracted_tumor_reads.baseName}.bam'
-
-  printf "input_type='bam'\nref='RSRS'\ninput_path=${extracted_normal_reads}\n" > config4.conf
-  printf "input_type='bam'\nref='RSRS'\ninput_path=${extracted_tumor_reads}\n" > config5.conf
-  
-  MToolBox.sh -i config4.conf -m '-t 4'
-  MToolBox.sh -i config5.conf -m '-t 4'
-  
-  mv OUT_'${extracted_normal_reads.baseName}'/OUT2-sorted.bam OUT2-sorted_'${extracted_normal_reads.baseName}'.bam
-  mv OUT_'${extracted_tumor_reads.baseName}'/OUT2-sorted.bam OUT2-sorted_'${extracted_tumor_reads.baseName}'.bam
+ 
+ 
+ Call_Heteroplasmy(MITOCALLER_call_mt_reads.out)  **/
 
 
-  pwd >> path.txt
-  
-  """
-}
-
-
-process mitocaller {
-    container 'ubuntu:16.04'
-    containerOptions "-v ${params.mito_ref}:/reference/ -v ${params.mitocaller_out_dir}:/output/ -v ${params.output_dir}:/mtoolbox/ -v ${params.mitocaller}:/mitocaller2/"
-  
-    memory amount_of_memory
-    cpus number_of_cpus
-
-
-    publishDir "${params.mitocaller_out_dir}", enabled: true, mode: 'copy'
-    label 'mitocaller'
-
-    input:
-        tuple(
-            path(normal_out_sorted), 
-            path(tumor_out_sorted) 
-        ) from next_stage_2
-
-    output: 
-        tuple(
-        file("${normal_out_sorted.baseName}_mitocaller.tsv.gz"), 
-        file("${tumor_out_sorted.baseName}_mitocaller.tsv.gz")
-        ) into next_stage_3 
-
-    script:
-    """
-    /mitocaller2/mitoCaller -m -b "${normal_out_sorted}"  -r /reference/chrRSRS.fasta -v ${normal_out_sorted.baseName}_mitocaller.tsv.gz
-    /mitocaller2/mitoCaller -m -b "${tumor_out_sorted}"  -r /reference/chrRSRS.fasta -v ${tumor_out_sorted.baseName}_mitocaller.tsv.gz
-    """
-}
 
 
 
