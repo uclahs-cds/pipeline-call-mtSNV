@@ -18,7 +18,7 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 process BAMQL_extract_mt_reads { 
     container 'blcdsdockerregistry/call-mtsnv:bamql-1.5.1'
     containerOptions "--volume ${params.temp_dir}:/tmp"
-    publishDir "${params.bamql_out_dir}", enabled: true, mode: 'copy'
+    publishDir "${params.output_dir}", enabled: true, mode: 'copy'
  
     memory amount_of_memory
     cpus number_of_cpus
@@ -43,7 +43,8 @@ process BAMQL_extract_mt_reads {
 }
 
 
-/** Future Work 
+/*** Future Work 
 - Change resource allocation to refer to single module
 - Single sample processing
 
+***/

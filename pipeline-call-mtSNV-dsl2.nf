@@ -35,10 +35,7 @@ Boutros Lab
     - output: x
         temp_dir: ${params.temp_dir}
         output_dir: ${params.output_dir}
-        bamql_out_dir: ${params.bamql_out_dir}
-        mtoolbox_out_dir: ${params.mtoolbox_out_dir}
-        mitocaller_out_dir: ${params.mitocaller_out_dir}
-        haplotype_out_dir: ${params.haplotype_out_dir}
+
       
     - options:
       save_intermediate_files = ${params.save_intermediate_files}
@@ -80,6 +77,6 @@ workflow{
 
 }
 
-/** Future Work 
+/*** Future Work 
 - Single sample processing
-
+***/

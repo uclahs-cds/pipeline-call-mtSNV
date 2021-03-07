@@ -19,13 +19,13 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 
 process MITOCALLER_call_mt_reads {
     container 'ubuntu:16.04'
-    containerOptions "-v ${params.mito_ref}:/reference/ -v ${params.mitocaller_out_dir}:/output/ -v ${params.output_dir}:/mtoolbox/ -v ${params.mitocaller}:/mitocaller2/"
+    containerOptions "-v ${params.mito_ref}:/mito_ref/mito_ref.fa/ -v ${params.mitocaller}:/mitocaller2/"
   
     memory amount_of_memory
     cpus number_of_cpus
 
 
-    publishDir "${params.mitocaller_out_dir}", enabled: true, mode: 'copy'
+    publishDir "${params.output_dir}", enabled: true, mode: 'copy'
     label 'mitocaller'
 
     input:
@@ -42,13 +42,9 @@ process MITOCALLER_call_mt_reads {
 
     script:
     """
-    /mitocaller2/mitoCaller -m -b "${normal_out_sorted}"  -r /reference/chrRSRS.fasta -v ${normal_out_sorted.baseName}_mitocaller.tsv.gz
-    /mitocaller2/mitoCaller -m -b "${tumor_out_sorted}"  -r /reference/chrRSRS.fasta -v ${tumor_out_sorted.baseName}_mitocaller.tsv.gz
+    /mitocaller2/mitoCaller -m -b "${normal_out_sorted}"  -r /mito_ref/mito_ref.fa -v ${normal_out_sorted.baseName}_mitocaller.tsv.gz
+    /mitocaller2/mitoCaller -m -b "${tumor_out_sorted}"  -r /mito_ref/mito_ref.fa -v ${tumor_out_sorted.baseName}_mitocaller.tsv.gz
     """
 }
 
-
-/** Future Work 
-- Change resource allocation to refer to single module
-- Single sample processing
 

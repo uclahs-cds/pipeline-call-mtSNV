@@ -29,7 +29,7 @@ process Call_Heteroplasmy {
     containerOptions "-v ${params.heteroplasmy_script}:/script/ -v ${params.haplotype_out_dir}:/output/"
 
     //Publishing Directory//
-    publishDir "${params.haplotype_out_dir}", enabled: true, mode: 'copy'
+    publishDir "${params.output_dir}", enabled: true, mode: 'copy'
 
     input:
         tuple(
@@ -50,7 +50,7 @@ process Call_Heteroplasmy {
     """
 }
 
-/** Future Work 
+/*** Future Work 
 - Change resource allocation to refer to single module
 - make this step optional in the case of single samples
-
+***/

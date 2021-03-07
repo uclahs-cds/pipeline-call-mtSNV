@@ -23,7 +23,7 @@ process MTOOLBOX_remap_reads {
     cpus number_of_cpus
 
   //containerptions "-v ${params.mtoolbox_out}:${params.rsrs_out} -v ${params.output_dir}:${params.extract_reads_out}"
-  publishDir "${params.mtoolbox_out_dir}", enabled: true, mode: 'copy'
+  publishDir "${params.output_dir}", enabled: true, mode: 'copy'
 
   //  input:
   input:
@@ -58,7 +58,7 @@ process MTOOLBOX_remap_reads {
   """
 }
 
-/** Future Work 
+/*** Future Work 
 - Change resource allocation to refer to single module
 - Single sample processing
-
+***/
