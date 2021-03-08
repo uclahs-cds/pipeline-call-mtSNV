@@ -36,8 +36,8 @@ process BAMQL_extract_mt_reads {
 
   script:
   """
-  bamql -b -o '${normal.baseName}'_mt -f '${normal}' "(chr(M) & mate_chr(M)) | (chr(Y) & after(59000000) & mate_chr(M))"
-  bamql -b -o '${tumour.baseName}'_mt -f '${tumour}' "(chr(M) & mate_chr(M)) | (chr(Y) & after(59000000) & mate_chr(M))"
+  bamql -b -o extracted_mt_reads_'${normal.baseName}' -f '${normal}' "(chr(M) & mate_chr(M)) | (chr(Y) & after(59000000) & mate_chr(M))"
+  bamql -b -o extracted_mt_reads_'${tumour.baseName}' -f '${tumour}' "(chr(M) & mate_chr(M)) | (chr(Y) & after(59000000) & mate_chr(M))"
 
   """
 }
