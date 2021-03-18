@@ -29,21 +29,15 @@ process MITOCALLER_call_mt_reads {
     label 'mitocaller'
 
     input:
-        tuple(
-            path(normal_out_sorted), 
-            path(tumor_out_sorted) 
-        ) //from next_stage_2
+      file mtoolbox_out //from next_stage_2
 
     output: 
-        tuple(
-        file("${normal_out_sorted.baseName}_mitocaller.tsv.gz"), 
-        file("${tumor_out_sorted.baseName}_mitocaller.tsv.gz")
-        ) //into next_stage_3 
-
+        
+      file("${mtoolbox_out.baseName}_mitocaller.tsv.gz")   
+   
     script:
     """
-    /mitocaller2/mitoCaller -m -b "${normal_out_sorted}"  -r /mito_ref/mito_ref.fa -v ${normal_out_sorted.baseName}_mitocaller.tsv.gz
-    /mitocaller2/mitoCaller -m -b "${tumor_out_sorted}"  -r /mito_ref/mito_ref.fa -v ${tumor_out_sorted.baseName}_mitocaller.tsv.gz
+    /mitocaller2/mitoCaller -m -b "${mtoolbox_out}"  -r /mito_ref/mito_ref.fa -v ${mtoolbox_out.baseName}_mitocaller.tsv.gz
     """
 }
 

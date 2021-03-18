@@ -27,38 +27,28 @@ process MTOOLBOX_remap_reads {
 
   //  input:
   input:
-    tuple(
-        path(extracted_normal_reads),
-        path(extracted_tumor_reads),
-    )//from next_stage
+    file bamql_out
+    //from next_stage
 
   output: 
-      
-        tuple(        
-        file("OUT2-sorted_${extracted_normal_reads.baseName}.bam"), 
-        file("OUT2-sorted_${extracted_tumor_reads.baseName}.bam")
-         ) //into next_stage_2 
+    file("OUT2-sorted_${bamql_out.baseName}.bam")      
+      //into next_stage_2 
          
 
 // !!!NOTE!!! Output file location can not be spceified or it breaks mtoolbox script when running a BAM file
   script:
   """
-  mv ${extracted_normal_reads} '${extracted_normal_reads.baseName}.bam'
-  mv ${extracted_tumor_reads} '${extracted_tumor_reads.baseName}.bam'
+  mv ${bamql_out} '${bamql_out.baseName}.bam'
 
-  printf "input_type='bam'\nref='RSRS'\ninput_path=${extracted_normal_reads}\n" > config4.conf
-  printf "input_type='bam'\nref='RSRS'\ninput_path=${extracted_tumor_reads}\n" > config5.conf
+  printf "input_type='bam'\nref='RSRS'\ninput_path=${bamql_out}\n" > config_'${bamql_out.baseName}'.conf
   
-  MToolBox.sh -i config4.conf -m '-t 4'
-  MToolBox.sh -i config5.conf -m '-t 4'
+  MToolBox.sh -i config_'${bamql_out.baseName}'.conf -m '-t 4'
   
-  mv OUT_'${extracted_normal_reads.baseName}'/OUT2-sorted.bam OUT2-sorted_'${extracted_normal_reads.baseName}'.bam
-  mv OUT_'${extracted_tumor_reads.baseName}'/OUT2-sorted.bam OUT2-sorted_'${extracted_tumor_reads.baseName}'.bam
+  mv OUT_'${bamql_out.baseName}'/OUT2-sorted.bam OUT2-sorted_'${bamql_out.baseName}'.bam
   
   """
 }
 
 /*** Future Work 
-- Change resource allocation to refer to single module
-- Single sample processing
+- None
 ***/

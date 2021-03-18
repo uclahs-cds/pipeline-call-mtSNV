@@ -4,14 +4,13 @@ process Validate_Inputs {
    container "blcdsdockerregistry/validate:1.0.0"
 
     input:
-    tuple( path(normal), path(tumour))   
+      tuple(path(x), val(type))    
     
     script:
    """
    set -euo pipefail
 
-   python -m validate -t file-input ${normal}
-   python -m validate -t file-input ${tumour}
+   python -m validate -t file-input ${x}
 
    """
 }

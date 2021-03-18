@@ -24,27 +24,21 @@ process BAMQL_extract_mt_reads {
     cpus number_of_cpus
 
   input:
-    tuple( path(normal), path(tumour)) //from input_ch
+    tuple(path(input_file_x), val(type)) //from input_ch
     //
   output: 
     
-    tuple(
-     file("${normal.baseName}_mt"),
-     file("${tumour.baseName}_mt")
-     )//into next_stage 
+    file 'extracted_mt_reads_*' //into next_stage 
      
 
   script:
   """
-  bamql -b -o extracted_mt_reads_'${normal.baseName}' -f '${normal}' "(chr(M) & mate_chr(M)) | (chr(Y) & after(59000000) & mate_chr(M))"
-  bamql -b -o extracted_mt_reads_'${tumour.baseName}' -f '${tumour}' "(chr(M) & mate_chr(M)) | (chr(Y) & after(59000000) & mate_chr(M))"
+  bamql -b -o extracted_mt_reads_'${type}'_'${input_file_x.baseName}' -f '${input_file_x}' "(chr(M) & mate_chr(M)) | (chr(Y) & after(59000000) & mate_chr(M))"
 
   """
 }
 
 
 /*** Future Work 
-- Change resource allocation to refer to single module
-- Single sample processing
-
+-None
 ***/

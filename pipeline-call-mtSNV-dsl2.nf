@@ -38,6 +38,7 @@ Boutros Lab
 
       
     - options:
+      sample_mode = ${params.sample_mode}
       save_intermediate_files = ${params.save_intermediate_files}
       cache_intermediate_pipeline_steps = ${params.cache_intermediate_pipeline_steps}
       max_number_of_parallel_jobs = ${params.max_number_of_parallel_jobs}
@@ -50,16 +51,44 @@ Boutros Lab
 
 
 //// Input paths from input.csv ////
-Channel
+
+  // Conditional for 'paired' sample
+if (params.sample_mode == 'paired') {
+  Channel
     .fromPath(params.input_csv)//params.input_csv)
     .ifEmpty { exit 1, "params.input_csv was empty - no input files supplied" }
     .splitCsv(header:true) 
-    .map{ row -> tuple(row.normal, row.tumour) }
+    .flatMap{ row -> tuple(
+       row.sample_input_1, 
+       row.sample_input_1_type,
+       row.sample_input_2,
+       row.sample_input_2_type)
+      }
+    .collate(2)
+    .set { input_ch }
+    }
+
+  // Codnidtional for 'single' sample
+    else if (params.sample_mode == 'single') {
+      Channel
+    .fromPath(params.input_csv)//params.input_csv)
+    .ifEmpty { exit 1, "params.input_csv was empty - no input files supplied" }
+    .splitCsv(header:true) 
+    .flatMap{ row -> tuple(
+       row.sample_input_1, 
+       row.sample_input_1_type)
+      }
+    .collate(2)
     .set { input_ch }
 
+    }
+    else {
+      throw new Exception('ERROR: params.sample_mode not recognized')
+    }
 
 
 workflow{
+ 
   //step 1: validation of inputs
   Validate_Inputs( input_ch ) 
   
@@ -70,13 +99,21 @@ workflow{
   MTOOLBOX_remap_reads( BAMQL_extract_mt_reads.out )
 
   //step 4: variant calling with mitocaller
-  MITOCALLER_call_mt_reads(MTOOLBOX_remap_reads.out )
+  MITOCALLER_call_mt_reads( MTOOLBOX_remap_reads.out )
+
 
   //step 5: call heteroplasmy script
-  Call_Heteroplasmy( MITOCALLER_call_mt_reads.out )
+  if (params.sample_mode == 'paired') {
+    Call_Heteroplasmy( MITOCALLER_call_mt_reads.out.toSortedList() )
+    }
+  else if (params.sample_mode == 'single') {}
+    
+  else {
+      throw new Exception('ERROR: params.sample_mode not recognized')
+    }
 
 }
 
 /*** Future Work 
-- Single sample processing
+Remove 
 ***/
