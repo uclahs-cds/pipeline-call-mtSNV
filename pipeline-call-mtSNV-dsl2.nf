@@ -28,8 +28,6 @@ Boutros Lab
     - input: 
         input_csv: ${params.input_csv}
         mt_ref = ${params.mt_ref}
-        mito_ref = ${params.mito_ref}
-        mitocaller = ${params.mitocaller}
     
     - output: x
         temp_dir: ${params.temp_dir}
@@ -112,7 +110,3 @@ workflow{
     }
 
 }
-
-/*** Future Work 
-Remove 
-***/

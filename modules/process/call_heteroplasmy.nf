@@ -26,7 +26,7 @@ process Call_Heteroplasmy {
 
     //Mounted Folders//
     /// 1) perl heteroplasmy script 2) output directory
-    containerOptions "-v ${params.heteroplasmy_script}:/script/"
+    containerOptions "-v ${params.suplemental_scripts}:/script/"
 
     //Publishing Directory//
     publishDir "${params.output_dir}", enabled: true, mode: 'copy'

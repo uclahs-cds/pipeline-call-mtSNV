@@ -19,7 +19,7 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 
 process MITOCALLER_call_mt_reads {
     container 'ubuntu:16.04'
-    containerOptions "-v ${params.mito_ref}:/mito_ref/mito_ref.fa/ -v ${params.mitocaller}:/mitocaller2/"
+    containerOptions "-v ${params.mt_ref}:/mito_ref/mito_ref.fa/ -v ${params.suplemental_scripts}:/mitocaller2/"
   
     memory amount_of_memory
     cpus number_of_cpus
@@ -40,5 +40,6 @@ process MITOCALLER_call_mt_reads {
     /mitocaller2/mitoCaller -m -b "${mtoolbox_out}"  -r /mito_ref/mito_ref.fa -v ${mtoolbox_out.baseName}_mitocaller.tsv.gz
     """
 }
+
 
 
