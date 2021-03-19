@@ -29,5 +29,3 @@ WORKDIR /
 CMD ["/bin/bash"]
 
 
-# Question about previous commands
-# ENV TERM=vt100

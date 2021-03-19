@@ -47,7 +47,7 @@ process Call_Heteroplasmy {
     --tumour ${tumour_mitocaller_out} \
     --ascat_stat
     
-    mv test.tsv ${tumour_mitocaller_out.baseName}_vs_${normal_mitocaller_out.baseName}_heteroplasmy.tsv
+    mv heteroplasmy_calculation.tsv heteroplasmy_calculation_${tumour_mitocaller_out.baseName}_vs_${normal_mitocaller_out.baseName}    
     """
 }
 

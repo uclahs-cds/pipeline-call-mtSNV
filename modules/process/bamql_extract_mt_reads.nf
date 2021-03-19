@@ -25,10 +25,10 @@ process BAMQL_extract_mt_reads {
 
   input:
     tuple(path(input_file_x), val(type)) //from input_ch
-    //
+   
   output: 
     
-    file 'extracted_mt_reads_*' //into next_stage 
+    path 'extracted_mt_reads_*' //into next_stage 
      
 
   script:

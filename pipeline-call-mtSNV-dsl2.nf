@@ -26,7 +26,6 @@ Boutros Lab
 
    Current Configuration:
     - input: 
-        sample_name: ${params.sample_name}
         input_csv: ${params.input_csv}
         mt_ref = ${params.mt_ref}
         mito_ref = ${params.mito_ref}

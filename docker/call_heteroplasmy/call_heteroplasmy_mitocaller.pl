@@ -26,11 +26,11 @@ use Log::ProgramInfo;
 ### COMMAND LINE DEFAULT ARGUMENTS ################################################################
 # list of arguments and default values go here as hash key/value pairs
 our %opts = (
-	normal_table  => undef,#'/.mounts/labs/cpcgene/private/projects/500pg/analysis/mt/2018_01_22/CPCG0531/RunmitoCaller/CPCG0531-B1_mitocaller.tsv.gz',
-	tumour_table  => undef,#'/.mounts/labs/cpcgene/private/projects/500pg/analysis/mt/2018_01_22/CPCG0531/RunmitoCaller/CPCG0531-F1_mitocaller.tsv.gz',
+	normal_table  => undef,
+	tumour_table  => undef,
 	min_coverage => 100,
 	het_fraction => 0.2,
-	output  => 'test.tsv'
+	output  => 'heteroplasmy_calculation.tsv'
 	);
 
 ### MAIN CALLER ###################################################################################
