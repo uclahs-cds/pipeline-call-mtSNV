@@ -28,6 +28,8 @@ Boutros Lab
     - input: 
         input_csv: ${params.input_csv}
         mt_ref = ${params.mt_ref}
+        gmapdb = ${params.gmapdb}
+        genome_fasta = ${params.genome_fasta}
     
     - output: x
         temp_dir: ${params.temp_dir}

@@ -16,8 +16,8 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 //// Process ////
 
 process MTOOLBOX_remap_reads {
-  container "blcdsdockerregistry/call-mtsnv:mtoolbox-1.0.5" // TODO: rename the tag to 1.0.0
-  containerOptions "--volume ${params.output_dir}:/src/imported/"
+  container "blcdsdockerregistry/call-mtsnv:mtoolbox-1.0.6" // TODO: rename the tag to 1.0.0
+  containerOptions "--volume ${params.output_dir}:/src/imported/ --volume ${params.gmapdb}:/src/gmapdb/ --volume ${params.genome_fasta}:/src/genome_fasta/ "
       
     memory amount_of_memory
     cpus number_of_cpus
@@ -40,7 +40,7 @@ process MTOOLBOX_remap_reads {
   """
   mv ${bamql_out} '${bamql_out.baseName}.bam'
 
-  printf "input_type='bam'\nref='RSRS'\ninput_path=${bamql_out}\n" > config_'${bamql_out.baseName}'.conf
+  printf "input_type='bam'\nref='RSRS'\ninput_path=${bamql_out}\ngsnapdb=/src/gmapdb/\nfasta_path=/src/genome_fasta/\n" > config_'${bamql_out.baseName}'.conf
   
   MToolBox.sh -i config_'${bamql_out.baseName}'.conf -m '-t 4'
   
