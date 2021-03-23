@@ -50,7 +50,7 @@ process MTOOLBOX_remap_reads {
 
   printf "input_type='bam'\nref='RSRS'\ninput_path=${bamql_out}\ngsnapdb=/src/gmapdb/\nfasta_path=/src/genome_fasta/\n" > config_'${bamql_out.baseName}'.conf
   
-  MToolBox.sh -i config_'${bamql_out.baseName}'.conf -m '-t 4'
+  MToolBox.sh -i config_'${bamql_out.baseName}'.conf -m '-t ${task.cpus}'
   
   mv OUT_'${bamql_out.baseName}'/OUT2-sorted.bam OUT2-sorted_'${bamql_out.baseName}'.bam
   
