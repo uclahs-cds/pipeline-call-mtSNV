@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04 AS stage_1
 
 LABEL maintainer="Alfredo Enrique Gonzalez <alfgonzalez@mednet.ucla.edu>\ 
 Takafumi Yamaguchi <tyamaguchi@mednet.ucla.edu>"
@@ -15,13 +15,14 @@ RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
    &&  apt-get install -y libncursesw5-dev \
    &&  rm -rf /var/lib/apt/lists/* 
    
-RUN mkdir -p /src/ 
 WORKDIR /src/ 
 RUN git clone https://github.com/mitoNGS/MToolBox.git
 RUN chmod 777 -R /src/MToolBox/
 WORKDIR /src/MToolBox/
-RUN ./install.sh
-ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/src/MToolBox/MToolBox/
+RUN ./install.sh \
+    && rm -r ./gmapdb \
+    && rm -r ./genome_fasta \
+    && rm -r ./test \
+    && rm test_rCRS_config.sh 
 
-# Define default command
-CMD ["/bin/bash"]
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/src/MToolBox/MToolBox/

@@ -16,20 +16,21 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 //// Process ////
 
 process Call_Heteroplasmy {
-    //Memory Allocation//
+    container "blcdsdockerregistry/call-heteroplasmy-script:1.0"
+    publishDir "${params.output_dir}", 
+    enabled: true, 
+    mode: 'copy'
+
+    //memory proclamation
     memory amount_of_memory
     cpus number_of_cpus
-    
-    //Docker Images//
-    container "blcdsdockerregistry/call-mtsnv:call-heteroplasmy-script-1.0"
 
+    //logs
+    publishDir path: params.log_output_dir,
+    pattern: ".command.*",
+    mode: "copy",
+    saveAs: { "logs_heteroplasmy_script/${file(normal_mitocaller_out).getSimpleName()}/log${file(it).getName()}" } 
 
-    //Mounted Folders//
-    /// 1) perl heteroplasmy script 2) output directory
-    containerOptions "-v ${params.suplemental_scripts}:/script/"
-
-    //Publishing Directory//
-    publishDir "${params.output_dir}", enabled: true, mode: 'copy'
 
     input:
         tuple(
@@ -39,10 +40,12 @@ process Call_Heteroplasmy {
     
     output:
         file '*.tsv'
+        path '.command.*'
+
 
     script:
     """
-     perl /script/call_heteroplasmy_mitocaller.pl \
+     perl /src/script/call_heteroplasmy_mitocaller.pl \
     --normal ${normal_mitocaller_out} \
     --tumour ${tumour_mitocaller_out} \
     --ascat_stat

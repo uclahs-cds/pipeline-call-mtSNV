@@ -9,8 +9,9 @@ RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
    &&  apt-get install -y unzip wget less\
    &&  rm -rf /var/lib/apt/lists/*
  
-RUN mkdir /src/
+RUN mkdir /src/ && mkdir /src/script/
 WORKDIR /src/
+COPY call_heteroplasmy_mitocaller.pl /src/script/
 
 # avoid prompts
 ENV PERL_MM_USE_DEFAULT=1
@@ -31,7 +32,6 @@ RUN cpan -i File::Basename
 RUN cpan -i File::Path
 RUN cpan -i Data::Dumper
 RUN cpan -i Log::ProgramInfo
-
 
 # add the validation script
 #ADD bin/validate_dataset.pl /usr/local/bin/

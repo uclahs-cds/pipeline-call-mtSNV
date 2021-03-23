@@ -30,10 +30,12 @@ Boutros Lab
         mt_ref = ${params.mt_ref}
         gmapdb = ${params.gmapdb}
         genome_fasta = ${params.genome_fasta}
+        reference_genome = ${params.reference_genome_hg38}
     
     - output: x
         temp_dir: ${params.temp_dir}
         output_dir: ${params.output_dir}
+        lot_output_dir: ${params.log_output_dir}
 
       
     - options:
@@ -95,15 +97,15 @@ workflow{
   BAMQL_extract_mt_reads( input_ch ) 
 
   //step 3: remapping reads with mtoolbox
-  MTOOLBOX_remap_reads( BAMQL_extract_mt_reads.out )
+  MTOOLBOX_remap_reads( BAMQL_extract_mt_reads.out.bams )
 
   //step 4: variant calling with mitocaller
-  MITOCALLER_call_mt_reads( MTOOLBOX_remap_reads.out )
+  MITOCALLER_call_mt_reads( MTOOLBOX_remap_reads.out.bams )
 
 
   //step 5: call heteroplasmy script
   if (params.sample_mode == 'paired') {
-    Call_Heteroplasmy( MITOCALLER_call_mt_reads.out.toSortedList() )
+    Call_Heteroplasmy( MITOCALLER_call_mt_reads.out.gz.toSortedList() )
     }
   else if (params.sample_mode == 'single') {}
     

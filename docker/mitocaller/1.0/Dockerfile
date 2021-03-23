@@ -1,30 +1,21 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
+
 
 LABEL maintainer="1) Alfredo Enrique Gonzalez <alfgonzalez@mednet.ucla.edu>\ 
 2)Takafumi Yamaguchi <tyamaguchi@mednet.ucla.edu>"
 
+RUN mkdir /mitocaller2/
+COPY mitoCaller /mitocaller2/
+
+
+
 # Install utilities
 RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
    &&  apt-get update &&  apt-get -y upgrade \
-   &&  apt-get install -y apt-utils autotools-dev build-essential zlib1g-dev \
-   &&  apt-get install -y unzip wget\
+   &&  apt-get install -y apt-utils \
    &&  rm -rf /var/lib/apt/lists/*
 
-# Set workdir
-RUN mkdir /src/
-WORKDIR /src/
-
-# probably delete the ref genomes from the original archive and use one from config
-RUN wget https://github.com/HSGU-NIA/mitoAnalyzer/raw/master/mitoCaller_noRef.zip \
-   && unzip mitoCaller_noRef.zip \
-   && rm mitoCaller_noRef.zip
-
-# Set workdir to mitocaller folder
-WORKDIR /src/mitoCaller-package/mitoCaller/
-RUN make
-RUN ln -s /src/mitoCaller-package/mitoCaller/bin/mitoCaller /usr/local/bin/mitoCaller
-
-WORKDIR /
+WORKDIR /mitocaller2/
 
 CMD ["/bin/bash"]
 

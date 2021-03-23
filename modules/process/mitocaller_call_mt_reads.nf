@@ -13,27 +13,36 @@ if (amount_of_memory < 1) {
 amount_of_memory = amount_of_memory.toString() + " GB"
 
 
-
-
 //// Process ////
 
 process MITOCALLER_call_mt_reads {
-    container 'ubuntu:16.04'
-    containerOptions "-v ${params.mt_ref}:/mito_ref/mito_ref.fa/ -v ${params.suplemental_scripts}:/mitocaller2/"
-  
+    container 'blcdsdockerregistry/mitocaller:1.0.0'
+    containerOptions "-v ${params.reference_genome_hg38}:/mito_ref/mito_ref.fa/"
+    // Note - reference genome needs to be mounted otherwise mitocaller fails
+    publishDir "${params.output_dir}", 
+    enabled: true, 
+    mode: 'copy'
+    label 'mitocaller'
+ 
+    
+    //memory proclamation
     memory amount_of_memory
     cpus number_of_cpus
 
-
-    publishDir "${params.output_dir}", enabled: true, mode: 'copy'
-    label 'mitocaller'
+    //logs
+    publishDir path: params.log_output_dir,
+    pattern: ".command.*",
+    mode: "copy",
+    saveAs: { "logs_mitocaller/${file(mtoolbox_out).getSimpleName()}/log${file(it).getName()}" } 
 
     input:
       file mtoolbox_out //from next_stage_2
 
     output: 
         
-      file("${mtoolbox_out.baseName}_mitocaller.tsv.gz")   
+      path "${mtoolbox_out.baseName}_mitocaller.tsv.gz", emit: gz
+      path '.command.*'
+   
    
     script:
     """

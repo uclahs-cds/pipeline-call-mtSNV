@@ -16,23 +16,31 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 //// Process ////
 
 process MTOOLBOX_remap_reads {
-  container "blcdsdockerregistry/call-mtsnv:mtoolbox-1.0.6" // TODO: rename the tag to 1.0.0
-  containerOptions "--volume ${params.output_dir}:/src/imported/ --volume ${params.gmapdb}:/src/gmapdb/ --volume ${params.genome_fasta}:/src/genome_fasta/ "
-      
+    container "blcdsdockerregistry/call-mtsnv:mtoolbox-1.0.6" // TODO: rename the tag to 1.0.0
+    containerOptions "--volume ${params.gmapdb}:/src/gmapdb/ --volume ${params.genome_fasta}:/src/genome_fasta/ "
+    publishDir "${params.output_dir}", 
+    enabled: true, 
+    mode: 'copy'
+
+    //memory proclamation
     memory amount_of_memory
     cpus number_of_cpus
 
-  //containerptions "-v ${params.mtoolbox_out}:${params.rsrs_out} -v ${params.output_dir}:${params.extract_reads_out}"
-  publishDir "${params.output_dir}", enabled: true, mode: 'copy'
+    //logs
+    publishDir path: params.log_output_dir,
+    pattern: ".command.*",
+    mode: "copy",
+    saveAs: { "logs_mtoolbox/${file(bamql_out).getSimpleName()}/log${file(it).getName()}" } 
 
-  //  input:
-  input:
-    file bamql_out
-    //from next_stage
+    publishDir "${params.output_dir}", enabled: true, mode: 'copy'
 
-  output: 
-    file("OUT2-sorted_${bamql_out.baseName}.bam")      
-      //into next_stage_2 
+    input:
+      path bamql_out
+
+    output: 
+      path("OUT2-sorted_${bamql_out.baseName}.bam"), emit: bams
+      path '.command.*'
+      
          
 
 // !!!NOTE!!! Output file location can not be spceified or it breaks mtoolbox script when running a BAM file
@@ -50,5 +58,5 @@ process MTOOLBOX_remap_reads {
 }
 
 /*** Future Work 
-- None
+- Remove params.outputdir from mount and incorporate directly in script.
 ***/
