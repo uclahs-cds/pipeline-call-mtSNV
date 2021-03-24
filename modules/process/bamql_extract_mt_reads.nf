@@ -44,12 +44,12 @@ process BAMQL_extract_mt_reads {
   """
   set -euo pipefail
 
-  bamql -b -o extracted_mt_reads_'${type}'_'${input_file_x.baseName}' -f '${input_file_x}' "(chr(M) & mate_chr(M)) | (chr(Y) & after(59000000) & mate_chr(M))"
+  bamql -b -o extracted_mt_reads_'${type}'_'${input_file_x.baseName}' -f '${input_file_x}' "(chr(M) & mate_chr(M)) | (chr(Y) & after(57000000) & mate_chr(M))"
 
   """
 }
 
 
 /*** Future Work 
--None
+-Add conditional statement for bamql extraction depending on genome
 ***/

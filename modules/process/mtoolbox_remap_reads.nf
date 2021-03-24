@@ -16,7 +16,7 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 //// Process ////
 
 process MTOOLBOX_remap_reads {
-    container "blcdsdockerregistry/mtoolbox:1.2.1" 
+    container "blcdsdockerregistry/call-mtsnv:mtoolbox-1.0.6 " // TODO: rename the tag to 1.0.0
     containerOptions "--volume ${params.gmapdb}:/src/gmapdb/ --volume ${params.genome_fasta}:/src/genome_fasta/ "
     publishDir "${params.output_dir}", 
     enabled: true, 
@@ -50,7 +50,7 @@ process MTOOLBOX_remap_reads {
 
   printf "input_type='bam'\nref='RSRS'\ninput_path=${bamql_out}\ngsnapdb=/src/gmapdb/\nfasta_path=/src/genome_fasta/\n" > config_'${bamql_out.baseName}'.conf
   
-  /src/MToolBox-1.2.1/MToolBox/MToolBox.sh -i config_'${bamql_out.baseName}'.conf -m '-t ${task.cpus}'
+  MToolBox.sh -i config_'${bamql_out.baseName}'.conf -m '-t ${task.cpus}'
   
   mv OUT_'${bamql_out.baseName}'/OUT2-sorted.bam OUT2-sorted_'${bamql_out.baseName}'.bam
   
@@ -58,5 +58,5 @@ process MTOOLBOX_remap_reads {
 }
 
 /*** Future Work 
-- None
+- Remove params.outputdir from mount and incorporate directly in script.
 ***/
