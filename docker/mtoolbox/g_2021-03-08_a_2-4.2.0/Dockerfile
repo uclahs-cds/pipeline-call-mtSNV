@@ -25,6 +25,8 @@ RUN wget https://github.com/mitoNGS/MToolBox/archive/refs/tags/v1.2.1.tar.gz \
     && tar -xf v1.2.1.tar.gz \
     && chmod 777 -R /src/MToolBox-1.2.1/
 
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/src/MToolBox-1.2.1/ 
+
 WORKDIR /src/MToolBox-1.2.1/
 
 RUN ./install.sh \
@@ -35,7 +37,4 @@ RUN ./install.sh \
     && rm -r ./test \
     && rm test_rCRS_config.sh 
 
-RUN ./install.sh -i anaconda
-
-ENV PATH=/src/MToolBox/bin/anaconda/bin:$PATH 
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/src/MToolBox-1.2.1/MToolBox/
