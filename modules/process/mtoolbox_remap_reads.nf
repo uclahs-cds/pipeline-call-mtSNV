@@ -16,7 +16,7 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 //// Process ////
 
 process MTOOLBOX_remap_reads {
-    container "blcdsdockerregistry/mtoolbox:1.2.1_g_2021-03-08" // TODO: rename the tag to 1.0.0
+    container "blcdsdockerregistry/mtoolbox:1.2.1._git_g_2018-07-04_a_2-4.2.0" // TODO: rename the tag to 1.0.0
     containerOptions "--volume ${params.gmapdb}:/src/gmapdb/ --volume ${params.genome_fasta}:/src/genome_fasta/ "
     publishDir "${params.output_dir}", 
     enabled: true, 
