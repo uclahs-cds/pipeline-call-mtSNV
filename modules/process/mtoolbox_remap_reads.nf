@@ -16,23 +16,31 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 //// Process ////
 
 process MTOOLBOX_remap_reads {
-    container "blcdsdockerregistry/mtoolbox:1.2.1._git_g_2018-07-04_a_2-4.2.0" // TODO: rename the tag to 1.0.0
+    container "blcdsdockerregistry/mtoolbox:1.2.1._git_g_2018-07-04_a_2-4.2.0" // TODO: rename the tag to 1.2.1
     containerOptions "--volume ${params.gmapdb}:/src/gmapdb/ --volume ${params.genome_fasta}:/src/genome_fasta/ "
-    publishDir "${params.output_dir}", 
-    enabled: true, 
-    mode: 'copy'
+    
+
+    // Main ouput recalibrated & reheadered reads
+    publishDir params.output_dir, 
+        pattern: "*.bam",
+        mode: 'copy'
+
+    // mtoolbox folder with supplementary files
+    publishDir params.output_dir, 
+        enabled: params.save_intermediate_files,
+        pattern: "OUT_*",
+        mode: 'copy'
+       
+    //logs
+    publishDir path: params.log_output_dir,
+        pattern: ".command.*",
+        mode: "copy",
+        saveAs: { "logs_mtoolbox/${file(bamql_out).getSimpleName()}/log${file(it).getName()}" } 
+
 
     //memory proclamation
     memory amount_of_memory
     cpus number_of_cpus
-
-    //logs
-    publishDir path: params.log_output_dir,
-    pattern: ".command.*",
-    mode: "copy",
-    saveAs: { "logs_mtoolbox/${file(bamql_out).getSimpleName()}/log${file(it).getName()}" } 
-
-    publishDir "${params.output_dir}", enabled: true, mode: 'copy'
 
     input:
       path bamql_out
@@ -40,6 +48,7 @@ process MTOOLBOX_remap_reads {
     output: 
       path("OUT2-sorted_${bamql_out.baseName}.bam"), emit: bams
       path '.command.*'
+      path("OUT_${bamql_out.baseName}")
       
          
 
