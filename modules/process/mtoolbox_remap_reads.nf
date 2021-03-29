@@ -22,21 +22,23 @@ process MTOOLBOX_remap_reads {
 
     // Main ouput recalibrated & reheadered reads
     publishDir params.output_dir, 
-        pattern: "*.bam",
-        mode: 'copy'
-
+        pattern: "OUT2*",
+        mode: 'copy',
+        saveAs: {"${params.run_name}/mtoolbox_out/${file(it).getName()}" }
+    
     // mtoolbox folder with supplementary files
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
         pattern: "OUT_*",
-        mode: 'copy'
+        mode: 'copy',
+        saveAs: {"${params.run_name}/mtoolbox_out/${file(it).getName()}" }
        
     //logs
-    publishDir path: params.log_output_dir,
+    publishDir path: params.output_dir,
         pattern: ".command.*",
         mode: "copy",
-        saveAs: { "logs_mtoolbox/${file(bamql_out).getSimpleName()}/log${file(it).getName()}" } 
-
+        saveAs: {"${params.run_name}/logs_mtoolbox/log${file(it).getName()}" }
+    
 
     //memory proclamation
     memory amount_of_memory
@@ -55,13 +57,13 @@ process MTOOLBOX_remap_reads {
 // !!!NOTE!!! Output file location can not be spceified or it breaks mtoolbox script when running a BAM file
   script:
   """
-  mv ${bamql_out} '${bamql_out.baseName}.bam'
+  mv ./${bamql_out} ./'${bamql_out.baseName}.bam'
 
   printf "input_type='bam'\nref='RSRS'\ninput_path=${bamql_out}\ngsnapdb=/src/gmapdb/\nfasta_path=/src/genome_fasta/\n" > config_'${bamql_out.baseName}'.conf
   
   MToolBox.sh -i config_'${bamql_out.baseName}'.conf -m '-t ${task.cpus}'
   
-  mv OUT_'${bamql_out.baseName}'/OUT2-sorted.bam OUT2-sorted_'${bamql_out.baseName}'.bam
+  mv ./OUT_'${bamql_out.baseName}'/OUT2-sorted.bam ./OUT2-sorted_'${bamql_out.baseName}'.bam
   
   """
 }

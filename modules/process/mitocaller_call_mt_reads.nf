@@ -16,12 +16,14 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 //// Process ////
 
 process MITOCALLER_call_mt_reads {
-    container 'blcdsdockerregistry/mitocaller:1.0.0'
+    container 'blcdsdockerregistry/mitocaller:1.0_chmod'
     containerOptions "-v ${params.mt_ref}:/mitocaller2/mito_ref.fa/"
     // Note - reference genome needs to be mounted otherwise mitocaller fails
     publishDir "${params.output_dir}", 
     enabled: true, 
-    mode: 'copy'
+    mode: 'copy',
+    saveAs: {"${params.run_name}/mitocaller_out/${file(it).getName()}" }
+    
  
     
     //memory proclamation
@@ -29,11 +31,11 @@ process MITOCALLER_call_mt_reads {
     cpus number_of_cpus
 
     //logs
-    publishDir path: params.log_output_dir,
+    publishDir path: params.output_dir,
     pattern: ".command.*",
     mode: "copy",
-    saveAs: { "logs_mitocaller/${file(mtoolbox_out).getSimpleName()}/log${file(it).getName()}" } 
-
+    saveAs: {"${params.run_name}/logs_mitocaller/log${file(it).getName()}" }
+    
     input:
       file mtoolbox_out 
 

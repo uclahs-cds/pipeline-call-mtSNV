@@ -21,17 +21,18 @@ process BAMQL_extract_mt_reads {
     containerOptions "--volume ${params.temp_dir}:/tmp"
     publishDir "${params.output_dir}", 
     enabled: true, 
-    mode: 'copy'
+    mode: 'copy',
+    saveAs: {"${params.run_name}/bamql_out/${file(it).getName()}" }
     
     //memory proclamation
     memory amount_of_memory
     cpus number_of_cpus
     
     //logs
-    publishDir path: params.log_output_dir,
+    publishDir path: params.output_dir,
     pattern: ".command.*",
     mode: "copy",
-    saveAs: { "logs_bamql/${file(input_file_x).getSimpleName()}/log${file(it).getName()}" } 
+    saveAs: { "${params.run_name}/logs_bamql/log${file(it).getName()}" } 
 
   input:
     tuple(path(input_file_x), val(type)) //from input_ch
