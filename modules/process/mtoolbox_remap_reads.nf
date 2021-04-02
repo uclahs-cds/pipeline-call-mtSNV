@@ -22,17 +22,30 @@ process MTOOLBOX_remap_reads {
 
     // Main ouput recalibrated & reheadered reads
     publishDir params.output_dir, 
-        pattern: "OUT2*",
+        pattern: "OUT_${bamql_out.baseName}/OUT2-sorted.bam",
         mode: 'copy',
-        saveAs: {"${params.run_name}/mtoolbox_out/${file(it).getName()}" }
+        saveAs: {"${params.run_name}/mtoolbox_out/${bamql_out.baseName}_${file(it).getName()}" }
     
     // mtoolbox folder with supplementary files
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
-        pattern: "OUT_*",
+        pattern: "contents.txt",
         mode: 'copy',
         saveAs: {"${params.run_name}/mtoolbox_out/${file(it).getName()}" }
-       
+    
+    // 
+    publishDir params.output_dir, 
+        enabled: params.save_intermediate_files,
+        pattern: "*.csv",
+        mode: 'copy',
+        saveAs: {"${params.run_name}/mtoolbox_out/${file(it).getName()}" }
+
+    publishDir params.output_dir, 
+        enabled: params.save_intermediate_files,
+        pattern: "*.txt",
+        mode: 'copy',
+        saveAs: {"${params.run_name}/mtoolbox_out/${file(it).getName()}" }
+              
     //logs
     publishDir path: params.output_dir,
         pattern: ".command.*",
@@ -48,9 +61,12 @@ process MTOOLBOX_remap_reads {
       path bamql_out
 
     output: 
-      path("OUT2-sorted_${bamql_out.baseName}.bam"), emit: bams
+      path("OUT_${bamql_out.baseName}/OUT2-sorted.bam"), emit: bams
       path '.command.*'
       path("OUT_${bamql_out.baseName}")
+      path("contents.txt")
+      path("*.csv")
+      path("*.txt")
       
          
 
@@ -62,12 +78,15 @@ process MTOOLBOX_remap_reads {
   printf "input_type='bam'\nref='RSRS'\ninput_path=${bamql_out}\ngsnapdb=/src/gmapdb/\nfasta_path=/src/genome_fasta/\n" > config_'${bamql_out.baseName}'.conf
   
   MToolBox.sh -i config_'${bamql_out.baseName}'.conf -m '-t ${task.cpus}'
-  
-  mv ./OUT_'${bamql_out.baseName}'/OUT2-sorted.bam ./OUT2-sorted_'${bamql_out.baseName}'.bam
-  
+
+  ls > contents.txt
+
   """
 }
 
 /*** Future Work 
+
+  mv ./OUT_'${bamql_out.baseName}'/OUT2-sorted.bam ./OUT2-sorted_'${bamql_out.baseName}'.bam
+
 - Remove params.outputdir from mount and incorporate directly in script.
 ***/
