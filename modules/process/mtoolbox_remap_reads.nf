@@ -29,7 +29,7 @@ process MTOOLBOX_remap_reads {
     // mtoolbox folder with supplementary files
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
-        pattern: "contents.txt",
+        pattern: "*.txt",
         mode: 'copy',
         saveAs: {"${params.run_name}/mtoolbox_out/${file(it).getName()}" }
     
@@ -43,6 +43,24 @@ process MTOOLBOX_remap_reads {
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
         pattern: "*.txt",
+        mode: 'copy',
+        saveAs: {"${params.run_name}/mtoolbox_out/${file(it).getName()}" }
+
+    publishDir params.output_dir, 
+        enabled: params.save_intermediate_files,
+        pattern: "*.vcf",
+        mode: 'copy',
+        saveAs: {"${params.run_name}/mtoolbox_out/${file(it).getName()}" }
+ 
+    publishDir params.output_dir, 
+        enabled: params.save_intermediate_files,
+        pattern: "*.gz",
+        mode: 'copy',
+        saveAs: {"${params.run_name}/mtoolbox_out/${file(it).getName()}" }
+
+    publishDir params.output_dir, 
+        enabled: params.save_intermediate_files,
+        pattern: "VCF_dict_tmp",
         mode: 'copy',
         saveAs: {"${params.run_name}/mtoolbox_out/${file(it).getName()}" }
               
@@ -67,6 +85,9 @@ process MTOOLBOX_remap_reads {
       path("contents.txt")
       path("*.csv")
       path("*.txt")
+      path("*.gz")
+      path("*.vcf")
+      path("VCF_dict_tmp")
       
          
 

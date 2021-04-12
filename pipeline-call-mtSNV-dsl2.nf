@@ -56,7 +56,7 @@ Boutros Lab
   // Conditional for 'paired' sample
 if (params.sample_mode == 'paired') {
   Channel
-    .fromPath(params.input_csv)//params.input_csv)
+    .fromPath(params.input_csv)
     .ifEmpty { exit 1, "params.input_csv was empty - no input files supplied" }
     .splitCsv(header:true) 
     .flatMap{ row -> tuple(
@@ -72,7 +72,7 @@ if (params.sample_mode == 'paired') {
   // Codnidtional for 'single' sample
     else if (params.sample_mode == 'single') {
       Channel
-    .fromPath(params.input_csv)//params.input_csv)
+    .fromPath(params.input_csv)
     .ifEmpty { exit 1, "params.input_csv was empty - no input files supplied" }
     .splitCsv(header:true) 
     .flatMap{ row -> tuple(
