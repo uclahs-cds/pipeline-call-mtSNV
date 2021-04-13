@@ -1,6 +1,6 @@
 FROM ubuntu:18.04 AS stage_1
 
-LABEL maintainer="Alfredo Enrique Gonzalez <alfgonzalez@mednet.ucla.edu>\ 
+LABEL maintainer="Alfredo Enrique Gonzalez <alfgonzalez@mednet.ucla.edu> \ 
 Takafumi Yamaguchi <tyamaguchi@mednet.ucla.edu>"
 
 # Install utilities
