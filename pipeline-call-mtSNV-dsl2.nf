@@ -107,10 +107,5 @@ workflow{
   if (params.sample_mode == 'paired') {
     Call_Heteroplasmy( MITOCALLER_call_mt_reads.out.gz.toSortedList() )
     }
-  else if (params.sample_mode == 'single') {}
-    
-  else {
-      throw new Exception('ERROR: params.sample_mode not recognized')
-    }
 
 }
