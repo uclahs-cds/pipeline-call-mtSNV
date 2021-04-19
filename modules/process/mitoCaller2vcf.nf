@@ -15,17 +15,14 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 
 //// Process ////
 
-process MITOCALLER_call_mt_reads {
-    container 'blcdsdockerregistry/mitocaller:1.0_chmod'
-    containerOptions "-v ${params.mt_ref}:/mitocaller2/mito_ref.fa/"
-    // Note - reference genome needs to be mounted otherwise mitocaller fails
+process MitoCaller2vcf {
+    container 'blcdsdockerregistry/mitocaller2vcf:1.0.0'
     publishDir "${params.output_dir}", 
     enabled: true, 
     mode: 'copy',
-    saveAs: {"${params.run_name}/mitocaller_out/${file(it).getName()}" }
+    saveAs: {"${params.run_name}/mitoCaller2vcf_out/${file(it).getName()}" }
     
  
-    
     //memory proclamation
     memory amount_of_memory
     cpus number_of_cpus
@@ -34,25 +31,24 @@ process MITOCALLER_call_mt_reads {
     publishDir path: params.output_dir,
     pattern: ".command.*",
     mode: "copy",
-    saveAs: {"${params.run_name}/logs_mitocaller/log${file(it).getName()}" }
+    saveAs: {"${params.run_name}/logs_mitoCaller2vcf/log${file(it).getName()}" }
     
     input:
-      file mtoolbox_out 
+      file mitocaller_out 
 
     output: 
         
-      path "${mtoolbox_out.baseName}_mitocaller.tsv", emit: tsv
+      path '*.vcf', emit: vcf
       path '.command.*' 
       path '*.txt'
    
    
     script:
     """
-    
-    /mitocaller2/mitoCaller -m -b "${mtoolbox_out}"  -r /mitocaller2/mito_ref.fa -v ${mtoolbox_out.baseName}_mitocaller.tsv
-
+    echo 'test_01 ${mitocaller_out}' > test3.list
+    echo 'test1 ${mitocaller_out}' > ${mitocaller_out.baseName}.list
+    python3.8 /mitoCaller2vcf/mitoCaller2vcf.py -s ./test3.list -y mitocaller2vcf_${mitocaller_out.baseName}2.vcf -o mitocaller2vcf_${mitocaller_out.baseName}.vcf
     ls > files.txt
-
     """
 }
 

@@ -14,6 +14,7 @@ include { Validate_Inputs           } from './modules/process/validate_inputs'
 include { BAMQL_extract_mt_reads    } from './modules/process/bamql_extract_mt_reads'
 include { MTOOLBOX_remap_reads      } from './modules/process/mtoolbox_remap_reads'
 include { MITOCALLER_call_mt_reads  } from './modules/process/mitocaller_call_mt_reads'
+include { MitoCaller2vcf            } from './modules/process/mitoCaller2vcf'          
 include { Call_Heteroplasmy         } from './modules/process/call_heteroplasmy'
 
 
@@ -101,6 +102,9 @@ workflow{
 
   //step 4: variant calling with mitocaller
   MITOCALLER_call_mt_reads( MTOOLBOX_remap_reads.out.bams )
+
+  //step 5: change mitocaller output to vcf
+  MitoCaller2vcf( MITOCALLER_call_mt_reads.out.tsv)
 
 
   //step 5: call heteroplasmy script
