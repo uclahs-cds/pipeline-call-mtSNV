@@ -20,7 +20,7 @@ process MitoCaller2vcf {
     publishDir "${params.output_dir}", 
     enabled: true, 
     mode: 'copy',
-    saveAs: {"${params.run_name}/mitoCaller2vcf_out/${file(it).getName()}" }
+    saveAs: {"${params.sample_name}/mitoCaller2vcf_out/${file(it).getName()}" }
     
  
     //memory proclamation
@@ -31,7 +31,7 @@ process MitoCaller2vcf {
     publishDir path: params.output_dir,
     pattern: ".command.*",
     mode: "copy",
-    saveAs: {"${params.run_name}/logs_mitoCaller2vcf/log${file(it).getName()}" }
+    saveAs: {"${params.sample_name}/logs_mitoCaller2vcf/log${file(it).getName()}" }
     
     input:
       file mitocaller_out 
@@ -45,9 +45,8 @@ process MitoCaller2vcf {
    
     script:
     """
-    echo 'test_01 ${mitocaller_out}' > test3.list
-    echo 'test1 ${mitocaller_out}' > ${mitocaller_out.baseName}.list
-    python3.8 /mitoCaller2vcf/mitoCaller2vcf.py -s ./test3.list -y mitocaller2vcf_${mitocaller_out.baseName}2.vcf -o mitocaller2vcf_${mitocaller_out.baseName}.vcf
+    echo '${mitocaller_out.baseName} ${mitocaller_out}' > ${mitocaller_out.baseName}.list
+    python3.8 /mitoCaller2vcf/mitoCaller2vcf.py -s ./${mitocaller_out.baseName}.list -y ${params.sample_name}_homoplasmy.vcf -o ${params.sample_name}.vcf
     ls > files.txt
     """
 }

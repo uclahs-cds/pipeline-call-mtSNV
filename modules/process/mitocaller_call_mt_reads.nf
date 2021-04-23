@@ -22,7 +22,7 @@ process MITOCALLER_call_mt_reads {
     publishDir "${params.output_dir}", 
     enabled: true, 
     mode: 'copy',
-    saveAs: {"${params.run_name}/mitocaller_out/${file(it).getName()}" }
+    saveAs: {"${params.sample_name}/mitocaller_out/${file(it).getName()}" }
     
  
     
@@ -34,14 +34,14 @@ process MITOCALLER_call_mt_reads {
     publishDir path: params.output_dir,
     pattern: ".command.*",
     mode: "copy",
-    saveAs: {"${params.run_name}/logs_mitocaller/log${file(it).getName()}" }
+    saveAs: {"${params.sample_name}/logs_mitocaller/log${file(it).getName()}" }
     
     input:
       file mtoolbox_out 
 
     output: 
         
-      path "${mtoolbox_out.baseName}_mitocaller.tsv", emit: tsv
+      path "${params.sample_name}_mitocaller.tsv", emit: tsv
       path '.command.*' 
       path '*.txt'
    
@@ -49,7 +49,7 @@ process MITOCALLER_call_mt_reads {
     script:
     """
     
-    /mitocaller2/mitoCaller -m -b "${mtoolbox_out}"  -r /mitocaller2/mito_ref.fa -v ${mtoolbox_out.baseName}_mitocaller.tsv
+    /mitocaller2/mitoCaller -m -b "${mtoolbox_out}"  -r /mitocaller2/mito_ref.fa -v ${params.sample_name}_mitocaller.tsv
 
     ls > files.txt
 

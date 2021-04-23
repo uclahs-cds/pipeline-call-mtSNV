@@ -22,47 +22,47 @@ process MTOOLBOX_remap_reads {
 
     // Main ouput recalibrated & reheadered reads
     publishDir params.output_dir, 
-        pattern: "OUT_${bamql_out.baseName}/OUT2-sorted.bam",
+        pattern: "OUT_${bamql_out.baseName}/${params.sample_name}_mtoolbox_OUT2-sorted.bam",
         mode: 'copy',
-        saveAs: {"${params.run_name}/mtoolbox_out/${bamql_out.baseName}_${file(it).getName()}" }
+        saveAs: {"${params.sample_name}/mtoolbox_out/${file(it).getName()}" }
     
     // mtoolbox folder with supplementary files
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
         pattern: "*.txt",
         mode: 'copy',
-        saveAs: {"${params.run_name}/mtoolbox_out/${file(it).getName()}" }
+        saveAs: {"${params.sample_name}/mtoolbox_out/${file(it).getName()}" }
     
     // 
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
         pattern: "*.csv",
         mode: 'copy',
-        saveAs: {"${params.run_name}/mtoolbox_out/${file(it).getName()}" }
+        saveAs: {"${params.sample_name}/mtoolbox_out/${file(it).getName()}" }
 
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
         pattern: "*.vcf",
         mode: 'copy',
-        saveAs: {"${params.run_name}/mtoolbox_out/${file(it).getName()}" }
+        saveAs: {"${params.sample_name}/mtoolbox_out/${file(it).getName()}" }
  
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
         pattern: "*.gz",
         mode: 'copy',
-        saveAs: {"${params.run_name}/mtoolbox_out/${file(it).getName()}" }
+        saveAs: {"${params.sample_name}/mtoolbox_out/${file(it).getName()}" }
 
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
         pattern: "VCF_dict_tmp",
         mode: 'copy',
-        saveAs: {"${params.run_name}/mtoolbox_out/${file(it).getName()}" }
+        saveAs: {"${params.sample_name}/mtoolbox_out/${file(it).getName()}" }
               
     //logs
     publishDir path: params.output_dir,
         pattern: ".command.*",
         mode: "copy",
-        saveAs: {"${params.run_name}/logs_mtoolbox/log${file(it).getName()}" }
+        saveAs: {"${params.sample_name}/logs_mtoolbox/log${file(it).getName()}" }
     
 
     //memory proclamation
@@ -73,7 +73,7 @@ process MTOOLBOX_remap_reads {
       path bamql_out
 
     output: 
-      path("OUT_${bamql_out.baseName}/OUT2-sorted.bam"), emit: bams
+      path("OUT_${bamql_out.baseName}/${params.sample_name}_mtoolbox_OUT2-sorted.bam"), emit: bams
       path '.command.*'
       path("OUT_${bamql_out.baseName}")
       path("contents.txt")
@@ -93,6 +93,8 @@ process MTOOLBOX_remap_reads {
   printf "input_type='bam'\nref='RSRS'\ninput_path=${bamql_out}\ngsnapdb=/src/gmapdb/\nfasta_path=/src/genome_fasta/\n" > config_'${bamql_out.baseName}'.conf
   
   MToolBox.sh -i config_'${bamql_out.baseName}'.conf -m '-t ${task.cpus}'
+
+  mv OUT_${bamql_out.baseName}/OUT2-sorted.bam OUT_${bamql_out.baseName}/${params.sample_name}_mtoolbox_OUT2-sorted.bam
 
   ls > contents.txt
 

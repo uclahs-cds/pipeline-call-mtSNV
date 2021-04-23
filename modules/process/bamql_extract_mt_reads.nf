@@ -1,5 +1,4 @@
 //// Resource allocation ////
-
 def number_of_cpus = (int) (Runtime.getRuntime().availableProcessors() / params.max_number_of_parallel_jobs)
 if (number_of_cpus < 1) {
     number_of_cpus = 1
@@ -13,6 +12,7 @@ if (amount_of_memory < 1) {
 amount_of_memory = amount_of_memory.toString() + " GB"
 
 
+
 //// Process ////
 
 process BAMQL_extract_mt_reads { 
@@ -22,17 +22,15 @@ process BAMQL_extract_mt_reads {
     publishDir "${params.output_dir}", 
     enabled: true, 
     mode: 'copy',
-    saveAs: {"${params.run_name}/bamql_out/${file(it).getName()}" }
+    saveAs: {"${params.sample_name}/bamql_out/${file(it).getName()}" }
     
     //memory proclamation
-    memory amount_of_memory
-    cpus number_of_cpus
-    
+
     //logs
     publishDir path: params.output_dir,
     pattern: ".command.*",
     mode: "copy",
-    saveAs: { "${params.run_name}/logs_bamql/log${file(it).getName()}" } 
+    saveAs: { "${params.sample_name}/logs_bamql/log${file(it).getName()}" } 
 
   input:
     tuple(path(input_file_x), val(type)) //from input_ch
@@ -44,9 +42,7 @@ process BAMQL_extract_mt_reads {
   script:
   """
   set -euo pipefail
-
-  bamql -b -o extracted_mt_reads_'${type}'_'${input_file_x.baseName}' -f '${input_file_x}' "(chr(M) & mate_chr(M)) | (chr(Y) & after(57000000) & mate_chr(M))"
-
+  bamql -b -o 'extracted_mt_reads_${type}_${params.sample_name}' -f '${input_file_x}' "(chr(M) & mate_chr(M)) | (chr(Y) & after(57000000) & mate_chr(M))"
   """
 }
 
