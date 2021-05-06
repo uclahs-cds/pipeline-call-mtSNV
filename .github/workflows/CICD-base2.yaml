@@ -1,5 +1,5 @@
 ---
-name: CICD-base
+name: CICD-base2
 
 on:
   push:
