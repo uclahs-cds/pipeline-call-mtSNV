@@ -13,7 +13,11 @@ COPY mitoCaller /mitocaller2/
 RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
    &&  apt-get update &&  apt-get -y upgrade \
    &&  apt-get install -y apt-utils \
+   &&  apt-get install -y autoconf wget \
    &&  rm -rf /var/lib/apt/lists/*
+
+RUN wget https://lgsun.irp.nia.nih.gov/hsgu/software/mitoAnalyzer/download/mitoCaller.zip -no-check-certificate \
+   && rm mitoCaller.zip
 
 WORKDIR /mitocaller2/
 
