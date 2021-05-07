@@ -1,41 +1,30 @@
 FROM ubuntu:18.04 AS stage_1
 
-LABEL maintainer="Alfredo Enrique Gonzalez <alfgonzalez@mednet.ucla.edu>\ 
+LABEL maintainer="Alfredo Enrique Gonzalez <alfgonzalez@mednet.ucla.edu> \ 
 Takafumi Yamaguchi <tyamaguchi@mednet.ucla.edu>"
 
 # Install utilities
 RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
    &&  apt-get update &&  apt-get -y upgrade \
-   &&  apt-get install -y \
-        zip \
-        unzip \
-        wget \
-        openjdk-8-jre-headless \
-        apt-utils \
-        autotools-dev \
-        build-essential \
-        zlib1g-dev \
-        libncurses5-dev \
-        libncursesw5-dev \
-    &&  rm -rf /var/lib/apt/lists/* 
-
+   &&  apt-get install zip unzip \
+   &&  apt-get install -y apt-utils autotools-dev build-essential zlib1g-dev \
+   &&  apt-get install -y unzip wget \
+   &&  apt-get install -y openjdk-8-jre-headless \
+   &&  apt-get install -y git \
+   &&  apt-get install -y libncurses5-dev \
+   &&  apt-get install -y libncursesw5-dev \
+   &&  rm -rf /var/lib/apt/lists/* 
+   
 WORKDIR /src/ 
-
-RUN wget https://github.com/mitoNGS/MToolBox/archive/refs/tags/v1.2.1.tar.gz \
-    && tar -xf v1.2.1.tar.gz \
-    && chmod 777 -R /src/MToolBox-1.2.1/
-
-WORKDIR /src/MToolBox-1.2.1/
-
+RUN git clone https://github.com/mitoNGS/MToolBox.git
+RUN chmod 777 -R /src/MToolBox/
+WORKDIR /src/MToolBox/
 RUN ./install.sh \
     -g 2021-03-08 \
     -a 2-4.2.0 \
     && rm -r ./gmapdb \
-    && rm -r ./genome_fasta \
+    && rm -r ./genome_fasta \    
     && rm -r ./test \
     && rm test_rCRS_config.sh 
 
-RUN ./install.sh -i anaconda
-
-ENV PATH=/src/MToolBox/bin/anaconda/bin:$PATH 
-ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/src/MToolBox-1.2.1/MToolBox/
+ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/src/MToolBox/MToolBox/
