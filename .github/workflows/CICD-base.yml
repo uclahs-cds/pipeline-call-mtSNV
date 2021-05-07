@@ -29,4 +29,5 @@ jobs:
         uses: docker://blcdsdockerregistry/cicd-base:latest
         env:
           VALIDATE_YAML: false
+          VALIDATE_PERL: false
 
