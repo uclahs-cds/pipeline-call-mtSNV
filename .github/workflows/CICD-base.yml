@@ -11,7 +11,7 @@ on:
     branches:
       - master
       - main
-      - Alfredo-dev      
+      - Alfredo-dev
 
 jobs:
   CICD-base:
@@ -27,4 +27,3 @@ jobs:
       # Run CICD-base
       - name: CICD-base
         uses: docker://blcdsdockerregistry/cicd-base:latest
-
