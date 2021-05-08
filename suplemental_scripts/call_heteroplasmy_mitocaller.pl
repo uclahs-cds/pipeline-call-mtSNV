@@ -198,12 +198,11 @@ sub main {
 
 
 			}
-
-		 close ($fh_out);
-		 close ($fh_filt_out);
-		 print "Complete!\n";
-		return 0;
-}
+			close ($fh_out);
+			close ($fh_filt_out);
+			print "Complete!\n";
+			return 0;
+			}
 
 sub get_adjusted_hf {
 
