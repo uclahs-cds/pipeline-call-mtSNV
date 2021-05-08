@@ -15,14 +15,14 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 
 //// Process ////
 
-process BAMQL_extract_mt_reads { 
+process extract_mtReads_BAMQL { 
     //container options
     container 'blcdsdockerregistry/bamql:1.5.1'
     containerOptions "--volume ${params.temp_dir}:/tmp"
     publishDir "${params.output_dir}", 
     enabled: true, 
     mode: 'copy',
-    saveAs: {"${params.sample_name}/bamql_out/${file(it).getName()}" }
+    saveAs: {"${params.sample_name}/extract_mtReads_BAMQL/${file(it).getName()}" }
     
     //memory proclamation
 
@@ -30,7 +30,7 @@ process BAMQL_extract_mt_reads {
     publishDir path: params.output_dir,
     pattern: ".command.*",
     mode: "copy",
-    saveAs: { "${params.sample_name}/logs_bamql/log${file(it).getName()}" } 
+    saveAs: { "${params.sample_name}/logs_extract_mtReads_BAMQL/log${file(it).getName()}" } 
 
   input:
     tuple(path(input_file_x), val(type)) //from input_ch

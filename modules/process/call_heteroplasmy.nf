@@ -15,7 +15,7 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 
 //// Process ////
 
-process Call_Heteroplasmy {
+process call_heteroplasmy {
     container "blcdsdockerregistry/call-heteroplasmy-script:1.0"
     publishDir "${params.output_dir}", 
     enabled: true, 
@@ -29,7 +29,7 @@ process Call_Heteroplasmy {
     publishDir path: params.log_output_dir,
     pattern: ".command.*",
     mode: "copy",
-    saveAs: { "logs_heteroplasmy_script/${file(normal_mitocaller_out).getSimpleName()}/log${file(it).getName()}" } 
+    saveAs: { "logs_call_heteroplasmy/${file(normal_mitocaller_out).getSimpleName()}/log${file(it).getName()}" } 
 
 
     input:

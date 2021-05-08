@@ -10,12 +10,14 @@ nextflow.enable.dsl=2
 
 
 //// Import of Local Modules ////
-include { Validate_Inputs           } from './modules/process/validate_inputs'
-include { BAMQL_extract_mt_reads    } from './modules/process/bamql_extract_mt_reads'
-include { MTOOLBOX_remap_reads      } from './modules/process/mtoolbox_remap_reads'
-include { MITOCALLER_call_mt_reads  } from './modules/process/mitocaller_call_mt_reads'
-include { MitoCaller2vcf            } from './modules/process/mitoCaller2vcf'          
-include { Call_Heteroplasmy         } from './modules/process/call_heteroplasmy'
+include { Validate_Inputs                    } from './modules/process/validate_inputs'
+include { extract_mtReads_BAMQL              } from './modules/process/extract_mtReads_BAMQL'
+include { align_mtReads_MToolBox             } from './modules/process/align_mtReads_MToolBox'
+include { call_mtSNV_mitoCaller              } from './modules/process/call_mtSNV_mitoCaller'
+include { convert_mitoCaller2vcf_mitoCaller  } from './modules/process/convert_mitoCaller2vcf_mitoCaller'          
+include { call_heteroplasmy                  } from './modules/process/call_heteroplasmy'
+
+
 
 
 //// log info  ////
@@ -94,22 +96,22 @@ workflow{
   //step 1: validation of inputs
   Validate_Inputs( input_ch ) 
   
-  //step 2: extraction of mitochondrial reads using BAMQL
-  BAMQL_extract_mt_reads( input_ch ) 
+ //step 2: extraction of mitochondrial reads using BAMQL
+  extract_mtReads_BAMQL( input_ch ) 
 
   //step 3: remapping reads with mtoolbox
-  MTOOLBOX_remap_reads( BAMQL_extract_mt_reads.out.bams )
+  align_mtReads_MToolBox( extract_mtReads_BAMQL.out.bams )
 
   //step 4: variant calling with mitocaller
-  MITOCALLER_call_mt_reads( MTOOLBOX_remap_reads.out.bams )
+  call_mtSNV_mitoCaller( align_mtReads_MToolBox.out.bams )
 
   //step 5: change mitocaller output to vcf
-  MitoCaller2vcf( MITOCALLER_call_mt_reads.out.tsv)
+  convert_mitoCaller2vcf_mitoCaller( call_mtSNV_mitoCaller.out.tsv)
 
 
   //step 5: call heteroplasmy script
   if (params.sample_mode == 'paired') {
-    Call_Heteroplasmy( MITOCALLER_call_mt_reads.out.gz.toSortedList() )
+    call_heteroplasmy( call_mtSNV_mitoCaller.out.gz.toSortedList() )
     }
 
 }

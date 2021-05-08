@@ -15,12 +15,12 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 
 //// Process ////
 
-process MitoCaller2vcf {
+process convert_mitoCaller2vcf_mitoCaller {
     container 'blcdsdockerregistry/mitocaller2vcf:1.0.0'
     publishDir "${params.output_dir}", 
     enabled: true, 
     mode: 'copy',
-    saveAs: {"${params.sample_name}/mitoCaller2vcf_out/${file(it).getName()}" }
+    saveAs: {"${params.sample_name}/convert_mitoCaller2vcf_mitoCaller/${file(it).getName()}" }
     
  
     //memory proclamation
@@ -31,7 +31,7 @@ process MitoCaller2vcf {
     publishDir path: params.output_dir,
     pattern: ".command.*",
     mode: "copy",
-    saveAs: {"${params.sample_name}/logs_mitoCaller2vcf/log${file(it).getName()}" }
+    saveAs: {"${params.sample_name}/logs_convert_mitoCaller2vcf_mitoCaller/log${file(it).getName()}" }
     
     input:
       file mitocaller_out 

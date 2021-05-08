@@ -31,4 +31,3 @@ jobs:
           VALIDATE_YAML: false
           VALIDATE_PERL: false
           VALIDATE_DOCKERFILE: false
-

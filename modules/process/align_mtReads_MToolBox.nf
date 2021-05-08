@@ -15,8 +15,8 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 
 //// Process ////
 
-process MTOOLBOX_remap_reads {
-    container "blcdsdockerregistry/mtoolbox:1.2.1._git_g_2018-07-04_a_2-4.2.0" // TODO: rename the tag to 1.2.1
+process align_mtReads_MToolBox {
+    container "blcdsdockerregistry/mtoolbox:1.2.1-b52269e" // TODO: rename the tag to 1.2.1
     containerOptions "--volume ${params.gmapdb}:/src/gmapdb/ --volume ${params.genome_fasta}:/src/genome_fasta/ "
     
 
@@ -24,45 +24,45 @@ process MTOOLBOX_remap_reads {
     publishDir params.output_dir, 
         pattern: "OUT_${bamql_out.baseName}/${params.sample_name}_mtoolbox_OUT2-sorted.bam",
         mode: 'copy',
-        saveAs: {"${params.sample_name}/mtoolbox_out/${file(it).getName()}" }
+        saveAs: {"${params.sample_name}/align_mtReads_MToolBox/${file(it).getName()}" }
     
     // mtoolbox folder with supplementary files
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
         pattern: "*.txt",
         mode: 'copy',
-        saveAs: {"${params.sample_name}/mtoolbox_out/${file(it).getName()}" }
+        saveAs: {"${params.sample_name}/align_mtReads_MToolBox/${file(it).getName()}" }
     
     // 
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
         pattern: "*.csv",
         mode: 'copy',
-        saveAs: {"${params.sample_name}/mtoolbox_out/${file(it).getName()}" }
+        saveAs: {"${params.sample_name}/align_mtReads_MToolBox/${file(it).getName()}" }
 
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
         pattern: "*.vcf",
         mode: 'copy',
-        saveAs: {"${params.sample_name}/mtoolbox_out/${file(it).getName()}" }
+        saveAs: {"${params.sample_name}/align_mtReads_MToolBox/${file(it).getName()}" }
  
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
         pattern: "*.gz",
         mode: 'copy',
-        saveAs: {"${params.sample_name}/mtoolbox_out/${file(it).getName()}" }
+        saveAs: {"${params.sample_name}/align_mtReads_MToolBox/${file(it).getName()}" }
 
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
         pattern: "VCF_dict_tmp",
         mode: 'copy',
-        saveAs: {"${params.sample_name}/mtoolbox_out/${file(it).getName()}" }
+        saveAs: {"${params.sample_name}/align_mtReads_MToolBox/${file(it).getName()}" }
               
     //logs
     publishDir path: params.output_dir,
         pattern: ".command.*",
         mode: "copy",
-        saveAs: {"${params.sample_name}/logs_mtoolbox/log${file(it).getName()}" }
+        saveAs: {"${params.sample_name}/logs_align_mtReads_MToolBox/log${file(it).getName()}" }
     
 
     //memory proclamation
