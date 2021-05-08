@@ -201,15 +201,15 @@ sub main {
 
 		 close ($fh_out);
 		 close ($fh_filt_out);
-		print "Complete!\n";
+		 print "Complete!\n";
 		return 0;
 }
 
-sub get_adjusted_hf{
+sub get_adjusted_hf {
 
 	my ($normal_hf, $tumour_hf, $tumour_purity) = @_;
 
-	#force completed ascat results has purity = ? -> assume tumour purity = 1
+	#force completed ascat results has purity = ?->assume tumour purity = 1
 	if(!$tumour_purity or '?' eq $tumour_purity or '0' eq $tumour_purity){
 			$tumour_purity = 1;
 		}
