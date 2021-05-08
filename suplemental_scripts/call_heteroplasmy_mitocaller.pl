@@ -70,7 +70,7 @@ sub main {
 		pod2usage(2);
 		}
 		}
-			 
+
 		my ($data, $tumour_purity);
 					
 		$data = read_table($opts{normal_table}, 'normal', $data);
@@ -124,12 +124,12 @@ sub main {
 			my $hetp;
 
 			if($data->{normal}->{$pos}->{genotype} ne $data->{tumour}->{$pos}->{genotype}){
-			 # print join("\t", $pos, $data->{normal}->{$pos}->{genotype}, $data->{tumour}->{$pos}->{genotype}, $data->{normal}->{$pos}->{fraction}, $data->{tumour}->{$pos}->{fraction})."\n";        
+			# print join("\t", $pos, $data->{normal}->{$pos}->{genotype}, $data->{tumour}->{$pos}->{genotype}, $data->{normal}->{$pos}->{fraction}, $data->{tumour}->{$pos}->{fraction})."\n";        
 
 				$hetp = assign_genotype_fraction($data->{normal}->{$pos}->{genotype}, $data->{normal}->{$pos}->{fraction}, 'normal', $hetp);
 				$hetp = assign_genotype_fraction($data->{tumour}->{$pos}->{genotype}, $data->{tumour}->{$pos}->{fraction}, 'tumour', $hetp);
 
-			 #print Dumper($hetp);
+			#print Dumper($hetp);
 				#exit;
 				foreach my $base ('A', 'T', 'G', 'C'){
 
@@ -198,14 +198,14 @@ sub main {
 
 
 			}
-		 
+
 		 close ($fh_out);
 		 close ($fh_filt_out);
 		print "Complete!\n";
 		return 0;
 }
 
-sub get_adjusted_hf {
+sub get_adjusted_hf{
 
 	my ($normal_hf, $tumour_hf, $tumour_purity) = @_;
 
@@ -275,8 +275,7 @@ sub read_table {
 		close ($fh_file);
 
 		return($data);
-
-	 }
+		}
 
 sub column_map {
 
