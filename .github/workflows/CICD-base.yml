@@ -23,7 +23,6 @@ jobs:
       # Checkout codebase
       - name: Checkout
         uses: actions/checkout@v2
-
       # Run CICD-base
       - name: CICD-base
         uses: docker://blcdsdockerregistry/cicd-base:latest
@@ -31,3 +30,4 @@ jobs:
           VALIDATE_YAML: false
           VALIDATE_PERL: false
           VALIDATE_DOCKERFILE: false
+          

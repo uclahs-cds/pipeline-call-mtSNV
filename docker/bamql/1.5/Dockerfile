@@ -1,12 +1,25 @@
-FROM ubuntu:18.04
+FROM ubuntu:18.04 
+#Note that ubuntu 20.04 will not work.  
 
-LABEL maintainer="Alfredo Enrique Gonzalez <alfgonzalez@mednet.ucla.edu> "
+LABEL maintainer="1)Alfredo Enrique Gonzalez <alfgonzalez@mednet.ucla.edu> "
 
 # Install utilities
 RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
-   &&  apt-get update &&  apt-get -y upgrade \
-   &&  apt-get install -y autotools-dev build-essential libhts-dev libtool libpcre++-dev llvm-dev pkg-config uuid-dev zlib1g-dev \
-   &&  apt-get install -y autoconf wget \
+   &&  apt-get update \
+   &&  apt-get -y install --no-install-recommends \
+   autotools-dev \
+   automake \
+   build-essential \
+   libhts-dev \
+   libtool \
+   libpcre++-dev \
+   llvm-dev \
+   pkg-config \
+   uuid-dev \
+   zlib1g-dev \
+   autoconf \
+   wget \
+   ca-certificates \
    &&  rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /src/
@@ -16,6 +29,7 @@ WORKDIR /src/
 RUN wget https://github.com/BoutrosLaboratory/bamql/archive/v1.5.tar.gz \
    && tar -xzvf v1.5.tar.gz \
    && rm v1.5.tar.gz
+
 WORKDIR /src/bamql-1.5
 RUN autoreconf -i \
    &&  ./configure \
