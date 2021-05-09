@@ -27,4 +27,5 @@ jobs:
       # Run CICD-base
       - name: CICD-base
         uses: docker://blcdsdockerregistry/cicd-base:latest
-        env: VALIDATE_YAML: false
+        env: 
+          VALIDATE_YAML: false
