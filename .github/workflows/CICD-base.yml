@@ -27,4 +27,3 @@ jobs:
       # Run CICD-base
       - name: CICD-base
         uses: docker://blcdsdockerregistry/cicd-base:latest
-        env:
