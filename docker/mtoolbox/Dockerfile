@@ -1,23 +1,39 @@
-FROM ubuntu:18.04 AS stage_1
+FROM ubuntu:20.04
 
 LABEL maintainer="Alfredo Enrique Gonzalez <alfgonzalez@mednet.ucla.edu> \ 
 Takafumi Yamaguchi <tyamaguchi@mednet.ucla.edu>"
 
 # Install utilities
 RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
-   &&  apt-get update &&  apt-get -y upgrade \
-   &&  apt-get install zip unzip \
-   &&  apt-get install -y apt-utils autotools-dev build-essential zlib1g-dev \
-   &&  apt-get install -y unzip wget \
-   &&  apt-get install -y openjdk-8-jre-headless \
-   &&  apt-get install -y git \
-   &&  apt-get install -y libncurses5-dev \
-   &&  apt-get install -y libncursesw5-dev \
+   &&  apt-get update \
+   &&  apt-get -y install --no-install-recommends \
+   zip \
+   unzip \
+   apt-utils \
+   autotools-dev \
+   automake \
+   build-essential \
+   libhts-dev \
+   libtool \
+   libpcre++-dev \
+   llvm-dev \
+   pkg-config \
+   uuid-dev \
+   zlib1g-dev \
+   wget \
+   openjdk-8-jre-headless \
+   git \
+   libncurses5-dev \
+   libncursesw5-dev \
+   ca-certificates \
    &&  rm -rf /var/lib/apt/lists/* 
    
 WORKDIR /src/ 
-RUN git clone https://github.com/mitoNGS/MToolBox.git
-RUN chmod 777 -R /src/MToolBox/
+RUN wget https://github.com/mitoNGS/MToolBox/archive/b52269e98c694d3e4ba25eb80f27b74b48985ddb.zip \
+    && unzip b52269e98c694d3e4ba25eb80f27b74b48985ddb.zip \
+    && mv MToolBox-b52269e98c694d3e4ba25eb80f27b74b48985ddb MToolBox \
+    && chmod 777 -R /src/MToolBox/
+
 WORKDIR /src/MToolBox/
 RUN ./install.sh \
     -g 2021-03-08 \
