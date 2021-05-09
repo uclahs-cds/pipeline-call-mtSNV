@@ -20,7 +20,7 @@ process convert_mitoCaller2vcf_mitoCaller {
     publishDir "${params.output_dir}", 
     enabled: true, 
     mode: 'copy',
-    saveAs: {"${params.sample_name}/convert_mitoCaller2vcf_mitoCaller/${file(it).getName()}" }
+    saveAs: {"${params.sample_name}_${params.date}/convert_mitoCaller2vcf_mitoCaller/${file(it).getName()}" }
     
  
     //memory proclamation
@@ -31,7 +31,7 @@ process convert_mitoCaller2vcf_mitoCaller {
     publishDir path: params.output_dir,
     pattern: ".command.*",
     mode: "copy",
-    saveAs: {"${params.sample_name}/logs_convert_mitoCaller2vcf_mitoCaller/log${file(it).getName()}" }
+    saveAs: {"${params.sample_name}_${params.date}/logs_convert_mitoCaller2vcf_mitoCaller/log${file(it).getName()}" }
     
     input:
       file mitocaller_out 

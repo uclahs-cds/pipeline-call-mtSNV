@@ -19,7 +19,8 @@ process call_heteroplasmy {
     container "blcdsdockerregistry/call-heteroplasmy-script:1.0"
     publishDir "${params.output_dir}", 
     enabled: true, 
-    mode: 'copy'
+    mode: 'copy',
+    saveAs: {"${params.sample_name}_${params.date}/call_heteroplasmy/${file(it).getName()}" }
 
     //memory proclamation
     memory amount_of_memory
@@ -29,8 +30,7 @@ process call_heteroplasmy {
     publishDir path: params.log_output_dir,
     pattern: ".command.*",
     mode: "copy",
-    saveAs: { "logs_call_heteroplasmy/${file(normal_mitocaller_out).getSimpleName()}/log${file(it).getName()}" } 
-
+    saveAs: {"${params.sample_name}_${params.date}/logs_call_heteroplasmy/${file(it).getName()}" }
 
     input:
         tuple(

@@ -22,15 +22,17 @@ process extract_mtReads_BAMQL {
     publishDir "${params.output_dir}", 
     enabled: true, 
     mode: 'copy',
-    saveAs: {"${params.sample_name}/extract_mtReads_BAMQL/${file(it).getName()}" }
+    saveAs: {"${params.sample_name}_${params.date}/extract_mtReads_BAMQL/${file(it).getName()}" }
     
     //memory proclamation
+    memory amount_of_memory
+    cpus number_of_cpus
 
     //logs
     publishDir path: params.output_dir,
     pattern: ".command.*",
     mode: "copy",
-    saveAs: { "${params.sample_name}/logs_extract_mtReads_BAMQL/log${file(it).getName()}" } 
+    saveAs: { "${params.sample_name}_${params.date}/logs_extract_mtReads_BAMQL/log${file(it).getName()}" } 
 
   input:
     tuple(path(input_file_x), val(type)) //from input_ch
