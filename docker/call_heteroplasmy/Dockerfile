@@ -1,16 +1,24 @@
-FROM ubuntu:20.10
+FROM ubuntu:20.04
 
-MAINTAINER Takafumi Yamaguchi <tyamaguchi@mednet.ucla.edu>
-ENV TERM=vt100
+LABEL maintainer="1) Alfredo Enrique Gonzalez <alfgonzalez@mednet.ucla.edu> \ 
+2)Takafumi Yamaguchi <tyamaguchi@mednet.ucla.edu>"
 
 RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
-   &&  apt-get update &&  apt-get -y upgrade \
-   &&  apt-get install -y apt-utils autotools-dev build-essential zlib1g-dev \
-   &&  apt-get install -y unzip wget less\
+   &&  apt-get update \
+   &&  apt-get -y install --no-install-recommends \
+   apt-utils \
+   autotools-dev \
+   build-essential \
+   zlib1g-dev \
+   unzip \
+   wget \
+   less\
    &&  rm -rf /var/lib/apt/lists/*
  
 RUN mkdir /src/ && mkdir /src/script/
+
 WORKDIR /src/
+
 COPY call_heteroplasmy_mitocaller.pl /src/script/
 
 # avoid prompts
@@ -32,8 +40,5 @@ RUN cpan -i File::Basename
 RUN cpan -i File::Path
 RUN cpan -i Data::Dumper
 RUN cpan -i Log::ProgramInfo
-
-# add the validation script
-#ADD bin/validate_dataset.pl /usr/local/bin/
 
 CMD ["/bin/bash"]

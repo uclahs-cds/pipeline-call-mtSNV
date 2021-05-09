@@ -1,24 +1,26 @@
 FROM ubuntu:20.04
 
-
 LABEL maintainer="1) Alfredo Enrique Gonzalez <alfgonzalez@mednet.ucla.edu>\ 
 2)Takafumi Yamaguchi <tyamaguchi@mednet.ucla.edu>"
 
-RUN mkdir /mitocaller2/
-COPY mitoCaller /mitocaller2/
-
-
-
 # Install utilities
 RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
-   &&  apt-get update &&  apt-get -y upgrade \
-   &&  apt-get install -y apt-utils \
-   &&  apt-get install -y autoconf wget \
+   &&  apt-get update \
+   &&  apt-get -y install --no-install-recommends \
+   apt-utils \
+   autoconf \
+   wget \
+   ca-certificates \
    &&  rm -rf /var/lib/apt/lists/*
 
-RUN wget https://lgsun.irp.nia.nih.gov/hsgu/software/mitoAnalyzer/download/mitoCaller.zip -no-check-certificate \
+RUN mkdir /mitocaller2/ \
+   ## Using this to show where it is actually coming from
+   && wget https://lgsun.irp.nia.nih.gov/hsgu/software/mitoAnalyzer/download/mitoCaller.zip \
    && rm mitoCaller.zip
 
+## copy mitocaller script from local because portal where zip file is pulled from crashes often, and too reduce image size
+## make sure that the mitocaller folder is in the same directory tree as the Dockerfile
+COPY mitoCaller /mitocaller2/
 WORKDIR /mitocaller2/
 
 RUN chmod 777 -R /mitocaller2

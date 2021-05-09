@@ -16,7 +16,7 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 //// Process ////
 
 process call_mtSNV_mitoCaller {
-    container 'blcdsdockerregistry/mitocaller:1.0.0'
+    container 'blcdsdockerregistry/mitocaller:1.0'
     containerOptions "-v ${params.mt_ref}:/mitocaller2/mito_ref.fa/"
     // Note - reference genome needs to be mounted otherwise mitocaller fails
     publishDir "${params.output_dir}", 
