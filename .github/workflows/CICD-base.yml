@@ -16,7 +16,7 @@ on:
 jobs:
   CICD-base:
     runs-on: ubuntu-latest
-
+    
     timeout-minutes: 15
 
     steps:
@@ -30,4 +30,3 @@ jobs:
           VALIDATE_YAML: false
           VALIDATE_PERL: false
           VALIDATE_DOCKERFILE: false
-          
