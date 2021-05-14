@@ -35,6 +35,7 @@ process convert_mitoCaller2vcf_mitoCaller {
     
     input:
       file mitocaller_out 
+      val type
 
     output: 
         
@@ -46,7 +47,7 @@ process convert_mitoCaller2vcf_mitoCaller {
     script:
     """
     echo '${mitocaller_out.baseName} ${mitocaller_out}' > ${mitocaller_out.baseName}.list
-    python3.8 /mitoCaller2vcf/mitoCaller2vcf.py -s ./${mitocaller_out.baseName}.list -y ${params.sample_name}_homoplasmy.vcf -o ${params.sample_name}.vcf
+    python3.8 /mitoCaller2vcf/mitoCaller2vcf.py -s ./${mitocaller_out.baseName}.list -y ${type}_${params.sample_name}_homoplasmy.vcf -o ${type}_${params.sample_name}.vcf
     ls > files.txt
     """
 }

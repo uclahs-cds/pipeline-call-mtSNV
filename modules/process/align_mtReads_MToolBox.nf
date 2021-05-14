@@ -57,6 +57,12 @@ process align_mtReads_MToolBox {
         pattern: "VCF_dict_tmp",
         mode: 'copy',
         saveAs: {"${params.sample_name}_${params.date}/align_mtReads_MToolBox/${file(it).getName()}" }
+
+    publishDir params.output_dir, 
+        enabled: params.save_intermediate_files,
+        pattern: "test",
+        mode: 'copy',
+        saveAs: {"${params.sample_name}_${params.date}/align_mtReads_MToolBox/${file(it).getName()}" }
               
     //logs
     publishDir path: params.output_dir,
@@ -71,9 +77,13 @@ process align_mtReads_MToolBox {
 
     input:
       path bamql_out
+      val type
 
     output: 
       path("OUT_${bamql_out.baseName}/${params.sample_name}_mtoolbox_OUT2-sorted.bam"), emit: bams
+      val type, emit: type
+      //file 'test'
+      //val $type, emit: type
       path '.command.*'
       path("OUT_${bamql_out.baseName}")
       path("contents.txt")
@@ -85,9 +95,12 @@ process align_mtReads_MToolBox {
       
          
 
-// !!!NOTE!!! Output file location can not be spceified or it breaks mtoolbox script when running a BAM file
+// !!!NOTE!!! Output file location can not be spceified withing the mtoolbox command or it breaks mtoolbox script when running a BAM file
+
   script:
+  type = type //this statement is essential to track identity of file i.e. tumor, normal
   """
+
   mv ./${bamql_out} ./'${bamql_out.baseName}.bam'
 
   printf "input_type='bam'\nref='RSRS'\ninput_path=${bamql_out}\ngsnapdb=/src/gmapdb/\nfasta_path=/src/genome_fasta/\n" > config_'${bamql_out.baseName}'.conf
@@ -95,6 +108,9 @@ process align_mtReads_MToolBox {
   MToolBox.sh -i config_'${bamql_out.baseName}'.conf -m '-t ${task.cpus}'
 
   mv OUT_${bamql_out.baseName}/OUT2-sorted.bam OUT_${bamql_out.baseName}/${params.sample_name}_mtoolbox_OUT2-sorted.bam
+  
+  
+
 
   ls > contents.txt
 
@@ -102,7 +118,8 @@ process align_mtReads_MToolBox {
 }
 
 /*** Future Work 
-
+touch type
+  echo ${type} > $type
   mv ./OUT_'${bamql_out.baseName}'/OUT2-sorted.bam ./OUT2-sorted_'${bamql_out.baseName}'.bam
 
 - Remove params.outputdir from mount and incorporate directly in script.

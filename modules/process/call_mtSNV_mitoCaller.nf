@@ -38,18 +38,20 @@ process call_mtSNV_mitoCaller {
     
     input:
       file mtoolbox_out 
+      val type
 
     output: 
         
-      path "${params.sample_name}_mitocaller.tsv", emit: tsv
+      path "${type}_${params.sample_name}_mitocaller.tsv", emit: tsv
+      val type, emit: type
       path '.command.*' 
       path '*.txt'
    
-   
     script:
+    type = type //this statement is essential to track identity of file i.e. tumor, normal
     """
     
-    /mitocaller2/mitoCaller -m -b "${mtoolbox_out}"  -r /mitocaller2/mito_ref.fa -v ${params.sample_name}_mitocaller.tsv
+    /mitocaller2/mitoCaller -m -b "${mtoolbox_out}"  -r /mitocaller2/mito_ref.fa -v ${type}_${params.sample_name}_mitocaller.tsv
 
     ls > files.txt
 

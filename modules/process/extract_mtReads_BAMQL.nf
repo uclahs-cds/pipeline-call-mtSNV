@@ -1,18 +1,3 @@
-//// Resource allocation ////
-def number_of_cpus = (int) (Runtime.getRuntime().availableProcessors() / params.max_number_of_parallel_jobs)
-if (number_of_cpus < 1) {
-    number_of_cpus = 1
-} 
-
-def amount_of_memory = ((int) (((java.lang.management.ManagementFactory.getOperatingSystemMXBean()
-    .getTotalPhysicalMemorySize() / (1024.0 * 1024.0 * 1024.0)) * 0.9) / params.max_number_of_parallel_jobs ))
-if (amount_of_memory < 1) {
-    amount_of_memory = 1
-}
-amount_of_memory = amount_of_memory.toString() + " GB"
-
-
-
 //// Process ////
 
 process extract_mtReads_BAMQL { 
@@ -23,7 +8,7 @@ process extract_mtReads_BAMQL {
     enabled: true, 
     mode: 'copy',
     saveAs: {"${params.sample_name}_${params.date}/extract_mtReads_BAMQL/${file(it).getName()}" }
-    
+
     //memory proclamation
     memory amount_of_memory
     cpus number_of_cpus
@@ -40,11 +25,14 @@ process extract_mtReads_BAMQL {
   output: 
     path 'extracted_mt_reads_*', emit: bams //into next_stage 
     file '.command.*'
+    val type, emit: type
      
   script:
   """
   set -euo pipefail
   bamql -b -o 'extracted_mt_reads_${type}_${params.sample_name}' -f '${input_file_x}' "(chr(M) & mate_chr(M)) | (chr(Y) & after(57000000) & mate_chr(M))"
+  touch type
+  echo ${type} > type
   """
 }
 

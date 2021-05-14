@@ -100,18 +100,18 @@ workflow{
   extract_mtReads_BAMQL( input_ch ) 
 
   //step 3: remapping reads with mtoolbox
-  align_mtReads_MToolBox( extract_mtReads_BAMQL.out.bams )
+  align_mtReads_MToolBox(extract_mtReads_BAMQL.out.bams, extract_mtReads_BAMQL.out.type)
 
   //step 4: variant calling with mitocaller
-  call_mtSNV_mitoCaller( align_mtReads_MToolBox.out.bams )
+  call_mtSNV_mitoCaller( align_mtReads_MToolBox.out.bams, align_mtReads_MToolBox.out.type )
 
   //step 5: change mitocaller output to vcf
-  convert_mitoCaller2vcf_mitoCaller( call_mtSNV_mitoCaller.out.tsv)
+  convert_mitoCaller2vcf_mitoCaller( call_mtSNV_mitoCaller.out.tsv,call_mtSNV_mitoCaller.out.type )
 
 
   //step 5: call heteroplasmy script
   if (params.sample_mode == 'paired') {
-    call_heteroplasmy( call_mtSNV_mitoCaller.out.gz.toSortedList() )
+    call_heteroplasmy( call_mtSNV_mitoCaller.out.tsv.toSortedList() )
     }
 
 }
