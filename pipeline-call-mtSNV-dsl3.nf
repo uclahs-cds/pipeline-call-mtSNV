@@ -63,12 +63,15 @@ if (params.sample_mode == 'paired') {
     .ifEmpty { exit 1, "params.input_csv was empty - no input files supplied" }
     .splitCsv(header:true) 
     .flatMap{ row -> tuple(
-       row.sample_input_1, 
-       row.sample_input_1_type,
-       row.sample_input_2,
-       row.sample_input_2_type)
+      row.sample_input_1_type,
+      row.sample_input_1_name, 
+      row.sample_input_1_path, 
+      row.sample_input_2_type,
+      row.sample_input_2_name,
+      row.sample_input_2_path
+      )
       }
-    .collate(2)
+    .collate(3)
     .set { input_ch }
     }
 
@@ -79,10 +82,12 @@ if (params.sample_mode == 'paired') {
     .ifEmpty { exit 1, "params.input_csv was empty - no input files supplied" }
     .splitCsv(header:true) 
     .flatMap{ row -> tuple(
-       row.sample_input_1, 
-       row.sample_input_1_type)
+      row.sample_input_1_type,
+      row.sample_input_1_name, 
+      row.sample_input_1_path
+      )
       }
-    .collate(2)
+    .collate(3)
     .set { input_ch }
 
     }
@@ -100,18 +105,30 @@ workflow{
   extract_mtReads_BAMQL( input_ch ) 
 
   //step 3: remapping reads with mtoolbox
-  align_mtReads_MToolBox(extract_mtReads_BAMQL.out.bams, extract_mtReads_BAMQL.out.type)
+  align_mtReads_MToolBox(
+    extract_mtReads_BAMQL.out.bams,
+    extract_mtReads_BAMQL.out.sample_name, 
+    extract_mtReads_BAMQL.out.type
+    )
 
   //step 4: variant calling with mitocaller
-  call_mtSNV_mitoCaller( align_mtReads_MToolBox.out.bams, align_mtReads_MToolBox.out.type )
+  call_mtSNV_mitoCaller( 
+    align_mtReads_MToolBox.out.bams,
+    align_mtReads_MToolBox.out.sample_name,  
+    align_mtReads_MToolBox.out.type 
+    )
 
   //step 5: change mitocaller output to vcf
-  convert_mitoCaller2vcf_mitoCaller( call_mtSNV_mitoCaller.out.tsv,call_mtSNV_mitoCaller.out.type )
+  convert_mitoCaller2vcf_mitoCaller( 
+    call_mtSNV_mitoCaller.out.tsv,
+    call_mtSNV_mitoCaller.out.sample_name,    
+    call_mtSNV_mitoCaller.out.type 
+    )
 
 
-  //step 5: call heteroplasmy script
+  //step 6: call heteroplasmy script
   if (params.sample_mode == 'paired') {
     call_heteroplasmy( call_mtSNV_mitoCaller.out.tsv.toSortedList() )
     }
-
+    
 }

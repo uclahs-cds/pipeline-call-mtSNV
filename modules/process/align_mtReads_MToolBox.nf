@@ -22,53 +22,53 @@ process align_mtReads_MToolBox {
 
     // Main ouput recalibrated & reheadered reads
     publishDir params.output_dir, 
-        pattern: "OUT_${bamql_out.baseName}/${params.sample_name}_mtoolbox_OUT2-sorted.bam",
+        pattern: "OUT_${bamql_out.baseName}/${sample_name}_mtoolbox_OUT2-sorted.bam",
         mode: 'copy',
-        saveAs: {"${params.sample_name}_${params.date}/align_mtReads_MToolBox/${file(it).getName()}" }
+        saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }
     
     // mtoolbox folder with supplementary files
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
         pattern: "*.txt",
         mode: 'copy',
-        saveAs: {"${params.sample_name}_${params.date}/align_mtReads_MToolBox/${file(it).getName()}" }
+        saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }
     
     // 
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
         pattern: "*.csv",
         mode: 'copy',
-        saveAs: {"${params.sample_name}_${params.date}/align_mtReads_MToolBox/${file(it).getName()}" }
+        saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }
 
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
         pattern: "*.vcf",
         mode: 'copy',
-        saveAs: {"${params.sample_name}_${params.date}/align_mtReads_MToolBox/${file(it).getName()}" }
+        saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }
  
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
         pattern: "*.gz",
         mode: 'copy',
-        saveAs: {"${params.sample_name}_${params.date}/align_mtReads_MToolBox/${file(it).getName()}" }
+        saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }
 
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
         pattern: "VCF_dict_tmp",
         mode: 'copy',
-        saveAs: {"${params.sample_name}_${params.date}/align_mtReads_MToolBox/${file(it).getName()}" }
+        saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }
 
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
         pattern: "test",
         mode: 'copy',
-        saveAs: {"${params.sample_name}_${params.date}/align_mtReads_MToolBox/${file(it).getName()}" }
+        saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }
               
     //logs
     publishDir path: params.output_dir,
         pattern: ".command.*",
         mode: "copy",
-        saveAs: {"${params.sample_name}_${params.date}/logs_align_mtReads_MToolBox/log${file(it).getName()}" }
+        saveAs: {"${params.run_name}_${params.date}/logs_align_mtReads_MToolBox/log${file(it).getName()}" }
     
 
     //memory proclamation
@@ -77,11 +77,14 @@ process align_mtReads_MToolBox {
 
     input:
       path bamql_out
+      val sample_name
       val type
 
     output: 
-      path("OUT_${bamql_out.baseName}/${params.sample_name}_mtoolbox_OUT2-sorted.bam"), emit: bams
+      path("OUT_${bamql_out.baseName}/${sample_name}_mtoolbox_OUT2-sorted.bam"), emit: bams
+      val sample_name, emit: sample_name
       val type, emit: type
+      
       //file 'test'
       //val $type, emit: type
       path '.command.*'
@@ -98,7 +101,6 @@ process align_mtReads_MToolBox {
 // !!!NOTE!!! Output file location can not be spceified withing the mtoolbox command or it breaks mtoolbox script when running a BAM file
 
   script:
-  type = type //this statement is essential to track identity of file i.e. tumor, normal
   """
 
   mv ./${bamql_out} ./'${bamql_out.baseName}.bam'
@@ -107,11 +109,8 @@ process align_mtReads_MToolBox {
   
   MToolBox.sh -i config_'${bamql_out.baseName}'.conf -m '-t ${task.cpus}'
 
-  mv OUT_${bamql_out.baseName}/OUT2-sorted.bam OUT_${bamql_out.baseName}/${params.sample_name}_mtoolbox_OUT2-sorted.bam
+  mv OUT_${bamql_out.baseName}/OUT2-sorted.bam OUT_${bamql_out.baseName}/${sample_name}_mtoolbox_OUT2-sorted.bam
   
-  
-
-
   ls > contents.txt
 
   """

@@ -22,7 +22,7 @@ process call_mtSNV_mitoCaller {
     publishDir "${params.output_dir}", 
     enabled: true, 
     mode: 'copy',
-    saveAs: {"${params.sample_name}_${params.date}/call_mtSNV_mitoCaller/${file(it).getName()}" }
+    saveAs: {"${params.run_name}_${params.date}/call_mtSNV_mitoCaller/${sample_name}/${file(it).getName()}" }
     
  
     
@@ -34,24 +34,26 @@ process call_mtSNV_mitoCaller {
     publishDir path: params.output_dir,
     pattern: ".command.*",
     mode: "copy",
-    saveAs: {"${params.sample_name}_${params.date}/logs_call_mtSNV_mitoCaller/log${file(it).getName()}" }
+    saveAs: {"${params.run_name}_${params.date}/logs_call_mtSNV_mitoCaller/log${file(it).getName()}" }
     
     input:
-      file mtoolbox_out 
+      file mtoolbox_out
+      val sample_name 
       val type
 
     output: 
         
-      path "${type}_${params.sample_name}_mitocaller.tsv", emit: tsv
+      path "${type}_${sample_name}_mitocaller.tsv", emit: tsv
+      val sample_name, emit: sample_name
       val type, emit: type
       path '.command.*' 
       path '*.txt'
    
     script:
-    type = type //this statement is essential to track identity of file i.e. tumor, normal
+     //this statement is essential to track identity of file i.e. tumor, normal
     """
     
-    /mitocaller2/mitoCaller -m -b "${mtoolbox_out}"  -r /mitocaller2/mito_ref.fa -v ${type}_${params.sample_name}_mitocaller.tsv
+    /mitocaller2/mitoCaller -m -b "${mtoolbox_out}"  -r /mitocaller2/mito_ref.fa -v ${type}_${sample_name}_mitocaller.tsv
 
     ls > files.txt
 

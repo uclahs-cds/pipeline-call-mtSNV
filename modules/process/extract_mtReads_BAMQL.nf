@@ -1,3 +1,18 @@
+//// Resource allocation ////
+
+def number_of_cpus = (int) (Runtime.getRuntime().availableProcessors() / params.max_number_of_parallel_jobs)
+if (number_of_cpus < 1) {
+    number_of_cpus = 1
+} 
+
+def amount_of_memory = ((int) (((java.lang.management.ManagementFactory.getOperatingSystemMXBean()
+    .getTotalPhysicalMemorySize() / (1024.0 * 1024.0 * 1024.0)) * 0.9) / params.max_number_of_parallel_jobs ))
+if (amount_of_memory < 1) {
+    amount_of_memory = 1
+}
+amount_of_memory = amount_of_memory.toString() + " GB"
+
+
 //// Process ////
 
 process extract_mtReads_BAMQL { 
@@ -7,7 +22,7 @@ process extract_mtReads_BAMQL {
     publishDir "${params.output_dir}", 
     enabled: true, 
     mode: 'copy',
-    saveAs: {"${params.sample_name}_${params.date}/extract_mtReads_BAMQL/${file(it).getName()}" }
+    saveAs: {"${params.run_name}_${params.date}/extract_mtReads_BAMQL/${sample_name}/${file(it).getName()}" }
 
     //memory proclamation
     memory amount_of_memory
@@ -17,22 +32,26 @@ process extract_mtReads_BAMQL {
     publishDir path: params.output_dir,
     pattern: ".command.*",
     mode: "copy",
-    saveAs: { "${params.sample_name}_${params.date}/logs_extract_mtReads_BAMQL/log${file(it).getName()}" } 
+    saveAs: { "${params.run_name}_${params.date}/logs_extract_mtReads_BAMQL/log${file(it).getName()}" } 
 
   input:
-    tuple(path(input_file_x), val(type)) //from input_ch
+    tuple(
+      val(type),
+      val(sample_name),
+      path(input_file_x) 
+      ) //from input_ch
    
   output: 
-    path 'extracted_mt_reads_*', emit: bams //into next_stage 
-    file '.command.*'
+    path 'extracted_mt_reads_*', emit: bams 
+    val sample_name, emit: sample_name
     val type, emit: type
+    file '.command.*'
      
   script:
   """
   set -euo pipefail
-  bamql -b -o 'extracted_mt_reads_${type}_${params.sample_name}' -f '${input_file_x}' "(chr(M) & mate_chr(M)) | (chr(Y) & after(57000000) & mate_chr(M))"
-  touch type
-  echo ${type} > type
+  bamql -b -o 'extracted_mt_reads_${type}_${sample_name}' -f '${input_file_x}' "(chr(M) & mate_chr(M)) | (chr(Y) & after(57000000) & mate_chr(M))"
+
   """
 }
 

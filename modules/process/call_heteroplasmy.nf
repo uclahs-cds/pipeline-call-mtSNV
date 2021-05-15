@@ -20,7 +20,7 @@ process call_heteroplasmy {
     publishDir "${params.output_dir}", 
     enabled: true, 
     mode: 'copy',
-    saveAs: {"${params.sample_name}_${params.date}/call_heteroplasmy/${file(it).getName()}" }
+    saveAs: {"${params.run_name}_${params.date}/call_heteroplasmy/${file(it).getName()}" }
 
     //memory proclamation
     memory amount_of_memory
@@ -30,7 +30,7 @@ process call_heteroplasmy {
     publishDir path: params.log_output_dir,
     pattern: ".command.*",
     mode: "copy",
-    saveAs: {"${params.sample_name}_${params.date}/logs_call_heteroplasmy/${file(it).getName()}" }
+    saveAs: {"${params.run_name}_${params.date}/logs_call_heteroplasmy/${file(it).getName()}" }
 
     input:
         tuple(
@@ -50,7 +50,7 @@ process call_heteroplasmy {
     --tumour ${tumour_mitocaller_out} \
     --ascat_stat
     
-    mv heteroplasmy_calculation.tsv heteroplasmy_calculation_${tumour_mitocaller_out.baseName}_vs_${normal_mitocaller_out.baseName}.tsv    
+    mv heteroplasmy_calculation.tsv heteroplasmy_calculation_${normal_mitocaller_out.baseName}_vs_${tumour_mitocaller_out.baseName}.tsv    
     """
 }
 
