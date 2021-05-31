@@ -44,6 +44,7 @@ process call_mtSNV_mitoCaller {
     output: 
         
       path "${type}_${sample_name}_mitocaller.tsv", emit: tsv
+      path "${type}_${sample_name}_mitocaller.tsv.gz", emit: gz
       val sample_name, emit: sample_name
       val type, emit: type
       path '.command.*' 
@@ -54,6 +55,7 @@ process call_mtSNV_mitoCaller {
     """
     
     /mitocaller2/mitoCaller -m -b "${mtoolbox_out}"  -r /mitocaller2/mito_ref.fa -v ${type}_${sample_name}_mitocaller.tsv
+    gzip -k ${type}_${sample_name}_mitocaller.tsv
 
     ls > files.txt
 

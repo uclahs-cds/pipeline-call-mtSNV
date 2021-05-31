@@ -1,0 +1,17 @@
+//// Process ////
+
+process Validate_Outputs {
+   container "blcdsdockerregistry/validate:2.1.0"
+
+    input:
+        path(file)
+    
+    script:
+   """
+   set -euo pipefail
+
+   python3 -m validate -t sha512-gen ${file}
+  
+   """
+}
+

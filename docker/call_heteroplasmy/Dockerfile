@@ -15,13 +15,14 @@ RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
    less\
    &&  rm -rf /var/lib/apt/lists/*
  
-RUN mkdir /src/ && mkdir /src/script/
+RUN mkdir /src/ \
+   && mkdir /src/script/
 
-WORKDIR /src/
+WORKDIR /src/script/
 
 COPY call_heteroplasmy_mitocaller.pl /src/script/
 
-# avoid prompts
+# avoid promptsc
 ENV PERL_MM_USE_DEFAULT=1
 
 # install perl dependencies

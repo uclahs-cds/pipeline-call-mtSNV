@@ -16,7 +16,8 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 //// Process ////
 
 process call_heteroplasmy {
-    container "blcdsdockerregistry/call-heteroplasmy-script:1.0"
+    container "blcdsdockerregistry/call-mtsnv:call-heteroplasmy-script-1.0"
+    containerOptions "-v ${params.heteroplasmy_script}:/script/"
     publishDir "${params.output_dir}", 
     enabled: true, 
     mode: 'copy',
@@ -26,6 +27,13 @@ process call_heteroplasmy {
     memory amount_of_memory
     cpus number_of_cpus
 
+    // tsv
+    publishDir path: params.log_output_dir,
+    pattern: "*.tsv",
+    mode: "copy",
+    saveAs: {"${params.run_name}_${params.date}/call_heteroplasmy/${file(it).getName()}" }
+
+
     //logs
     publishDir path: params.log_output_dir,
     pattern: ".command.*",
@@ -33,24 +41,23 @@ process call_heteroplasmy {
     saveAs: {"${params.run_name}_${params.date}/logs_call_heteroplasmy/${file(it).getName()}" }
 
     input:
-        tuple(
-        path(tumour_mitocaller_out), 
-        path(normal_mitocaller_out)
+        tuple( 
+        path(normal_mitocaller_out),
+        path(tumour_mitocaller_out)
         ) 
     
     output:
-        file '*.tsv'
+        path '*.tsv'
         path '.command.*'
 
 
     script:
     """
-     perl /src/script/call_heteroplasmy_mitocaller.pl \
+     perl /script/call_heteroplasmy_mitocaller.pl \
     --normal ${normal_mitocaller_out} \
     --tumour ${tumour_mitocaller_out} \
     --ascat_stat
-    
-    mv heteroplasmy_calculation.tsv heteroplasmy_calculation_${normal_mitocaller_out.baseName}_vs_${tumour_mitocaller_out.baseName}.tsv    
+    ls > list.tsv
     """
 }
 

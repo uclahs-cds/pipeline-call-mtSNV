@@ -128,7 +128,13 @@ workflow{
 
   //step 6: call heteroplasmy script
   if (params.sample_mode == 'paired') {
-    call_heteroplasmy( call_mtSNV_mitoCaller.out.tsv.toSortedList() )
+    call_heteroplasmy( call_mtSNV_mitoCaller.out.gz.toSortedList() )
     }
     
+/**
+  //step 7: validate output script
+  validate_outputs(
+    convert_mitoCaller2vcf_mitoCaller.out.collate(1)
+  )  
+  **/
 }
