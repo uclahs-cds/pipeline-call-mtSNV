@@ -16,7 +16,7 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 //// Process ////
 
 process call_heteroplasmy {
-    container "blcdsdockerregistry/call-mtsnv:call-heteroplasmy-script-1.0"
+    container "blcdsdockerregistry/call-heteroplasmy-script:1.0"
     containerOptions "-v ${params.heteroplasmy_script}:/script/"
     publishDir "${params.output_dir}", 
     enabled: true, 

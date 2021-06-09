@@ -1,6 +1,6 @@
 //// Process ////
 
-process Validate_Outputs {
+process validate_outputs {
    container "blcdsdockerregistry/validate:2.1.0"
 
     input:

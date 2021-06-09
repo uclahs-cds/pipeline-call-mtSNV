@@ -16,6 +16,8 @@ include { align_mtReads_MToolBox             } from './modules/process/align_mtR
 include { call_mtSNV_mitoCaller              } from './modules/process/call_mtSNV_mitoCaller'
 include { convert_mitoCaller2vcf_mitoCaller  } from './modules/process/convert_mitoCaller2vcf_mitoCaller'          
 include { call_heteroplasmy                  } from './modules/process/call_heteroplasmy'
+include { validate_outputs                   } from './modules/process/validate_outputs'
+
 
 
 
@@ -131,10 +133,13 @@ workflow{
     call_heteroplasmy( call_mtSNV_mitoCaller.out.gz.toSortedList() )
     }
     
-/**
+
   //step 7: validate output script
   validate_outputs(
-    convert_mitoCaller2vcf_mitoCaller.out.collate(1)
+    convert_mitoCaller2vcf_mitoCaller
+    .out
+    .vcf
+    .flatten()
   )  
-  **/
+  
 }
