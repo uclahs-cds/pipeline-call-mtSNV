@@ -1,7 +1,7 @@
 ---
 name: Issue report
 about: Create a report to help us improve our pipelines
-title: ""
+title: "call-mtSNV issure report"
 labels: ''
 assignees: ''
 
@@ -9,7 +9,7 @@ assignees: ''
 
 **Describe the issue**
 A clear and concise description of what the issue is. Please include the following in your issue report along with any explicit errors observed
-* Pipeline release version
+* Pipeline release version or commit used
 * Cluster you are using (SGE/Slurm-Dev/Slurm-Test)
 * Node type (F2s (lowmem) / F72s (midmem) / M64s (execute))
 * Submission method (interactive/submission script)
@@ -25,6 +25,10 @@ Steps to reproduce the behavior:
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
+
+**What paramters were used?**
+* Single or paired?
+* Reference genome versions?
 
 **Expected behavior**
 A clear and concise description of what you expected to happen.
