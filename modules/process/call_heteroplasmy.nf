@@ -17,7 +17,6 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 
 process call_heteroplasmy {
     container "blcdsdockerregistry/call-heteroplasmy-script:1.0"
-    containerOptions "-v ${params.heteroplasmy_script}:/script/"
     publishDir "${params.output_dir}", 
     enabled: true, 
     mode: 'copy',
@@ -53,7 +52,7 @@ process call_heteroplasmy {
 
     script:
     """
-     perl /script/call_heteroplasmy_mitocaller.pl \
+     perl /src/script/call_heteroplasmy_mitocaller.pl \
     --normal ${normal_mitocaller_out} \
     --tumour ${tumour_mitocaller_out} \
     --ascat_stat
