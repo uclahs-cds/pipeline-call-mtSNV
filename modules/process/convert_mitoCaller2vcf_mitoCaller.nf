@@ -42,14 +42,12 @@ process convert_mitoCaller2vcf_mitoCaller {
         
       path '*.vcf', emit: vcf
       path '.command.*' 
-      path '*.txt'
    
    
     script:
     """
     echo '${mitocaller_out.baseName} ${mitocaller_out}' > ${mitocaller_out.baseName}.list
     python3.8 /mitoCaller2vcf/mitoCaller2vcf.py -s ./${mitocaller_out.baseName}.list -y ${sample_name}_homoplasmy.vcf -o ${sample_name}.vcf
-    ls > files.txt
     """
 }
 

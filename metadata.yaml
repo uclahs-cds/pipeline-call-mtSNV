@@ -6,6 +6,6 @@ Contributors: "Takafumi Yamaguchi, Alfredo Enrique Gonzalez, & Andrew Park"
 Languages: ["Nextflow", "Docker"]
 Dependencies: ["Java", "Nextflow", "Docker"]
 References: "https://github.com/uclahs-cds/pipeline-call-mtSNV/"
-Tools: ["Bamql 1.0", "MtoolBox 1.2.1", "Picard Tools 2.23.3", "MitoCaller"]
+Tools: ["Bamql 1.5.1", "MtoolBox 1.2.1", "Picard Tools 2.23.3", "MitoCaller"]
 Engineering_Owner: "Takafumi Yamaguchi"
 Scientific_Owner: "Takafumi Yamaguchi"

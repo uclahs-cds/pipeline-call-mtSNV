@@ -48,7 +48,6 @@ process call_mtSNV_mitoCaller {
       val sample_name, emit: sample_name
       val type, emit: type
       path '.command.*' 
-      path '*.txt'
    
     script:
      //this statement is essential to track identity of file i.e. tumor, normal
@@ -56,8 +55,6 @@ process call_mtSNV_mitoCaller {
     
     /mitocaller2/mitoCaller -m -b "${mtoolbox_out}"  -r /mitocaller2/mito_ref.fa -v ${type}_${sample_name}_mitocaller.tsv
     gzip -k ${type}_${sample_name}_mitocaller.tsv
-
-    ls > files.txt
 
     """
 }

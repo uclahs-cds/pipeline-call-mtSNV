@@ -56,7 +56,6 @@ process call_heteroplasmy {
     --normal ${normal_mitocaller_out} \
     --tumour ${tumour_mitocaller_out} \
     --ascat_stat
-    ls > list.tsv
     """
 }
 

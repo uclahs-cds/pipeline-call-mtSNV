@@ -17,7 +17,7 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 
 process align_mtReads_MToolBox {
     container "blcdsdockerregistry/mtoolbox:1.2.1-b52269e" // TODO: rename the tag to 1.2.1
-    containerOptions "--volume ${params.gmapdb}:/src/gmapdb/ --volume ${params.genome_fasta}:/src/genome_fasta/ "
+    containerOptions "--volume ${params.gmapdb}:/src/gmapdb/ --volume ${params.mt_ref_location}:/src/genome_fasta/ "
     
 
     // Main ouput recalibrated & reheadered reads

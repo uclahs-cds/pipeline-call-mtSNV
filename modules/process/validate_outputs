@@ -1,7 +1,7 @@
 //// Process ////
 
 process validate_outputs {
-   container "blcdsdockerregistry/validate:2.1.0"
+   container "blcdsdockerregistry/validate:2.1.5"
 
     input:
         path(file)
