@@ -17,7 +17,7 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 
 process extract_mtReads_BAMQL { 
     //container options
-    container 'blcdsdockerregistry/bamql:1.5.1'
+    container 'blcdsdockerregistry/bamql:1.6.1'
     containerOptions "--volume ${params.temp_dir}:/tmp"
     publishDir "${params.output_dir}", 
     enabled: true, 
@@ -32,13 +32,13 @@ process extract_mtReads_BAMQL {
     publishDir path: params.output_dir,
     pattern: ".command.*",
     mode: "copy",
-    saveAs: { "${params.run_name}_${params.date}/logs_extract_mtReads_BAMQL/log${file(it).getName()}" } 
+    saveAs: { "${params.run_name}_${params.date}/log/extract_mtReads_BAMQL/log${file(it).getName()}" } 
 
   input:
     tuple(
       val(type),
       val(sample_name),
-      path(input_file_x) 
+      path(input_bam_file) 
       ) //from input_ch
    
   output: 
@@ -50,7 +50,7 @@ process extract_mtReads_BAMQL {
   script:
   """
   set -euo pipefail
-  bamql -b -o 'extracted_mt_reads_${type}_${sample_name}' -f '${input_file_x}' "(chr(M) & mate_chr(M)) | (chr(Y) & after(57000000) & mate_chr(M))"
+  bamql -b -o 'extracted_mt_reads_${type}_${sample_name}' -f '${input_bam_file}' "(chr(M) & mate_chr(M)) | (chr(Y) & after(57000000) & mate_chr(M))"
 
   """
 }

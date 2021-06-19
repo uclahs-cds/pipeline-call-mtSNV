@@ -26,11 +26,11 @@ RUN mkdir /src/
 WORKDIR /src/
 
 # Install bamql from Boutros Github & Establish directories 
-RUN wget https://github.com/BoutrosLaboratory/bamql/archive/v1.5.tar.gz \
-   && tar -xzvf v1.5.tar.gz \
-   && rm v1.5.tar.gz
+RUN wget https://github.com/BoutrosLaboratory/bamql/archive/refs/tags/v1.6.tar.gz \
+   && tar -xzvf v1.6.tar.gz \
+   && rm v1.6.tar.gz
 
-WORKDIR /src/bamql-1.5
+WORKDIR /src/bamql-1.6
 RUN autoreconf -i \
    &&  ./configure \
    &&  make \

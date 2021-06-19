@@ -15,12 +15,12 @@ This nextflow pipeline extracts mt reads, remaps the reads to mitochondrial refe
 ## 1. Workflow Flowchart
 ![flowchart_call-mtSNV](flowchart_call-mtSNV.png)
 
-## 2. Bamql
+## 2. BAMQL (1.6.1)
 ![flowchart_mtoolbox_overview](flowchart_mtoolbox_overview.png)
 
 Bamql is a package or query language which the Boutros lab published ( https://doi.org/10.1186/s12859-016-1162-y ) a few  years back and is dedicated to extracting reads from BAM files. Why would you use BAMQL vs other methods you might ask? well the main benefit is readability and ease of use. Obviously there are various ways of extracting reads, you can use SamTools in the Perl language or pysam inpython, sambasa,  but these way you go about is not the most straight forward , has low readiability and is very prone to user because: the user must indicate which bit flags they require not using names, but the numeric values of those flags. 
 
-## 3. Mtoolbox
+## 3. MToolBox (1.2.1 commit b52269e)
 
 So once we have mitochondrial reads extracted we proceed to Mtoolbox which can accept as input raw data or prealigned reads. 
 
@@ -28,7 +28,7 @@ In both cases, reads are mapped/remapped by the mapExome.py script which we ca
 
 Subsequently, reads mapped on mtDNA are realigned onto the nuclear genome (GRCh37/hg19), this is done to discard Nuclear mitochondrial Sequences (NumtS;  and amplification artifacts which might be present. The resulting Sequence Alignment/Map (SAM) file is then processed for ins/dels realignment around a set of known ins/dels, and processed for putative PCR duplicates removal. This step generates a dataset of highly reliable mitochondrial aligned reads.
 
-## 4. Mitocaller
+## 4. Mitocaller (1.0.0)
 
 Due to the similarities between nuclear and mitochondrial DNA we can use some of the same approaches in variant calling we use for nuclear DNA with a couple modifications which is what mitocaller incorporates.
 
@@ -39,6 +39,6 @@ But mtDNA analysis is one of a number of instances) in which scoring allelic var
 Thus, the conventional nuclear DNA variant caller must be adapted to identify mtDNA variants within this context and modified to allow for allele fractions (i.e., heteroplasmic levels) at a variant site to vary across individuals.
 
 
-## 5. CallHeteroplasmy
+## 5. CallHeteroplasmy (1.0.0)
 
 This is a simple perl script written by Taka to compare and contrast heteroplasmy.

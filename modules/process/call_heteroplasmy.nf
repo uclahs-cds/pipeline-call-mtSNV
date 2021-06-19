@@ -37,7 +37,7 @@ process call_heteroplasmy {
     publishDir path: params.log_output_dir,
     pattern: ".command.*",
     mode: "copy",
-    saveAs: {"${params.run_name}_${params.date}/logs_call_heteroplasmy/${file(it).getName()}" }
+    saveAs: {"${params.run_name}_${params.date}/log/call_heteroplasmy/${file(it).getName()}" }
 
     input:
         tuple( 
@@ -56,6 +56,9 @@ process call_heteroplasmy {
     --normal ${normal_mitocaller_out} \
     --tumour ${tumour_mitocaller_out} \
     --ascat_stat
+    mv test.tsv ${normal_mitocaller_out.baseName}_vs_${tumour_mitocaller_out.baseName}.tsv
+
+
     """
 }
 

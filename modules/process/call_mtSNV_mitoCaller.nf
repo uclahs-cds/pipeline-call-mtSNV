@@ -19,23 +19,34 @@ process call_mtSNV_mitoCaller {
     container 'blcdsdockerregistry/mitocaller:1.0.0'
     containerOptions "-v ${params.mt_ref}:/mitocaller2/mito_ref.fa/"
     // Note - reference genome needs to be mounted otherwise mitocaller fails
+    
+    
     publishDir "${params.output_dir}", 
-    enabled: true, 
-    mode: 'copy',
-    saveAs: {"${params.run_name}_${params.date}/call_mtSNV_mitoCaller/${sample_name}/${file(it).getName()}" }
+        pattern: "${type}_${sample_name}_mitocaller.tsv", 
+        mode: 'copy',
+        saveAs: {"${params.run_name}_${params.date}/call_mtSNV_mitoCaller/${sample_name}/${file(it).getName()}" }
     
  
+    publishDir path: params.output_dir,
+        enabled: params.save_intermediate_files,
+        pattern: "*.gz",
+        mode: "copy",
+        saveAs: {"${params.run_name}_${params.date}/call_mtSNV_mitoCaller/${sample_name}/${file(it).getName()}" }
+
     
-    //memory proclamation
-    memory amount_of_memory
-    cpus number_of_cpus
+
+
 
     //logs
     publishDir path: params.output_dir,
     pattern: ".command.*",
     mode: "copy",
-    saveAs: {"${params.run_name}_${params.date}/logs_call_mtSNV_mitoCaller/log${file(it).getName()}" }
-    
+    saveAs: {"${params.run_name}_${params.date}/log/call_mtSNV_mitoCaller/log${file(it).getName()}" }
+
+    //memory proclamation
+    memory amount_of_memory
+    cpus number_of_cpus
+
     input:
       file mtoolbox_out
       val sample_name 

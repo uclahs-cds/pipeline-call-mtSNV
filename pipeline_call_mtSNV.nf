@@ -8,7 +8,6 @@ Nextflowization: Alfredo Enrique Gonzalez, Andrew Park
 //// DSL Version Declaration ////
 nextflow.enable.dsl=2
 
-
 //// Import of Local Modules ////
 include { Validate_Inputs                    } from './modules/process/validate_inputs'
 include { extract_mtReads_BAMQL              } from './modules/process/extract_mtReads_BAMQL'
@@ -19,17 +18,18 @@ include { call_heteroplasmy                  } from './modules/process/call_hete
 include { validate_outputs                   } from './modules/process/validate_outputs'
 
 
-
-
-
 //// log info  ////
 log.info """\
 ======================================
-P I P E L I N E -  M T S N V  v 1.0
+C A L L - M T S N V
 ======================================
 Boutros Lab
 
    Current Configuration:
+    - pipeline:
+        name: ${workflow.manifest.name}
+        version: ${workflow.manifest.version} 
+  
     - input: 
         input_csv: ${params.input_csv}
         mt_ref = ${params.mt_ref}
@@ -41,7 +41,6 @@ Boutros Lab
         temp_dir: ${params.temp_dir}
         output_dir: ${params.output_dir}
         lot_output_dir: ${params.log_output_dir}
-
       
     - options:
       sample_mode = ${params.sample_mode}
@@ -54,7 +53,6 @@ Boutros Lab
     ------------------------------------
    """
    .stripIndent()
-
 
 //// Input paths from input.csv ////
 
@@ -97,7 +95,6 @@ if (params.sample_mode == 'paired') {
       throw new Exception('ERROR: params.sample_mode not recognized')
     }
 
-
 workflow{
  
   //step 1: validation of inputs
@@ -127,13 +124,11 @@ workflow{
     call_mtSNV_mitoCaller.out.type 
     )
 
-
   //step 6: call heteroplasmy script
   if (params.sample_mode == 'paired') {
     call_heteroplasmy( call_mtSNV_mitoCaller.out.gz.toSortedList() )
     }
     
-
   //step 7: validate output script
   validate_outputs(
     convert_mitoCaller2vcf_mitoCaller
@@ -141,5 +136,4 @@ workflow{
     .vcf
     .flatten()
   )  
-  
 }

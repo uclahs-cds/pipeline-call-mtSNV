@@ -31,7 +31,7 @@ process convert_mitoCaller2vcf_mitoCaller {
     publishDir path: params.output_dir,
     pattern: ".command.*",
     mode: "copy",
-    saveAs: {"${params.run_name}_${params.date}/logs_convert_mitoCaller2vcf_mitoCaller/log${file(it).getName()}" }
+    saveAs: {"${params.run_name}_${params.date}/log/convert_mitoCaller2vcf_mitoCaller/log${file(it).getName()}" }
     
     input:
       file mitocaller_out 
