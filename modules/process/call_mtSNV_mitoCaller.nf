@@ -12,7 +12,6 @@ if (amount_of_memory < 1) {
 }
 amount_of_memory = amount_of_memory.toString() + " GB"
 
-
 //// Process ////
 
 process call_mtSNV_mitoCaller {
@@ -32,10 +31,6 @@ process call_mtSNV_mitoCaller {
         pattern: "*.gz",
         mode: "copy",
         saveAs: {"${params.run_name}_${params.date}/call_mtSNV_mitoCaller/${sample_name}/${file(it).getName()}" }
-
-    
-
-
 
     //logs
     publishDir path: params.output_dir,

@@ -49,7 +49,6 @@ process call_heteroplasmy {
         path '*.tsv'
         path '.command.*'
 
-
     script:
     """
      perl /src/script/call_heteroplasmy_mitocaller.pl \
@@ -57,12 +56,5 @@ process call_heteroplasmy {
     --tumour ${tumour_mitocaller_out} \
     --ascat_stat
     mv test.tsv ${normal_mitocaller_out.baseName}_vs_${tumour_mitocaller_out.baseName}.tsv
-
-
     """
 }
-
-/*** Future Work 
-- Change resource allocation to refer to single module
-- make this step optional in the case of single samples
-***/

@@ -12,10 +12,9 @@ if (amount_of_memory < 1) {
 }
 amount_of_memory = amount_of_memory.toString() + " GB"
 
-
 //// Process ////
 
-process extract_mtReads_BAMQL { 
+process extract_mtDNA_BAMQL { 
     //container options
     container 'blcdsdockerregistry/bamql:1.6.1'
     containerOptions "--volume ${params.temp_dir}:/tmp"
@@ -54,8 +53,3 @@ process extract_mtReads_BAMQL {
 
   """
 }
-
-
-/*** Future Work 
--Add conditional statement for bamql extraction depending on genome
-***/

@@ -12,11 +12,10 @@ if (amount_of_memory < 1) {
 }
 amount_of_memory = amount_of_memory.toString() + " GB"
 
-
 //// Process ////
 
-process align_mtReads_MToolBox {
-    container "blcdsdockerregistry/mtoolbox:1.2.1-b52269e" // TODO: rename the tag to 1.2.1
+process align_mtDNA_MToolBox {
+    container "blcdsdockerregistry/mtoolbox:1.2.1-b52269e" // 
     containerOptions "--volume ${params.gmapdb}:/src/gmapdb/ --volume ${params.mt_ref_location}:/src/genome_fasta/ "
     
 
@@ -70,7 +69,6 @@ process align_mtReads_MToolBox {
         mode: "copy",
         saveAs: {"${params.run_name}_${params.date}/logs_align_mtReads_MToolBox/log${file(it).getName()}" }
     
-
     //memory proclamation
     memory amount_of_memory
     cpus number_of_cpus
@@ -94,11 +92,10 @@ process align_mtReads_MToolBox {
       path("*.txt")
       path("*.gz")
       path("*.vcf")
-      path("VCF_dict_tmp")
-      
-         
+      path("VCF_dict_tmp")    
 
 // !!!NOTE!!! Output file location can not be spceified withing the mtoolbox command or it breaks mtoolbox script when running a BAM file
+// !!!NOTE!!! Location of the directory with the reference genome needs to be mounted on docker image. The actual file can not be called on. This is because MToolBox uses a script as an input that requires this file location. 
 
   script:
   """
@@ -115,11 +112,3 @@ process align_mtReads_MToolBox {
 
   """
 }
-
-/*** Future Work 
-touch type
-  echo ${type} > $type
-  mv ./OUT_'${bamql_out.baseName}'/OUT2-sorted.bam ./OUT2-sorted_'${bamql_out.baseName}'.bam
-
-- Remove params.outputdir from mount and incorporate directly in script.
-***/

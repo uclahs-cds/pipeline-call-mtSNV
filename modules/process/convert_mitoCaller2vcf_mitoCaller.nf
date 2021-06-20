@@ -12,7 +12,6 @@ if (amount_of_memory < 1) {
 }
 amount_of_memory = amount_of_memory.toString() + " GB"
 
-
 //// Process ////
 
 process convert_mitoCaller2vcf_mitoCaller {

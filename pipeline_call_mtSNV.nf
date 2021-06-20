@@ -10,8 +10,8 @@ nextflow.enable.dsl=2
 
 //// Import of Local Modules ////
 include { Validate_Inputs                    } from './modules/process/validate_inputs'
-include { extract_mtReads_BAMQL              } from './modules/process/extract_mtReads_BAMQL'
-include { align_mtReads_MToolBox             } from './modules/process/align_mtReads_MToolBox'
+include { extract_mtDNA_BAMQL              } from './modules/process/extract_mtDNA_BAMQL'
+include { align_mtDNA_MToolBox             } from './modules/process/align_mtDNA_MToolBox'
 include { call_mtSNV_mitoCaller              } from './modules/process/call_mtSNV_mitoCaller'
 include { convert_mitoCaller2vcf_mitoCaller  } from './modules/process/convert_mitoCaller2vcf_mitoCaller'          
 include { call_heteroplasmy                  } from './modules/process/call_heteroplasmy'
@@ -101,10 +101,10 @@ workflow{
   Validate_Inputs( input_ch ) 
   
  //step 2: extraction of mitochondrial reads using BAMQL
-  extract_mtReads_BAMQL( input_ch ) 
+  extract_mtDNA_BAMQL( input_ch ) 
 
   //step 3: remapping reads with mtoolbox
-  align_mtReads_MToolBox(
+  align_mtDNA_MToolBox(
     extract_mtReads_BAMQL.out.bams,
     extract_mtReads_BAMQL.out.sample_name, 
     extract_mtReads_BAMQL.out.type
