@@ -105,16 +105,16 @@ workflow{
 
   //step 3: remapping reads with mtoolbox
   align_mtDNA_MToolBox(
-    extract_mtReads_BAMQL.out.bams,
-    extract_mtReads_BAMQL.out.sample_name, 
-    extract_mtReads_BAMQL.out.type
+    extract_mtDNA_BAMQL.out.bams,
+    extract_mtDNA_BAMQL.out.sample_name, 
+    extract_mtDNA_BAMQL.out.type
     )
 
   //step 4: variant calling with mitocaller
   call_mtSNV_mitoCaller( 
-    align_mtReads_MToolBox.out.bams,
-    align_mtReads_MToolBox.out.sample_name,  
-    align_mtReads_MToolBox.out.type 
+    align_mtDNA_MToolBox.out.bams,
+    align_mtDNA_MToolBox.out.sample_name,  
+    align_mtDNA_MToolBox.out.type 
     )
 
   //step 5: change mitocaller output to vcf

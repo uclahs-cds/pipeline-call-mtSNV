@@ -25,6 +25,12 @@ process align_mtDNA_MToolBox {
         mode: 'copy',
         saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }
     
+    /**publishDir params.output_dir, 
+        pattern: "intermediate_files.zip",
+        mode: 'copy',
+        saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }
+    **/
+    
     // mtoolbox folder with supplementary files
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
@@ -32,6 +38,23 @@ process align_mtDNA_MToolBox {
         mode: 'copy',
         saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }
     
+    publishDir params.output_dir, 
+        enabled: params.save_intermediate_files,
+        pattern: "OUT_${bamql_out.baseName}",
+        mode: 'copy',
+        saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/OUT_${bamql_out.baseName}" }
+
+    publishDir params.output_dir, 
+        enabled: params.save_intermediate_files,
+        pattern: "tmp",
+        mode: 'copy',
+        saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }
+
+    publishDir params.output_dir, 
+        enabled: params.save_intermediate_files,
+        pattern: "*.conf",
+        mode: 'copy',
+        saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }    
     // 
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
@@ -87,13 +110,16 @@ process align_mtDNA_MToolBox {
       //val $type, emit: type
       path '.command.*'
       path("OUT_${bamql_out.baseName}")
+      //path("intermediate_files.zip")
       path("contents.txt")
       path("*.csv")
       path("*.txt")
       path("*.gz")
       path("*.vcf")
-      path("VCF_dict_tmp")    
-
+      path("VCF_dict_tmp")
+      path("tmp")
+      path("*.conf")
+\
 // !!!NOTE!!! Output file location can not be spceified withing the mtoolbox command or it breaks mtoolbox script when running a BAM file
 // !!!NOTE!!! Location of the directory with the reference genome needs to be mounted on docker image. The actual file can not be called on. This is because MToolBox uses a script as an input that requires this file location. 
 
@@ -107,8 +133,17 @@ process align_mtDNA_MToolBox {
   MToolBox.sh -i config_'${bamql_out.baseName}'.conf -m '-t ${task.cpus}'
 
   mv OUT_${bamql_out.baseName}/OUT2-sorted.bam OUT_${bamql_out.baseName}/${sample_name}_mtoolbox_OUT2-sorted.bam
-  
+
   ls > contents.txt
 
   """
 }
+
+/**
+  cp -r OUT_${bamql_out.baseName} testing_folder
+  cp -r ./OUT_${bamql_out.baseName} testing_folder_./2
+
+  touch file_random
+
+  zip -r intermediate_files.zip OUT_${bamql_out.baseName}
+**/

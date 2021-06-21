@@ -59,7 +59,7 @@ process call_mtSNV_mitoCaller {
      //this statement is essential to track identity of file i.e. tumor, normal
     """
     
-    /mitocaller2/mitoCaller -m -b "${mtoolbox_out}"  -r /mitocaller2/mito_ref.fa -v ${type}_${sample_name}_mitocaller.tsv
+    /MitoCaller/mitoCaller -m -b "${mtoolbox_out}"  -r /mitocaller2/mito_ref.fa -v ${type}_${sample_name}_mitocaller.tsv
     gzip -k ${type}_${sample_name}_mitocaller.tsv
 
     """
