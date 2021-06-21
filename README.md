@@ -12,12 +12,11 @@
      - [5. Call Heteroplasmy on Paired Samples](#5-Call-Heteroplasmy-on-Paired-Samples)
   - [Inputs](#inputs)
   - [Outputs](#outputs)
-       - [1. Extract mtDNA with BAMQL Output](#1-Extract-mtDNA-with-BAMQL-Output)
-        - [2. Align mt Reads with MToolBox Output](#2-Align-mt-Reads-with-MToolBox-Output)
-        - [3. Call mtSNV with MitoCaller Output](#3-Call-mtSNV-with-MitoCaller-Output)
-        - [4. Convert MitoCaller output with Mito2VCF Output](#4-Convert-MitoCaller-output-with-Mito2VCF-Output)
-        - [5. Call Heteroplasmy on Paired Samples Output]
-        (#5-Call-Heteroplasmy-on-Paired-Samples-Output)
+     - [1. Extract mtDNA with BAMQL Output](#1-Extract-mtDNA-with-BAMQL-Output)
+     - [2. Align mt Reads with MToolBox Output](#2-Align-mt-Reads-with-MToolBox-Output)
+     - [3. Call mtSNV with MitoCaller Output](#3-Call-mtSNV-with-MitoCaller-Output)
+     - [4. Convert MitoCaller output with Mito2VCF Output](#4-Convert-MitoCaller-output-with-Mito2VCF-Output)
+     - [5. Call Heteroplasmy on Paired Samples Output](#5-Call-Heteroplasmy-on-Paired-Samples-Output)
   - [Testing and Validation](#testing-and-validation)
     - [Test Data Set](#test-data-set)
     - [Validation ](#validation-version-number)
@@ -46,7 +45,7 @@ The config file requires 9 arguments
     4. output_dir : Location of output file
     5. temp_dir : directory that house temporary files. '/scratch' or other.
 
-    // Reference sequences
+    *Reference sequences*
     6. mt_ref : file path for mitochondrial ref genome. Take a look at the example config for location of a reference if in need on and copy it. Alternatively, it can be found on cluster directory with reference genomes. 
     7. gmapdb : filepath to gmapdb file. ake a look at the example config for location of a reference if in need on and copy it. Alternatively, it can be found on cluster directory with reference genomes.
     8. save_intermediate_files : Mostly applies to MToolBox which has a multitude of intermediate files. This paramater allows you to save them as well. 
