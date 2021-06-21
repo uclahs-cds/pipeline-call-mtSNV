@@ -1,6 +1,6 @@
 # Boutros Lab call-mtSNV pipeline
 
--[Boutros Lab call-mtSNV pipeline](#Boutros-Lab-call-mtSNV-pipeline)
+ [Boutros Lab call-mtSNV pipeline](#Boutros-Lab-call-mtSNV-pipeline)
   - [Overview](#overview)
   - [How To Run](#how-to-run)
   - [Flow Diagram](#flow-diagram)
@@ -12,6 +12,12 @@
      - [5. Call Heteroplasmy on Paired Samples](#5-Call-Heteroplasmy-on-Paired-Samples)
   - [Inputs](#inputs)
   - [Outputs](#outputs)
+       - [1. Extract mtDNA with BAMQL Output](#1-Extract-mtDNA-with-BAMQL-Output)
+        - [2. Align mt Reads with MToolBox Output](#2-Align-mt-Reads-with-MToolBox-Output)
+        - [3. Call mtSNV with MitoCaller Output](#3-Call-mtSNV-with-MitoCaller-Output)
+        - [4. Convert MitoCaller output with Mito2VCF Output](#4-Convert-MitoCaller-output-with-Mito2VCF-Output)
+        - [5. Call Heteroplasmy on Paired Samples Output]
+        (#5-Call-Heteroplasmy-on-Paired-Samples-Output)
   - [Testing and Validation](#testing-and-validation)
     - [Test Data Set](#test-data-set)
     - [Validation ](#validation-version-number)
@@ -19,10 +25,32 @@
   - [References](#references)
 
 ## Overview
-This nextflow pipeline extracts mt reads, remaps the reads to mitochondrial reference genome, and  calls variants using mitoCaller and gives heteroplasmy.
+This nextflow pipeline takes an aligned bam file as input and extracts mitochondrial DNA reads, remaps the reads to a mitochondrial reference genome, and  calls variants. It can use be used in single sample and tumor-normal paired mode. Paired mode gives an addtional heteroplasmy comparison.
 ___
 
 ## How To Run
+Samples can be run by specifying a number of paramters:
+
+#### call-mtSNV_input.csv
+This input csv requires 3 arguments in single mode, 6 in paired. 
+1. normal or tumour
+2. sample name
+3. bam file path
+
+
+#### call-mtSNV.config
+The config file requires 9 arguments
+    1. run_name : This is the overall run name, useful in paired sample mode
+    2. sample_mode : 'single' or 'paired'?
+    3. input_csv : File path of call-mtSNV_input.csv
+    4. output_dir : Location of output file
+    5. temp_dir : directory that house temporary files. '/scratch' or other.
+
+    // Reference sequences
+    6. mt_ref : file path for mitochondrial ref genome. Take a look at the example config for location of a reference if in need on and copy it. Alternatively, it can be found on cluster directory with reference genomes. 
+    7. gmapdb : filepath to gmapdb file. ake a look at the example config for location of a reference if in need on and copy it. Alternatively, it can be found on cluster directory with reference genomes.
+    8. save_intermediate_files : Mostly applies to MToolBox which has a multitude of intermediate files. This paramater allows you to save them as well. 
+    9. cache_intermediate_pipeline_steps : Incase you're running pipelines using an interactive node you can set to true.
 
 ___
 
@@ -33,11 +61,11 @@ ___
 ## Pipeline Steps
 
 ### 1. Extract mt DNA with BAMQL
-![flowchart_mtoolbox_overview](flowchart_mtoolbox_overview.png)
 
 Bamql is a package or query language which the Boutros lab published ( https://doi.org/10.1186/s12859-016-1162-y ) a few  years back and is dedicated to extracting reads from BAM files. Why would you use BAMQL vs other methods you might ask? well the main benefit is readability and ease of use. Obviously there are various ways of extracting reads, you can use SamTools in the Perl language or pysam inpython, sambasa,  but these way you go about is not the most straight forward , has low readiability and is very prone to user because: the user must indicate which bit flags they require not using names, but the numeric values of those flags. 
 
 ### 2. Align mtDNA with MToolBox
+![flowchart_mtoolbox_overview](flowchart_mtoolbox_overview.png)
 
 So once we have mitochondrial reads extracted we proceed to Mtoolbox which can accept as input raw data or prealigned reads. 
 
@@ -65,9 +93,30 @@ Heteroplasmy is the presence of more than one type of organellar genome (mitocho
 
 ## Inputs
 
+Input are aligned bam files. 
 ___
 
 ## Outputs
+
+Organized by process 
+#### 1. Extract mt DNA with BAMQL Output
+Outputs Bam file with only mitochondrial reads. Note that these reads are not properly aligned and need to be realigned in the following step.
+
+#### 2. Align mtDNA with MToolBox Output
+MToolBox has various steps.
+
+Main outputs:
+
+Intermeidate Files Output:
+
+#### 3. Call mtSNV with MitoCaller Output
+Outputs are a *.tsv file with MitoCaller calls. Note that following Mito2VCF provides a more legible and actionable output which is easier to use.
+
+#### 4. Convert MitoCaller output with Mito2VCF Output
+Outputs are 2 *.vcf files containing MitoCaller calls.
+
+#### 5. Call Heteroplasmy on Paired Samples Output
+Outputs are a *.tsv table showing differences in the normal genotype vs tumour genotype. It also gives heteroplasmy_fraction if there is any. 
 
 ___
 
@@ -75,9 +124,9 @@ ___
 
 ### Test Data Set
 
-A 2-3 sentence description of the test data set(s) used to validate and test this pipeline. If possible, include references and links for how to access and use the test dataset
+Both WGS and WES aligned bam files were used to test in single and tumor-normal paired modes. Below are directory paths for the test files.
 
-### Validation <version number\>
+### Validation <Need to add\>
 
 
 ### Validation Tool

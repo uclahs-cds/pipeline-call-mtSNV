@@ -27,14 +27,13 @@ process call_heteroplasmy {
     cpus number_of_cpus
 
     // tsv
-    publishDir path: params.log_output_dir,
+    publishDir params.output_dir, 
     pattern: "*.tsv",
     mode: "copy",
     saveAs: {"${params.run_name}_${params.date}/call_heteroplasmy/${file(it).getName()}" }
 
-
     //logs
-    publishDir path: params.log_output_dir,
+    publishDir params.output_dir, 
     pattern: ".command.*",
     mode: "copy",
     saveAs: {"${params.run_name}_${params.date}/log/call_heteroplasmy/${file(it).getName()}" }
