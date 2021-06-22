@@ -12,11 +12,12 @@ if (amount_of_memory < 1) {
 }
 amount_of_memory = amount_of_memory.toString() + " GB"
 
+
 //// Process ////
 
 process align_mtDNA_MToolBox {
     container "blcdsdockerregistry/mtoolbox:1.2.1-b52269e" // 
-    containerOptions "--volume ${params.gmapdb}:/src/gmapdb/ --volume ${params.mt_ref_location}:/src/genome_fasta/ "
+    containerOptions "--volume ${params.gmapdb}:/src/gmapdb/ --volume ${params.directory_containing_mt_ref_genome_chrRSRS_files}:/src/genome_fasta/ "
     
 
     // Main ouput recalibrated & reheadered reads
@@ -135,6 +136,7 @@ process align_mtDNA_MToolBox {
   mv OUT_${bamql_out.baseName}/OUT2-sorted.bam OUT_${bamql_out.baseName}/${sample_name}_mtoolbox_OUT2-sorted.bam
 
   ls > contents.txt
+
 
   """
 }

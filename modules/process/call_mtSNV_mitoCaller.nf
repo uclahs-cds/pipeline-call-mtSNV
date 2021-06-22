@@ -16,7 +16,7 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 
 process call_mtSNV_mitoCaller {
     container 'blcdsdockerregistry/mitocaller:1.0.0'
-    containerOptions "-v ${params.mt_ref}:/mitocaller2/mito_ref.fa/"
+    containerOptions "-v ${params.directory_containing_mt_ref_genome_chrRSRS_files}:/mitochondria-ref/"
     // Note - reference genome needs to be mounted otherwise mitocaller fails
     
     
@@ -59,7 +59,7 @@ process call_mtSNV_mitoCaller {
      //this statement is essential to track identity of file i.e. tumor, normal
     """
     
-    /MitoCaller/mitoCaller -m -b "${mtoolbox_out}"  -r /mitocaller2/mito_ref.fa -v ${type}_${sample_name}_mitocaller.tsv
+    /MitoCaller/mitoCaller -m -b "${mtoolbox_out}"  -r /mitochondria-ref/chrRSRS.fa -v ${type}_${sample_name}_mitocaller.tsv
     gzip -k ${type}_${sample_name}_mitocaller.tsv
 
     """
