@@ -98,23 +98,33 @@ ___
 ## Outputs
 
 Organized by process 
-#### 1. Extract mt DNA with BAMQL Output
+### 1. Extract mt DNA with BAMQL Output
 Outputs Bam file with only mitochondrial reads. Note that these reads are not properly aligned and need to be realigned in the following step.
 
-#### 2. Align mtDNA with MToolBox Output
+### 2. Align mtDNA with MToolBox Output
 MToolBox has various steps.
 
-Main outputs:
+*Main outputs:*
+*_sorted.bam
 
-Intermeidate Files Output:
+*Intermeidate Files Output:*
+VCF_dict_tmp
+config_extracted_mt_reads_normal_CPCG0196-B1_realigned_recalibrated_merged_bam_reheadered.conf
+logassemble.txt
+mt_classification_best_results.csv
+prioritized_variants.txt
+processed_fastq.tar.gz
+sample.vcf
+summary_*.txt
+Directory with mtoolbox intermediate output files
 
-#### 3. Call mtSNV with MitoCaller Output
+### 3. Call mtSNV with MitoCaller Output
 Outputs are a *.tsv file with MitoCaller calls. Note that following Mito2VCF provides a more legible and actionable output which is easier to use.
 
-#### 4. Convert MitoCaller output with Mito2VCF Output
+### 4. Convert MitoCaller output with Mito2VCF Output
 Outputs are 2 *.vcf files containing MitoCaller calls.
 
-#### 5. Call Heteroplasmy on Paired Samples Output
+### 5. Call Heteroplasmy on Paired Samples Output
 Outputs are a *.tsv table showing differences in the normal genotype vs tumour genotype. It also gives heteroplasmy_fraction if there is any. 
 
 ___
@@ -123,10 +133,9 @@ ___
 
 ### Test Data Set
 
-Both WGS and WES aligned bam files were used to test in single and tumor-normal paired modes. Below are directory paths for the test files.
+Both WGS and WES aligned bam files were used to test in single and tumor-normal paired modes. Input csv with directory paths and used configs included in test_example.csv .
 
-### Validation <Need to add\>
-
+Outputs of such directory in UCLA_CDS/Boutros Lab cluster are:
 
 ### Validation Tool
 
