@@ -1,19 +1,3 @@
-//// Resource allocation ////
-
-def number_of_cpus = (int) (Runtime.getRuntime().availableProcessors() / params.max_number_of_parallel_jobs)
-if (number_of_cpus < 1) {
-    number_of_cpus = 1
-} 
-
-def amount_of_memory = ((int) (((java.lang.management.ManagementFactory.getOperatingSystemMXBean()
-    .getTotalPhysicalMemorySize() / (1024.0 * 1024.0 * 1024.0)) * 0.9) / params.max_number_of_parallel_jobs ))
-if (amount_of_memory < 1) {
-    amount_of_memory = 1
-}
-amount_of_memory = amount_of_memory.toString() + " GB"
-
-//// Process ////
-
 process call_mtSNV_mitoCaller {
     container 'blcdsdockerregistry/mitocaller:1.0.0'
     containerOptions "-v ${params.directory_containing_mt_ref_genome_chrRSRS_files}:/mitochondria-ref/"
@@ -37,10 +21,6 @@ process call_mtSNV_mitoCaller {
     pattern: ".command.*",
     mode: "copy",
     saveAs: {"${params.run_name}_${params.date}/log/call_mtSNV_mitoCaller/log${file(it).getName()}" }
-
-    //memory proclamation
-    memory amount_of_memory
-    cpus number_of_cpus
 
     input:
       file mtoolbox_out
