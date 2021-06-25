@@ -39,18 +39,20 @@ This input csv requires 3 arguments in single mode, 6 in paired.
 
 #### call-mtSNV.config
 The config file requires 9 arguments
-    1. run_name : This is the overall run name, useful in paired sample mode
+    1. run_name : This is the overall run name, useful in paired sample mode for organizing outputs. The outputs will be housed in a directory with this name + date information automatically pulled from the system.
     2. sample_mode : 'single' or 'paired'?
     3. input_csv : File path of call-mtSNV_input.csv
     4. output_dir : Location of output file
     5. temp_dir : directory that house temporary files. '/scratch' or other.
 
     *Reference sequences*
-    6. mt_ref : file path for mitochondrial ref genome. Take a look at the example config for location of a reference if in need on and copy it. Alternatively, it can be found on cluster directory with reference genomes. 
-    7. gmapdb : filepath to gmapdb file. ake a look at the example config for location of a reference if in need on and copy it. Alternatively, it can be found on cluster directory with reference genomes.
+    6. directory_containing_mt_ref_genome_chrRSRS_files : full  path to directory containing mitochondrial ref genome and mt ref genome index files. Take a look at the example config for location of a reference if in need of one and copy it. Alternatively, it can be found on cluster directory with reference genomes. 
+    7. gmapdb : filepath to gmapdb directory. Take a look at the example config for location of a reference if in need on and copy it. Alternatively, it can be found on cluster directory with reference genomes.
     8. save_intermediate_files : Mostly applies to MToolBox which has a multitude of intermediate files. This paramater allows you to save them as well. 
     9. cache_intermediate_pipeline_steps : Incase you're running pipelines using an interactive node you can set to true.
 
+   *If running on SGE or externally*
+      10. If running on SGE or externally as a collaborator, depending on your permission settings you will need to make an additional modification on the "methods.config" and change "sudo" from False to True. 
 ___
 
 ## Flow Diagram
