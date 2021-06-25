@@ -1,7 +1,7 @@
 
 //// Process ////
 process convert_mitoCaller2vcf_mitoCaller {
-    container 'blcdsdockerregistry/mitocaller2vcf:1.0.0'
+    container "${params.mitoCaller2vcf_docker_image}"
     publishDir "${params.output_dir}", 
     enabled: true, 
     mode: 'copy',

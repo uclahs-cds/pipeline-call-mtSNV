@@ -16,7 +16,7 @@ amount_of_memory = amount_of_memory.toString() + " GB"
 //// Process ////
 
 process align_mtDNA_MToolBox {
-    container "blcdsdockerregistry/mtoolbox:1.2.1-b52269e" // 
+    container "${params.MToolBox_docker_image}" // 
     containerOptions "--volume ${params.gmapdb}:/src/gmapdb/ --volume ${params.directory_containing_mt_ref_genome_chrRSRS_files}:/src/genome_fasta/ "
     
 
@@ -91,7 +91,7 @@ process align_mtDNA_MToolBox {
     publishDir path: params.output_dir,
         pattern: ".command.*",
         mode: "copy",
-        saveAs: {"${params.run_name}_${params.date}/logs_align_mtReads_MToolBox/log${file(it).getName()}" }
+        saveAs: {"${params.run_name}_${params.date}/log/align_mtReads_MToolBox/log${file(it).getName()}" }
     
     //memory proclamation
     memory amount_of_memory

@@ -1,11 +1,16 @@
 process extract_mtDNA_BAMQL { 
     //container options
-    container 'blcdsdockerregistry/bamql:1.6.1'
-    containerOptions "--volume ${params.temp_dir}:/tmp"
-    publishDir "${params.output_dir}", 
+    container "${params.BAMQL_docker_image}"
+    publishDir "${params.output_dir}",
     enabled: true, 
     mode: 'copy',
-    saveAs: {"${params.run_name}_${params.date}/extract_mtReads_BAMQL/${sample_name}/${file(it).getName()}" }
+    saveAs: {"${params.run_name}_${params.date}/extract_mtReads_BAMQL/${sample_name}/${file(it).getName()}.bam" }
+
+    //  extracted mt DNA
+    publishDir "${params.output_dir}", 
+    pattern: "extracted_mt_reads_*.",
+    mode: 'copy',
+    saveAs: {"${params.run_name}_${params.date}/extract_mtReads_BAMQL/${sample_name}/${file(it).getName()}.bam" }
 
     //logs
     publishDir path: params.output_dir,

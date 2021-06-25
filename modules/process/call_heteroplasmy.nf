@@ -1,7 +1,7 @@
 //// Process ////
 
 process call_heteroplasmy {
-    container "blcdsdockerregistry/call-heteroplasmy-script:1.0"
+    container "${params.heteroplasmy_script_docker_image}"
     publishDir "${params.output_dir}", 
     enabled: true, 
     mode: 'copy',
@@ -12,6 +12,13 @@ process call_heteroplasmy {
     pattern: "*.tsv",
     mode: "copy",
     saveAs: {"${params.run_name}_${params.date}/call_heteroplasmy/${file(it).getName()}" }
+
+        // tsv
+    publishDir params.output_dir, 
+    pattern: "*.info",
+    mode: "copy",
+    saveAs: {"${params.run_name}_${params.date}/call_heteroplasmy/${file(it).getName()}" }
+
 
     //logs
     publishDir params.output_dir, 
@@ -28,6 +35,7 @@ process call_heteroplasmy {
     output:
         path '*.tsv'
         path '.command.*'
+        path '*info'
 
     script:
     """
