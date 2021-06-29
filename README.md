@@ -40,7 +40,7 @@ This input csv requires 3 arguments in single mode, 6 in paired. For reference l
 #### call-mtSNV.config
 The config file requires 9 arguments
 || Input Parameter | Required | Type | Description |
-|:---|:----------------|:---------|:-----|:------------|
+|:---|:----------------|:---------|:-----|:----------------------------|
 | 1 | `run_name` | yes | string | This is the overall run name, useful in paired sample mode for organizing outputs. The outputs will be housed in a directory with this name + date information automatically pulled from the system. |
 | 2 | `sample_mode` | yes | string | 'single' or 'paired'? |
 | 3 | `input_csv` | yes | path | Absolute path to tcall-mtSNV_input.csv |
@@ -96,7 +96,7 @@ Heteroplasmy is the presence of more than one type of organellar genome (mitocho
 >The input csv must have all columns below and in the same order. Input are aligned bam files. Sample input file can be found [here](https://github.com/uclahs-cds/pipeline-call-mtSNV/blob/Alfredo-dev/inputs/call-mtSNV_input.csv)
 
 | Field | Type | Description |
-|:------|:-----|:------------|
+|:------|:-----|:----------------------------|
 | sample_input_1_type | string | Need to specify "normal" or "tumor". |
 | sample_input_1_name | string | Name of sample. This is the name that will be used for file name outputs. |
 | sample_input_1_path | path | Absolute path to input bam file. |
