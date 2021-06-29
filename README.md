@@ -31,7 +31,7 @@ ___
 Samples can be run by specifying a number of paramters:
 
 #### call-mtSNV_input.csv
-This input csv requires 3 arguments in single mode, 6 in paired. 
+This input csv requires 3 arguments in single mode, 6 in paired. For reference look at [Inputs](#inputs)
 1. normal or tumour
 2. sample name
 3. bam file path
@@ -39,20 +39,19 @@ This input csv requires 3 arguments in single mode, 6 in paired.
 
 #### call-mtSNV.config
 The config file requires 9 arguments
-    1. run_name : This is the overall run name, useful in paired sample mode for organizing outputs. The outputs will be housed in a directory with this name + date information automatically pulled from the system.
-    2. sample_mode : 'single' or 'paired'?
-    3. input_csv : File path of call-mtSNV_input.csv
-    4. output_dir : Location of output file
-    5. temp_dir : directory that house temporary files. '/scratch' or other.
+|| Input Parameter | Required | Type | Description |
+|:---|:----------------|:---------|:-----|:------------|
+| 1 | `run_name` | yes | string | This is the overall run name, useful in paired sample mode for organizing outputs. The outputs will be housed in a directory with this name + date information automatically pulled from the system. |
+| 2 | `sample_mode` | yes | string | 'single' or 'paired'? |
+| 3 | `input_csv` | yes | path | Absolute path to tcall-mtSNV_input.csv |
+| 4 | `output_dir` | yes | path | Absolute path to location of outputs. |
+| 5 | `temp_dir` | yes | path | Absolute path to the directory where the nextflow's intermediate files are saved. If your cluster worker node has the `/scratch` set up, this can be set to it. |
+| 6 | `directory_containing_mt_ref_genome_chrRSRS_files` | yes | path | Absolute path to directory containing mitochondrial ref genome and mt ref genome index files. Take a look at the example config for location of a reference if in need of one and copy it. Alternatively, it can be found on cluster directory with reference genomes.  |
+| 7 | `gmapdb` | yes | path | Absolute path to to gmapdb directory. Take a look at the example config for location of a reference if in need on and copy it. Alternatively, it can be found on cluster directory with reference genomes.|
+| 8 | `save_intermediate_files` | yes | boolean | Save intermediate files. If yes, not only the final BAM, but also the unmerged, unsorted, and duplicates unmarked BAM files will also be saved. |
+| 9 | `cache_intermediate_pipeline_steps` | yes | boolean | Enable cahcing to resume pipeline and the end of the last successful process completion when a pipeline fails (if true the default submission script must be modified)
+| 10 | `sge_scheduler` | only on sge | boolean | If running on SGE or externally as a collaborator, depending on your permission settings you will need to change "sge_scheduler" to "true" |
 
-    *Reference sequences*
-    6. directory_containing_mt_ref_genome_chrRSRS_files : full  path to directory containing mitochondrial ref genome and mt ref genome index files. Take a look at the example config for location of a reference if in need of one and copy it. Alternatively, it can be found on cluster directory with reference genomes. 
-    7. gmapdb : filepath to gmapdb directory. Take a look at the example config for location of a reference if in need on and copy it. Alternatively, it can be found on cluster directory with reference genomes.
-    8. save_intermediate_files : Mostly applies to MToolBox which has a multitude of intermediate files. This paramater allows you to save them as well. 
-    9. cache_intermediate_pipeline_steps : Incase you're running pipelines using an interactive node you can set to true.
-
-   *If running on SGE or externally*
-      10. If running on SGE or externally as a collaborator, depending on your permission settings you will need to make an additional modification on the "methods.config" and change "sudo" from False to True. 
 ___
 
 ## Flow Diagram
@@ -94,7 +93,16 @@ Heteroplasmy is the presence of more than one type of organellar genome (mitocho
 
 ## Inputs
 
-Input are aligned bam files. 
+>The input csv must have all columns below and in the same order. Input are aligned bam files. Sample input file can be found [here](https://github.com/uclahs-cds/pipeline-call-mtSNV/blob/Alfredo-dev/inputs/call-mtSNV_input.csv)
+
+| Field | Type | Description |
+|:------|:-----|:------------|
+| sample_input_1_type | string | Need to specify "normal" or "tumor". |
+| sample_input_1_name | string | Name of sample. This is the name that will be used for file name outputs. |
+| sample_input_1_path | path | Absolute path to input bam file. |
+| sample_input_2_type | string | Need to specify "normal" or "tumor". |
+| sample_input_2_name | string | Name of sample. This is the name that will be used for file name outputs. |
+| sample_input_2_path | path | Absolute path to input bam file. |
 ___
 
 ## Outputs
@@ -146,3 +154,8 @@ Included is a template for validating your input files. For more information on 
 ---
 
 ## References
+01. Masella, A.P., Lalansingh, C.M., Sivasundaram, P. et al. BAMQL: a query language for extracting reads from BAM files. BMC Bioinformatics 17, 305 (2016). [link](https://doi.org/10.1186/s12859-016-1162-y)
+02. [BAMQL github](https://github.com/BoutrosLaboratory/bamql/releases/tag/v1.6)
+03. Calabrese C, Simone D, Diroma MA, et al. MToolBox: a highly automated pipeline for heteroplasmy annotation and prioritization analysis of human mitochondrial variants in high-throughput sequencing. Bioinformatics. 2014;30(21):3115-3117. [link](https://pubmed.ncbi.nlm.nih.gov/25028726/)
+04. [MToolBox github](https://github.com/mitoNGS/MToolBox)
+05. [mitoCaller](https://lgsun.irp.nia.nih.gov/hsgu/software/mitoAnalyzer/mitoAnalyzer.htm)
