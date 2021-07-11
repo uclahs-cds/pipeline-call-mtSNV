@@ -1,0 +1,2 @@
+sample_input_1_type,sample_input_1_name,sample_input_1_path,sample_input_2_type,sample_input_2_name,sample_input_2_path
+normal,BLCSNTGT000001,/data/users/agonzalez/002_Nextflowization_mtSNV/02_Version_2.0/test_files/tiny_BLCSNTGT000001-T001-P01-F_realigned_recalibrated_reheadered.bam,tumour,BLCSNTGT000001_copy,/data/users/agonzalez/002_Nextflowization_mtSNV/02_Version_2.0/test_files/tiny_2_BLCSNTGT000001-T001-P01-F_realigned_recalibrated_reheadered.bam

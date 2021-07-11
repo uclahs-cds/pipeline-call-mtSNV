@@ -1,7 +1,8 @@
-
-//// Process ////
 process convert_mitoCaller2vcf_mitoCaller {
     container "${params.mitoCaller2vcf_docker_image}"
+    label 'process_medium'
+
+    
     publishDir "${params.output_dir}", 
     enabled: true, 
     mode: 'copy',

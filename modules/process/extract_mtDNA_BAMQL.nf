@@ -1,29 +1,26 @@
 process extract_mtDNA_BAMQL { 
     //container options
     container "${params.BAMQL_docker_image}"
-    publishDir "${params.output_dir}",
-    enabled: true, 
-    mode: 'copy',
-    saveAs: {"${params.run_name}_${params.date}/extract_mtReads_BAMQL/${sample_name}/${file(it).getName()}.bam" }
-
+        label 'process_low'
+        
     //  extracted mt DNA
     publishDir "${params.output_dir}", 
-    pattern: "extracted_mt_reads_*.",
-    mode: 'copy',
-    saveAs: {"${params.run_name}_${params.date}/extract_mtReads_BAMQL/${sample_name}/${file(it).getName()}.bam" }
+                pattern: "extracted_mt_reads_*.",
+                mode: 'copy',
+                saveAs: {"${params.run_name}_${params.date}/extract_mtReads_BAMQL/${sample_name}/${file(it).getName()}.bam" }
 
     //logs
     publishDir path: params.output_dir,
-    pattern: ".command.*",
-    mode: "copy",
-    saveAs: { "${params.run_name}_${params.date}/log/extract_mtReads_BAMQL/log${file(it).getName()}" } 
+              pattern: ".command.*",
+              mode: "copy",
+              saveAs: { "${params.run_name}_${params.date}/log/extract_mtReads_BAMQL/log${file(it).getName()}" } 
 
   input:
     tuple(
       val(type),
       val(sample_name),
       path(input_bam_file) 
-      ) //from input_ch
+      )
    
   output: 
     path 'extracted_mt_reads_*', emit: bams 

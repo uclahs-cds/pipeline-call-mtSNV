@@ -1,7 +1,7 @@
 FROM ubuntu:20.04
 
-LABEL maintainer="1) Alfredo Enrique Gonzalez <alfgonzalez@mednet.ucla.edu> \ 
-2)Takafumi Yamaguchi <tyamaguchi@mednet.ucla.edu>"
+LABEL maintainer="Alfredo Enrique Gonzalez <alfgonzalez@mednet.ucla.edu> \ 
+Takafumi Yamaguchi <tyamaguchi@mednet.ucla.edu>"
 
 RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \
    &&  apt-get update \

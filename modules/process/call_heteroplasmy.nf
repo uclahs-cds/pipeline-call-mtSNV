@@ -1,7 +1,8 @@
-//// Process ////
-
 process call_heteroplasmy {
     container "${params.heteroplasmy_script_docker_image}"
+    label 'process_medium'
+
+    
     publishDir "${params.output_dir}", 
     enabled: true, 
     mode: 'copy',

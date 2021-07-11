@@ -1,36 +1,13 @@
-//// Resource allocation ////
-
-def number_of_cpus = (int) (Runtime.getRuntime().availableProcessors() / params.max_number_of_parallel_jobs)
-if (number_of_cpus < 1) {
-    number_of_cpus = 1
-} 
-
-def amount_of_memory = ((int) (((java.lang.management.ManagementFactory.getOperatingSystemMXBean()
-    .getTotalPhysicalMemorySize() / (1024.0 * 1024.0 * 1024.0)) * 0.9) / params.max_number_of_parallel_jobs ))
-if (amount_of_memory < 1) {
-    amount_of_memory = 1
-}
-amount_of_memory = amount_of_memory.toString() + " GB"
-
-
-//// Process ////
-
 process align_mtDNA_MToolBox {
-    container "${params.MToolBox_docker_image}" // 
+    container "${params.MToolBox_docker_image}"
     containerOptions "--volume ${params.gmapdb}:/src/gmapdb/ --volume ${params.directory_containing_mt_ref_genome_chrRSRS_files}:/src/genome_fasta/ "
+    label 'process_high'
     
-
     // Main ouput recalibrated & reheadered reads
     publishDir params.output_dir, 
         pattern: "OUT_${bamql_out.baseName}/${sample_name}_mtoolbox_OUT2-sorted.bam",
         mode: 'copy',
         saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }
-    
-    /**publishDir params.output_dir, 
-        pattern: "intermediate_files.zip",
-        mode: 'copy',
-        saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }
-    **/
     
     // mtoolbox folder with supplementary files
     publishDir params.output_dir, 
@@ -56,7 +33,7 @@ process align_mtDNA_MToolBox {
         pattern: "*.conf",
         mode: 'copy',
         saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }    
-    // 
+
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
         pattern: "*.csv",
@@ -92,10 +69,6 @@ process align_mtDNA_MToolBox {
         pattern: ".command.*",
         mode: "copy",
         saveAs: {"${params.run_name}_${params.date}/log/align_mtReads_MToolBox/log${file(it).getName()}" }
-    
-    //memory proclamation
-    memory amount_of_memory
-    cpus number_of_cpus
 
     input:
       path bamql_out
@@ -103,7 +76,7 @@ process align_mtDNA_MToolBox {
       val type
 
     output: 
-      path("OUT_${bamql_out.baseName}/${sample_name}_mtoolbox_OUT2-sorted.bam"), emit: bams
+      path "OUT_${bamql_out.baseName}/${sample_name}_mtoolbox_OUT2-sorted.bam", emit: bams
       val sample_name, emit: sample_name
       val type, emit: type
       
@@ -120,13 +93,12 @@ process align_mtDNA_MToolBox {
       path("VCF_dict_tmp")
       path("tmp")
       path("*.conf")
-\
+
 // !!!NOTE!!! Output file location can not be spceified withing the mtoolbox command or it breaks mtoolbox script when running a BAM file
 // !!!NOTE!!! Location of the directory with the reference genome needs to be mounted on docker image. The actual file can not be called on. This is because MToolBox uses a script as an input that requires this file location. 
 
   script:
   """
-
   mv ./${bamql_out} ./'${bamql_out.baseName}.bam'
 
   printf "input_type='bam'\nref='RSRS'\ninput_path=${bamql_out}\ngsnapdb=/src/gmapdb/\nfasta_path=/src/genome_fasta/\n" > config_'${bamql_out.baseName}'.conf
@@ -136,16 +108,5 @@ process align_mtDNA_MToolBox {
   mv OUT_${bamql_out.baseName}/OUT2-sorted.bam OUT_${bamql_out.baseName}/${sample_name}_mtoolbox_OUT2-sorted.bam
 
   ls > contents.txt
-
-
   """
 }
-
-/**
-  cp -r OUT_${bamql_out.baseName} testing_folder
-  cp -r ./OUT_${bamql_out.baseName} testing_folder_./2
-
-  touch file_random
-
-  zip -r intermediate_files.zip OUT_${bamql_out.baseName}
-**/

@@ -1,7 +1,7 @@
 FROM ubuntu:18.04 
 #Note that ubuntu 20.04 will not work.  
 
-LABEL maintainer="1)Alfredo Enrique Gonzalez <alfgonzalez@mednet.ucla.edu> "
+LABEL maintainer="Alfredo Enrique Gonzalez <alfgonzalez@mednet.ucla.edu> "
 
 # Install utilities
 RUN sed -i 's/# \(.*multiverse$\)/\1/g' /etc/apt/sources.list \

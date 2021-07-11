@@ -7,31 +7,33 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 
-## [Unreleased]
-### Changed
-- Changed something but it is not part of the last release.
-
----
-
-## [1.0.0] - YYYY-MM-DD
+## [Pre-release] - 2021-06-28
 ### Added
-- For new features.
-- Added item 1.
+- CHANGELOG.md
 
 ### Changed
-- For changes in existing functionality.
-- Changed item 1.
+- Updates and reformatting to README.md 
+- Moved resource allocation from nextflow scripts to configuration file midmem.config
+- Modified inputs:
+    - Before: Needed to specify both mt reference genome and directory with index files needed
+    - Now: Just need to specify single directory containing everything
+- Added missing intermediate files for output from align_mtDNA_MToolBox.nf
 
-### Deprecated
-- For soon-to-be removed features.
-
-### Removed
-- For now removed features.
-- Removed item 1.
+## [Pre-release] - 2021-06-10
+### Added
+- #44 | d9bb7c2: Checksum update
+- Issue reporting template 
 
 ### Fixed
-- For any bug fixes.
-- Fixed item 1.
+- Error in call_heteroplasmy.nf resulting in no output due to improper file paths
 
-### Security
-- In case of vulnerabilities.
+
+## [Pre-release] - 2021-05-14
+### Added
+- #31 CI/CD base
+
+### Changed
+- Directory output organization
+
+### Fixed
+- Extensive code cleanup based on CI/CD
