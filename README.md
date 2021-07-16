@@ -57,28 +57,28 @@ ___
 
 ### 1. Extract mt DNA with BAMQL
 
-BAMQL is a package or query language which the Boutros lab [published](https://doi.org/10.1186/s12859-016-1162-y) and is dedicated to extracting reads from BAM files. Why would you use BAMQL vs other methods you might ask? well the main benefit is readability and ease of use. Obviously there are various ways of extracting reads, you can use SAMTools in the Perl language or pysam inpython, sambasa,  but these way you go about is not the most straight forward , has low readiability and is very prone to user because: the user must indicate which bit flags they require not using names, but the numeric values of those flags. 
+BAMQL is a package or query language which the Boutros lab [published](https://doi.org/10.1186/s12859-016-1162-y) and is dedicated to extracting reads from BAM files.<sup>1-2</sup> Why would you use BAMQL vs other methods you might ask? Well the main benefit is readability and ease of use. Obviously there are various ways of extracting reads, you can use SAMTools in the Perl language or pysam inpython, but these way you go about is not straight forward because of low readiability and is very prone to user error because the user must indicate which bit flags they require not using names but instead the numeric values of those flags. BAMQL adds greater flexbility, and readibility to the extraction process.
 
 ### 2. Align mtDNA with MToolBox
 ![flowchart_mtoolbox_overview](flowchart_mtoolbox_overview.png)
 
-So once we have mitochondrial reads extracted we proceed to Mtoolbox which can accept as input raw data or prealigned reads. 
+So once we have mitochondrial reads extracted we proceed to Mtoolbox which can accept as input raw data or prealigned reads. <sup>3</sup>
 
-In both cases, reads are mapped/remapped by the mapExome.py script to a mitochondrial reference genome. The current pipeline uses the Reconstructed Sapiens Reference Sequence (RSRS). Additional information found [here](https://haplogrep.i-med.ac.at/2014/09/08/rcrs-vs-rsrs-vs-hg19/)
+In both cases, reads are mapped/remapped by the mapExome.py script to a mitochondrial reference genome. The current pipeline uses the Reconstructed Sapiens Reference Sequence (RSRS). Additional information found [here](https://haplogrep.i-med.ac.at/2014/09/08/rcrs-vs-rsrs-vs-hg19/)<sup>4</sup>
 
-Subsequently, after reads mapped on mtDNA, the nuclear reference genome is used to discard Nuclear mitochondrial Sequences (NumtS);  and amplification artifacts which might be present. The resulting Sequence Alignment/Map (SAM) file is then processed for ins/dels realignment with additional putative PCR duplicates removal. This step generates a dataset of highly reliable mitochondrial aligned reads.
+Subsequently, after reads are mapped on the mtDNA reference, the nuclear reference genome is then used to discard Nuclear mitochondrial Sequences (NumtS) and amplification artifacts which might be present. The resulting Sequence Alignment/Map (SAM) file is then processed for ins/dels realignment with additional putative PCR duplicates removal. This step generates a dataset of highly reliable mitochondrial aligned reads.
 
 ### 3. Call mtSNV with mitoCaller
 
 While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 seperate copies. Moreover mtDNA is circular, and it is possible to have heterogeneity at the same base within the mtDNA DNA in the same cell. This means that the general approaches used for variant calling in nuclear DNA must be modified to take in these additional paramaters. 
 
-[mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a package which uses a mitochondria specific algorithm to identify mtDNA variants. mitoCaller incorporates sequencing error rates at each base while allowing allele fractions at variant sites to differ across individuals. Furthermore, the package estimates the copy number of mtDNA in the cell.
+[mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a package which uses a mitochondria specific algorithm to identify mtDNA variants. mitoCaller incorporates sequencing error rates at each base while allowing allele fractions at variant sites to differ across individuals. Furthermore, the package estimates the copy number of mtDNA in the cell.<sup>5-6</sup>
 
 Further literature on the likelihood-based mode, how circularity is handled, and how mtDNA copy number is estimated can be found [here](https://doi.org/10.1371/journal.pgen.1005306)
 
 ### 4. Convert mitoCaller output with Mito2VCF
 
-mitoCaller2vcf converts results from mitoCaller to vcf format as the output of mitoCaller is a .tsv file and must be processed to increase legibility.
+mitoCaller2vcf converts results from mitoCaller to vcf format as the output of mitoCaller is a .tsv file and must be processed to increase legibility.<sup>5</sup>
 
 ### 5. Call Heteroplasmy on Paired Samples
 
@@ -122,12 +122,12 @@ ___
 
 Both WGS and WES aligned bam files were used to test in single and tumor-normal paired modes. Input csv with directory paths and used configs included in test_example.csv .
 
-|| Type | Mode | Size | CPU/Memory | Time |
-|:--|:---|:----|:-----|:-----------|:------|
-|1|WES|Single|4GB|72 cores/141.7 GB | ~4 min|
-|2|WES|Paired|4GB/4GB|72 cores/141.7 GB |~8 min |
-|3|WGS|Single|399GB|72 cores/141.7 GB | ~2h 40 min|
-|4|WGS|Paired|399GB/740GB|72 cores/141.7 GB | ~5 hours|
+|| Type | Mode | Size | CPU threads |PeakVMemory | Run Time |
+|:--|:---|:----|:-----|:-----|:------|:------|
+|1|WES|Single|4GB|72 | 9.381 GB | ~4 min|
+|2|WES|Paired|4GB/4GB|72 | 12.317 GB |~8 min |
+|3|WGS|Single|399GB|72 | 21.042 GB | ~2h 40 min|
+|4|WGS|Paired|399GB/740GB|72 | 26.615 GB | ~5 hours|
 
 ### Validation Tool
 
