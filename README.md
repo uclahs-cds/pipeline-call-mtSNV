@@ -37,7 +37,7 @@ This input csv requires 3 arguments in single mode, 6 in paired. For reference l
 
 
 #### call-mtSNV.config
-The config file requires 9 arguments
+The config file requires 10 arguments
 || Input Parameter | Required | Type | Description |
 |:---|:----------------|:---------|:-----|:----------------------------|
 | 1 | `run_name` | yes | string | This is the overall run name, useful in paired sample mode for organizing outputs. The outputs will be housed in a directory with this name + date information automatically pulled from the system. |
@@ -50,7 +50,7 @@ The config file requires 9 arguments
 | 8 | `save_intermediate_files` | yes | boolean | Save intermediate files. If yes, not only the final BAM, but also the unmerged, unsorted, and duplicates unmarked BAM files will also be saved. |
 | 9 | `cache_intermediate_pipeline_steps` | yes | boolean | Enable cahcing to resume pipeline and the end of the last successful process completion when a pipeline fails (if true the default submission script must be modified)
 | 10 | `sge_scheduler` | only on sge | boolean | If running on SGE or externally as a collaborator, depending on your permission settings you will need to change "sge_scheduler" to "true" |
-
+| 11 | `ucla_cds` | only at UCLA | boolean | If running within UCLA's CDS clusters and wanto toapply optimized UCLA specific memory configurations. |
 ___
 ## Pipeline Steps
 
