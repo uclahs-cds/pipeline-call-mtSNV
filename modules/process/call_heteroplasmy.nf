@@ -1,31 +1,29 @@
 process call_heteroplasmy {
-    container "${params.heteroplasmy_script_docker_image}"
-    label 'process_medium'
+    container params.heteroplasmy_script_docker_image
+        label 'process_medium'
 
-    
     publishDir "${params.output_dir}", 
-    enabled: true, 
-    mode: 'copy',
-    saveAs: {"${params.run_name}_${params.date}/call_heteroplasmy/${file(it).getName()}" }
+        enabled: true, 
+        mode: 'copy',
+        saveAs: {"${params.run_name}_${params.date}/call_heteroplasmy/${file(it).getName()}" }
 
     // tsv
     publishDir params.output_dir, 
-    pattern: "*.tsv",
-    mode: "copy",
-    saveAs: {"${params.run_name}_${params.date}/call_heteroplasmy/${file(it).getName()}" }
+        pattern: "*.tsv",
+        mode: "copy",
+        saveAs: {"${params.run_name}_${params.date}/call_heteroplasmy/${file(it).getName()}" }
 
-        // tsv
+    // info
     publishDir params.output_dir, 
-    pattern: "*.info",
-    mode: "copy",
-    saveAs: {"${params.run_name}_${params.date}/call_heteroplasmy/${file(it).getName()}" }
-
+        pattern: "*.info",
+        mode: "copy",
+        saveAs: {"${params.run_name}_${params.date}/call_heteroplasmy/${file(it).getName()}" }
 
     //logs
     publishDir params.output_dir, 
-    pattern: ".command.*",
-    mode: "copy",
-    saveAs: {"${params.run_name}_${params.date}/log/call_heteroplasmy/${file(it).getName()}" }
+        pattern: ".command.*",
+        mode: "copy",
+        saveAs: {"${params.run_name}_${params.date}/log/call_heteroplasmy/${file(it).getName()}" }
 
     input:
         tuple( 

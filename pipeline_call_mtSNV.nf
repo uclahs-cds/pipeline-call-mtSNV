@@ -1,7 +1,7 @@
 /***
 Copyright (c) 2021, UCLA JCCC / Laboratory of Pual C. Boutros
 'Call-mtSNV' - A Nextflow pipeline for somatic mtSNV (heteroplasmy) calling with NGS data
-Writtent by: Takafumi Yamaguchi
+Written by: Takafumi Yamaguchi
 Nextflowization: Alfredo Enrique Gonzalez, Andrew Park
 ***/
 
@@ -10,15 +10,13 @@ nextflow.enable.dsl=2
 
 //// Import of Local Modules ////
 include { Validate_Inputs                    } from './modules/process/validate_inputs'
-include { extract_mtDNA_BAMQL              } from './modules/process/extract_mtDNA_BAMQL'
-include { align_mtDNA_MToolBox             } from './modules/process/align_mtDNA_MToolBox'
+include { extract_mtDNA_BAMQL                } from './modules/process/extract_mtDNA_BAMQL'
+include { align_mtDNA_MToolBox               } from './modules/process/align_mtDNA_MToolBox'
 include { call_mtSNV_mitoCaller              } from './modules/process/call_mtSNV_mitoCaller'
 include { convert_mitoCaller2vcf_mitoCaller  } from './modules/process/convert_mitoCaller2vcf_mitoCaller'          
 include { call_heteroplasmy                  } from './modules/process/call_heteroplasmy'
 include { validate_outputs                   } from './modules/process/validate_outputs'
 
-
-//// log info  ////
 log.info """\
 ======================================
 C A L L - M T S N V
@@ -54,8 +52,6 @@ Boutros Lab
    """
    .stripIndent()
 
-//// Input paths from input.csv ////
-
   // Conditional for 'paired' sample
 if (params.sample_mode == 'paired') {
   Channel
@@ -74,8 +70,6 @@ if (params.sample_mode == 'paired') {
     .collate(3)
     .set { input_ch }
     }
-
-  // Codnidtional for 'single' sample
     else if (params.sample_mode == 'single') {
       Channel
     .fromPath(params.input_csv)
@@ -89,7 +83,6 @@ if (params.sample_mode == 'paired') {
       }
     .collate(3)
     .set { input_ch }
-
     }
     else {
       throw new Exception('ERROR: params.sample_mode not recognized')

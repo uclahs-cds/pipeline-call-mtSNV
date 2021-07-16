@@ -6,8 +6,26 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [1.0.0-RC1] - 2021-07-15
+### Added
+- sha512 validation to docker images
+- Additional resource allocation files and labels
+- table with output detail in README.md
 
-## [Pre-release] - 2021-06-28
+### Changed
+- reource allocation settings
+- output file grouping in align_mtDNA: "*.{txt,conf,csv,vcf,gz}"
+
+## [Unreleased] - 2021-06-28
+### Added
+- #51 Documentation to CHANGELOG.md
+
+### Changed
+- name of call-mtSNV.config to nextflow.config
+
+
+
+## [Unreleased] - 2021-06-28
 ### Added
 - CHANGELOG.md
 
@@ -19,7 +37,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
     - Now: Just need to specify single directory containing everything
 - Added missing intermediate files for output from align_mtDNA_MToolBox.nf
 
-## [Pre-release] - 2021-06-10
+## [Unreleased] - 2021-06-10
 ### Added
 - #44 | d9bb7c2: Checksum update
 - Issue reporting template 
@@ -28,7 +46,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Error in call_heteroplasmy.nf resulting in no output due to improper file paths
 
 
-## [Pre-release] - 2021-05-14
+## [Unreleased] - 2021-05-14
 ### Added
 - #31 CI/CD base
 

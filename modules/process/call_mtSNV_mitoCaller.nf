@@ -1,8 +1,8 @@
 process call_mtSNV_mitoCaller {
-    container "${params.mitocaller_docker_image}"
+    container params.mitocaller_docker_image
     containerOptions "-v ${params.directory_containing_mt_ref_genome_chrRSRS_files}:/mitochondria-ref/"
     // Note - reference genome needs to be mounted otherwise mitocaller fails
-    label 'process_medium'
+        label 'process_high'
 
     
     publishDir "${params.output_dir}", 

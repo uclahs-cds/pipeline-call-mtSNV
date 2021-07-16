@@ -1,5 +1,5 @@
 process Validate_Inputs {
-   container "${params.validate_docker_image}"
+   container params.validate_docker_image
     label 'process_low'
 
 

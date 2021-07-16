@@ -1,7 +1,5 @@
-//// Process ////
-
 process validate_outputs {
-   container  "${params.validate_docker_image}"
+   container  params.validate_docker_image
 
     input:
         path(file)
