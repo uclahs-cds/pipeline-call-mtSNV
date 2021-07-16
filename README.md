@@ -56,7 +56,8 @@ ___
 
 ### 1. Extract mt DNA with BAMQL
 
-BAMQL is a package or query language which the Boutros lab [published](https://doi.org/10.1186/s12859-016-1162-y) and is dedicated to extracting reads from BAM files.<sup>1-2</sup> Why would you use BAMQL vs other methods you might ask? Well the main benefit is readability and ease of use. Obviously there are various ways of extracting reads, you can use SAMTools in the Perl language or pysam inpython, but these way you go about is not straight forward because of low readiability and is very prone to user error because the user must indicate which bit flags they require not using names but instead the numeric values of those flags. BAMQL adds greater flexbility, and readibility to the extraction process.
+BAMQL is a package or query language which the Boutros lab [published](https://doi.org/10.1186/s12859-016-1162-y) and is dedicated to extracting reads from BAM files.<sup>1-2</sup> Why would you use BAMQL vs other methods you might ask? Well the main benefit is readability and ease of use. Obviously there are various ways of extracting reads, you can use SAMTools in the Perl language or pysam inpython, but these way you go about is not straight forward because of low readability and is very prone to user error because the user must indicate which bit flags they require not using names but instead the numeric values of those flags. BAMQL adds greater flexibility, and readability to the extraction process.
+
 
 ### 2. Align mtDNA with MToolBox
 ![flowchart_mtoolbox_overview](flowchart_mtoolbox_overview.png)
@@ -69,7 +70,7 @@ Subsequently, after reads are mapped on the mtDNA reference, the nuclear referen
 
 ### 3. Call mtSNV with mitoCaller
 
-While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 seperate copies. Moreover mtDNA is circular, and it is possible to have heterogeneity at the same base within the mtDNA DNA in the same cell. This means that the general approaches used for variant calling in nuclear DNA must be modified to take in these additional paramaters. 
+While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 seperate copies. Moreover, mtDNA is circular and it is possible to have heterogeneity at the same base within the mtDNA DNA in the same cell. This means that the general approaches used for variant calling in nuclear DNA must be modified to take in these additional parameters. 
 
 [mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a package which uses a mitochondria specific algorithm to identify mtDNA variants. mitoCaller incorporates sequencing error rates at each base while allowing allele fractions at variant sites to differ across individuals. Furthermore, the package estimates the copy number of mtDNA in the cell.<sup>5-6</sup>
 
@@ -81,7 +82,7 @@ mitoCaller2vcf converts results from mitoCaller to vcf format as the output of m
 
 ### 5. Call Heteroplasmy on Paired Samples
 
-Heteroplasmy is the presence of more than one type of organellar genome (mitochondrial DNA or plastid DNA) within a cell or individual. This script compares and contrast heteroplasmy using the normal sample as a reference point.
+Heteroplasmy is the presence of more than one type of organellar genome (mitochondrial DNA or plastid DNA) within a cell or individual. This script compares heteroplasmy using the normal sample as a reference point.
 
 ## Inputs
 
