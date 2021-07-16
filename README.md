@@ -123,7 +123,7 @@ ___
 Both WGS and WES aligned bam files were used to test in single and tumor-normal paired modes. Input csv with directory paths and used configs included in test_example.csv .
 
 || Type | Mode | Size | CPU/Memory | Time |
-|:---|:------|:---------|:------------|:----------------|
+|:--|:---|:----|:-----|:-----------|:------|
 |1|WES|Single|4GB|72 cores/141.7 GB | ~4 min|
 |2|WES|Paired|4GB/4GB|72 cores/141.7 GB |~8 min |
 |3|WGS|Single|399GB|72 cores/141.7 GB | ~2h 40 min|
