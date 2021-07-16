@@ -1,8 +1,8 @@
 ---
 Category: "pipeline"
 Description: "Nextflow pipeline to extract mt reads, remaps the reads to mitochondrial reference genome, and calls variants using mitoCaller and gives heteroplasmy"
-Maintainers: ["Takafumi Yamaguchi", "Alfredo Enrique Gonzalez"]
-Contributors: ["Takafumi Yamaguchi", "Alfredo Enrique Gonzalez, "Andrew Park"]
+Maintainers: "Takafumi Yamaguchi & Alfredo Enrique Gonzalez"
+Contributors: "Takafumi Yamaguchi, Alfredo Enrique Gonzalez, & Andrew Park"
 Languages: ["Nextflow", "Docker"]
 Dependencies: ["Java", "Nextflow", "Docker"]
 References: "https://github.com/uclahs-cds/pipeline-call-mtSNV/"
