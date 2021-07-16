@@ -2,8 +2,8 @@
 
  [Boutros Lab call-mtSNV pipeline](#Boutros-Lab-call-mtSNV-pipeline)
   - [Overview](#overview)
-  - [How To Run](#how-to-run)
   - [Flow Diagram](#flow-diagram)
+  - [How To Run](#how-to-run)
   - [Pipeline Steps](#pipeline-steps)
      - [1. Extract mtDNA with BAMQL](#1-Extract-mtDNA-with-BAMQL)
      - [2. Align mt Reads with MToolBox](#2-Align-mt-Reads-with-MToolBox)
@@ -22,8 +22,12 @@
 This nextflow pipeline takes an aligned bam file as input and extracts mitochondrial DNA reads, remaps the reads to a mitochondrial reference genome, and subsequently calls variants. It can use be used in single sample and tumor-normal paired mode. Paired mode gives an addtional heteroplasmy comparison.
 ___
 
+## Flow Diagram
+![flowchart_call-mtSNV](flowchart_call-mtSNV.png)
+___
+
 ## How To Run
-Samples can be run by specifying a number of paramaters:
+Samples can be run by specifying file locations in the *input.csv and pipeline-specific paramaters in the call-mtSNV.config:
 
 #### call-mtSNV_input.csv
 This input csv requires 3 arguments in single mode, 6 in paired. For reference look at [Inputs](#inputs)
@@ -46,11 +50,6 @@ The config file requires 9 arguments
 | 8 | `save_intermediate_files` | yes | boolean | Save intermediate files. If yes, not only the final BAM, but also the unmerged, unsorted, and duplicates unmarked BAM files will also be saved. |
 | 9 | `cache_intermediate_pipeline_steps` | yes | boolean | Enable cahcing to resume pipeline and the end of the last successful process completion when a pipeline fails (if true the default submission script must be modified)
 | 10 | `sge_scheduler` | only on sge | boolean | If running on SGE or externally as a collaborator, depending on your permission settings you will need to change "sge_scheduler" to "true" |
-
-___
-
-## Flow Diagram
-![flowchart_call-mtSNV](flowchart_call-mtSNV.png)
 
 ___
 ## Pipeline Steps
