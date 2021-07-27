@@ -19,7 +19,7 @@
   - [References](#references)
 
 ## Overview
-This nextflow pipeline takes an aligned bam file as input and extracts mitochondrial DNA reads, remaps the reads to a mitochondrial reference genome, and subsequently calls variants. It can use be used in single sample and tumor-normal paired mode. Paired mode gives an addtional heteroplasmy comparison.
+This nextflow pipeline takes an aligned BAM file as input and extracts mitochondrial DNA reads, remaps the reads to a mitochondrial reference genome, and subsequently calls variants. It can use be used in single sample and tumor-normal paired mode. Paired mode gives an addtional heteroplasmy comparison.
 ___
 
 ## Flow Diagram
@@ -30,10 +30,10 @@ ___
 Samples can be run by specifying file locations in the *input.csv and pipeline-specific paramaters in the call-mtSNV.config:
 
 #### call-mtSNV_input.csv
-This input csv requires 3 arguments in single mode, 6 in paired. For reference look at [Inputs](#inputs)
+This input CSV requires 3 arguments in single mode, 6 in paired. For reference look at [Inputs](#inputs)
 1. normal or tumour
 2. sample name
-3. bam file path
+3. BAM file path
 
 
 #### call-mtSNV.config
@@ -54,7 +54,7 @@ The config file requires 10 arguments
 ___
 ## Pipeline Steps
 
-### 1. Extract mt DNA with BAMQL
+### 1. Extract mtDNA with BAMQL
 
 BAMQL is a package or query language which the Boutros lab [published](https://doi.org/10.1186/s12859-016-1162-y) and is dedicated to extracting reads from BAM files.<sup>1-2</sup> Why would you use BAMQL vs other methods you might ask? Well the main benefit is readability and ease of use. Obviously there are various ways of extracting reads, you can use SAMTools in the Perl language or pysam inpython, but these way you go about is not straight forward because of low readability and is very prone to user error because the user must indicate which bit flags they require not using names but instead the numeric values of those flags. BAMQL adds greater flexibility, and readability to the extraction process.
 
@@ -62,23 +62,21 @@ BAMQL is a package or query language which the Boutros lab [published](https://d
 ### 2. Align mtDNA with MToolBox
 ![flowchart_mtoolbox_overview](flowchart_mtoolbox_overview.png)
 
-So once we have mitochondrial reads extracted we proceed to Mtoolbox which can accept as input raw data or prealigned reads. <sup>3</sup>
+So once we have mitochondrial reads extracted we proceed to MtoolBox which can accept as input raw data or prealigned reads. <sup>3</sup>
 
 In both cases, reads are mapped/remapped by the mapExome.py script to a mitochondrial reference genome. The current pipeline uses the Reconstructed Sapiens Reference Sequence (RSRS). Additional information found [here](https://haplogrep.i-med.ac.at/2014/09/08/rcrs-vs-rsrs-vs-hg19/)<sup>4</sup>
 
-Subsequently, after reads are mapped on the mtDNA reference, the nuclear reference genome is then used to discard Nuclear mitochondrial Sequences (NumtS) and amplification artifacts which might be present. The resulting Sequence Alignment/Map (SAM) file is then processed for ins/dels realignment with additional putative PCR duplicates removal. This step generates a dataset of highly reliable mitochondrial aligned reads.
+Subsequently, after reads are mapped on the mtDNA reference, the nuclear reference genome is then used to discard nuclear mitochondrial sequences (NumtS) and amplification artifacts which might be present. The resulting Sequence Alignment Map (SAM) file is then processed for ins/dels realignment with additional putative PCR duplicates removal. This step generates a dataset of highly reliable mitochondrial aligned reads.
 
 ### 3. Call mtSNV with mitoCaller
 
 While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 seperate copies. Moreover, mtDNA is circular and it is possible to have heterogeneity at the same base within the mtDNA DNA in the same cell. This means that the general approaches used for variant calling in nuclear DNA must be modified to take in these additional parameters. 
 
-[mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a package which uses a mitochondria specific algorithm to identify mtDNA variants. mitoCaller incorporates sequencing error rates at each base while allowing allele fractions at variant sites to differ across individuals. Furthermore, the package estimates the copy number of mtDNA in the cell.<sup>5-6</sup>
-
-Further literature on the likelihood-based mode, how circularity is handled, and how mtDNA copy number is estimated can be found [here](https://doi.org/10.1371/journal.pgen.1005306)
+[mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a is a script which uses a mitochondria specific algorithm to identify mtDNA variants. <sup>5-6</sup> Further literature on the likelihood-based mode, how circularity is handled, and how mtDNA copy number is estimated can be found [here](https://doi.org/10.1371/journal.pgen.1005306)
 
 ### 4. Convert mitoCaller output with Mito2VCF
 
-mitoCaller2vcf converts results from mitoCaller to vcf format as the output of mitoCaller is a .tsv file and must be processed to increase legibility.<sup>5</sup>
+mitoCaller2VCF converts results from mitoCaller to VCF format as the output of mitoCaller is a TSV file and must be processed to increase legibility.<sup>5</sup>
 
 ### 5. Call Heteroplasmy on Paired Samples
 
@@ -86,16 +84,16 @@ Heteroplasmy is the presence of more than one type of organellar genome (mitocho
 
 ## Inputs
 
->The input csv must have all columns below and in the same order. Input are aligned bam files. Sample input file can be found [here](https://github.com/uclahs-cds/pipeline-call-mtSNV/blob/Alfredo-dev/inputs/call-mtSNV_input.csv)
+>The input CSV must have all columns below and in the same order. Input are aligned BAM files. Sample input file can be found [here](https://github.com/uclahs-cds/pipeline-call-mtSNV/blob/Alfredo-dev/inputs/call-mtSNV_input.csv)
 
 | Field | Type | Description |
 |:------|:-----|:----------------------------|
 | sample_input_1_type | string | Need to specify "normal" or "tumor". |
 | sample_input_1_name | string | Name of sample. This is the name that will be used for file name outputs. |
-| sample_input_1_path | path | Absolute path to input bam file. |
+| sample_input_1_path | path | Absolute path to input BAM file. |
 | sample_input_2_type | string | Need to specify "normal" or "tumor". |
 | sample_input_2_name | string | Name of sample. This is the name that will be used for file name outputs. |
-| sample_input_2_path | path | Absolute path to input bam file. |
+| sample_input_2_path | path | Absolute path to input BAM file. |
 ___
 
 ## Outputs
@@ -103,15 +101,15 @@ ___
 |Process| Output | category| Description |
 |:------|:--------|:--------|:----------------|
 |extract_mtDNA_BAMQL|*OUT2-sorted.bam|main|Outputs Bam file with only mitochondrial reads|
-|align_mtDNA_MToolBox|.bam|main|Aligned, sorted, mitochondrial reads in bam format|
+|align_mtDNA_MToolBox|.bam|main|Aligned, sorted, mitochondrial reads in BAM format|
+|align_mtDNA_MToolBox|prioritized_variants.txt|main|Contains annotation only for prioritized variants for each sample analyzed,sorted by increasing nucleotide variability|
+|align_mtDNA_MToolBox|summary*.txt|main|Summary of selected options. Includes predicted haplogroups, total and prioritized variants, coverage of reconstructed genomes, count of homoplasmic and heteroplasmic variants|
 |align_mtDNA_MToolBox|.vcf|intermediate|Contains mitochondrial variant positions against reference genome|
 |align_mtDNA_MToolBox|.csv|intermediate|Contains the best haplogroup prediction for each sequence|
-|align_mtDNA_MToolBox|prioritized_variants.txt|intermediate|Contains annotation only for prioritized variants for each sample analyzed,sorted by increasing nucleotide variability|
-|align_mtDNA_MToolBox|summary*.txt|intermediate|Summary of selected options. Includes predicted haplogroups, total and prioritized variants, coverage of reconstructed genomes, count of homoplasmic and heteroplasmic variants|
 |align_mtDNA_MToolBox|folder OUT_*|intermediate|This folder contains additional intermediate files. Description of the contents can be found [here](https://github.com/mitoNGS/MToolBox/wiki/Output-files)|
 |call_mtSNV_mitoCaller|*mitocaller.tsv|main|Contains mtDNA variants (i.e., homoplasmies and heteroplasmies|
 |call_mtSNV_mitoCaller|*mitocaller.tsv|intermediate|gziped tsv file|
-|convert_mitoCaller2vcf|*.vcf|main|2 *.vcf files containing mitoCaller calls in more legible format|
+|convert_mitoCaller2VCF|*.vcf|main|2 *.VCF files containing mitoCaller calls in more legible format|
 |call_heteroplasmy|*.tsv|main|a *.tsv table showing differences in the normal genotype vs tumour genotype. It also gives heteroplasmy_fraction if there is any|
 
 ___
@@ -120,7 +118,7 @@ ___
 
 ### Test Data Set
 
-Both WGS and WES aligned bam files were used to test in single and tumor-normal paired modes. Input csv with directory paths and used configs included in test_example.csv .
+Both WGS and WES aligned BAM files were used to test in single and tumor-normal paired modes. Input CSV with directory paths and used configs included in test_example.csv .
 
 || Type | Mode | Size | CPU threads |PeakVMemory | Run Time |
 |:--|:---|:----|:-----|:-----|:------|:------|

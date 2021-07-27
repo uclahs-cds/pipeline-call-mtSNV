@@ -37,12 +37,9 @@ process call_mtSNV_mitoCaller {
       path '.command.*' 
    
     script:
-     //this statement is essential to track identity of file i.e. tumor, normal
     """
-    
     /MitoCaller/mitoCaller -m -b "${mtoolbox_out}"  -r /mitochondria-ref/chrRSRS.fa -v ${type}_${sample_name}_mitocaller.tsv
     gzip -k ${type}_${sample_name}_mitocaller.tsv
-
     """
 }
 

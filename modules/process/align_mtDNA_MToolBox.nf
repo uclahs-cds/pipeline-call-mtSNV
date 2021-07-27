@@ -5,16 +5,10 @@ process align_mtDNA_MToolBox {
     
     // Main ouput recalibrated & reheadered reads
     publishDir params.output_dir, 
-        pattern: "OUT_${bamql_out.baseName}/${sample_name}_mtoolbox_OUT2-sorted.bam",
+        pattern: "{OUT_${bamql_out.baseName}/${sample_name}_mtoolbox_OUT2-sorted.bam,mt_classification_best_results.csv,summary*.txt}",
         mode: 'copy',
         saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }
     
-    // mtoolbox folder with supplementary files
-    publishDir params.output_dir, 
-        enabled: params.save_intermediate_files,
-        pattern: "*.{txt,conf,csv,vcf,gz}",
-        mode: 'copy',
-        saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }
     
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
@@ -28,6 +22,12 @@ process align_mtDNA_MToolBox {
         mode: 'copy',
         saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }
 
+    // mtoolbox folder with supplementary files
+    publishDir params.output_dir, 
+        enabled: params.save_intermediate_files,
+        pattern: "*.{txt,conf,vcf,gz}",
+        mode: 'copy',
+        saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }
   
     //logs
     publishDir path: params.output_dir,
