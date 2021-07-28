@@ -65,7 +65,7 @@ So once we have mitochondrial reads extracted we proceed to MtoolBox which can a
 
 In both cases, reads are mapped/remapped by the mapExome.py script to a mitochondrial reference genome. The current pipeline uses the Reconstructed Sapiens Reference Sequence (RSRS). Additional information found [here](https://haplogrep.i-med.ac.at/2014/09/08/rcrs-vs-rsrs-vs-hg19/)<sup>4</sup>
 
-Subsequently, after reads are mapped on the mtDNA reference, the nuclear reference genome is then used to discard nuclear mitochondrial sequences (NumtS) and amplification artifacts which might be present. The resulting Sequence Alignment Map (SAM) file is then processed for ins/dels realignment with additional putative PCR duplicates removal. This step generates a dataset of highly reliable mitochondrial aligned reads.
+This step generates a dataset of reliable mitochondrial aligned reads.
 
 ### 3. Call mtSNV with mitoCaller
 
