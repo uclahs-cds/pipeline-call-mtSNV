@@ -7,13 +7,15 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 ## [1.0.0-RC1] - 2021-07-28
-### Changed
-- Added PULL_REQUEST_TEMPLATE.md
+### Added
+- #56 | ce1e16d: Added PULL_REQUEST_TEMPLATE.md
+
 
 ## [1.0.0-RC1] - 2021-07-27
 ### Changed
-- README.md cleaned up for typos and incorrect statements
-- Main output of align_mtDNA-MToolBox changed to include summary_date.txt and mt_classification_best_results.csv
+- #54: README.md cleaned up for typos and incorrect statements
+- #54: Main output of align_mtDNA-MToolBox changed to include summary_date.txt and mt_classification_best_results.csv
+
 
 ## [1.0.0-RC1] - 2021-07-15
 ### Added
@@ -44,6 +46,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
     - Before: Needed to specify both mt reference genome and directory with index files needed
     - Now: Just need to specify single directory containing everything
 - Added missing intermediate files for output from align_mtDNA_MToolBox.nf
+
 
 ## [Unreleased] - 2021-06-10
 ### Added
