@@ -6,9 +6,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [1.0.0-RC1] - 2021-07-15
+## [1.0.0-RC1] - 2021-07-28
 ### Changed
-- README.md typo and capitalized file names
+- Added PULL_REQUEST_TEMPLATE.md
+
+## [1.0.0-RC1] - 2021-07-27
+### Changed
+- README.md cleaned up for typos and incorrect statements
 - Main output of align_mtDNA-MToolBox changed to include summary_date.txt and mt_classification_best_results.csv
 
 ## [1.0.0-RC1] - 2021-07-15
