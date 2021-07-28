@@ -6,10 +6,12 @@ on:
     branches:
       - master
       - main
+      - Alfredo-dev
   pull_request:
     branches:
       - master
       - main
+      - Alfredo-dev
 
 jobs:
   CICD-base:
@@ -18,11 +20,8 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      # Checkout codebase
       - name: Checkout
         uses: actions/checkout@v2
 
-      # Run CICD-base
       - name: CICD-base
         uses: docker://blcdsdockerregistry/cicd-base:latest
-

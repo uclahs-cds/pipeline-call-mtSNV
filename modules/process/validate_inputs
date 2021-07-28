@@ -1,0 +1,20 @@
+process Validate_Inputs {
+   container params.validate_docker_image
+    label 'process_low'
+
+
+    input:
+      tuple(
+        val(type), 
+        val(name),
+        path(file)
+        )    
+    
+    script:
+   """
+   set -euo pipefail
+   
+   python -m validate -t file-input ${file}
+   """
+}
+
