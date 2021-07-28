@@ -56,8 +56,7 @@ ___
 
 ### 1. Extract mtDNA with BAMQL
 
-BAMQL is a package or query language which the Boutros lab [published](https://doi.org/10.1186/s12859-016-1162-y) and is dedicated to extracting reads from BAM files.<sup>1-2</sup> Why would you use BAMQL vs other methods you might ask? Well the main benefit is readability and ease of use. Obviously there are various ways of extracting reads, you can use SAMTools in the Perl language or pysam inpython, but these way you go about is not straight forward because of low readability and is very prone to user error because the user must indicate which bit flags they require not using names but instead the numeric values of those flags. BAMQL adds greater flexibility, and readability to the extraction process.
-
+BAMQL is a package or query language which the Boutros lab [published](https://doi.org/10.1186/s12859-016-1162-y) and is dedicated to extracting reads from BAM files.<sup>1-2</sup> Why do we use BAMQL vs other methods you might ask? Well the main benefit is readability and ease of use regarding the extraction of mitochondrial reads. Obviously there are various ways of extracting reads, you can use pysam in python for example, but most commonly used approaches have low readability or are very prone to use error when it comes to specifying mitochondrial reads as they rely on convoluted numeric values or obscure bit flags. BAMQL adds greater flexibility and readability to the extraction process in this use case.
 
 ### 2. Align mtDNA with MToolBox
 ![flowchart_mtoolbox_overview](flowchart_mtoolbox_overview.png)

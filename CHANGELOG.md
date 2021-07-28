@@ -7,6 +7,11 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 ## [1.0.0-RC1] - 2021-07-15
+### Changed
+- README.md typo and capitalized file names
+- Main output of align_mtDNA-MToolBox changed to include summary_date.txt and mt_classification_best_results.csv
+
+## [1.0.0-RC1] - 2021-07-15
 ### Added
 - sha512 validation to docker images
 - Additional resource allocation files and labels
@@ -22,7 +27,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Changed
 - name of call-mtSNV.config to nextflow.config
-
 
 
 ## [Unreleased] - 2021-06-28

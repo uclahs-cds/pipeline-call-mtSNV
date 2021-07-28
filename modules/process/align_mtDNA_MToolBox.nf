@@ -5,10 +5,9 @@ process align_mtDNA_MToolBox {
     
     // Main ouput recalibrated & reheadered reads
     publishDir params.output_dir, 
-        pattern: "{OUT_${bamql_out.baseName}/${sample_name}_mtoolbox_OUT2-sorted.bam,mt_classification_best_results.csv,summary*.txt}",
+        pattern: "{OUT_${bamql_out.baseName}/OUT2-sorted.bam,mt_classification_best_results.csv,summary*.txt}",
         mode: 'copy',
-        saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }
-    
+        saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${sample_name}_${file(it).getName()}" }
     
     publishDir params.output_dir, 
         enabled: params.save_intermediate_files,
@@ -41,13 +40,12 @@ process align_mtDNA_MToolBox {
       val type
 
     output: 
-      path "OUT_${bamql_out.baseName}/${sample_name}_mtoolbox_OUT2-sorted.bam", emit: bams
+      path "OUT_${bamql_out.baseName}/OUT2-sorted.bam", emit: bams
       val sample_name, emit: sample_name
       val type, emit: type
 
       path '.command.*'
       path("OUT_${bamql_out.baseName}")
-      path("contents.txt")
       path("*.csv")
       path("*.txt")
       path("*.gz")
@@ -65,8 +63,5 @@ process align_mtDNA_MToolBox {
   
   MToolBox.sh -i config_'${bamql_out.baseName}'.conf -m '-t ${task.cpus}'
 
-  mv OUT_${bamql_out.baseName}/OUT2-sorted.bam OUT_${bamql_out.baseName}/${sample_name}_mtoolbox_OUT2-sorted.bam
-
-  ls > contents.txt
   """
 }
