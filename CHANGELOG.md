@@ -19,13 +19,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [1.0.0-RC1] - 2021-07-15
 ### Added
-- sha512 validation to docker images
-- Additional resource allocation files and labels
+- #44: sha512 validation to docker images
+- #53: Additional resource allocation files and labels
 - table with output detail in README.md
 
 ### Changed
-- reource allocation settings
-- output file grouping in align_mtDNA: "*.{txt,conf,csv,vcf,gz}"
+- #53: reource allocation settings
+- #39: output file grouping in align_mtDNA: "*.{txt,conf,csv,vcf,gz}"
 
 ## [Unreleased] - 2021-06-28
 ### Added
@@ -37,10 +37,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased] - 2021-06-28
 ### Added
-- CHANGELOG.md
+- #51: CHANGELOG.md
 
 ### Changed
-- Updates and reformatting to README.md 
+- #51: Updates and reformatting to README.md 
 - Moved resource allocation from nextflow scripts to configuration file midmem.config
 - Modified inputs:
     - Before: Needed to specify both mt reference genome and directory with index files needed
