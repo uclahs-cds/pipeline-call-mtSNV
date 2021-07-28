@@ -23,13 +23,13 @@ Closes #...
 **Test Results**
 
 - sample_mode = 'paired'
-	- sample_1:    <!-- e.g. A-mini S2.T-1, A-mini S2.T-n1 -->
-	- sample_2:    <!-- e.g. A-mini S2.T-1, A-mini S2.T-n1 -->
+	- sample_1:    <!-- e.g.BLCSNTGT0000011 -->
+	- sample_2:    <!-- e.g. BLCSNTGT000001_copy -->
 	- input csv: <!-- path/to/input.csv -->
 	- config:    <!-- path/to/xxx.config -->
     - output_folder: <!-- path/to/output_folder -->
 - sample_mode = single
-	- sample:    <!-- e.g. A-mini S2.T-1, A-mini S2.T-n1 --> 
+	- sample:    <!-- e.g. BLCSNTGT000001 --> 
 	- input csv: <!-- path/to/input.csv -->
 	- config:    <!-- path/to/xxx.config -->  
     - output_folder: <!-- path/to/output_folder -->
