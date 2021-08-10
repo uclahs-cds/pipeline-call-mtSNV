@@ -11,7 +11,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Initial Release
 
 
-## [1.0.0-RC1] - 2021-07-28
+## [1.0.0-rc1] - 2021-07-28
 ### Added
 - #56 | ce1e16d: Added PULL_REQUEST_TEMPLATE.md
 
