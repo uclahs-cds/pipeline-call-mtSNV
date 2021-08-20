@@ -6,12 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [1.0.0] - 2021-08-0X
+## [1.0.0] - 2021-08-20
 ### Added
-- Initial Release
+- Initial release
 
 
-## [1.0.0-rc1] - 2021-07-28
+## [1.0.0-rc1] - 2021-08-10
 ### Added
 - #56 | ce1e16d: Added PULL_REQUEST_TEMPLATE.md
 
