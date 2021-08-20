@@ -19,7 +19,7 @@
   - [References](#references)
 
 ## Overview
-This nextflow pipeline takes an aligned BAM file as input and extracts mitochondrial DNA reads, remaps the reads to a mitochondrial reference genome, and subsequently calls variants. It can use be used in single sample and tumor-normal paired mode. Paired mode gives an addtional heteroplasmy comparison.
+This nextflow pipeline takes as input either a single aligned BAM or a pair of normal tumor bams,  and extracts mitochondrial DNA reads, remaps the reads to a mitochondrial reference genome, and subsequently calls variants. It can use be used in single sample and tumor-normal paired mode. Paired mode gives an addtional heteroplasmy comparison.
 ___
 
 ## Flow Diagram
@@ -88,10 +88,10 @@ Heteroplasmy is the presence of more than one type of organellar genome (mitocho
 | Field | Type | Description |
 |:------|:-----|:----------------------------|
 | sample_input_1_type | string | Need to specify "normal" or "tumor". |
-| sample_input_1_name | string | Name of sample. This is the name that will be used for file name outputs. |
+| sample_input_1_name | string | Name of sample. This is the name that will be used for file name outputs. Note- do not include a file extension in the name. |
 | sample_input_1_path | path | Absolute path to input BAM file. |
 | sample_input_2_type | string | Need to specify "normal" or "tumor". |
-| sample_input_2_name | string | Name of sample. This is the name that will be used for file name outputs. |
+| sample_input_2_name | string | Name of sample. This is the name that will be used for file name outputs. Note- do not include a file extension in the name. |
 | sample_input_2_path | path | Absolute path to input BAM file. |
 ___
 
