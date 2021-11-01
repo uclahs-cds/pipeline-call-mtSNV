@@ -17,6 +17,7 @@
     - [Validation ](#validation-version-number)
     - [Validation Tool](#validation-tool)
   - [References](#references)
+  - [License](#license) 
 
 ## Overview
 This nextflow pipeline takes as input either a single aligned BAM or a pair of normal tumor bams,  and extracts mitochondrial DNA reads, remaps the reads to a mitochondrial reference genome, and subsequently calls variants. It can use be used in single sample and tumor-normal paired mode. Paired mode gives an addtional heteroplasmy comparison.
