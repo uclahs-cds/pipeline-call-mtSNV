@@ -17,6 +17,7 @@
     - [Validation ](#validation-version-number)
     - [Validation Tool](#validation-tool)
   - [References](#references)
+  - [License](#license) 
 
 ## Overview
 This nextflow pipeline takes as input either a single aligned BAM or a pair of normal tumor bams,  and extracts mitochondrial DNA reads, remaps the reads to a mitochondrial reference genome, and subsequently calls variants. It can use be used in single sample and tumor-normal paired mode. Paired mode gives an addtional heteroplasmy comparison.
@@ -139,3 +140,19 @@ Included is a template for validating your input files. For more information on 
 04. [MToolBox github](https://github.com/mitoNGS/MToolBox)
 05. [mitoCaller](https://lgsun.irp.nia.nih.gov/hsgu/software/mitoAnalyzer/mitoAnalyzer.htm)
 06. [Ding J, Sidore C, Butler TJ, Wing MK, Qian Y, et al. (2015) Correction: Assessing Mitochondrial DNA Variation and Copy Number in Lymphocytes of ~2,000 Sardinians Using Tailored Sequencing Analysis Tools](https://doi.org/10.1371/journal.pgen.1005306)
+
+---
+
+## License
+
+Author: Alfredo Gonzalez (alfgonzalez@mednet.ucla.edu), Takafumi Yamaguchi (tyamaguchi@mednet.ucla.edu)
+
+Call-mtSNV is licensed under the GNU General Public License version 2. See the file LICENSE for the terms of the GNU GPL license.
+
+Call-mtSNV takes a single aligned BAM or pair of normal tumor bams and does variant calling for mtDNA.
+
+Copyright (C) 2021 University of California Los Angeles ("Boutros Lab") All rights reserved.
+
+This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
