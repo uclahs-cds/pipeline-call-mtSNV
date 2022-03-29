@@ -27,15 +27,12 @@ process call_mtSNV_mitoCaller {
       tuple(
         val(type),
         val(sample_name),
-        file(mtoolbox_out)
+        path(mtoolbox_out)
         )
 
     output:
-
-      path "${type}_${sample_name}_mitocaller.tsv", emit: tsv
+     tuple val(type), val(sample_name), path("${type}_${sample_name}_mitocaller.tsv"), emit: main_output
       path "${type}_${sample_name}_mitocaller.tsv.gz", emit: gz
-      val sample_name, emit: sample_name
-      val type, emit: type
       path '.command.*'
 
     script:
