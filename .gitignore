@@ -2,3 +2,5 @@ work/
 .nextflow/
 *.nextflow.log*
 .DS_Store
+
+test
