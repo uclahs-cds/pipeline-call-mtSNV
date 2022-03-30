@@ -30,21 +30,17 @@ Boutros Lab
 
     - input:
         input_csv: ${params.input_csv}
-        mt_ref = ${params.mt_ref}
         gmapdb = ${params.gmapdb}
-        genome_fasta = ${params.genome_fasta}
-        reference_genome = ${params.reference_genome_hg38}
+        mt_reference_genome = ${params.directory_containing_mt_ref_genome_chrRSRS_files}
 
     - output: x
         temp_dir: ${params.temp_dir}
         output_dir: ${params.output_dir}
-        lot_output_dir: ${params.log_output_dir}
 
     - options:
       sample_mode = ${params.sample_mode}
       save_intermediate_files = ${params.save_intermediate_files}
       cache_intermediate_pipeline_steps = ${params.cache_intermediate_pipeline_steps}
-      max_number_of_parallel_jobs = ${params.max_number_of_parallel_jobs}
 
     ------------------------------------
     Starting workflow...
@@ -66,17 +62,38 @@ if (params.sample_mode == 'paired') {
                     normal_BAM: it.normal_BAM
                     tumour_key: 'tumour'
                     tumour_id: it.tumour_id
-                    tumour_BAM: it.tumour_BAM
-                    }
-      .set{ input_csv_ch }
+                    tumour_BAM: it.tumour_BAM }
+        .set{ input_csv_ch }
 
-      input_csv_ch.normal_key.concat(
-          input_csv_ch.normal_id,
-          input_csv_ch.normal_BAM,
-          input_csv_ch.tumour_key,
-          input_csv_ch.tumour_id,
-          input_csv_ch.tumour_BAM
-          ).collate(3).set{main_work_ch}
+    input_csv_ch.normal_key.concat(
+            input_csv_ch.normal_id,
+            input_csv_ch.normal_BAM,
+            input_csv_ch.tumour_key,
+            input_csv_ch.tumour_id,
+            input_csv_ch.tumour_BAM )
+        .collate(3)
+        .set{ main_work_ch }
+    }
+
+ else if (params.sample_mode == 'single') {
+     Channel
+        .fromPath(params.input_csv)
+        .ifEmpty { exit 1, "params.input_csv was empty - no input files supplied" }
+        .splitCsv(header:true)
+        .multiMap { it ->
+                    project_id: it.project_id
+                    sample_id: it.sample_id
+                    single_sample_key: 'single_sample'
+                    single_sample_id: it.normal_id
+                    single_sample_BAM: it.normal_BAM }
+        .set{ input_csv_ch }
+
+     input_csv_ch.single_sample_key.concat( input_csv_ch.single_sample_id, input_csv_ch.single_sample_BAM )
+        .collate(3)
+        .set{ main_work_ch }
+ }
+
+
 
 
 
@@ -101,7 +118,6 @@ if (params.sample_mode == 'paired') {
 
     // main2ch = main.collate(1)
     // tumour_ch = [ branched_input.tumour_key, branched_input.tumour_id, branched_input.tumour_BAM ]
-}
     // main_ch = normal_ch.mix(tumour_ch)
         // .map{
         //           project_id: it.project_id
@@ -171,6 +187,8 @@ workflow{
   if (params.sample_mode == 'paired') {
     call_heteroplasmy( mitoCaller_forked_ch.normal, mitoCaller_forked_ch.tumour )
     }
+
+    //
 
   // //step 7: validate output script
   // validate_outputs(
