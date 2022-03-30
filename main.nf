@@ -150,23 +150,27 @@ workflow{
  //step 2: extraction of mitochondrial reads using BAMQL
   extract_mtDNA_BAMQL( main_work_ch )
 
-  // //step 3: remapping reads with mtoolbox
+  //step 3: remapping reads with mtoolbox
   align_mtDNA_MToolBox( extract_mtDNA_BAMQL.out.main_output )
 
-  // //step 4: variant calling with mitocaller
+  //step 4: variant calling with mitocaller
   call_mtSNV_mitoCaller( align_mtDNA_MToolBox.out.main_output )
 
-  // //step 5: change mitocaller output to vcf
+  //step 5: change mitocaller output to vcf
   convert_mitoCaller2vcf_mitoCaller(  call_mtSNV_mitoCaller.out.main_output )
-  //   call_mtSNV_mitoCaller.out.tsv,
-  //   call_mtSNV_mitoCaller.out.sample_name,
-  //   call_mtSNV_mitoCaller.out.type
-  //   )
+
+  //Fork mitoCaller Output
+
+  call_mtSNV_mitoCaller.out.main_output.branch{
+        normal: it[0] == 'normal'
+        tumour: it[0] == 'tumour'
+  }
+  .set{ mitoCaller_forked_ch }
 
   // //step 6: call heteroplasmy script
-  // if (params.sample_mode == 'paired') {
-  //   call_heteroplasmy( call_mtSNV_mitoCaller.out.gz.toSortedList() )
-  //   }
+  if (params.sample_mode == 'paired') {
+    call_heteroplasmy( mitoCaller_forked_ch.normal, mitoCaller_forked_ch.tumour )
+    }
 
   // //step 7: validate output script
   // validate_outputs(
