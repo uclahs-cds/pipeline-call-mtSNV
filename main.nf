@@ -190,11 +190,11 @@ workflow{
 
     //
 
-  // //step 7: validate output script
-  // validate_outputs(
-  //   convert_mitoCaller2vcf_mitoCaller
-  //   .out
-  //   .vcf
-  //   .flatten()
-  // )
+  //step 7: validate output script
+  validate_outputs(
+    convert_mitoCaller2vcf_mitoCaller
+    .out
+    .vcf
+    .flatten()
+  )
 }
