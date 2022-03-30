@@ -173,7 +173,7 @@ workflow{
   call_mtSNV_mitoCaller( align_mtDNA_MToolBox.out.main_output )
 
   //step 5: change mitocaller output to vcf
-  convert_mitoCaller2vcf_mitoCaller(  call_mtSNV_mitoCaller.out.main_output )
+  convert_mitoCaller2vcf_mitoCaller(  call_mtSNV_mitoCaller.out.tsv_output )
 
   //Fork mitoCaller Output
 

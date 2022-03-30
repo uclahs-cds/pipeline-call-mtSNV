@@ -7,14 +7,23 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 ## [Unreleased]
+## [1.1.0] -
+### Fixed
+- #61 + #62 | normal tumour genotyped flipping on final call-heteroplasmy comparison
+
+### Changed
+- Input format and workflow logic
+
+---
 ### Added
 - GPL2 License added
 
+---
 ## [1.0.0] - 2021-08-20
 ### Added
 - Initial release
 
-
+---
 ## [1.0.0-rc1] - 2021-08-10
 ### Added
 - #56 | ce1e16d: Added PULL_REQUEST_TEMPLATE.md
