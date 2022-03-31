@@ -93,71 +93,6 @@ if (params.sample_mode == 'paired') {
         .set{ main_work_ch }
  }
 
-
-
-
-
-      // normal_ch = [ branched_input.normal_key, branched_input.normal_id, branched_input.normal_BAM ]
-
-      // branched_input.mix.multiMap{ it ->
-      //   sample_id: it.sample_id
-      //   normal_key: 'normal'
-      //   normal_id: it.normal_id
-      // }
-      // .set{ normal_ch }
-
-
-
-      // branched_input.collate(2).set{ main_flow_ch}
-
-      // identifiers_ch = branched_input{ it -> it.normal_id + it.normal_BAM}.collect()
-
-
-    // project_sample_ch = [ branched_input.project_id, branched_input.sample_id ]
-    // main = [ [ branched_input.normal_key, branched_input.normal_id, branched_input.normal_BAM ] , [ branched_input.tumour_key, branched_input.tumour_id, branched_input.tumour_BAM ] ]
-
-    // main2ch = main.collate(1)
-    // tumour_ch = [ branched_input.tumour_key, branched_input.tumour_id, branched_input.tumour_BAM ]
-    // main_ch = normal_ch.mix(tumour_ch)
-        // .map{
-        //           project_id: it.project_id
-        //           sample_id: it.sample_id
-        //           normal_fill: 'normal'
-        //           normal_id: it.normal_id
-    //     //           normal_BAM: it.normal_BAM
-    //     //           tumour_id: it.tumour_id
-    //     //           tumour_BAM: it.tumour_BAM
-    //     //           }
-    //     .set{ starting_ch }
-
-    //     starting_ch.project_id.collect.set{ new_ch }
-
-    //     // sample_type_info = [ starting_ch.project_id.first().collect().map{ it -> [project_id: it] }, starting_ch.sample_id ]
-    //     // .branch{
-    //     //   normal: it == 'normal_id'
-    //     //   tumour: it == it.tumour_id
-    //     //   normal_BAM: it == it.normal_BAM
-    //     // }
-    //     // .set { input_ch }
-    // }
-    // else if (params.sample_mode == 'single') {
-    //   Channel
-    // .fromPath(params.input_csv)
-    // .ifEmpty { exit 1, "params.input_csv was empty - no input files supplied" }
-    // .splitCsv(header:true)
-    // .flatMap{ row -> tuple(
-    //   row.sample_input_1_type,
-    //   row.sample_input_1_name,
-    //   row.sample_input_1_path
-    //   )
-    //   }
-    // .collate(3)
-    // .set { input_ch }
-    // }
-    // else {
-    //   throw new Exception('ERROR: params.sample_mode not recognized')
-    // }
-
 workflow{
 
   //step 1: validation of inputs
@@ -187,8 +122,6 @@ workflow{
   if (params.sample_mode == 'paired') {
     call_heteroplasmy( mitoCaller_forked_ch.normal, mitoCaller_forked_ch.tumour )
     }
-
-    //
 
   //step 7: validate output script
   validate_outputs(
