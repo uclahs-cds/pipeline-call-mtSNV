@@ -7,7 +7,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 ## [Unreleased]
-## [1.1.0] -
+## [1.1.0] - 2022-03-16
 ### Fixed
 - #61 + #62 | normal tumour genotyped flipping on final call-heteroplasmy comparison
 
