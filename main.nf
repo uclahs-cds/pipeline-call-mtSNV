@@ -57,22 +57,11 @@ if (params.sample_mode == 'paired') {
         .multiMap { it ->
                     project_id: it.project_id
                     sample_id: it.sample_id
-                    normal_key: 'normal'
-                    normal_id: it.normal_id
-                    normal_BAM: it.normal_BAM
-                    tumour_key: 'tumour'
-                    tumour_id: it.tumour_id
-                    tumour_BAM: it.tumour_BAM }
-        .set{ input_csv_ch }
+                    normal_ch: ['normal', it.normal_id, it.normal_BAM]
+                    tumour_ch: ['tumour', it.tumour_id, it.tumour_BAM] }
+        .set { input_csv_ch }
 
-    input_csv_ch.normal_key.concat(
-            input_csv_ch.normal_id,
-            input_csv_ch.normal_BAM,
-            input_csv_ch.tumour_key,
-            input_csv_ch.tumour_id,
-            input_csv_ch.tumour_BAM )
-        .collate(3)
-        .set{ main_work_ch }
+    input_csv_ch.normal_ch.mix(input_csv_ch.tumour_ch).set { main_work_ch }
     }
 
  else if (params.sample_mode == 'single') {
@@ -83,14 +72,9 @@ if (params.sample_mode == 'paired') {
         .multiMap { it ->
                     project_id: it.project_id
                     sample_id: it.sample_id
-                    single_sample_key: 'single_sample'
-                    single_sample_id: it.normal_id
-                    single_sample_BAM: it.normal_BAM }
+                    single_sample: ['single_sample', it.normal_id, it.normal_BAM] }
         .set{ input_csv_ch }
-
-     input_csv_ch.single_sample_key.concat( input_csv_ch.single_sample_id, input_csv_ch.single_sample_BAM )
-        .collate(3)
-        .set{ main_work_ch }
+    input_csv_ch.single_sample.set{ main_work_ch }
  }
 
 workflow{

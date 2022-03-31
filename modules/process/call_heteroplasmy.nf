@@ -23,7 +23,7 @@ process call_heteroplasmy {
     publishDir params.output_dir,
         pattern: ".command.*",
         mode: "copy",
-        saveAs: {"${params.run_name}_${params.date}/log/call_heteroplasmy/${file(it).getName()}" }
+        saveAs: {"${params.run_name}_${params.date}/log/call_heteroplasmy/log${file(it).getName()}" }
 
     input:
         tuple(
