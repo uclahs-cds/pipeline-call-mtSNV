@@ -22,7 +22,7 @@ use File::Spec;
 use File::Basename;
 use File::Path qw(make_path);
 use Data::Dumper;
-use Log::ProgramInfo;
+#use Log::ProgramInfo;
 ### COMMAND LINE DEFAULT ARGUMENTS ################################################################
 # list of arguments and default values go here as hash key/value pairs
 our %opts = (
@@ -77,7 +77,12 @@ sub main {
 		$data = read_table($opts{tumour_table}, 'tumour', $data);
 		#print header
 		open (my $fh_out, '>', $opts{output});
-		my $output_filt = join('_', 'filtered', $opts{output});
+
+		# Create output for filtered heteroplasmy calls
+		my ($base_name, $dir) = fileparse($opts{output});
+		my $output_filt = join('_', 'filtered', $base_name);
+		$output_filt = File::Spec->catfile($dir, $output_filt);
+
 		open (my $fh_filt_out, '>', $output_filt);
 
 		if($opts{ascat_stat}){
@@ -195,8 +200,6 @@ sub main {
 					} 
 
 					print $fh_out $output;
-
-
 			}
 			close ($fh_out);
 			close ($fh_filt_out);
