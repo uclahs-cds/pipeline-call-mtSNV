@@ -22,7 +22,7 @@ use File::Spec;
 use File::Basename;
 use File::Path qw(make_path);
 use Data::Dumper;
-#use Log::ProgramInfo;
+use Log::ProgramInfo;
 ### COMMAND LINE DEFAULT ARGUMENTS ################################################################
 # list of arguments and default values go here as hash key/value pairs
 our %opts = (
