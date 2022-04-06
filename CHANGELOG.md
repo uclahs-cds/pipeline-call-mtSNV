@@ -9,6 +9,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 ### Added
 - GPL2 License added
+### Fixed
+- Fix #61
 
 ## [1.0.0] - 2021-08-20
 ### Added
@@ -20,5 +22,5 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - #56 | ce1e16d: Added PULL_REQUEST_TEMPLATE.md
 
 ### Changed
-- #53: Updated resource allocation to newest standard
+- #53: Update resource allocation to newest standard
 - #39: output file grouping in align_mtDNA: "*.{txt,conf,csv,vcf,gz}"

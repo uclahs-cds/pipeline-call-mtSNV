@@ -30,7 +30,7 @@ our %opts = (
 	tumour_table  => undef,
 	min_coverage => 100,
 	het_fraction => 0.2,
-	output  => 'heteroplasmy_calculation.tsv'
+	output  => 'heteroplasmy_call.tsv'
 	);
 
 ### MAIN CALLER ###################################################################################
@@ -77,7 +77,12 @@ sub main {
 		$data = read_table($opts{tumour_table}, 'tumour', $data);
 		#print header
 		open (my $fh_out, '>', $opts{output});
-		(my $output_filt = $opts{output}) =~s/heteroplasmy_call.tsv/filtered_heteroplasmy_call.tsv/;
+
+		# Create output for filtered heteroplasmy calls
+		my ($base_name, $dir) = fileparse($opts{output});
+		my $output_filt = join('_', 'filtered', $base_name);
+		$output_filt = File::Spec->catfile($dir, $output_filt);
+
 		open (my $fh_filt_out, '>', $output_filt);
 
 		if($opts{ascat_stat}){
@@ -195,8 +200,6 @@ sub main {
 					} 
 
 					print $fh_out $output;
-
-
 			}
 			close ($fh_out);
 			close ($fh_filt_out);
