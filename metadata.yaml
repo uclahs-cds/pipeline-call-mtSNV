@@ -8,4 +8,4 @@ Dependencies: ["Java", "Nextflow", "Docker"]
 References: "https://github.com/uclahs-cds/pipeline-call-mtSNV/"
 Tools: ["Bamql 1.5.1", "MtoolBox 1.2.1", "Picard Tools 2.23.3", "MitoCaller"]
 Engineering_Owner: ["Takafumi Yamaguchi", "Alfredo Enrique Gonzalez"]
-Scientific_Owner: ["Alfredo Enrique Gonzalez", "Takafumi Yamaguchi"]
+Scientific_Owner: ["Alfredo Enrique Gonzalez", "Takafumi Yamaguchi", "Jieun Oh"]
