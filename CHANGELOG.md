@@ -7,8 +7,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 ## Unreleased
-
-## [1.1.0] - 2021-08-25
 ### Added
 - Updated partition types for UCLA-CDS clusters.
 - Got rid of F2 node 
