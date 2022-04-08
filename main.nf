@@ -86,17 +86,17 @@ workflow{
   extract_mtDNA_BAMQL( main_work_ch )
 
   //step 3: remapping reads with mtoolbox
-  align_mtDNA_MToolBox( extract_mtDNA_BAMQL.out.main_output )
+  align_mtDNA_MToolBox( extract_mtDNA_BAMQL.out.extracted_mt_reads )
 
   //step 4: variant calling with mitocaller
-  call_mtSNV_mitoCaller( align_mtDNA_MToolBox.out.main_output )
+  call_mtSNV_mitoCaller( align_mtDNA_MToolBox.out.aligned_mt_reads )
 
   //step 5: change mitocaller output to vcf
-  convert_mitoCaller2vcf_mitoCaller(  call_mtSNV_mitoCaller.out.tsv_output )
+  convert_mitoCaller2vcf_mitoCaller(  call_mtSNV_mitoCaller.out.mt_variants_tsv )
 
   //Fork mitoCaller Output
 
-  call_mtSNV_mitoCaller.out.main_output.branch{
+  call_mtSNV_mitoCaller.out.mt_variants_gz.branch{
         normal: it[0] == 'normal'
         tumour: it[0] == 'tumour'
   }

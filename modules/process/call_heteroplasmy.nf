@@ -48,7 +48,7 @@ process call_heteroplasmy {
      perl /src/script/call_heteroplasmy_mitocaller.pl \
     --normal ${normal_mitocaller_out} \
     --tumour ${tumour_mitocaller_out} \
+    --output ${tumour_sample_name}_heteroplasmy_call.tsv \
     --ascat_stat
-    mv heteroplasmy_call.tsv ${normal_mitocaller_out.baseName}_vs_${tumour_mitocaller_out.baseName}.tsv
     """
 }

@@ -22,7 +22,7 @@ process extract_mtDNA_BAMQL {
       )
 
   output:
-    tuple val(type), val(sample_name), path('extracted_mt_reads_*'), emit: main_output
+    tuple val(type), val(sample_name), path('extracted_mt_reads_*'), emit: extracted_mt_reads
     file '.command.*'
 
   script:

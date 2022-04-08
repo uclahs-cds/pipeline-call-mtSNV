@@ -42,7 +42,7 @@ process align_mtDNA_MToolBox {
       )
 
     output:
-     tuple val(type), val(sample_name), path("OUT_${bamql_out.baseName}/OUT2-sorted.bam"), emit: main_output
+     tuple val(type), val(sample_name), path("OUT_${bamql_out.baseName}/OUT2-sorted.bam"), emit: aligned_mt_reads
 
       path '.command.*'
       path("OUT_${bamql_out.baseName}")
