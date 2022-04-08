@@ -8,18 +8,14 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ---
 ## [Unreleased]
 ### Fixed
-- #61 + #62 | normal tumour genotyped flipping on final call-heteroplasmy comparison and overwritting
+- #61 + #62  | normal tumour genotyped flipping on final call-heteroplasmy comparison and overwritting
 
 ### Changed
 - Input format and workflow logic
-- Updated docker image version
+- Updated call-heteroplasmy docker image version from 1.0.0 -> 1.0.1
 - Output name to be more conventional
-
----
-### Added
+- Update .gitignore
 - GPL2 License added
-### Fixed
-- Fix #61
 
 ---
 ## [1.0.0] - 2021-08-20
