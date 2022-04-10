@@ -1,6 +1,5 @@
 # System files
 *.log
-*.error
 .DS_Store
 
 # R
