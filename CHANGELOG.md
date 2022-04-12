@@ -7,9 +7,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 ## [2.0.0] - 2022-04-12
-### Fixed
-- #61 + #62  | Fix normal tumour genotype flip on final call-heteroplasmy comparison and fix observed file overwrite
-
 ### Changed
 - Change input format
 - Change main.nf workflow logic
@@ -17,6 +14,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Modify output name to be more conventional
 - Update .gitignore
 - Add GPL2 License
+
+### Fixed
+- #61 + #62  | Fix normal tumour genotype flip on final call-heteroplasmy comparison and fix observed file overwrite
+
 
 ---
 ## [1.0.0] - 2021-08-20
