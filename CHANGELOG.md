@@ -8,14 +8,15 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ---
 ## [2.0.0] - 2022-04-12
 ### Fixed
-- #61 + #62  | normal tumour genotyped flipping on final call-heteroplasmy comparison and overwritting
+- #61 + #62  | Fix normal tumour genotype flip on final call-heteroplasmy comparison and fix observed file overwrite
 
 ### Changed
-- Input format and workflow logic
-- Updated call-heteroplasmy docker image version from 1.0.0 -> 1.0.1
-- Output name to be more conventional
+- Change input format
+- Change main.nf workflow logic
+- Update call-heteroplasmy docker image version from 1.0.0 -> 1.0.1
+- Modify output name to be more conventional
 - Update .gitignore
-- GPL2 License added
+- Add GPL2 License
 
 ---
 ## [1.0.0] - 2021-08-20
@@ -25,8 +26,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ---
 ## [1.0.0-rc1] - 2021-08-10
 ### Added
-- #56 | ce1e16d: Added PULL_REQUEST_TEMPLATE.md
+- #56 | ce1e16d: Add PULL_REQUEST_TEMPLATE.md
 
 ### Changed
 - #53: Update resource allocation to newest standard
-- #39: output file grouping in align_mtDNA: "*.{txt,conf,csv,vcf,gz}"
+- #39: Group output files in align_mtDNA: "*.{txt,conf,csv,vcf,gz}"
