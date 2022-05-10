@@ -2,9 +2,9 @@ process convert_mitoCaller2vcf_mitoCaller {
     container params.mitoCaller2vcf_docker_image
         label 'process_medium'
 
-    
-    publishDir "${params.output_dir}", 
-    enabled: true, 
+
+    publishDir "${params.output_dir}",
+    enabled: true,
     mode: 'copy',
     saveAs: {"${params.run_name}_${params.date}/convert_mitoCaller2vcf_mitoCaller/${sample_name}/${file(it).getName()}" }
 
@@ -13,19 +13,21 @@ process convert_mitoCaller2vcf_mitoCaller {
     pattern: ".command.*",
     mode: "copy",
     saveAs: {"${params.run_name}_${params.date}/log/convert_mitoCaller2vcf_mitoCaller/log${file(it).getName()}" }
-    
-    input:
-      file mitocaller_out 
-      val sample_name 
-      val type
 
-    output: 
-        
+    input:
+      tuple(
+        val( type ),
+        val( sample_name ),
+        path( mitocaller_out )
+      )
+
+    output:
+
       path '*.vcf', emit: vcf
-      path '.command.*' 
+      path '.command.*'
       path '*.txt'
-   
-   
+
+
     script:
     """
     echo '${mitocaller_out.baseName} ${mitocaller_out}' > ${mitocaller_out.baseName}.list

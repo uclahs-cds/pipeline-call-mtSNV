@@ -1,9 +1,9 @@
-process extract_mtDNA_BAMQL { 
+process extract_mtDNA_BAMQL {
     container params.BAMQL_docker_image
         label 'process_medium'
 
     //  extracted mt DNA
-    publishDir params.output_dir, 
+    publishDir params.output_dir,
         pattern: "extracted_mt_reads_*",
         mode: 'copy',
         saveAs: {"${params.run_name}_${params.date}/extract_mtReads_BAMQL/${sample_name}/${file(it).getName()}" }
@@ -12,21 +12,19 @@ process extract_mtDNA_BAMQL {
     publishDir path: params.output_dir,
         pattern: ".command.*",
         mode: "copy",
-        saveAs: { "${params.run_name}_${params.date}/log/extract_mtReads_BAMQL/log${file(it).getName()}" } 
+        saveAs: { "${params.run_name}_${params.date}/log/extract_mtReads_BAMQL/log${file(it).getName()}" }
 
   input:
     tuple(
       val(type),
       val(sample_name),
-      path(input_bam_file) 
+      path(input_bam_file)
       )
-   
-  output: 
-    path 'extracted_mt_reads_*', emit: bams 
-    val sample_name, emit: sample_name
-    val type, emit: type
+
+  output:
+    tuple val(type), val(sample_name), path('extracted_mt_reads_*'), emit: extracted_mt_reads
     file '.command.*'
-     
+
   script:
   """
   set -euo pipefail
