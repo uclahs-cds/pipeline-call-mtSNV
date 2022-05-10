@@ -4,13 +4,13 @@ process call_mtSNV_mitoCaller {
     // Note - reference genome needs to be mounted otherwise mitocaller fails
         label 'process_high'
 
-    
-    publishDir "${params.output_dir}", 
-        pattern: "${type}_${sample_name}_mitocaller.tsv", 
+
+    publishDir "${params.output_dir}",
+        pattern: "${type}_${sample_name}_mitocaller.tsv",
         mode: 'copy',
         saveAs: {"${params.run_name}_${params.date}/call_mtSNV_mitoCaller/${sample_name}/${file(it).getName()}" }
-    
- 
+
+
     publishDir path: params.output_dir,
         enabled: params.save_intermediate_files,
         pattern: "*.gz",
@@ -24,18 +24,17 @@ process call_mtSNV_mitoCaller {
     saveAs: {"${params.run_name}_${params.date}/log/call_mtSNV_mitoCaller/log${file(it).getName()}" }
 
     input:
-      file mtoolbox_out
-      val sample_name 
-      val type
+      tuple(
+        val(type),
+        val(sample_name),
+        path(mtoolbox_out)
+        )
 
-    output: 
-        
-      path "${type}_${sample_name}_mitocaller.tsv", emit: tsv
-      path "${type}_${sample_name}_mitocaller.tsv.gz", emit: gz
-      val sample_name, emit: sample_name
-      val type, emit: type
-      path '.command.*' 
-   
+    output:
+     tuple val(type), val(sample_name), path("${type}_${sample_name}_mitocaller.tsv.gz"), emit: mt_variants_gz
+     tuple val(type), val(sample_name), path("${type}_${sample_name}_mitocaller.tsv"), emit: mt_variants_tsv
+      path '.command.*'
+
     script:
     """
     /MitoCaller/mitoCaller -m -b "${mtoolbox_out}"  -r /mitochondria-ref/chrRSRS.fa -v ${type}_${sample_name}_mitocaller.tsv

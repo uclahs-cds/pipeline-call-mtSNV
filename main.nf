@@ -13,7 +13,7 @@ include { Validate_Inputs                    } from './modules/process/validate_
 include { extract_mtDNA_BAMQL                } from './modules/process/extract_mtDNA_BAMQL'
 include { align_mtDNA_MToolBox               } from './modules/process/align_mtDNA_MToolBox'
 include { call_mtSNV_mitoCaller              } from './modules/process/call_mtSNV_mitoCaller'
-include { convert_mitoCaller2vcf_mitoCaller  } from './modules/process/convert_mitoCaller2vcf_mitoCaller'          
+include { convert_mitoCaller2vcf_mitoCaller  } from './modules/process/convert_mitoCaller2vcf_mitoCaller'
 include { call_heteroplasmy                  } from './modules/process/call_heteroplasmy'
 include { validate_outputs                   } from './modules/process/validate_outputs'
 
@@ -26,25 +26,21 @@ Boutros Lab
    Current Configuration:
     - pipeline:
         name: ${workflow.manifest.name}
-        version: ${workflow.manifest.version} 
-  
-    - input: 
+        version: ${workflow.manifest.version}
+
+    - input:
         input_csv: ${params.input_csv}
-        mt_ref = ${params.mt_ref}
         gmapdb = ${params.gmapdb}
-        genome_fasta = ${params.genome_fasta}
-        reference_genome = ${params.reference_genome_hg38}
-    
+        mt_reference_genome = ${params.directory_containing_mt_ref_genome_chrRSRS_files}
+
     - output: x
         temp_dir: ${params.temp_dir}
         output_dir: ${params.output_dir}
-        lot_output_dir: ${params.log_output_dir}
-      
+
     - options:
       sample_mode = ${params.sample_mode}
       save_intermediate_files = ${params.save_intermediate_files}
       cache_intermediate_pipeline_steps = ${params.cache_intermediate_pipeline_steps}
-      max_number_of_parallel_jobs = ${params.max_number_of_parallel_jobs}
 
     ------------------------------------
     Starting workflow...
@@ -54,79 +50,68 @@ Boutros Lab
 
   // Conditional for 'paired' sample
 if (params.sample_mode == 'paired') {
-  Channel
-    .fromPath(params.input_csv)
-    .ifEmpty { exit 1, "params.input_csv was empty - no input files supplied" }
-    .splitCsv(header:true) 
-    .flatMap{ row -> tuple(
-      row.sample_input_1_type,
-      row.sample_input_1_name, 
-      row.sample_input_1_path, 
-      row.sample_input_2_type,
-      row.sample_input_2_name,
-      row.sample_input_2_path
-      )
-      }
-    .collate(3)
-    .set { input_ch }
+    Channel
+        .fromPath(params.input_csv, checkIfExists: true)
+        .ifEmpty { exit 1, "params.input_csv was empty - no input files supplied" }
+        .splitCsv(header:true)
+        .multiMap { it ->
+                    project_id: it.project_id
+                    sample_id: it.sample_id
+                    normal_ch: ['normal', it.normal_id, it.normal_BAM]
+                    tumour_ch: ['tumour', it.tumour_id, it.tumour_BAM] }
+        .set { input_csv_ch }
+
+    input_csv_ch.normal_ch.mix(input_csv_ch.tumour_ch).set { main_work_ch }
     }
-    else if (params.sample_mode == 'single') {
-      Channel
-    .fromPath(params.input_csv)
-    .ifEmpty { exit 1, "params.input_csv was empty - no input files supplied" }
-    .splitCsv(header:true) 
-    .flatMap{ row -> tuple(
-      row.sample_input_1_type,
-      row.sample_input_1_name, 
-      row.sample_input_1_path
-      )
-      }
-    .collate(3)
-    .set { input_ch }
-    }
-    else {
-      throw new Exception('ERROR: params.sample_mode not recognized')
-    }
+
+ else if (params.sample_mode == 'single') {
+     Channel
+        .fromPath(params.input_csv)
+        .ifEmpty { exit 1, "params.input_csv was empty - no input files supplied" }
+        .splitCsv(header:true)
+        .multiMap { it ->
+                    project_id: it.project_id
+                    sample_id: it.sample_id
+                    single_sample: ['single_sample', it.normal_id, it.normal_BAM] }
+        .set{ input_csv_ch }
+    input_csv_ch.single_sample.set{ main_work_ch }
+ }
 
 workflow{
- 
+
   //step 1: validation of inputs
-  Validate_Inputs( input_ch ) 
-  
+  Validate_Inputs( main_work_ch )
+
  //step 2: extraction of mitochondrial reads using BAMQL
-  extract_mtDNA_BAMQL( input_ch ) 
+  extract_mtDNA_BAMQL( main_work_ch )
 
   //step 3: remapping reads with mtoolbox
-  align_mtDNA_MToolBox(
-    extract_mtDNA_BAMQL.out.bams,
-    extract_mtDNA_BAMQL.out.sample_name, 
-    extract_mtDNA_BAMQL.out.type
-    )
+  align_mtDNA_MToolBox( extract_mtDNA_BAMQL.out.extracted_mt_reads )
 
   //step 4: variant calling with mitocaller
-  call_mtSNV_mitoCaller( 
-    align_mtDNA_MToolBox.out.bams,
-    align_mtDNA_MToolBox.out.sample_name,  
-    align_mtDNA_MToolBox.out.type 
-    )
+  call_mtSNV_mitoCaller( align_mtDNA_MToolBox.out.aligned_mt_reads )
 
   //step 5: change mitocaller output to vcf
-  convert_mitoCaller2vcf_mitoCaller( 
-    call_mtSNV_mitoCaller.out.tsv,
-    call_mtSNV_mitoCaller.out.sample_name,    
-    call_mtSNV_mitoCaller.out.type 
-    )
+  convert_mitoCaller2vcf_mitoCaller(  call_mtSNV_mitoCaller.out.mt_variants_tsv )
 
-  //step 6: call heteroplasmy script
+  //Fork mitoCaller Output
+
+  call_mtSNV_mitoCaller.out.mt_variants_gz.branch{
+        normal: it[0] == 'normal'
+        tumour: it[0] == 'tumour'
+  }
+  .set{ mitoCaller_forked_ch }
+
+  // //step 6: call heteroplasmy script
   if (params.sample_mode == 'paired') {
-    call_heteroplasmy( call_mtSNV_mitoCaller.out.gz.toSortedList() )
+    call_heteroplasmy( mitoCaller_forked_ch.normal, mitoCaller_forked_ch.tumour )
     }
-    
+
   //step 7: validate output script
   validate_outputs(
     convert_mitoCaller2vcf_mitoCaller
     .out
     .vcf
     .flatten()
-  )  
+  )
 }
