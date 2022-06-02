@@ -4,35 +4,35 @@ process align_mtDNA_MToolBox {
         label 'process_high'
 
     // Main ouput recalibrated & reheadered reads
-    publishDir params.output_dir,
+    publishDir {"${params.base_output_dir}/${sample_name}/${params.mtoolbox_version}/output/"},
         pattern: "{OUT_${bamql_out.baseName}/OUT2-sorted.bam,mt_classification_best_results.csv,summary*.txt}",
         mode: 'copy',
-        saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${sample_name}_${file(it).getName()}" }
+        saveAs: {"${params.mtoolbox_version}_${sample_name}_${file(it).getName()}"}
 
-    publishDir params.output_dir,
+    publishDir {"${params.base_output_dir}/${sample_name}/${params.mtoolbox_version}/intermediate/align_mtDNA_MToolBox/"},
         enabled: params.save_intermediate_files,
         pattern: "OUT_${bamql_out.baseName}",
         mode: 'copy',
-        saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/OUT_${bamql_out.baseName}" }
+        saveAs: {"OUT_${bamql_out.baseName}" }
 
-    publishDir params.output_dir,
+    publishDir {"${params.base_output_dir}/${sample_name}/${params.mtoolbox_version}/intermediate/align_mtDNA_MToolBox/"},
         enabled: params.save_intermediate_files,
         pattern: "{tmp,VCF_dict_tmp,test}",
         mode: 'copy',
-        saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }
+        saveAs: {"${file(it).getName()}" }
 
     // mtoolbox folder with supplementary files
-    publishDir params.output_dir,
+    publishDir {"${params.base_output_dir}/${sample_name}/${params.mtoolbox_version}/intermediate/align_mtDNA_MToolBox/"},
         enabled: params.save_intermediate_files,
         pattern: "*.{txt,conf,vcf,gz}",
         mode: 'copy',
-        saveAs: {"${params.run_name}_${params.date}/align_mtReads_MToolBox/${sample_name}/${file(it).getName()}" }
+        saveAs: {"${file(it).getName()}" }
 
-    //logs
-    publishDir path: params.output_dir,
+    //logs 
+    publishDir "${params.log_output_dir}/",
         pattern: ".command.*",
         mode: "copy",
-        saveAs: {"${params.run_name}_${params.date}/log/align_mtReads_MToolBox/log${file(it).getName()}" }
+        saveAs: {"log${file(it).getName()}" }
 
     input:
     tuple(
