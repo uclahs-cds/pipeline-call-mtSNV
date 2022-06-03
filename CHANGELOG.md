@@ -6,10 +6,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## Unreleased
+## [Unreleased]
 ### Added
 - Updated partition types for UCLA-CDS clusters.
 - Got rid of F2 node 
+- Add F32 config file
 
 ## [2.0.0] - 2022-04-12
 ### Added
