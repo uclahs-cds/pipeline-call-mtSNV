@@ -29,7 +29,7 @@ process align_mtDNA_MToolBox {
         saveAs: {"${file(it).getName()}" }
 
     //logs 
-    publishDir "${params.log_output_dir}/",
+    publishDir "${params.log_output_dir}/process-log/${params.mtoolbox_version}/${task.process.split(':')[-1].replace('_', '-')}/",
         pattern: ".command.*",
         mode: "copy",
         saveAs: {"log${file(it).getName()}" }
