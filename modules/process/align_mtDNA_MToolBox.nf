@@ -9,25 +9,23 @@ process align_mtDNA_MToolBox {
         mode: 'copy',
         saveAs: {"${params.mtoolbox_version}_${sample_name}_${file(it).getName()}"}
 
-    publishDir {"${params.base_output_dir}/${sample_name}/${params.mtoolbox_version}/intermediate/align_mtDNA_MToolBox/"},
+    publishDir {"${params.base_output_dir}/${sample_name}/${params.mtoolbox_version}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
         enabled: params.save_intermediate_files,
         pattern: "OUT_${bamql_out.baseName}",
         mode: 'copy',
         saveAs: {"OUT_${bamql_out.baseName}" }
 
-    publishDir {"${params.base_output_dir}/${sample_name}/${params.mtoolbox_version}/intermediate/align_mtDNA_MToolBox/"},
+    publishDir {"${params.base_output_dir}/${sample_name}/${params.mtoolbox_version}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
         enabled: params.save_intermediate_files,
         pattern: "{tmp,VCF_dict_tmp,test}",
-        mode: 'copy',
-        saveAs: {"${file(it).getName()}" }
+        mode: 'copy'
 
     // mtoolbox folder with supplementary files
-    publishDir {"${params.base_output_dir}/${sample_name}/${params.mtoolbox_version}/intermediate/align_mtDNA_MToolBox/"},
+    publishDir {"${params.base_output_dir}/${sample_name}/${params.mtoolbox_version}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
         enabled: params.save_intermediate_files,
         pattern: "*.{txt,conf,vcf,gz}",
-        mode: 'copy',
-        saveAs: {"${file(it).getName()}" }
-
+        mode: 'copy'
+        
     //logs 
     publishDir "${params.log_output_dir}/process-log/${params.mtoolbox_version}/${task.process.split(':')[-1].replace('_', '-')}/",
         pattern: ".command.*",

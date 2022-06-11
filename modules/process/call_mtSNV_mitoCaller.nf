@@ -5,23 +5,20 @@ process call_mtSNV_mitoCaller {
         label 'process_high'
 
 
-    publishDir "${params.output_dir}",
+    publishDir {"${params.base_output_dir}/${sample_name}/${params.mitocaller_version}/output/"},
         pattern: "${type}_${sample_name}_mitocaller.tsv",
-        mode: 'copy',
-        saveAs: {"${params.run_name}_${params.date}/call_mtSNV_mitoCaller/${sample_name}/${file(it).getName()}" }
+        mode: 'copy'
 
-
-    publishDir path: params.output_dir,
+    publishDir {"${params.base_output_dir}/${sample_name}/${params.mitocaller_version}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
         enabled: params.save_intermediate_files,
         pattern: "*.gz",
-        mode: "copy",
-        saveAs: {"${params.run_name}_${params.date}/call_mtSNV_mitoCaller/${sample_name}/${file(it).getName()}" }
+        mode: "copy"
 
     //logs
-    publishDir path: params.output_dir,
+    publishDir "${params.log_output_dir}/process-log/${params.mitocaller_version}/${task.process.split(':')[-1].replace('_', '-')}/",
     pattern: ".command.*",
     mode: "copy",
-    saveAs: {"${params.run_name}_${params.date}/log/call_mtSNV_mitoCaller/log${file(it).getName()}" }
+    saveAs: { "log${file(it).getName()}" }
 
     input:
       tuple(

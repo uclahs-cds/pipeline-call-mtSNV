@@ -2,28 +2,25 @@ process call_heteroplasmy {
     container params.heteroplasmy_script_docker_image
         label 'process_medium'
 
-    publishDir "${params.output_dir}",
+    publishDir {"${params.base_output_dir}/${tumour_sample_name}/${params.call_heteroplasmy_version}/output/"},
         enabled: true,
-        mode: 'copy',
-        saveAs: {"${params.run_name}_${params.date}/call_heteroplasmy/${file(it).getName()}" }
+        mode: 'copy'
 
     // tsv
-    publishDir params.output_dir,
+    publishDir {"${params.base_output_dir}/${tumour_sample_name}/${params.call_heteroplasmy_version}/output/"},
         pattern: "*.tsv",
-        mode: "copy",
-        saveAs: {"${params.run_name}_${params.date}/call_heteroplasmy/${file(it).getName()}" }
+        mode: "copy"
 
     // info
-    publishDir params.output_dir,
+    publishDir {"${params.base_output_dir}/${tumour_sample_name}/${params.call_heteroplasmy_version}/output/"},
         pattern: "*.info",
-        mode: "copy",
-        saveAs: {"${params.run_name}_${params.date}/call_heteroplasmy/${file(it).getName()}" }
+        mode: "copy"
 
     //logs
-    publishDir params.output_dir,
+    publishDir "${params.log_output_dir}/process-log/${params.call_heteroplasmy_version}/${task.process.split(':')[-1].replace('_', '-')}/",
         pattern: ".command.*",
         mode: "copy",
-        saveAs: {"${params.run_name}_${params.date}/log/call_heteroplasmy/log${file(it).getName()}" }
+        saveAs: {"log${file(it).getName()}" }
 
     input:
         tuple(

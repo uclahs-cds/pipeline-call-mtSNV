@@ -3,16 +3,15 @@ process extract_mtDNA_BAMQL {
         label 'process_medium'
 
     //  extracted mt DNA
-    publishDir params.output_dir,
+    publishDir {"${params.base_output_dir}/${sample_name}/${params.bamql_version}/output/"},
         pattern: "extracted_mt_reads_*",
-        mode: 'copy',
-        saveAs: {"${params.run_name}_${params.date}/extract_mtReads_BAMQL/${sample_name}/${file(it).getName()}" }
+        mode: 'copy'
 
     //logs
-    publishDir path: params.output_dir,
+    publishDir "${params.log_output_dir}/process-log/${params.bamql_version}/${task.process.split(':')[-1].replace('_', '-')}/",
         pattern: ".command.*",
         mode: "copy",
-        saveAs: { "${params.run_name}_${params.date}/log/extract_mtReads_BAMQL/log${file(it).getName()}" }
+        saveAs: { "log${file(it).getName()}" }
 
   input:
     tuple(
