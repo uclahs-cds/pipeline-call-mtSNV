@@ -4,7 +4,7 @@ process align_mtDNA_MToolBox {
         label 'process_high'
 
     // Main ouput recalibrated & reheadered reads
-    publishDir {"${params.base_output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.base_output_dir}/output/"},
         pattern: "{OUT_${bamql_out.baseName}/OUT2-sorted.bam,mt_classification_best_results.csv,summary*.txt}",
         mode: 'copy',
         saveAs: {"${params.mtoolbox_version}_${sample_name}_${file(it).getName()}"}
