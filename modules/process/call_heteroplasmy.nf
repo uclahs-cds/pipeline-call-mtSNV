@@ -8,12 +8,12 @@ process call_heteroplasmy {
         mode: "copy"
 
     // info
-    publishDir {"${params.base_output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.base_output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
         pattern: "*.info",
         mode: "copy"
 
     //logs
-    publishDir "${params.log_output_dir}/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/",
+    publishDir "${params.log_output_dir}/${task.process.split(':')[-1].replace('_', '-')}/",
         pattern: ".command.*",
         mode: "copy",
         saveAs: {"log${file(it).getName()}" }
