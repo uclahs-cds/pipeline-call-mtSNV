@@ -4,7 +4,6 @@ process call_mtSNV_mitoCaller {
     // Note - reference genome needs to be mounted otherwise mitocaller fails
         label 'process_high'
 
-
     publishDir {"${params.base_output_dir}/output/"},
         pattern: "${type}_${sample_name}_mitocaller.tsv",
         mode: 'copy'

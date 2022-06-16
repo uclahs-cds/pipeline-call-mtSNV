@@ -3,7 +3,7 @@ process convert_mitoCaller2vcf_mitoCaller {
         label 'process_medium'
 
     publishDir {"${params.base_output_dir}/output/"},
-    enabled: true,
+    pattern: "*.vcf",
     mode: 'copy'
 
     //logs

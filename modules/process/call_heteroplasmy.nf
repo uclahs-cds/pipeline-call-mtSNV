@@ -2,17 +2,13 @@ process call_heteroplasmy {
     container params.heteroplasmy_script_docker_image
         label 'process_medium'
 
-    publishDir {"${params.base_output_dir}/output/"},
-        enabled: true,
-        mode: 'copy'
-
     // tsv
     publishDir {"${params.base_output_dir}/output/"},
         pattern: "*.tsv",
         mode: "copy"
 
     // info
-    publishDir {"${params.base_output_dir}/output/"},
+    publishDir {"${params.base_output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         pattern: "*.info",
         mode: "copy"
 
