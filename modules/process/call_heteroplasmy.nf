@@ -9,7 +9,7 @@ process call_heteroplasmy {
 
     // info
     publishDir {"${params.base_output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
-        pattern: "*.info",
+        pattern: "*info",
         mode: "copy"
 
     //logs
