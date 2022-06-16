@@ -2,22 +2,22 @@ process call_heteroplasmy {
     container params.heteroplasmy_script_docker_image
         label 'process_medium'
 
-    publishDir {"${params.base_output_dir}/${tumour_sample_name}/${params.call_heteroplasmy_version}/output/"},
+    publishDir {"${params.base_output_dir}/output/"},
         enabled: true,
         mode: 'copy'
 
     // tsv
-    publishDir {"${params.base_output_dir}/${tumour_sample_name}/${params.call_heteroplasmy_version}/output/"},
+    publishDir {"${params.base_output_dir}/output/"},
         pattern: "*.tsv",
         mode: "copy"
 
     // info
-    publishDir {"${params.base_output_dir}/${tumour_sample_name}/${params.call_heteroplasmy_version}/output/"},
+    publishDir {"${params.base_output_dir}/output/"},
         pattern: "*.info",
         mode: "copy"
 
     //logs
-    publishDir "${params.log_output_dir}/process-log/${params.call_heteroplasmy_version}/${task.process.split(':')[-1].replace('_', '-')}/",
+    publishDir "${params.log_output_dir}/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/",
         pattern: ".command.*",
         mode: "copy",
         saveAs: {"log${file(it).getName()}" }

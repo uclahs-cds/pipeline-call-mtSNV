@@ -4,30 +4,30 @@ process align_mtDNA_MToolBox {
         label 'process_high'
 
     // Main ouput recalibrated & reheadered reads
-    publishDir {"${params.base_output_dir}/${sample_name}/${params.mtoolbox_version}/output/"},
+    publishDir {"${params.base_output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         pattern: "{OUT_${bamql_out.baseName}/OUT2-sorted.bam,mt_classification_best_results.csv,summary*.txt}",
         mode: 'copy',
         saveAs: {"${params.mtoolbox_version}_${sample_name}_${file(it).getName()}"}
 
-    publishDir {"${params.base_output_dir}/${sample_name}/${params.mtoolbox_version}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
+    publishDir {"${params.base_output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "OUT_${bamql_out.baseName}",
         mode: 'copy',
         saveAs: {"OUT_${bamql_out.baseName}" }
 
-    publishDir {"${params.base_output_dir}/${sample_name}/${params.mtoolbox_version}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
+    publishDir {"${params.base_output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "{tmp,VCF_dict_tmp,test}",
         mode: 'copy'
 
     // mtoolbox folder with supplementary files
-    publishDir {"${params.base_output_dir}/${sample_name}/${params.mtoolbox_version}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
+    publishDir {"${params.base_output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "*.{txt,conf,vcf,gz}",
         mode: 'copy'
         
     //logs 
-    publishDir "${params.log_output_dir}/process-log/${params.mtoolbox_version}/${task.process.split(':')[-1].replace('_', '-')}/",
+    publishDir "${params.log_output_dir}/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/",
         pattern: ".command.*",
         mode: "copy",
         saveAs: {"log${file(it).getName()}" }

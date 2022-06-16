@@ -5,17 +5,17 @@ process call_mtSNV_mitoCaller {
         label 'process_high'
 
 
-    publishDir {"${params.base_output_dir}/${sample_name}/${params.mitocaller_version}/output/"},
+    publishDir {"${params.base_output_dir}/output/"},
         pattern: "${type}_${sample_name}_mitocaller.tsv",
         mode: 'copy'
 
-    publishDir {"${params.base_output_dir}/${sample_name}/${params.mitocaller_version}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
+    publishDir {"${params.base_output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "*.gz",
         mode: "copy"
 
     //logs
-    publishDir "${params.log_output_dir}/process-log/${params.mitocaller_version}/${task.process.split(':')[-1].replace('_', '-')}/",
+    publishDir "${params.log_output_dir}/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/",
     pattern: ".command.*",
     mode: "copy",
     saveAs: { "log${file(it).getName()}" }
