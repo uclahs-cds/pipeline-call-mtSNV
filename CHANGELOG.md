@@ -7,6 +7,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 ## [Unreleased]
+### Changed
+- Standardize log and output directories
 - Add F32 config file
 
 ## [2.0.0] - 2022-04-12
