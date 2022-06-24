@@ -6,7 +6,7 @@
   - [Flow Diagram](#flow-diagram)
   - [Pipeline Steps](#pipeline-steps)
      - [1. Extract mtDNA with BAMQL](#1-Extract-mtDNA-with-BAMQL)
-     - [2. Align mt Reads with MToolBox](#2-Align-mt-Reads-with-MToolBox)
+     - [2. Align mtDNA with MToolBox](#2-Align-mtDNA-with-MToolBox)
      - [3. Call mtSNV with mitoCaller](#3-Call-mtSNV-with-mitoCaller)
      - [4. Convert mitoCaller output with Mito2VCF](#4-Convert-mitoCaller-output-with-Mito2VCF)
      - [5. Call Heteroplasmy on Paired Samples](#5-Call-Heteroplasmy-on-Paired-Samples)
