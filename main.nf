@@ -9,13 +9,13 @@ Nextflowization: Alfredo Enrique Gonzalez, Andrew Park
 nextflow.enable.dsl=2
 
 //// Import of Local Modules ////
-include { Validate_Inputs                    } from './modules/process/validation'
-include { extract_mtDNA_BAMQL                } from './modules/process/extract_mtDNA_BAMQL'
-include { align_mtDNA_MToolBox               } from './modules/process/align_mtDNA_MToolBox'
-include { call_mtSNV_mitoCaller              } from './modules/process/call_mtSNV_mitoCaller'
-include { convert_mitoCaller2vcf_mitoCaller  } from './modules/process/convert_mitoCaller2vcf_mitoCaller'
-include { call_heteroplasmy                  } from './modules/process/call_heteroplasmy'
-include { validate_outputs                   } from './modules/process/validation'
+include { Validate_Inputs                    } from './module/validation'
+include { extract_mtDNA_BAMQL                } from './module/extract_mtDNA_BAMQL'
+include { align_mtDNA_MToolBox               } from './module/align_mtDNA_MToolBox'
+include { call_mtSNV_mitoCaller              } from './module/call_mtSNV_mitoCaller'
+include { convert_mitoCaller2vcf_mitoCaller  } from './module/convert_mitoCaller2vcf_mitoCaller'
+include { call_heteroplasmy                  } from './module/call_heteroplasmy'
+include { validate_outputs                   } from './module/validation'
 
 log.info """\
 ======================================
