@@ -2,11 +2,11 @@
 
  [Boutros Lab call-mtSNV pipeline](#Boutros-Lab-call-mtSNV-pipeline)
   - [Overview](#overview)
-  - [Flow Diagram](#flow-diagram)
   - [How To Run](#how-to-run)
+  - [Flow Diagram](#flow-diagram)
   - [Pipeline Steps](#pipeline-steps)
      - [1. Extract mtDNA with BAMQL](#1-Extract-mtDNA-with-BAMQL)
-     - [2. Align mt Reads with MToolBox](#2-Align-mt-Reads-with-MToolBox)
+     - [2. Align mtDNA with MToolBox](#2-Align-mtDNA-with-MToolBox)
      - [3. Call mtSNV with mitoCaller](#3-Call-mtSNV-with-mitoCaller)
      - [4. Convert mitoCaller output with Mito2VCF](#4-Convert-mitoCaller-output-with-Mito2VCF)
      - [5. Call Heteroplasmy on Paired Samples](#5-Call-Heteroplasmy-on-Paired-Samples)
@@ -21,10 +21,6 @@
 
 ## Overview
 This nextflow pipeline takes as input either a single aligned BAM or a pair of normal tumor bams,  and extracts mitochondrial DNA reads, remaps the reads to a mitochondrial reference genome, and subsequently calls variants. It can use be used in single sample and tumor-normal paired mode. Paired mode gives an addtional heteroplasmy comparison.
-___
-
-## Flow Diagram
-![flowchart_call-mtSNV](flowchart_call-mtSNV.png)
 ___
 
 ## How To Run
@@ -52,6 +48,10 @@ The config file requires 10 arguments
 | 9 | `cache_intermediate_pipeline_steps` | yes | boolean | Enable cahcing to resume pipeline and the end of the last successful process completion when a pipeline fails (if true the default submission script must be modified)
 | 10 | `sge_scheduler` | only on sge | boolean | If running on SGE or externally as a collaborator, depending on your permission settings you will need to change "sge_scheduler" to "true" |
 | 11 | `ucla_cds` | only at UCLA | boolean | If running within UCLA's CDS clusters and wanto toapply optimized UCLA specific memory configurations. |
+___
+
+## Flow Diagram
+![flowchart_call-mtSNV](flowchart_call-mtSNV.png)
 ___
 ## Pipeline Steps
 

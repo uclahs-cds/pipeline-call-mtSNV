@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Changed
 - Standardize log and output directories
 - Add F32 config file
+- Reorganize repo to remove process directory and singular directory names
 
 ## [2.0.0] - 2022-04-12
 ### Added
