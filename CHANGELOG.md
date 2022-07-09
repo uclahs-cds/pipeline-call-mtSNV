@@ -6,11 +6,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [Unreleased]
+## [3.0.0-rc.1] 
+### Added
+- Add F32 config file
+
 ### Changed
 - Standardize log and output directories
-- Add F32 config file
 - Reorganize repo to remove process directory and singular directory names
+
+### Fixed
+- #73 | Increase memory allocation to mitoCaller2vcf module
+
 
 ## [2.0.0] - 2022-04-12
 ### Added
