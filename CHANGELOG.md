@@ -17,7 +17,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Fixed
 - #73 | Increase memory allocation to mitoCaller2vcf module
 
-
+---
 ## [2.0.0] - 2022-04-12
 ### Added
 - Add GPL2 License
