@@ -3,12 +3,12 @@ process call_heteroplasmy {
         label 'process_medium'
 
     // tsv
-    publishDir {"${params.base_output_dir}/output/"},
+    publishDir {"${params.output_dir}/output/"},
         pattern: "*.tsv",
         mode: "copy"
 
     // info
-    publishDir {"${params.base_output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
+    publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
         enabled: params.save_intermediate_files,
         pattern: "*info",
         mode: "copy"

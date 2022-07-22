@@ -3,7 +3,7 @@ process extract_mtDNA_BAMQL {
         label 'process_medium'
 
     //  extracted mt DNA
-    publishDir {"${params.base_output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
       enabled: params.save_intermediate_files,
       pattern: "extracted_mt_reads_*",
       mode: 'copy'
