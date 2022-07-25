@@ -108,8 +108,8 @@ ___
 |align_mtDNA_MToolBox|.vcf|intermediate|Contains mitochondrial variant positions against reference genome|
 |align_mtDNA_MToolBox|.csv|intermediate|Contains the best haplogroup prediction for each sequence|
 |align_mtDNA_MToolBox|folder OUT_*|intermediate|This folder contains additional intermediate files. Description of the contents can be found [here](https://github.com/mitoNGS/MToolBox/wiki/Output-files)|
-|call_mtSNV_mitoCaller|*mitocaller.tsv|main|Contains mtDNA variants (i.e., homoplasmies and heteroplasmies|
-|call_mtSNV_mitoCaller|*mitocaller.tsv|intermediate|gziped tsv file|
+|call_mtSNV_mitoCaller|*mitoCaller.tsv|main|Contains mtDNA variants (i.e., homoplasmies and heteroplasmies|
+|call_mtSNV_mitoCaller|*mitoCaller.tsv|intermediate|gziped tsv file|
 |convert_mitoCaller2VCF|*.vcf|main|2 *.VCF files containing mitoCaller calls in more legible format|
 |call_heteroplasmy|*.tsv|main|a *.tsv table showing differences in the normal genotype vs tumour genotype. It also gives heteroplasmy_fraction if there is any|
 

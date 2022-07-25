@@ -5,7 +5,7 @@ process call_mtSNV_mitoCaller {
         label 'process_high'
 
     publishDir {"${params.output_dir}/output/"},
-        pattern: "${type}_${sample_name}_mitocaller.tsv",
+        pattern: "${type}_${sample_name}_mitoCaller.tsv",
         mode: 'copy'
 
     publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
@@ -27,14 +27,14 @@ process call_mtSNV_mitoCaller {
         )
 
     output:
-     tuple val(type), val(sample_name), path("${type}_${sample_name}_mitocaller.tsv.gz"), emit: mt_variants_gz
-     tuple val(type), val(sample_name), path("${type}_${sample_name}_mitocaller.tsv"), emit: mt_variants_tsv
+     tuple val(type), val(sample_name), path("${type}_${sample_name}_mitoCaller.tsv.gz"), emit: mt_variants_gz
+     tuple val(type), val(sample_name), path("${type}_${sample_name}_mitoCaller.tsv"), emit: mt_variants_tsv
       path '.command.*'
 
     script:
     """
-    /MitoCaller/mitoCaller -m -b "${mtoolbox_out}"  -r /mitochondria-ref/chrRSRS.fa -v ${type}_${sample_name}_mitocaller.tsv
-    gzip -k ${type}_${sample_name}_mitocaller.tsv
+    /MitoCaller/mitoCaller -m -b "${mtoolbox_out}"  -r /mitochondria-ref/chrRSRS.fa -v ${type}_${sample_name}_mitoCaller.tsv
+    gzip -k ${type}_${sample_name}_mitoCaller.tsv
     """
 }
 
