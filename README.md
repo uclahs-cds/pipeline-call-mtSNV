@@ -41,7 +41,7 @@ The config file requires 10 arguments
 | 2 | `sample_mode` | yes | string | 'single' or 'paired'? |
 | 3 | `input_csv` | yes | path | Absolute path to tcall-mtSNV_input.csv |
 | 4 | `output_dir` | yes | path | Absolute path to location of outputs. |
-| 6 | `directory_containing_mt_ref_genome_chrRSRS_files` | yes | path | Absolute path to directory containing mitochondrial ref genome and mt ref genome index files. Take a look at the example config for location of a reference if in need of one and copy it. Alternatively, it can be found on cluster directory with reference genomes.  |
+| 6 | `mt_ref_genome_dir` | yes | path | Absolute path to directory containing mitochondrial ref genome and mt ref genome index files. Take a look at the example config for location of a reference if in need of one and copy it. Alternatively, it can be found on cluster directory with reference genomes.  |
 | 7 | `gmapdb` | yes | path | Absolute path to to gmapdb directory. Take a look at the example config for location of a reference if in need on and copy it. Alternatively, it can be found on cluster directory with reference genomes.|
 | 8 | `save_intermediate_files` | yes | boolean | Save intermediate files. If yes, not only the final BAM, but also the unmerged, unsorted, and duplicates unmarked BAM files will also be saved. |
 | 9 | `cache_intermediate_pipeline_steps` | yes | boolean | Enable cahcing to resume pipeline and the end of the last successful process completion when a pipeline fails (if true the default submission script must be modified)
