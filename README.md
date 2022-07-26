@@ -39,7 +39,7 @@ The config file requires 10 arguments
 |:---|:----------------|:---------|:-----|:----------------------------|
 | 1 | `run_name` | yes | string | This is the overall run name, useful in paired sample mode for organizing outputs. The outputs will be housed in a directory with this name + date information automatically pulled from the system. |
 | 2 | `sample_mode` | yes | string | 'single' or 'paired'? |
-| 3 | `input_csv` | yes | path | Absolute path to tcall-mtSNV_input.csv |
+| 3 | `input_csv` | yes | path | Absolute path to call-mtSNV_input.csv |
 | 4 | `output_dir` | yes | path | Absolute path to location of outputs. |
 | 5 | `mt_ref_genome_dir` | yes | path | Absolute path to directory containing mitochondrial ref genome and mt ref genome index files. Take a look at the example config for location of a reference if in need of one and copy it. Alternatively, it can be found on cluster directory with reference genomes.  |
 | 6 | `gmapdb` | yes | path | Absolute path to to gmapdb directory. Take a look at the example config for location of a reference if in need on and copy it. Alternatively, it can be found on cluster directory with reference genomes.|
