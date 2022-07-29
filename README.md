@@ -42,7 +42,7 @@ The config file requires 10 arguments
 | 3 | `input_csv` | yes | path | Absolute path to call-mtSNV_input.csv |
 | 4 | `output_dir` | yes | path | Absolute path to location of outputs. |
 | 5 | `mt_ref_genome_dir` | yes | path | Absolute path to directory containing mitochondrial ref genome and mt ref genome index files. Path: /hot/ref/mitochondria_ref/genome_fasta |
-| 6 | `gmapdb` | yes | path | Absolute path to to gmapdb directory. Path: /hot/ref/mitochondria_ref/gmapdb/gmapdb_2021-03-08/gmapdb |
+| 6 | `gmapdb` | yes | path | Absolute path to to gmapdb directory. Path: /hot/ref/mitochondria_ref/gmapdb/gmapdb_2021-03-08 |
 | 7 | `save_intermediate_files` | yes | boolean | Save intermediate files. If yes, not only the final BAM, but also the unmerged, unsorted, and duplicates unmarked BAM files will also be saved. Default is set to false. |
 | 8 | `cache_intermediate_pipeline_steps` | yes | boolean | Enable cahcing to resume pipeline and the end of the last successful process completion when a pipeline fails (if true the default submission script must be modified). Default is set to false.
 | 9 | `work_dir` | optional | path | Path of working directory for Nextflow. When included in the sample config file, Nextflow intermediate files and logs will be saved to this directory. With ucla_cds, the default is `/scratch` and should only be changed for testing/development. Changing this directory to `/hot` or `/tmp` can lead to high server latency and potential disk space limitations, respectively. |
