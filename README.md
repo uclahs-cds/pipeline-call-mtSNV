@@ -38,16 +38,14 @@ The config file requires 10 arguments
 || Input Parameter | Required | Type | Description |
 |:---|:----------------|:---------|:-----|:----------------------------|
 | 1 | `run_name` | yes | string | This is the overall run name, useful in paired sample mode for organizing outputs. The outputs will be housed in a directory with this name + date information automatically pulled from the system. |
-| 2 | `sample_mode` | yes | string | 'single' or 'paired'? |
-| 3 | `input_csv` | yes | path | Absolute path to tcall-mtSNV_input.csv |
+| 2 | `sample_mode` | yes | string | 'single' or 'paired' |
+| 3 | `input_csv` | yes | path | Absolute path to call-mtSNV_input.csv |
 | 4 | `output_dir` | yes | path | Absolute path to location of outputs. |
-| 5 | `temp_dir` | yes | path | Absolute path to the directory where the nextflow's intermediate files are saved. If your cluster worker node has the `/scratch` set up, this can be set to it. |
-| 6 | `directory_containing_mt_ref_genome_chrRSRS_files` | yes | path | Absolute path to directory containing mitochondrial ref genome and mt ref genome index files. Take a look at the example config for location of a reference if in need of one and copy it. Alternatively, it can be found on cluster directory with reference genomes.  |
-| 7 | `gmapdb` | yes | path | Absolute path to to gmapdb directory. Take a look at the example config for location of a reference if in need on and copy it. Alternatively, it can be found on cluster directory with reference genomes.|
-| 8 | `save_intermediate_files` | yes | boolean | Save intermediate files. If yes, not only the final BAM, but also the unmerged, unsorted, and duplicates unmarked BAM files will also be saved. |
-| 9 | `cache_intermediate_pipeline_steps` | yes | boolean | Enable cahcing to resume pipeline and the end of the last successful process completion when a pipeline fails (if true the default submission script must be modified)
-| 10 | `sge_scheduler` | only on sge | boolean | If running on SGE or externally as a collaborator, depending on your permission settings you will need to change "sge_scheduler" to "true" |
-| 11 | `ucla_cds` | only at UCLA | boolean | If running within UCLA's CDS clusters and wanto toapply optimized UCLA specific memory configurations. |
+| 5 | `mt_ref_genome_dir` | yes | path | Absolute path to directory containing mitochondrial ref genome and mt ref genome index files. Path: /hot/ref/mitochondria_ref/genome_fasta |
+| 6 | `gmapdb` | yes | path | Absolute path to to gmapdb directory. Path: /hot/ref/mitochondria_ref/gmapdb/gmapdb_2021-03-08 |
+| 7 | `save_intermediate_files` | yes | boolean | Save intermediate files. If yes, not only the final BAM, but also the unmerged, unsorted, and duplicates unmarked BAM files will also be saved. Default is set to false. |
+| 8 | `cache_intermediate_pipeline_steps` | yes | boolean | Enable cahcing to resume pipeline and the end of the last successful process completion when a pipeline fails (if true the default submission script must be modified). Default is set to false.
+| 9 | `work_dir` | optional | path | Path of working directory for Nextflow. When included in the sample config file, Nextflow intermediate files and logs will be saved to this directory. With ucla_cds, the default is `/scratch` and should only be changed for testing/development. Changing this directory to `/hot` or `/tmp` can lead to high server latency and potential disk space limitations, respectively. |
 ___
 
 ## Flow Diagram
@@ -107,8 +105,8 @@ ___
 |align_mtDNA_MToolBox|.vcf|intermediate|Contains mitochondrial variant positions against reference genome|
 |align_mtDNA_MToolBox|.csv|intermediate|Contains the best haplogroup prediction for each sequence|
 |align_mtDNA_MToolBox|folder OUT_*|intermediate|This folder contains additional intermediate files. Description of the contents can be found [here](https://github.com/mitoNGS/MToolBox/wiki/Output-files)|
-|call_mtSNV_mitoCaller|*mitocaller.tsv|main|Contains mtDNA variants (i.e., homoplasmies and heteroplasmies|
-|call_mtSNV_mitoCaller|*mitocaller.tsv|intermediate|gziped tsv file|
+|call_mtSNV_mitoCaller|*mitoCaller.tsv|main|Contains mtDNA variants (i.e., homoplasmies and heteroplasmies|
+|call_mtSNV_mitoCaller|*mitoCaller.tsv|intermediate|gziped tsv file|
 |convert_mitoCaller2VCF|*.vcf|main|2 *.VCF files containing mitoCaller calls in more legible format|
 |call_heteroplasmy|*.tsv|main|a *.tsv table showing differences in the normal genotype vs tumour genotype. It also gives heteroplasmy_fraction if there is any|
 

@@ -2,7 +2,7 @@ process convert_mitoCaller2vcf_mitoCaller {
     container params.mitoCaller2vcf_docker_image
         label 'process_medium'
 
-    publishDir {"${params.base_output_dir}/output/"},
+    publishDir {"${params.output_dir}/output/"},
     pattern: "*.vcf",
     mode: 'copy'
 

@@ -1,27 +1,27 @@
 process align_mtDNA_MToolBox {
     container params.MToolBox_docker_image
-    containerOptions "--volume \"${params.gmapdb}:/src/gmapdb/\" --volume \"${params.directory_containing_mt_ref_genome_chrRSRS_files}:/src/genome_fasta/\""
+    containerOptions "--volume \"${params.gmapdb}:/src/gmapdb/\" --volume \"${params.mt_ref_genome_dir}:/src/genome_fasta/\""
         label 'process_high'
 
     // Main ouput recalibrated & reheadered reads
-    publishDir {"${params.base_output_dir}/output/"},
+    publishDir {"${params.output_dir}/output/"},
         pattern: "{OUT_${bamql_out.baseName}/OUT2-sorted.bam,mt_classification_best_results.csv,summary*.txt}",
         mode: 'copy',
-        saveAs: {"${params.mtoolbox_version}_${sample_name}_${file(it).getName()}"}
+        saveAs: {"MToolBox-${params.mtoolbox_version}_${sample_name}_${file(it).getName()}"}
 
-    publishDir {"${params.base_output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "OUT_${bamql_out.baseName}",
         mode: 'copy',
         saveAs: {"OUT_${bamql_out.baseName}" }
 
-    publishDir {"${params.base_output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "{tmp,VCF_dict_tmp,test}",
         mode: 'copy'
 
     // mtoolbox folder with supplementary files
-    publishDir {"${params.base_output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "*.{txt,conf,vcf,gz}",
         mode: 'copy'
