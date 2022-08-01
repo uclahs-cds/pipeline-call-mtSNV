@@ -1,0 +1,3 @@
+[submodule "pipeline-Nextflow-config"]
+	path = pipeline-Nextflow-config
+	url = https://github.com/uclahs-cds/pipeline-Nextflow-config.git
