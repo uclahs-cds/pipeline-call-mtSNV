@@ -1,8 +1,0 @@
----
-param1:  # parameter name
-  type:  # type of parameter
-  required:  # is parameter required? Default is False
-  help:  # description of the parameter
-  default:  # Default value of the parameter if there is one
-  choices:  # List of choices allowed for parameter if available
-  elements:  # elements that make up parameter if parameter is a nested structure type
