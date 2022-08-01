@@ -31,10 +31,9 @@ Boutros Lab
     - input:
         input_csv: ${params.input_csv}
         gmapdb = ${params.gmapdb}
-        mt_reference_genome = ${params.directory_containing_mt_ref_genome_chrRSRS_files}
+        mt_reference_genome = ${params.mt_ref_genome_dir}
 
     - output: x
-        temp_dir: ${params.temp_dir}
         output_dir: ${params.output_dir}
 
     - options:
