@@ -7,6 +7,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 ## [Unreleased]
+###
+- Add F16 config file
+
 ### Changed
 - Standardize config file structure
 
