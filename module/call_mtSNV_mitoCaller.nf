@@ -1,3 +1,5 @@
+include {generate_standard_filename} from "${projectDir}/external/pipeline-Nextflow-module/modules/common/generate_standardized_filename/main.nf"
+
 process call_mtSNV_mitoCaller {
     container params.mitocaller_docker_image
     containerOptions "-v ${params.mt_ref_genome_dir}:/mitochondria-ref/"
@@ -6,7 +8,13 @@ process call_mtSNV_mitoCaller {
 
     publishDir {"${params.output_dir}/output/"},
         pattern: "${type}_${sample_name}_mitoCaller.tsv",
-        mode: 'copy'
+        mode: 'copy',
+        saveAs: {generate_standard_filename(
+            "mitoCaller-${params.mitocaller_version}",
+            params.dataset_id,
+            "${sample_name}",
+            ['additional_information': file(it).getName()]
+            )}
 
     publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
