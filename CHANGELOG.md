@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 ### Changed
 - Standardize config file structure
+- Standardize filename
 
 ---
 ## [3.0.0-rc.1] 
