@@ -1,3 +1,5 @@
+include {generate_standard_filename} from "${projectDir}/external/pipeline-Nextflow-module/modules/common/generate_standardized_filename/main.nf"
+
 process call_heteroplasmy {
     container params.heteroplasmy_script_docker_image
         label 'process_medium'
@@ -5,7 +7,13 @@ process call_heteroplasmy {
     // tsv
     publishDir {"${params.output_dir}/output/"},
         pattern: "*.tsv",
-        mode: "copy"
+        mode: "copy",
+        saveAs: {generate_standard_filename(
+            "call-heteroplasmy-${params.call_heteroplasmy_version}",
+            params.dataset_id,
+            "${tumour_sample_name}",
+            ['additional_information': file(it).getName()]
+            )}
 
     // info
     publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
@@ -42,7 +50,7 @@ process call_heteroplasmy {
      perl /src/script/call_heteroplasmy_mitocaller.pl \
     --normal ${normal_mitocaller_out} \
     --tumour ${tumour_mitocaller_out} \
-    --output ${tumour_sample_name}_heteroplasmy_call.tsv \
+    --output heteroplasmy_call.tsv \
     --ascat_stat
     """
 }
