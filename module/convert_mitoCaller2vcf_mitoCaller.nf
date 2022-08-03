@@ -1,10 +1,18 @@
+include {generate_standard_filename} from "${projectDir}/external/pipeline-Nextflow-module/modules/common/generate_standardized_filename/main.nf"
+
 process convert_mitoCaller2vcf_mitoCaller {
     container params.mitoCaller2vcf_docker_image
         label 'process_medium'
 
     publishDir {"${params.output_dir}/output/"},
     pattern: "*.vcf",
-    mode: 'copy'
+    mode: 'copy',
+    saveAs: {generate_standard_filename(
+      "mitoCaller2vcf-${params.mitoCaller2vcf_version}",
+      params.dataset_id,
+      "${sample_name}",
+      ['additional_information': file(it).getName()]
+      )}
 
     //logs
     publishDir "${params.log_output_dir}/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/",
