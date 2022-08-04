@@ -7,6 +7,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 ## [Unreleased]
+###
+- Add F16 config file
+- Use external resource allocation module
+
 ### Changed
 - Standardize config file structure
 
