@@ -9,12 +9,12 @@ process call_mtSNV_mitoCaller {
     publishDir {"${params.output_dir}/output/"},
         pattern: "${type}_${sample_name}_mitoCaller.tsv",
         mode: 'copy',
-        saveAs: {generate_standard_filename(
+        saveAs: { "${generate_standard_filename(
             "mitoCaller-${params.mitocaller_version}",
             params.dataset_id,
             "${sample_name}",
-            ['additional_information': file(it).getName()]
-            )}
+            [:]
+            )}.tsv" }
 
     publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
