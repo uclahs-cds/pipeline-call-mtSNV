@@ -7,12 +7,7 @@ process convert_mitoCaller2vcf_mitoCaller {
     publishDir {"${params.output_dir}/output/"},
     pattern: "*output.vcf",
     mode: 'copy',
-    saveAs: { "${generate_standard_filename(
-      "mitoCaller2vcf-${params.mitoCaller2vcf_version}",
-      params.dataset_id,
-      "${sample_name}",
-      [:]
-      )}.vcf" }
+    saveAs: { "${output_filename_base}.vcf" }
     
     publishDir {"${params.output_dir}/output/"},
     pattern: "*homoplasmy.vcf",
@@ -43,6 +38,11 @@ process convert_mitoCaller2vcf_mitoCaller {
       path '.command.*'
 
     script:
+    output_filename_base = generate_standard_filename(
+      "mitoCaller2vcf-${params.mitoCaller2vcf_version}",
+      params.dataset_id,
+      "${sample_name}",
+      [:])
     """
     echo '${mitocaller_out.baseName} ${mitocaller_out}' > ${mitocaller_out.baseName}.list
     python3.8 /mitoCaller2vcf/mitoCaller2vcf.py -s ./${mitocaller_out.baseName}.list -y ${sample_name}_homoplasmy.vcf -o ${sample_name}_output.vcf
