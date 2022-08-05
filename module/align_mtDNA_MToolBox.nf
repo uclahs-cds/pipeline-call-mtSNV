@@ -7,15 +7,14 @@ process align_mtDNA_MToolBox {
 
     // Main ouput recalibrated & reheadered reads
     publishDir {"${params.output_dir}/output/"},
-        pattern: "{OUT_${bamql_out.baseName}/*,mt_classification_best_results.csv,summary*.txt}",
+        pattern: "{OUT_${bamql_out.baseName}/OUT2-sorted.bam,mt_classification_best_results.csv,summary*.txt}",
         mode: 'copy',
-        saveAs: {"${output_filename_base}-${sanitize_string(file(it).getName())}"}
+        saveAs: {"${output_filename_base}_${sanitize_string(file(it).getName())}"}
 
     publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
-        pattern: "OUT_${bamql_out.baseName}",
-        mode: 'copy',
-        saveAs: {"OUT_${bamql_out.baseName}" }
+        pattern: "OUT_${bamql_out.baseName}/*",
+        mode: 'copy'
 
     publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
@@ -45,7 +44,7 @@ process align_mtDNA_MToolBox {
      tuple val(type), val(sample_name), path("OUT_${bamql_out.baseName}/OUT2-sorted.bam"), emit: aligned_mt_reads
 
       path '.command.*'
-      path("OUT_${bamql_out.baseName}")
+      path("OUT_${bamql_out.baseName}/*")
       path("*.csv")
       path("*.txt")
       path("*.gz")

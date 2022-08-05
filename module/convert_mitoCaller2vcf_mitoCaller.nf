@@ -12,12 +12,7 @@ process convert_mitoCaller2vcf_mitoCaller {
     publishDir {"${params.output_dir}/output/"},
     pattern: "*homoplasmy.vcf",
     mode: 'copy',
-    saveAs: { "${generate_standard_filename(
-      "mitoCaller2vcf-${params.mitoCaller2vcf_version}",
-      params.dataset_id,
-      "${sample_name}",
-      [:]
-      )}-homoplasmy.vcf" }
+    saveAs: { "${output_filename_base}_homoplasmy.vcf" }
 
     //logs
     publishDir "${params.log_output_dir}/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/",
