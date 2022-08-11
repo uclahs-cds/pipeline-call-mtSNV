@@ -8,12 +8,20 @@ process call_heteroplasmy {
     publishDir {"${params.output_dir}/output/"},
         pattern: "*.tsv",
         mode: "copy",
-        saveAs: { "${generate_standard_filename(
+        saveAs: { file(it).getName().startsWith("filtered") ?
+            "filtered_${generate_standard_filename(
             "call-heteroplasmy-${params.call_heteroplasmy_version}",
             params.dataset_id,
             params.sample_id,
             [:]
-            )}.tsv" }
+            )}.tsv" :
+            "${generate_standard_filename(
+            "call-heteroplasmy-${params.call_heteroplasmy_version}",
+            params.dataset_id,
+            params.sample_id,
+            [:]
+            )}.tsv"
+            }
 
     // info
     publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
