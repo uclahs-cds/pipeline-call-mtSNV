@@ -9,12 +9,12 @@ process call_heteroplasmy {
         pattern: "*.tsv",
         mode: "copy",
         saveAs: { file(it).getName().startsWith("filtered") ?
-            "filtered_${generate_standard_filename(
+            "${generate_standard_filename(
             "call-heteroplasmy-${params.call_heteroplasmy_version}",
             params.dataset_id,
             params.sample_id,
             [:]
-            )}.tsv" :
+            )}_filtered.tsv" :
             "${generate_standard_filename(
             "call-heteroplasmy-${params.call_heteroplasmy_version}",
             params.dataset_id,
