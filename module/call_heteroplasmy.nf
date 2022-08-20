@@ -4,21 +4,28 @@ process call_heteroplasmy {
     container params.heteroplasmy_script_docker_image
         label 'process_medium'
 
-    // tsv
+    // filtered tsv
     publishDir {"${params.output_dir}/output/"},
-        pattern: "*.tsv",
+        pattern: "filtered_heteroplasmy_call.tsv",
         mode: "copy",
-        saveAs: { file(it).getName().startsWith("filtered") ?
+        saveAs: { 
             "${generate_standard_filename(
             "call-heteroplasmy-${params.call_heteroplasmy_version}",
             params.dataset_id,
-            params.sample_id,
+            "${tumour_sample_name}",
             [:]
-            )}_filtered.tsv" :
+            )}_filtered.tsv" 
+            }
+
+    // unfiltered tsv
+        publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
+        pattern: "*[!{filtered}]*heteroplasmy_call.tsv",
+        mode: "copy",
+        saveAs: {
             "${generate_standard_filename(
             "call-heteroplasmy-${params.call_heteroplasmy_version}",
             params.dataset_id,
-            params.sample_id,
+            "${tumour_sample_name}",
             [:]
             )}.tsv"
             }

@@ -6,7 +6,8 @@ process call_mtSNV_mitoCaller {
     // Note - reference genome needs to be mounted otherwise mitocaller fails
         label 'process_high'
 
-    publishDir {"${params.output_dir}/output/"},
+    publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
+        enabled: params.save_intermediate_files,
         pattern: "${type}_${sample_name}_mitoCaller.tsv",
         mode: 'copy',
         saveAs: { "${output_filename_base}.tsv" }
