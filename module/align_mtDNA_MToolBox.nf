@@ -7,7 +7,12 @@ process align_mtDNA_MToolBox {
 
     // Main ouput recalibrated & reheadered reads
     publishDir {"${params.output_dir}/output/"},
-        pattern: "{OUT_${bamql_out.baseName}/OUT2-sorted.bam,mt_classification_best_results.csv,summary*.txt}",
+        pattern: "{OUT_${bamql_out.baseName}/OUT2-sorted.bam}",
+        mode: 'copy',
+        saveAs: {"${output_filename_base}.bam"}
+
+    publishDir {"${params.output_dir}/output/"},
+        pattern: "{mt_classification_best_results.csv,summary*.txt}",
         mode: 'copy',
         saveAs: {"${output_filename_base}_${sanitize_string(file(it).getName())}"}
 
