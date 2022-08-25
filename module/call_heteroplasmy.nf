@@ -1,4 +1,4 @@
-include {generate_standard_filename} from "${projectDir}/external/pipeline-Nextflow-module/modules/common/generate_standardized_filename/main.nf"
+include {generate_standard_filename; sanitize_string} from "${projectDir}/external/pipeline-Nextflow-module/modules/common/generate_standardized_filename/main.nf"
 
 process call_heteroplasmy {
     container params.heteroplasmy_script_docker_image
@@ -19,6 +19,7 @@ process call_heteroplasmy {
 
     // unfiltered tsv
         publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
+        enabled: params.save_intermediate_files,
         pattern: "*[!{filtered}]*heteroplasmy_call.tsv",
         mode: "copy",
         saveAs: {
@@ -34,7 +35,15 @@ process call_heteroplasmy {
     publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
         enabled: params.save_intermediate_files,
         pattern: "*info",
-        mode: "copy"
+        mode: "copy",
+        saveAs: {
+            "${generate_standard_filename(
+            "call-heteroplasmy-${params.call_heteroplasmy_version}",
+            params.dataset_id,
+            "${tumour_sample_name}",
+            [:]
+            )}.pl.programinfo"
+            }
 
     //logs
     publishDir "${params.log_output_dir}/${task.process.split(':')[-1].replace('_', '-')}/",

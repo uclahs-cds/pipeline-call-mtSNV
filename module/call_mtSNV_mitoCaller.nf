@@ -15,7 +15,8 @@ process call_mtSNV_mitoCaller {
     publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "*.gz",
-        mode: "copy"
+        mode: "copy",
+        saveAs: { "${output_filename_base}.tsv.gz" }
 
     //logs
     publishDir "${params.log_output_dir}/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/",

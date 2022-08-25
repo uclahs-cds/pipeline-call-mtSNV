@@ -19,18 +19,21 @@ process align_mtDNA_MToolBox {
     publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "OUT_${bamql_out.baseName}/*",
-        mode: 'copy'
+        mode: 'copy',
+        saveAs: {"${output_filename_base}_${sanitize_string(file(it).getName())}"}
 
     publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "{tmp,VCF_dict_tmp,test}",
-        mode: 'copy'
+        mode: 'copy',
+        saveAs: {"${output_filename_base}_${sanitize_string(file(it).getName())}"}
 
     // mtoolbox folder with supplementary files
     publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "*.{txt,conf,vcf,gz}",
-        mode: 'copy'
+        mode: 'copy',
+        saveAs: {"${output_filename_base}_${sanitize_string(file(it).getName())}"}
         
     //logs 
     publishDir "${params.log_output_dir}/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/",
