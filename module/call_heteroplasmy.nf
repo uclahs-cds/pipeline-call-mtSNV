@@ -8,42 +8,21 @@ process call_heteroplasmy {
     publishDir {"${params.output_dir}/output/"},
         pattern: "filtered_heteroplasmy_call.tsv",
         mode: "copy",
-        saveAs: { 
-            "${generate_standard_filename(
-            "call-heteroplasmy-${params.call_heteroplasmy_version}",
-            params.dataset_id,
-            "${tumour_sample_name}",
-            [:]
-            )}_filtered.tsv" 
-            }
+        saveAs: { "${output_filename_base}_filtered.tsv" }
 
     // unfiltered tsv
         publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
         enabled: params.save_intermediate_files,
         pattern: "*[!{filtered}]*heteroplasmy_call.tsv",
         mode: "copy",
-        saveAs: {
-            "${generate_standard_filename(
-            "call-heteroplasmy-${params.call_heteroplasmy_version}",
-            params.dataset_id,
-            "${tumour_sample_name}",
-            [:]
-            )}.tsv"
-            }
+        saveAs: { "${output_filename_base}.tsv" }
 
     // info
     publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
         enabled: params.save_intermediate_files,
         pattern: "*info",
         mode: "copy",
-        saveAs: {
-            "${generate_standard_filename(
-            "call-heteroplasmy-${params.call_heteroplasmy_version}",
-            params.dataset_id,
-            "${tumour_sample_name}",
-            [:]
-            )}.pl.programinfo"
-            }
+        saveAs: { "${output_filename_base}.pl.programinfo" }
 
     //logs
     publishDir "${params.log_output_dir}/${task.process.split(':')[-1].replace('_', '-')}/",
@@ -70,6 +49,11 @@ process call_heteroplasmy {
         path '*info'
 
     script:
+    output_filename_base = generate_standard_filename(
+        "call-heteroplasmy-${params.call_heteroplasmy_version}",
+        params.dataset_id,
+        "${tumour_sample_name}",
+        [:])
     """
      perl /src/script/call_heteroplasmy_mitocaller.pl \
     --normal ${normal_mitocaller_out} \
