@@ -20,7 +20,7 @@ process align_mtDNA_MToolBox {
         enabled: params.save_intermediate_files,
         pattern: "OUT_${bamql_out.baseName}/*",
         mode: 'copy',
-        saveAs: {"${output_filename_base}_${sanitize_string(file(it).getName())}"}
+        saveAs: {"OUT_${bamql_out.baseName}/${sanitize_string(file(it).getName())}"}
 
     publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
