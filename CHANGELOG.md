@@ -13,7 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 ## [3.0.0] - 2022-09-08
-###
+### Added
 - Add F16 config file
 - Use external resource allocation module
 
