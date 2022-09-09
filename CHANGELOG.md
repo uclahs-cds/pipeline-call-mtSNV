@@ -7,9 +7,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 ## [Unreleased]
+### Changed
+### Added
+### Fixed
 
 ---
-## [3.0.0]
+## [3.0.0] - 2022-09-08
 ###
 - Add F16 config file
 - Use external resource allocation module
@@ -19,7 +22,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Standardize filename
 
 ---
-## [3.0.0-rc.1] 
+## [3.0.0-rc.1] - 2022-07-08
 ### Added
 - Add F32 config file
 
