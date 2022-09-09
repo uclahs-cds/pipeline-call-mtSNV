@@ -1,5 +1,5 @@
 /***
-Copyright (c) 2021, UCLA JCCC / Laboratory of Pual C. Boutros
+Copyright (c) 2021, UCLA JCCC / Laboratory of Paul C. Boutros
 'Call-mtSNV' - A Nextflow pipeline for somatic mtSNV (heteroplasmy) calling with NGS data
 Written by: Takafumi Yamaguchi
 Nextflowization: Alfredo Enrique Gonzalez, Andrew Park
