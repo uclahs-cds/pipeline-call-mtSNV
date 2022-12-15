@@ -4,14 +4,10 @@ name: CICD-base
 on:
   push:
     branches:
-      - master
       - main
-      - Alfredo-dev
   pull_request:
     branches:
-      - master
       - main
-      - Alfredo-dev
 
 jobs:
   CICD-base:
@@ -24,4 +20,4 @@ jobs:
         uses: actions/checkout@v2
 
       - name: CICD-base
-        uses: docker://blcdsdockerregistry/cicd-base:latest
+        uses: docker://ghcr.io/uclahs-cds/cicd-base:latest
