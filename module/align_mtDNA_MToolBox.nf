@@ -3,7 +3,7 @@ include {generate_standard_filename; sanitize_string} from "${projectDir}/extern
 process align_mtDNA_MToolBox {
     container params.MToolBox_docker_image
     containerOptions "--volume \"${params.gmapdb}:/src/gmapdb/\" --volume \"${params.mt_ref_genome_dir}:/src/genome_fasta/\""
-        label 'process_high'
+    label 'process_high'
 
     // Main ouput recalibrated & reheadered reads
     publishDir {"${params.output_dir}/output/"},
@@ -34,46 +34,45 @@ process align_mtDNA_MToolBox {
         pattern: "*.{txt,conf,vcf,gz}",
         mode: 'copy',
         saveAs: {"${output_filename_base}_${sanitize_string(file(it).getName())}"}
-        
-    //logs 
+
+    //logs
     publishDir "${params.log_output_dir}/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/",
         pattern: ".command.*",
         mode: "copy",
         saveAs: {"log${file(it).getName()}" }
 
     input:
-    tuple(
-      val(type),
-      val(sample_name),
-      path(bamql_out)
-      )
+        tuple(
+            val(type),
+            val(sample_name),
+            path(bamql_out)
+            )
 
     output:
-     tuple val(type), val(sample_name), path("OUT_${bamql_out.baseName}/OUT2-sorted.bam"), emit: aligned_mt_reads
+        tuple val(type), val(sample_name), path("OUT_${bamql_out.baseName}/OUT2-sorted.bam"), emit: aligned_mt_reads
 
-      path '.command.*'
-      path("OUT_${bamql_out.baseName}/*")
-      path("*.csv")
-      path("*.txt")
-      path("*.gz")
-      path("*.vcf")
-      path("VCF_dict_tmp")
-      path("tmp")
-      path("*.conf")
+        path '.command.*'
+        path("OUT_${bamql_out.baseName}/*")
+        path("*.csv")
+        path("*.txt")
+        path("*.gz")
+        path("*.vcf")
+        path("VCF_dict_tmp")
+        path("tmp")
+        path("*.conf")
 
 // !!!NOTE!!! Output file location can not be spceified withing the mtoolbox command or it breaks mtoolbox script when running a BAM file
 // !!!NOTE!!! Location of the directory with the reference genome needs to be mounted on docker image. The actual file can not be called on. This is because MToolBox uses a script as an input that requires this file location.
 
-  script:
-  output_filename_base = generate_standard_filename(
-    "MToolBox-${params.mtoolbox_version}",
-    params.dataset_id,
-    "${sample_name}",
-    [:])
-  """
-  printf "input_type='bam'\nref='RSRS'\ninput_path=${bamql_out}\ngsnapdb=/src/gmapdb/\nfasta_path=/src/genome_fasta/\n" > config_'${bamql_out.baseName}'.conf
-
-  MToolBox.sh -i config_'${bamql_out.baseName}'.conf -m '-t ${task.cpus}'
-
-  """
+    script:
+        output_filename_base = generate_standard_filename(
+            "MToolBox-${params.mtoolbox_version}",
+            params.dataset_id,
+            "${sample_name}",
+            [:]
+            )
+        """
+        printf "input_type='bam'\nref='RSRS'\ninput_path=${bamql_out}\ngsnapdb=/src/gmapdb/\nfasta_path=/src/genome_fasta/\n" > config_'${bamql_out.baseName}'.conf
+        MToolBox.sh -i config_'${bamql_out.baseName}'.conf -m '-t ${task.cpus}'
+        """
 }
