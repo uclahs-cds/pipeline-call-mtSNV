@@ -55,10 +55,10 @@ if (params.sample_mode == 'paired') {
         .splitCsv(header:true)
         .multiMap {
             it ->
-            project_id: it.project_id
-            sample_id: it.sample_id
-            normal_ch: ['normal', it.normal_id, it.normal_BAM]
-            tumour_ch: ['tumour', it.tumour_id, it.tumour_BAM]
+                project_id: it.project_id
+                sample_id: it.sample_id
+                normal_ch: ['normal', it.normal_id, it.normal_BAM]
+                tumour_ch: ['tumour', it.tumour_id, it.tumour_BAM]
             }
         .set { input_csv_ch }
 
@@ -72,9 +72,9 @@ else if (params.sample_mode == 'single') {
         .splitCsv(header:true)
         .multiMap {
             it ->
-            project_id: it.project_id
-            sample_id: it.sample_id
-            single_sample: ['single_sample', it.normal_id, it.normal_BAM]
+                project_id: it.project_id
+                sample_id: it.sample_id
+                single_sample: ['single_sample', it.normal_id, it.normal_BAM]
             }
         .set{ input_csv_ch }
 
