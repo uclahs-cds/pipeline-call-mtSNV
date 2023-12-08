@@ -21,6 +21,9 @@
     - [Test Data Set](#test-data-set)
     - [Validation Tool](#validation-tool)
   - [References](#references)
+  - [Discussions](#discussions)
+  - [Contributors](#contributors)
+  - [Please see list of Contributors at GitHub.](#please-see-list-of-contributors-at-github)
   - [License](#license)
 
 ## Overview
@@ -40,22 +43,16 @@ ___
 
 ### 1. Extract mtDNA with BAMQL
 
-BAMQL is a package or query language which the Boutros lab [published](https://doi.org/10.1186/s12859-016-1162-y) and is dedicated to extracting reads from BAM files.<sup>1-2</sup>
+[BAMQL](https://doi.org/10.1186/s12859-016-1162-y) is a package or query language published by the Boutros lab for extracting reads from BAM files.<sup>1-2</sup>
 
 ### 2. Align mtDNA with MToolBox
 ![flowchart_mtoolbox_overview](flowchart_mtoolbox_overview.png)
 
-So once we have mitochondrial reads extracted we proceed to MtoolBox which can accept as input raw data or prealigned reads.<sup>3</sup>
-
-In both cases, reads are mapped/remapped by the mapExome.py script to a mitochondrial reference genome. The current pipeline uses the Reconstructed Sapiens Reference Sequence (RSRS). Additional information found [here](https://haplogrep.i-med.ac.at/2014/09/08/rcrs-vs-rsrs-vs-hg19/).<sup>4</sup>
-
-This step generates a dataset of reliable mitochondrial aligned reads.
+MToolBox is used to align the extracted mitochondrial reads. It can accept as input either raw data or prealigned reads.<sup>3</sup> In both cases, reads are mapped by the mapExome.py script to a mitochondrial reference genome. The current pipeline uses the Reconstructed Sapiens Reference Sequence(RSRS).<sup>4</sup> This generates a dataset of reliable mitochondrial aligned reads.
 
 ### 3. Call mtSNV with mitoCaller
 
-While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 seperate copies. Moreover, mtDNA is circular and it is possible to have heterogeneity at the same base within the mtDNA DNA in the same cell. This means that the general approaches used for variant calling in nuclear DNA must be modified to take in these additional parameters.
-
-[mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a script which uses a mitochondria specific algorithm to identify mtDNA variants.<sup>5-6</sup> Further literature on the likelihood-based mode, how circularity is handled, and how mtDNA copy number is estimated can be found [here](https://doi.org/10.1371/journal.pgen.1005306).
+While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 copies, so it is possible to have heterogeneity at the same base within the mtDNA in the same cell. Additionally, mtDNA is circular. This means that the general approaches used for variant calling in nuclear DNA must be modified to take in these additional parameters. [mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a script which uses a mitochondrial specific algorithm designed to account for these unique factors to identify mtDNA variants.<sup>5-6</sup>
 
 ### 4. Convert mitoCaller output with Mito2VCF
 
@@ -68,28 +65,28 @@ Heteroplasmy is the presence of more than one type of organellar genome (mitocho
 ## Inputs
 
 ### input.csv
-This input CSV requires 4 arguments in 'single' mode, 6 in 'paired'.
+This input CSV requires 4 arguments in 'single' mode, 6 in 'paired'. See provided [template](./input/input.csv).
 
 >The input CSV must have all columns below and in the same order. Input are aligned BAM files.
 #### Single Mode
 
 | Field | Type | Description |
 |:------|:-----|:----------------------------|
-| project_ID | string | Name of project. |
-| sample_ID | string | Name of sample. |
-| normal_ID | string | Identifier for normal samples. |
-| normal_BAM | path | Absolute path to normal BAM file. |
+| project_id | string | Name of project. |
+| sample_id | string | Name of sample. |
+| normal_id | string | Identifier for normal samples. |
+| normal_bam | path | Absolute path to normal BAM file. |
 
 #### Paired Mode
 
 | Field | Type | Description |
 |:------|:-----|:----------------------------|
-| project_ID | string | Name of project. |
-| sample_ID | string | Name of sample. |
-| normal_ID | string | Identifier for normal samples. |
-| normal_BAM | path | Absolute path to normal BAM file. |
-| tumour_ID | string | Identifier for tumor samples. |
-| tumour_BAM | path | Absolute path to tumor BAM file. |
+| project_id | string | Name of project. |
+| sample_id | string | Name of sample. |
+| normal_id | string | Identifier for normal samples. |
+| normal_bam | path | Absolute path to normal BAM file. |
+| tumour_id | string | Identifier for tumor samples. |
+| tumour_bam | path | Absolute path to tumor BAM file. |
 
 ### input.config
 The config file requires 9 arguments. See provided [template](./config/template.config).
@@ -100,10 +97,10 @@ The config file requires 9 arguments. See provided [template](./config/template.
 | 3 | `input_csv` | yes | path | Absolute path to input.csv. |
 | 4 | `dataset_id` | yes | string | dataset identifier attached to pipeline output. |
 | 5 | `output_dir` | yes | path | Absolute path to location of output. |
-| 6 | `mt_ref_genome_dir` | yes | path | Absolute path to directory containing mitochondrial ref genome and mt ref genome index files. Path: /hot/ref/mitochondria_ref/genome_fasta |
-| 7 | `gmapdb` | yes | path | Absolute path to to gmapdb directory. Path: /hot/ref/mitochondria_ref/gmapdb/gmapdb_2021-03-08 |
-| 8 | `save_intermediate_files` | yes | boolean | Save intermediate files. If yes, not only the final BAM, but also the unmerged, unsorted, and duplicates unmarked BAM files will also be saved. Default is set to false. |
-| 9 | `cache_intermediate_pipeline_steps` | yes | boolean | Enable caching to resume pipeline and the end of the last successful process completion when a pipeline fails (if true the default submission script must be modified). Default is set to false.
+| 6 | `mt_ref_genome_dir` | yes | path | Absolute path to directory containing mitochondrial ref genome and mt ref genome index files. Path: `/hot/ref/mitochondria_ref/genome_fasta`|
+| 7 | `gmapdb` | yes | path | Absolute path to to gmapdb directory. Path: `/hot/ref/mitochondria_ref/gmapdb/gmapdb_2021-03-08` |
+| 8 | `save_intermediate_files` | yes | boolean | Save intermediate files. If yes, not only the final BAM, but also the unmerged, unsorted, and duplicates unmarked BAM files will also be saved. Default is set to `false`. |
+| 9 | `cache_intermediate_pipeline_steps` | yes | boolean | Enable caching to resume pipeline and the end of the last successful process completion when a pipeline fails (if true the default submission script must be modified). Default is set to `false`.
 
 ## Outputs
 
@@ -150,6 +147,17 @@ Included is a template for validating your input files. For more information on 
 05. [mitoCaller](https://lgsun.irp.nia.nih.gov/hsgu/software/mitoAnalyzer/mitoAnalyzer.htm)
 06. [Ding J, Sidore C, Butler TJ, Wing MK, Qian Y, et al. (2015) Correction: Assessing Mitochondrial DNA Variation and Copy Number in Lymphocytes of ~2,000 Sardinians Using Tailored Sequencing Analysis Tools](https://doi.org/10.1371/journal.pgen.1005306)
 
+---
+
+## Discussions
+- [Issue tracker](https://github.com/uclahs-cds/pipeline-call-mtSNV/issues) to report errors and enhancement ideas.
+- Discussions can take place in [<pipeline> Discussions](https://github.com/uclahs-cds/pipeline-call-mtSNV/discussions)
+- [<pipeline> pull requests](https://github.com/uclahs-cds/pipeline-call-mtSNV/pulls) are also open for discussion
+
+---
+
+## Contributors
+Please see list of [Contributors](https://github.com/uclahs-cds/pipeline-call-mtSNV/graphs/contributors) at GitHub.
 ---
 
 ## License
