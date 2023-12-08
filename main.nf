@@ -29,7 +29,8 @@ Boutros Lab
         version: ${workflow.manifest.version}
 
     - input:
-        input_csv: ${params.input_csv}
+        normal: ${params.input['normal']['BAM']}
+        tumour: ${params.input['tumour']['BAM']}
         gmapdb = ${params.gmapdb}
         mt_reference_genome = ${params.mt_ref_genome_dir}
 
@@ -50,35 +51,28 @@ Boutros Lab
 // Conditional for 'paired' sample
 if (params.sample_mode == 'paired') {
     Channel
-        .fromPath(params.input_csv, checkIfExists: true)
-        .ifEmpty { exit 1, "params.input_csv was empty - no input files supplied" }
-        .splitCsv(header:true)
-        .multiMap {
-            it ->
-                project_id: it.project_id
-                sample_id: it.sample_id
-                normal_ch: ['normal', it.normal_id, it.normal_BAM]
-                tumour_ch: ['tumour', it.tumour_id, it.tumour_BAM]
-            }
-        .set { input_csv_ch }
+        .of(params.input['normal'])
+        .map {
+            ['normal', it['id'][0], it['BAM']]
+        }
+        .set { normal_ch }
+    Channel
+        .of(params.input['tumour'])
+        .map {
+            ['tumour', it['id'][0], it['BAM']]
+        }
+        .set { tumour_ch }
 
-    input_csv_ch.normal_ch.mix(input_csv_ch.tumour_ch).set { main_work_ch }
+    normal_ch.mix(tumour_ch).set { main_work_ch }
     }
 
 else if (params.sample_mode == 'single') {
     Channel
-        .fromPath(params.input_csv)
-        .ifEmpty { exit 1, "params.input_csv was empty - no input files supplied" }
-        .splitCsv(header:true)
-        .multiMap {
-            it ->
-                project_id: it.project_id
-                sample_id: it.sample_id
-                single_sample: ['single_sample', it.normal_id, it.normal_BAM]
-            }
-        .set{ input_csv_ch }
-
-    input_csv_ch.single_sample.set{ main_work_ch }
+        .of(params.input['normal'])
+        .map {
+            ['normal', it['id'][0], it['BAM']]
+        }
+        .set { main_work_ch }
     }
 
 workflow{

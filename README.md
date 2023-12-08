@@ -64,9 +64,8 @@ Heteroplasmy is the presence of more than one type of organellar genome (mitocho
 ## Inputs
 
 ### input.csv
-This input CSV requires 4 arguments in 'single' mode, 6 in 'paired'. See provided [template](./input/input.csv).
+This input YAML requires 4 arguments in 'single' mode, 6 in 'paired', and must comply with the format in the provided [template](./input/template.csv).
 
->The input CSV must have all columns below and in the same order. Input are aligned BAM files.
 #### Single Mode
 
 | Field | Type | Description |
@@ -87,6 +86,7 @@ This input CSV requires 4 arguments in 'single' mode, 6 in 'paired'. See provide
 | normal_bam | path | Absolute path to normal BAM file. |
 | tumour_id | string | Identifier for tumor samples. |
 | tumour_bam | path | Absolute path to tumor BAM file. |
+
 
 ### input.config
 The config file requires 9 arguments. See provided [template](./config/template.config).
