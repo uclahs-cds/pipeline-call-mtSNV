@@ -53,13 +53,13 @@ if (params.sample_mode == 'paired') {
     Channel
         .of(params.input['normal'])
         .map {
-            ['normal', it['id'][0], it['BAM']]
+            ['normal', it['id'], it['BAM']]
         }
         .set { normal_ch }
     Channel
         .of(params.input['tumour'])
         .map {
-            ['tumour', it['id'][0], it['BAM']]
+            ['tumour', it['id'], it['BAM']]
         }
         .set { tumour_ch }
 
@@ -70,7 +70,7 @@ else if (params.sample_mode == 'single') {
     Channel
         .of(params.input['normal'])
         .map {
-            ['normal', it['id'][0], it['BAM']]
+            ['normal', it['id'], it['BAM']]
         }
         .set { main_work_ch }
     }
