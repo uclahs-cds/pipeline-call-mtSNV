@@ -33,7 +33,7 @@ ___
 ## How To Run
 > **Note**: Because this pipeline uses an image stored in the GitHub Container Registry, you must follow the steps listed in the [Docker Introduction](https://uclahs-cds.atlassian.net/wiki/spaces/BOUTROSLAB/pages/3190419/Docker+Introduction#DockerIntroduction-HowtosetupPATandlogintotheregistryHowtosetupPATandlogintotheregistry) on Confluence to set up a PAT for your GitHub account and log into the registry on the cluster before running this pipeline.
 
-Samples can be run by specifying file locations in the `input.csv` and setting pipeline-specific parameters in the `input.config`.
+Samples can be run by specifying file locations in the [`input.csv`](./input/template.csv) and setting pipeline-specific parameters in the [`input.config`](./config/template.config).
 ___
 
 ## Flow Diagram
