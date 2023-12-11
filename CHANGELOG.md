@@ -8,12 +8,15 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ---
 ## [Unreleased]
 ### Changed
-- Parameterize Docker registry
-- Use `ghcr.io/uclahs-cds` as default registry
 ### Added
 ### Fixed
 
 ---
+## [3.0.1] - 2023-12-07
+### Changed
+- Parameterize Docker registry
+- Use `ghcr.io/uclahs-cds` as default registry
+
 ## [3.0.0] - 2022-09-08
 ### Added
 - Add F16 config file
