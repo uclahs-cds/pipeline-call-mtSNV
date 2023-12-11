@@ -11,7 +11,7 @@
     - [4. Convert mitoCaller output with Mito2VCF](#4-convert-mitocaller-output-with-mito2vcf)
     - [5. Call Heteroplasmy on Paired Samples](#5-call-heteroplasmy-on-paired-samples)
   - [Inputs](#inputs)
-    - [input.csv](#inputcsv)
+    - [input.yaml](#inputyaml)
       - [Single Mode](#single-mode)
       - [Paired Mode](#paired-mode)
     - [input.config](#inputconfig)
@@ -32,7 +32,7 @@ ___
 ## How To Run
 > **Note**: Because this pipeline uses an image stored in the GitHub Container Registry, you must follow the steps listed in the [Docker Introduction](https://uclahs-cds.atlassian.net/wiki/spaces/BOUTROSLAB/pages/3190419/Docker+Introduction#DockerIntroduction-HowtosetupPATandlogintotheregistryHowtosetupPATandlogintotheregistry) on Confluence to set up a PAT for your GitHub account and log into the registry on the cluster before running this pipeline.
 
-Samples can be run by specifying file locations in the [`input.csv`](./input/template.csv) and setting pipeline-specific parameters in the [`input.config`](./config/template.config).
+Samples can be run by specifying file locations in the [`input.yaml`](./input/template.yaml) and setting pipeline-specific parameters in the [`input.config`](./config/template.config).
 ___
 
 ## Flow Diagram
@@ -63,8 +63,8 @@ Heteroplasmy is the presence of more than one type of organellar genome (mitocho
 
 ## Inputs
 
-### input.csv
-This input YAML requires 4 arguments in 'single' mode, 6 in 'paired', and must comply with the format in the provided [template](./input/template.csv).
+### input.yaml
+This input YAML requires 4 arguments in 'single' mode, 6 in 'paired', and must comply with the format in the provided [template](./input/template.yaml).
 
 #### Single Mode
 
@@ -89,12 +89,11 @@ This input YAML requires 4 arguments in 'single' mode, 6 in 'paired', and must c
 
 
 ### input.config
-The config file requires 9 arguments. See provided [template](./config/template.config).
+The config file requires 8 arguments. See provided [template](./config/template.config).
 || Input Parameter | Required | Type | Description |
 |:---|:----------------|:---------|:-----|:----------------------------|
 | 1 | `run_name` | yes | string | This is the overall run name, useful in paired sample mode for organizing outputs. The outputs will be housed in a directory with this name + date information automatically pulled from the system. |
-| 2 | `sample_mode` | yes | string | `single` or `paired`. |
-| 3 | `input_csv` | yes | path | Absolute path to input.csv. |
+| 2 | `sample_mode` | yes | string | 'single' or 'paired'. |
 | 4 | `dataset_id` | yes | string | dataset identifier attached to pipeline output. |
 | 5 | `output_dir` | yes | path | Absolute path to location of output. |
 | 6 | `mt_ref_genome_dir` | yes | path | Absolute path to directory containing mitochondrial ref genome and mt ref genome index files. Path: `/hot/ref/mitochondria_ref/genome_fasta`|
@@ -124,7 +123,7 @@ ___
 
 ### Test Data Set
 
-Both WGS and WES aligned BAM files were used to test in single and tumor-normal paired modes. Input CSV with directory paths and used configs included in test_example.csv.
+Both WGS and WES aligned BAM files were used to test in single and tumor-normal paired modes.
 
 || Type | Mode | Size | CPU threads |PeakVMemory | Run Time |
 |:--|:---|:----|:-----|:-----|:------|:------|

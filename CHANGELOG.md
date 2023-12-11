@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ---
 ## [Unreleased]
 ### Changed
+- Change input format to YAML.
 ### Added
 ### Fixed
 
