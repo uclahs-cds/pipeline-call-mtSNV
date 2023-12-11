@@ -1,6 +1,5 @@
 # Boutros Lab call-mtSNV pipeline
 
- [Boutros Lab call-mtSNV pipeline](#Boutros-Lab-call-mtSNV-pipeline)
 - [Boutros Lab call-mtSNV pipeline](#boutros-lab-call-mtsnv-pipeline)
   - [Overview](#overview)
   - [How To Run](#how-to-run)
@@ -77,6 +76,7 @@ This input CSV requires 4 arguments in 'single' mode, 6 in 'paired'. See provide
 | normal_id | string | Identifier for normal samples. |
 | normal_bam | path | Absolute path to normal BAM file. |
 
+> If the single sample is of type `tumour`, provide the identifier and path under the `normal` fields in the input CSV.
 #### Paired Mode
 
 | Field | Type | Description |
@@ -168,7 +168,7 @@ Call-mtSNV is licensed under the GNU General Public License version 2. See the f
 
 Call-mtSNV takes a single aligned BAM or pair of normal tumor bams and does variant calling for mtDNA.
 
-Copyright (C) 2024 University of California Los Angeles ("Boutros Lab") All rights reserved.
+Copyright (C) 2021-2024 University of California Los Angeles ("Boutros Lab") All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 
