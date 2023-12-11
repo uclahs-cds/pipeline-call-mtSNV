@@ -33,7 +33,7 @@ ___
 ## How To Run
 > **Note**: Because this pipeline uses an image stored in the GitHub Container Registry, you must follow the steps listed in the [Docker Introduction](https://uclahs-cds.atlassian.net/wiki/spaces/BOUTROSLAB/pages/3190419/Docker+Introduction#DockerIntroduction-HowtosetupPATandlogintotheregistryHowtosetupPATandlogintotheregistry) on Confluence to set up a PAT for your GitHub account and log into the registry on the cluster before running this pipeline.
 
-Samples can be run by specifying file locations in the input.csv and setting pipeline-specific parameters in the input.config.
+Samples can be run by specifying file locations in the `input.csv` and setting pipeline-specific parameters in the `input.config`.
 ___
 
 ## Flow Diagram
@@ -93,7 +93,7 @@ The config file requires 9 arguments. See provided [template](./config/template.
 || Input Parameter | Required | Type | Description |
 |:---|:----------------|:---------|:-----|:----------------------------|
 | 1 | `run_name` | yes | string | This is the overall run name, useful in paired sample mode for organizing outputs. The outputs will be housed in a directory with this name + date information automatically pulled from the system. |
-| 2 | `sample_mode` | yes | string | 'single' or 'paired'. |
+| 2 | `sample_mode` | yes | string | `single` or `paired`. |
 | 3 | `input_csv` | yes | path | Absolute path to input.csv. |
 | 4 | `dataset_id` | yes | string | dataset identifier attached to pipeline output. |
 | 5 | `output_dir` | yes | path | Absolute path to location of output. |
@@ -106,7 +106,7 @@ The config file requires 9 arguments. See provided [template](./config/template.
 
 |Process| Output | category| Description |
 |:------|:--------|:--------|:----------------|
-|extract_mtDNA_BAMQL|*OUT2-sorted.bam|main|Outputs Bam file with only mitochondrial reads|
+|extract_mtDNA_BAMQL|*OUT2-sorted.bam|main|Outputs BAM file with only mitochondrial reads|
 |align_mtDNA_MToolBox|.bam|main|Aligned, sorted, mitochondrial reads in BAM format|
 |align_mtDNA_MToolBox|prioritized_variants.txt|main|Contains annotation only for prioritized variants for each sample analyzed,sorted by increasing nucleotide variability|
 |align_mtDNA_MToolBox|summary*.txt|main|Summary of selected options. Includes predicted haplogroups, total and prioritized variants, coverage of reconstructed genomes, count of homoplasmic and heteroplasmic variants|
@@ -162,13 +162,13 @@ Please see list of [Contributors](https://github.com/uclahs-cds/pipeline-call-mt
 
 ## License
 
-Author: Alfredo Gonzalez (alfgonzalez@mednet.ucla.edu), Takafumi Yamaguchi (tyamaguchi@mednet.ucla.edu)
+Author: Alfredo Gonzalez (alfgonzalez@mednet.ucla.edu), Takafumi Yamaguchi (tyamaguchi@mednet.ucla.edu), Jieun Oh (jieunoh@mednet.ucla.edu)
 
 Call-mtSNV is licensed under the GNU General Public License version 2. See the file LICENSE for the terms of the GNU GPL license.
 
 Call-mtSNV takes a single aligned BAM or pair of normal tumor bams and does variant calling for mtDNA.
 
-Copyright (C) 2021 University of California Los Angeles ("Boutros Lab") All rights reserved.
+Copyright (C) 2024 University of California Los Angeles ("Boutros Lab") All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 
