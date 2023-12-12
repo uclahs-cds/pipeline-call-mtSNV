@@ -26,7 +26,7 @@
   - [License](#license)
 
 ## Overview
-This Nextflow pipeline takes as input either a single aligned BAM or paired normal-tumor BAMs and extracts mitochondrial DNA reads, remaps the reads to a mitochondrial reference genome, and subsequently calls variants. Paired mode gives an additional heteroplasmy comparison.
+This Nextflow pipeline takes as input either a single aligned BAM or paired normal-tumour BAMs and extracts mitochondrial DNA reads, remaps the reads to a mitochondrial reference genome, and subsequently calls variants. Paired mode gives an additional heteroplasmy comparison.
 ___
 
 ## How To Run
@@ -73,7 +73,7 @@ This input YAML requires 4 arguments in 'single' mode, 6 in 'paired', and must c
 | project_id | string | Name of project. |
 | sample_id | string | Name of sample. |
 | normal_id | string | Identifier for normal samples. |
-| normal_bam | path | Absolute path to normal BAM file. |
+| normal_BAM | path | Absolute path to normal BAM file. |
 
 > If the single sample is of type `tumour`, provide the identifier and path under the `normal` fields in the input CSV.
 #### Paired Mode
@@ -83,9 +83,9 @@ This input YAML requires 4 arguments in 'single' mode, 6 in 'paired', and must c
 | project_id | string | Name of project. |
 | sample_id | string | Name of sample. |
 | normal_id | string | Identifier for normal samples. |
-| normal_bam | path | Absolute path to normal BAM file. |
-| tumour_id | string | Identifier for tumor samples. |
-| tumour_bam | path | Absolute path to tumor BAM file. |
+| normal_BAM | path | Absolute path to normal BAM file. |
+| tumour_id | string | Identifier for tumour samples. |
+| tumour_BAM | path | Absolute path to tumour BAM file. |
 
 
 ### input.config
@@ -123,7 +123,7 @@ ___
 
 ### Test Data Set
 
-Both WGS and WES aligned BAM files were used to test in single and tumor-normal paired modes.
+Both WGS and WES aligned BAM files were used to test in single and tumour-normal paired modes.
 
 || Type | Mode | Size | CPU threads |PeakVMemory | Run Time |
 |:--|:---|:----|:-----|:-----|:------|:------|
@@ -161,11 +161,11 @@ Please see list of [Contributors](https://github.com/uclahs-cds/pipeline-call-mt
 
 ## License
 
-Author: Alfredo Gonzalez (alfgonzalez@mednet.ucla.edu), Takafumi Yamaguchi (tyamaguchi@mednet.ucla.edu), Jieun Oh (jieunoh@mednet.ucla.edu)
+Author: Alfredo Gonzalez (alfgonzalez@mednet.ucla.edu), Takafumi Yamaguchi (tyamaguchi@mednet.ucla.edu), Jieun Oh (jieunoh@mednet.ucla.edu), Kiarod Pashminehazar (kpashminehazar@mednet.ucla.edu)
 
 Call-mtSNV is licensed under the GNU General Public License version 2. See the file LICENSE for the terms of the GNU GPL license.
 
-Call-mtSNV takes a single aligned BAM or pair of normal tumor bams and does variant calling for mtDNA.
+Call-mtSNV takes a single aligned BAM or pair of normal tumour BAMs and does variant calling for mtDNA.
 
 Copyright (C) 2021-2024 University of California Los Angeles ("Boutros Lab") All rights reserved.
 
