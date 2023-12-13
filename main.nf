@@ -30,7 +30,7 @@ Boutros Lab
 
     - input:
         normal: ${params.input['normal']['BAM']}
-        tumour: ${params.input['tumour']['BAM']}
+        tumor: ${params.input['tumor']['BAM']}
         gmapdb = ${params.gmapdb}
         mt_reference_genome = ${params.mt_ref_genome_dir}
 
@@ -57,13 +57,13 @@ if (params.sample_mode == 'paired') {
         }
         .set { normal_ch }
     Channel
-        .of(params.input['tumour'])
+        .of(params.input['tumor'])
         .map {
-            ['tumour', it['id'], it['BAM']]
+            ['tumor', it['id'], it['BAM']]
         }
-        .set { tumour_ch }
+        .set { tumor_ch }
 
-    normal_ch.mix(tumour_ch).set { main_work_ch }
+    normal_ch.mix(tumor_ch).set { main_work_ch }
     }
 
 else if (params.sample_mode == 'single') {
@@ -95,13 +95,13 @@ workflow{
     //Fork mitoCaller Output
     call_mtSNV_mitoCaller.out.mt_variants_gz.branch{
         normal: it[0] == 'normal'
-        tumour: it[0] == 'tumour'
+        tumor: it[0] == 'tumor'
         }
         .set{ mitoCaller_forked_ch }
 
     // //step 6: call heteroplasmy script
     if (params.sample_mode == 'paired') {
-        call_heteroplasmy( mitoCaller_forked_ch.normal, mitoCaller_forked_ch.tumour )
+        call_heteroplasmy( mitoCaller_forked_ch.normal, mitoCaller_forked_ch.tumor )
         }
 
     //step 7: validate output script

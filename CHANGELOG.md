@@ -52,7 +52,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Update .gitignore
 
 ### Fixed
-- #61 + #62  | Fix normal tumour genotype flip on final call-heteroplasmy comparison and fix observed file overwrite
+- #61 + #62  | Fix normal tumor genotype flip on final call-heteroplasmy comparison and fix observed file overwrite
 
 ---
 ## [1.0.0] - 2021-08-20

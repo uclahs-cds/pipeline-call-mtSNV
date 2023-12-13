@@ -38,9 +38,9 @@ process call_heteroplasmy {
             )
 
         tuple(
-            val(tumour_key),
-            val(tumour_sample_name),
-            path(tumour_mitocaller_out)
+            val(_key),
+            val(_sample_name),
+            path(_mitocaller_out)
             )
 
     output:
@@ -52,13 +52,13 @@ process call_heteroplasmy {
         output_filename_base = generate_standard_filename(
             "call-heteroplasmy-${params.call_heteroplasmy_version}",
             params.dataset_id,
-            "${tumour_sample_name}",
+            "${_sample_name}",
             [:]
             )
         """
         perl /src/script/call_heteroplasmy_mitocaller.pl \
         --normal ${normal_mitocaller_out} \
-        --tumour ${tumour_mitocaller_out} \
+        -- ${_mitocaller_out} \
         --output heteroplasmy_call.tsv \
         --ascat_stat
         """

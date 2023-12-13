@@ -26,7 +26,7 @@
   - [License](#license)
 
 ## Overview
-This Nextflow pipeline takes as input either a single aligned BAM or paired normal-tumour BAMs and extracts mitochondrial DNA reads, remaps the reads to a mitochondrial reference genome, and subsequently calls variants. Paired mode gives an additional heteroplasmy comparison.
+This Nextflow pipeline takes as input either a single aligned BAM or paired normal-tumor BAMs and extracts mitochondrial DNA reads, remaps the reads to a mitochondrial reference genome, and subsequently calls variants. Paired mode gives an additional heteroplasmy comparison.
 ___
 
 ## How To Run
@@ -75,7 +75,7 @@ This input YAML requires 4 arguments in 'single' mode, 6 in 'paired', and must c
 | normal_id | string | Identifier for normal samples. |
 | normal_BAM | path | Absolute path to normal BAM file. |
 
-> If the single sample is of type `tumour`, provide the identifier and path under the `normal` fields in the input CSV.
+> If the single sample is of type `tumor`, provide the identifier and path under the `normal` fields in the input CSV.
 #### Paired Mode
 
 | Field | Type | Description |
@@ -84,8 +84,8 @@ This input YAML requires 4 arguments in 'single' mode, 6 in 'paired', and must c
 | sample_id | string | Name of sample. |
 | normal_id | string | Identifier for normal samples. |
 | normal_BAM | path | Absolute path to normal BAM file. |
-| tumour_id | string | Identifier for tumour samples. |
-| tumour_BAM | path | Absolute path to tumour BAM file. |
+| tumor_id | string | Identifier for tumor samples. |
+| tumor_BAM | path | Absolute path to tumor BAM file. |
 
 
 ### input.config
@@ -115,7 +115,7 @@ The config file requires 8 arguments. See provided [template](./config/template.
 |call_mtSNV_mitoCaller|*mitoCaller.tsv|main|Contains mtDNA variants (i.e., homoplasmies and heteroplasmies)|
 |call_mtSNV_mitoCaller|*mitoCaller.tsv|intermediate|gzipped tsv file|
 |convert_mitoCaller2VCF|*.vcf|main|2 *.VCF files containing mitoCaller calls in more legible format|
-|call_heteroplasmy|*.tsv|main|a *.tsv table showing differences in the normal genotype vs tumour genotype. It also gives heteroplasmy_fraction if there is any.|
+|call_heteroplasmy|*.tsv|main|a *.tsv table showing differences in the normal genotype vs tumor genotype. It also gives heteroplasmy_fraction if there is any.|
 
 ___
 
@@ -123,7 +123,7 @@ ___
 
 ### Test Data Set
 
-Both WGS and WES aligned BAM files were used to test in single and tumour-normal paired modes.
+Both WGS and WES aligned BAM files were used to test in single and tumor-normal paired modes.
 
 || Type | Mode | Size | CPU threads |PeakVMemory | Run Time |
 |:--|:---|:----|:-----|:-----|:------|:------|
@@ -165,7 +165,7 @@ Author: Alfredo Gonzalez (alfgonzalez@mednet.ucla.edu), Takafumi Yamaguchi (tyam
 
 Call-mtSNV is licensed under the GNU General Public License version 2. See the file LICENSE for the terms of the GNU GPL license.
 
-Call-mtSNV takes a single aligned BAM or pair of normal tumour BAMs and does variant calling for mtDNA.
+Call-mtSNV takes a single aligned BAM or pair of normal tumor BAMs and does variant calling for mtDNA.
 
 Copyright (C) 2021-2024 University of California Los Angeles ("Boutros Lab") All rights reserved.
 
