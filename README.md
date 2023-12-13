@@ -51,7 +51,7 @@ MToolBox is used to align the extracted mitochondrial reads. It can accept as in
 
 ### 3. Call mtSNV with mitoCaller
 
-While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 copies, so it is possible to have heterogeneity at the same base within the mtDNA in the same cell. Additionally, mtDNA is circular. This means that the general approaches used for variant calling in nuclear DNA must be modified to take in these additional parameters. [mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a script which uses a mitochondrial specific algorithm designed to account for these unique factors to identify mtDNA variants.<sup>5-6</sup>
+While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 copies.  The resultant high coverage in bulk sequencing data allows for the sensitive detection of low frequency variation seen with mitoCaller. [mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a script which uses a mitochondrial specific algorithm designed to account for these unique factors to identify mtDNA variants.<sup>5-6</sup>
 
 ### 4. Convert mitoCaller output with Mito2VCF
 
