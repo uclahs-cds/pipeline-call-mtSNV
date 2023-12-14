@@ -5,20 +5,20 @@ process call_heteroplasmy {
     label 'process_medium'
 
     // filtered tsv
-    publishDir {"${params.output_dir}/output/"},
+    publishDir {"${params.output_dir_base}/output/"},
         pattern: "filtered_heteroplasmy_call.tsv",
         mode: "copy",
         saveAs: { "${output_filename_base}_filtered.tsv" }
 
     // unfiltered tsv
-    publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
+    publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
         enabled: params.save_intermediate_files,
         pattern: "*[!{filtered}]*heteroplasmy_call.tsv",
         mode: "copy",
         saveAs: { "${output_filename_base}.tsv" }
 
     // info
-    publishDir {"${params.output_dir}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
+    publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
         enabled: params.save_intermediate_files,
         pattern: "*info",
         mode: "copy",
