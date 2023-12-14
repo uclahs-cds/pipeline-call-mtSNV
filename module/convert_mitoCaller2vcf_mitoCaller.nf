@@ -4,12 +4,12 @@ process convert_mitoCaller2vcf_mitoCaller {
     container params.mitoCaller2vcf_docker_image
     label 'process_medium'
 
-    publishDir {"${params.output_dir}/output/"},
+    publishDir {"${params.output_dir_base}/output/"},
         pattern: "*output.vcf",
         mode: 'copy',
         saveAs: { "${output_filename_base}.vcf" }
 
-    publishDir {"${params.output_dir}/output/"},
+    publishDir {"${params.output_dir_base}/output/"},
         pattern: "*homoplasmy.vcf",
         mode: 'copy',
         saveAs: { "${output_filename_base}_homoplasmy.vcf" }

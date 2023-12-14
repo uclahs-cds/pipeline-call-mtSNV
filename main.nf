@@ -34,7 +34,7 @@ Boutros Lab
         mt_reference_genome = ${params.mt_ref_genome_dir}
 
     - output: x
-        output_dir: ${params.output_dir}
+        output_dir: ${params.output_dir_base}
 
     - options:
         sample_mode = ${params.sample_mode}
