@@ -67,12 +67,22 @@ if (params.sample_mode == 'paired') {
     }
 
 else if (params.sample_mode == 'single') {
-    Channel
-        .of(params.input['normal'])
-        .map {
-            ['normal', it['id'], it['BAM']]
+    if(params.input['normal']['BAM']){
+        Channel
+            .of(params.input['normal'])
+            .map {
+                ['normal', it['id'], it['BAM']]
+            }
+            .set { main_work_ch }
         }
-        .set { main_work_ch }
+    else{
+        Channel
+            .of(params.input['tumor'])
+            .map {
+                ['tumor', it['id'], it['BAM']]
+            }
+            .set { main_work_ch }
+        }
     }
 
 workflow{

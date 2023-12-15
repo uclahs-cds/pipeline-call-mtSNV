@@ -64,19 +64,7 @@ Heteroplasmy is the presence of more than one type of organellar genome (mitocho
 ## Inputs
 
 ### input.yaml
-This input YAML requires 4 arguments in 'single' mode, 6 in 'paired', and must comply with the format in the provided [template](./input/template.yaml).
-
-#### Single Mode
-
-| Field | Type | Description |
-|:------|:-----|:----------------------------|
-| project_id | string | Name of project. |
-| sample_id | string | Name of sample. |
-| normal_id | string | Identifier for normal samples. |
-| normal_BAM | path | Absolute path to normal BAM file. |
-
-> If the single sample is of type `tumor`, provide the identifier and path under the `normal` fields in the input CSV.
-#### Paired Mode
+This input YAML must comply with the format in the provided [template](./input/template.yaml).
 
 | Field | Type | Description |
 |:------|:-----|:----------------------------|
@@ -87,6 +75,13 @@ This input YAML requires 4 arguments in 'single' mode, 6 in 'paired', and must c
 | tumor_id | string | Identifier for tumor samples. |
 | tumor_BAM | path | Absolute path to tumor BAM file. |
 
+#### Single Mode
+
+Provide either a normal sample or tumor sample and leave the other entry blank in the YAML. The data will be organized by the provided sample's ID.
+
+#### Paired Mode
+
+The data will be organized under the tumor sample ID.
 
 ### input.config
 The config file requires 8 arguments. See provided [template](./config/template.config).
