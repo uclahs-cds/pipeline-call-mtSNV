@@ -48,42 +48,9 @@ Boutros Lab
     """
     .stripIndent()
 
-// Conditional for 'paired' sample
-if (params.sample_mode == 'paired') {
-    Channel
-        .of(params.input['normal'])
-        .map {
-            ['normal', it['id'], it['BAM']]
-        }
-        .set { normal_ch }
-    Channel
-        .of(params.input['tumor'])
-        .map {
-            ['tumor', it['id'], it['BAM']]
-        }
-        .set { tumor_ch }
-
-    normal_ch.mix(tumor_ch).set { main_work_ch }
-    }
-
-else if (params.sample_mode == 'single') {
-    if(params.input['normal']['BAM']){
-        Channel
-            .of(params.input['normal'])
-            .map {
-                ['normal', it['id'], it['BAM']]
-            }
-            .set { main_work_ch }
-        }
-    else{
-        Channel
-            .of(params.input['tumor'])
-            .map {
-                ['tumor', it['id'], it['BAM']]
-            }
-            .set { main_work_ch }
-        }
-    }
+Channel
+    .fromlist(params.input_channel_list)
+    .set { main_work_ch }
 
 workflow{
 
