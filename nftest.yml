@@ -1,0 +1,72 @@
+---
+global:
+  temp_dir: ./test/work
+  nf_config: test/global.config
+  remove_temp: false
+  clean_logs: true
+
+cases:
+  - name: test-paired-01
+    message: Test Paired Mode 1%
+    nf_script: main.nf
+    nf_config: test/test-paired/test.config
+    params_file: test/yaml/tcga/01-percent/paired.yaml
+    skip: true
+    verbose: true
+    asserts:
+      - actual:
+        expect:
+        script: test/assert_vcf.sh
+      - actual:
+        expect:
+        script: test/assert_vcf.sh
+  - name: test-single-normal-01
+    message: Test Single Mode 1%
+    nf_script: main.nf
+    nf_config: test/test-single-normal/test.config
+    params_file: test/yaml/tcga/01-percent/single-normal.yaml
+    skip: true
+    verbose: true
+    asserts:
+      - actual: annotate-VCF-1.0.1/CPCG0000000196/SnpEff-v5.1d/output/SnpSift-v5.1d_nftest-snpsift_CPCG0000000196_clinvar-20211016.vcf.gz
+        expect: /hot/software/pipeline/pipeline-annotate-VCF/Nextflow/development/output/snpsift-stable-reference/annotate-VCF-1.0.1/CPCG0000000196/SnpEff-v5.1d/output/SnpSift-v5.1d_snpsift-stable_CPCG0000000196_clinvar-20211016.vcf.gz
+        script: test/assert_vcf.sh
+  - name: test-snpsift-multi-db
+    message: Test SnpSift Annotator (Multi DB)
+    nf_script: main.nf
+    nf_config: test/test-snpsift-multi-db/test.config
+    params_file: test/yaml/CPCG0000000196.yaml
+    skip: true
+    verbose: true
+    asserts:
+      - actual: SnpEff-v5.1d/output/SnpSift-v5.1d_nftest-snpsift-multi-db_CPCG0000000196_clinvar-20211016-AlphaMissense-hg38-converted.vcf.gz
+        expect: /hot/software/pipeline/pipeline-annotate-VCF/Nextflow/development/output/snpsift-stable-reference-multi-db/annotate-VCF-1.0.1/CPCG0000000196/SnpEff-v5.1d/output/SnpSift-v5.1d_test_CPCG0000000196_clinvar-20211016-AlphaMissense-hg38-converted.vcf.gz
+        script: test/assert_vcf.sh
+  - name: test-funcotator
+    message: Test Funcotator Annotator
+    nf_script: main.nf
+    nf_config: test/test-funcotator/test.config
+    params_file: test/yaml/CPCG0000000196.yaml
+    skip: true
+    verbose: true
+    asserts:
+      - actual: annotate-VCF-1.0.1/CPCG0000000196/Funcotator-4.2.4.1/output/Funcotator-4.2.4.1_nftest-funcotator_CPCG0000000196.vcf.gz
+        expect: /hot/software/pipeline/pipeline-annotate-VCF/Nextflow/development/output/funcotator-stable-reference/annotate-VCF-1.0.1/CPCG0000000196/Funcotator-4.2.4.1/output/Funcotator-4.2.4.1_funcotator-stable_CPCG0000000196.vcf.gz
+        script: test/assert_vcf.sh
+  - name: test-all
+    message: Test all Annotators together
+    nf_script: main.nf
+    nf_config: test/test-all/test.config
+    params_file: test/yaml/CPCG0000000196.yaml
+    skip: true
+    verbose: true
+    asserts:
+      - actual: annotate-VCF-1.0.1/CPCG0000000196/SnpEff-v5.1d/output/SnpEff-v5.1d_nftest-all_CPCG0000000196.vcf.gz
+        expect: /hot/software/pipeline/pipeline-annotate-VCF/Nextflow/development/output/snpeff-stable-reference/annotate-VCF-1.0.1/CPCG0000000196/SnpEff-v5.1d/output/SnpEff-v5.1d_snpeff-stable_CPCG0000000196.vcf.gz
+        script: test/assert_vcf.sh
+      - actual: annotate-VCF-1.0.1/CPCG0000000196/SnpEff-v5.1d/output/SnpSift-v5.1d_nftest-all_CPCG0000000196_clinvar-20211016.vcf.gz
+        expect: /hot/software/pipeline/pipeline-annotate-VCF/Nextflow/development/output/snpeff-stable-reference/annotate-VCF-1.0.1/CPCG0000000196/SnpEff-v5.1d/output/SnpSift-v5.1d_snpeff-stable_CPCG0000000196_clinvar-20211016.vcf.gz
+        script: test/assert_vcf.sh
+      - actual: annotate-VCF-1.0.1/CPCG0000000196/Funcotator-4.2.4.1/output/Funcotator-4.2.4.1_nftest-all_CPCG0000000196.vcf.gz
+        expect: /hot/software/pipeline/pipeline-annotate-VCF/Nextflow/development/output/funcotator-stable-reference/annotate-VCF-1.0.1/CPCG0000000196/Funcotator-4.2.4.1/output/Funcotator-4.2.4.1_funcotator-stable_CPCG0000000196.vcf.gz
+        script: test/assert_vcf.sh

@@ -1,0 +1,6 @@
+---
+patient_id: NFTEST_10_SINGLE_NORMAL
+input:
+  normal:
+    id: NFTEST_10_SINGLE_NORMAL
+    BAM: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/input/data/test-bams/tcga_test_file_normal_10prct.bam
