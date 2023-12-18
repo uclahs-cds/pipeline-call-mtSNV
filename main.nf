@@ -29,8 +29,7 @@ Boutros Lab
         version: ${workflow.manifest.version}
 
     - input:
-        normal: ${params.input['normal']['BAM']}
-        tumor: ${params.input['tumor']['BAM']}
+        ${params.input_string}
         gmapdb = ${params.gmapdb}
         mt_reference_genome = ${params.mt_ref_genome_dir}
 
@@ -49,7 +48,7 @@ Boutros Lab
     .stripIndent()
 
 Channel
-    .fromlist(params.input_channel_list)
+    .fromList(params.input_channel_list)
     .set { main_work_ch }
 
 workflow{
