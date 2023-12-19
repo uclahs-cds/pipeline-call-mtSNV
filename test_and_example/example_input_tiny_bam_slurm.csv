@@ -1,2 +1,0 @@
-project_id,sample_id,normal_id,normal_BAM,tumour_id,tumour_BAM
-call-mtSNV_dev_rc_1.1,tiny_BLCSNTGT000001,tiny_BLCSNTGT000001-T001-P01-F,/hot/users/agonzalez/002_Nextflowization_mtSNV/02_Version_2.0/test_files/tiny_BLCSNTGT000001-T001-P01-F_realigned_recalibrated_reheadered.bam,tiny_2_BLCSNTGT000001,/hot/users/agonzalez/002_Nextflowization_mtSNV/02_Version_2.0/test_files/tiny_2_BLCSNTGT000001-T001-P01-F_realigned_recalibrated_reheadered.bam

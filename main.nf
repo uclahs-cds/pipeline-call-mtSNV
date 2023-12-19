@@ -29,7 +29,7 @@ Boutros Lab
         version: ${workflow.manifest.version}
 
     - input:
-        input_csv: ${params.input_csv}
+        ${params.input_string}
         gmapdb = ${params.gmapdb}
         mt_reference_genome = ${params.mt_ref_genome_dir}
 
@@ -47,39 +47,9 @@ Boutros Lab
     """
     .stripIndent()
 
-// Conditional for 'paired' sample
-if (params.sample_mode == 'paired') {
-    Channel
-        .fromPath(params.input_csv, checkIfExists: true)
-        .ifEmpty { exit 1, "params.input_csv was empty - no input files supplied" }
-        .splitCsv(header:true)
-        .multiMap {
-            it ->
-                project_id: it.project_id
-                sample_id: it.sample_id
-                normal_ch: ['normal', it.normal_id, it.normal_BAM]
-                tumour_ch: ['tumour', it.tumour_id, it.tumour_BAM]
-            }
-        .set { input_csv_ch }
-
-    input_csv_ch.normal_ch.mix(input_csv_ch.tumour_ch).set { main_work_ch }
-    }
-
-else if (params.sample_mode == 'single') {
-    Channel
-        .fromPath(params.input_csv)
-        .ifEmpty { exit 1, "params.input_csv was empty - no input files supplied" }
-        .splitCsv(header:true)
-        .multiMap {
-            it ->
-                project_id: it.project_id
-                sample_id: it.sample_id
-                single_sample: ['single_sample', it.normal_id, it.normal_BAM]
-            }
-        .set{ input_csv_ch }
-
-    input_csv_ch.single_sample.set{ main_work_ch }
-    }
+Channel
+    .fromList(params.input_channel_list)
+    .set { main_work_ch }
 
 workflow{
 
@@ -101,13 +71,13 @@ workflow{
     //Fork mitoCaller Output
     call_mtSNV_mitoCaller.out.mt_variants_gz.branch{
         normal: it[0] == 'normal'
-        tumour: it[0] == 'tumour'
+        tumor: it[0] == 'tumor'
         }
         .set{ mitoCaller_forked_ch }
 
     // //step 6: call heteroplasmy script
     if (params.sample_mode == 'paired') {
-        call_heteroplasmy( mitoCaller_forked_ch.normal, mitoCaller_forked_ch.tumour )
+        call_heteroplasmy( mitoCaller_forked_ch.normal, mitoCaller_forked_ch.tumor )
         }
 
     //step 7: validate output script

@@ -11,7 +11,7 @@
     - [4. Convert mitoCaller output with Mito2VCF](#4-convert-mitocaller-output-with-mito2vcf)
     - [5. Call Heteroplasmy on Paired Samples](#5-call-heteroplasmy-on-paired-samples)
   - [Inputs](#inputs)
-    - [input.csv](#inputcsv)
+    - [input.yaml](#inputyaml)
       - [Single Mode](#single-mode)
       - [Paired Mode](#paired-mode)
     - [input.config](#inputconfig)
@@ -32,7 +32,7 @@ ___
 ## How To Run
 > **Note**: Because this pipeline uses an image stored in the GitHub Container Registry, you must follow the steps listed in the [Docker Introduction](https://uclahs-cds.atlassian.net/wiki/spaces/BOUTROSLAB/pages/3190419/Docker+Introduction#DockerIntroduction-HowtosetupPATandlogintotheregistryHowtosetupPATandlogintotheregistry) on Confluence to set up a PAT for your GitHub account and log into the registry on the cluster before running this pipeline.
 
-Samples can be run by specifying file locations in the [`input.csv`](./input/template.csv) and setting pipeline-specific parameters in the [`input.config`](./config/template.config).
+Samples can be run by specifying file locations in the [`input.yaml`](./input/template.yaml) and setting pipeline-specific parameters in the [`input.config`](./config/template.config).
 ___
 
 ## Flow Diagram
@@ -51,7 +51,7 @@ MToolBox is used to align the extracted mitochondrial reads. It can accept as in
 
 ### 3. Call mtSNV with mitoCaller
 
-While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 copies, so it is possible to have heterogeneity at the same base within the mtDNA in the same cell. Additionally, mtDNA is circular. This means that the general approaches used for variant calling in nuclear DNA must be modified to take in these additional parameters. [mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a script which uses a mitochondrial specific algorithm designed to account for these unique factors to identify mtDNA variants.<sup>5-6</sup>
+While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 copies.  The resultant high coverage in bulk sequencing data allows for the sensitive detection of low frequency variation seen with mitoCaller. [mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a script which uses a mitochondrial specific algorithm designed to account for these unique factors to identify mtDNA variants.<sup>5-6</sup>
 
 ### 4. Convert mitoCaller output with Mito2VCF
 
@@ -63,44 +63,36 @@ Heteroplasmy is the presence of more than one type of organellar genome (mitocho
 
 ## Inputs
 
-### input.csv
-This input CSV requires 4 arguments in 'single' mode, 6 in 'paired'. See provided [template](./input/input.csv).
+### input.yaml
+This input YAML must comply with the format in the provided [template](./input/template.yaml).
 
->The input CSV must have all columns below and in the same order. Input are aligned BAM files.
+| Field | Type | Description |
+|:------|:-----|:----------------------------|
+| project_id | string | Name of project. |
+| sample_id | string | Name of sample. |
+| normal_id | string | Identifier for normal samples. |
+| normal_BAM | path | Absolute path to normal BAM file. |
+| tumor_id | string | Identifier for tumor samples. |
+| tumor_BAM | path | Absolute path to tumor BAM file. |
+
 #### Single Mode
 
-| Field | Type | Description |
-|:------|:-----|:----------------------------|
-| project_id | string | Name of project. |
-| sample_id | string | Name of sample. |
-| normal_id | string | Identifier for normal samples. |
-| normal_bam | path | Absolute path to normal BAM file. |
+Provide either a normal sample or tumor sample and leave the other entry blank in the YAML. The data will be organized by the provided sample's ID.
 
-> If the single sample is of type `tumour`, provide the identifier and path under the `normal` fields in the input CSV.
 #### Paired Mode
 
-| Field | Type | Description |
-|:------|:-----|:----------------------------|
-| project_id | string | Name of project. |
-| sample_id | string | Name of sample. |
-| normal_id | string | Identifier for normal samples. |
-| normal_bam | path | Absolute path to normal BAM file. |
-| tumour_id | string | Identifier for tumor samples. |
-| tumour_bam | path | Absolute path to tumor BAM file. |
+The data will be organized under the tumor sample ID.
 
 ### input.config
-The config file requires 9 arguments. See provided [template](./config/template.config).
+The config file requires 6 arguments. See provided [template](./config/template.config).
 || Input Parameter | Required | Type | Description |
 |:---|:----------------|:---------|:-----|:----------------------------|
-| 1 | `run_name` | yes | string | This is the overall run name, useful in paired sample mode for organizing outputs. The outputs will be housed in a directory with this name + date information automatically pulled from the system. |
-| 2 | `sample_mode` | yes | string | `single` or `paired`. |
-| 3 | `input_csv` | yes | path | Absolute path to input.csv. |
-| 4 | `dataset_id` | yes | string | dataset identifier attached to pipeline output. |
-| 5 | `output_dir` | yes | path | Absolute path to location of output. |
-| 6 | `mt_ref_genome_dir` | yes | path | Absolute path to directory containing mitochondrial ref genome and mt ref genome index files. Path: `/hot/ref/mitochondria_ref/genome_fasta`|
-| 7 | `gmapdb` | yes | path | Absolute path to to gmapdb directory. Path: `/hot/ref/mitochondria_ref/gmapdb/gmapdb_2021-03-08` |
-| 8 | `save_intermediate_files` | yes | boolean | Save intermediate files. If yes, not only the final BAM, but also the unmerged, unsorted, and duplicates unmarked BAM files will also be saved. Default is set to `false`. |
-| 9 | `cache_intermediate_pipeline_steps` | yes | boolean | Enable caching to resume pipeline and the end of the last successful process completion when a pipeline fails (if true the default submission script must be modified). Default is set to `false`.
+| 1 | `dataset_id` | yes | string | dataset identifier attached to pipeline output. |
+| 2 | `output_dir` | yes | path | Absolute path to location of output. |
+| 3 | `mt_ref_genome_dir` | yes | path | Absolute path to directory containing mitochondrial ref genome and mt ref genome index files. Path: `/hot/ref/mitochondria_ref/genome_fasta`|
+| 4 | `gmapdb` | yes | path | Absolute path to to gmapdb directory. Path: `/hot/ref/mitochondria_ref/gmapdb/gmapdb_2021-03-08` |
+| 5 | `save_intermediate_files` | no | boolean | Save intermediate files. If yes, not only the final BAM, but also the unmerged, unsorted, and duplicates unmarked BAM files will also be saved. Default is set to `false`. |
+| 6 | `cache_intermediate_pipeline_steps` | no | boolean | Enable caching to resume pipeline and the end of the last successful process completion when a pipeline fails (if true the default submission script must be modified). Default is set to `false`.
 
 ## Outputs
 
@@ -116,7 +108,7 @@ The config file requires 9 arguments. See provided [template](./config/template.
 |call_mtSNV_mitoCaller|*mitoCaller.tsv|main|Contains mtDNA variants (i.e., homoplasmies and heteroplasmies)|
 |call_mtSNV_mitoCaller|*mitoCaller.tsv|intermediate|gzipped tsv file|
 |convert_mitoCaller2VCF|*.vcf|main|2 *.VCF files containing mitoCaller calls in more legible format|
-|call_heteroplasmy|*.tsv|main|a *.tsv table showing differences in the normal genotype vs tumour genotype. It also gives heteroplasmy_fraction if there is any.|
+|call_heteroplasmy|*.tsv|main|a *.tsv table showing differences in the normal genotype vs tumor genotype. It also gives heteroplasmy_fraction if there is any.|
 
 ___
 
@@ -124,7 +116,7 @@ ___
 
 ### Test Data Set
 
-Both WGS and WES aligned BAM files were used to test in single and tumor-normal paired modes. Input CSV with directory paths and used configs included in test_example.csv.
+Both WGS and WES aligned BAM files were used to test in single and tumor-normal paired modes.
 
 || Type | Mode | Size | CPU threads |PeakVMemory | Run Time |
 |:--|:---|:----|:-----|:-----|:------|:------|
@@ -162,11 +154,11 @@ Please see list of [Contributors](https://github.com/uclahs-cds/pipeline-call-mt
 
 ## License
 
-Author: Alfredo Gonzalez (alfgonzalez@mednet.ucla.edu), Takafumi Yamaguchi (tyamaguchi@mednet.ucla.edu), Jieun Oh (jieunoh@mednet.ucla.edu)
+Author: Alfredo Gonzalez (alfgonzalez@mednet.ucla.edu), Takafumi Yamaguchi (tyamaguchi@mednet.ucla.edu), Jieun Oh (jieunoh@mednet.ucla.edu), Kiarod Pashminehazar (kpashminehazar@mednet.ucla.edu)
 
 Call-mtSNV is licensed under the GNU General Public License version 2. See the file LICENSE for the terms of the GNU GPL license.
 
-Call-mtSNV takes a single aligned BAM or pair of normal tumor bams and does variant calling for mtDNA.
+Call-mtSNV takes a single aligned BAM or pair of normal tumor BAMs and does variant calling for mtDNA.
 
 Copyright (C) 2021-2024 University of California Los Angeles ("Boutros Lab") All rights reserved.
 
