@@ -51,7 +51,7 @@ MToolBox is used to align the extracted mitochondrial reads. It can accept as in
 
 ### 3. Call mtSNV with mitoCaller
 
-While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 copies.  The resultant high coverage in bulk sequencing data allows for the sensitive detection of low frequency variation. [mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a script which uses a mitochondrial specific algorithm designed to account for these unique factors to identify mtDNA variants.<sup>5-6</sup>
+While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 copies.  The resultant high coverage in bulk sequencing data allows for the sensitive detection of low frequency variation seen with mitoCaller. [mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a script which uses a mitochondrial specific algorithm designed to account for these unique factors to identify mtDNA variants.<sup>5-6</sup>
 
 ### 4. Convert mitoCaller output with Mito2VCF
 
@@ -91,8 +91,8 @@ The config file requires 6 arguments. See provided [template](./config/template.
 | 2 | `output_dir` | yes | path | Absolute path to location of output. |
 | 3 | `mt_ref_genome_dir` | yes | path | Absolute path to directory containing mitochondrial ref genome and mt ref genome index files. Path: `/hot/ref/mitochondria_ref/genome_fasta`|
 | 4 | `gmapdb` | yes | path | Absolute path to to gmapdb directory. Path: `/hot/ref/mitochondria_ref/gmapdb/gmapdb_2021-03-08` |
-| 5 | `save_intermediate_files` | yes | boolean | Save intermediate files. If yes, not only the final BAM, but also the unmerged, unsorted, and duplicates unmarked BAM files will also be saved. Default is set to `false`. |
-| 6 | `cache_intermediate_pipeline_steps` | yes | boolean | Enable caching to resume pipeline and the end of the last successful process completion when a pipeline fails (if true the default submission script must be modified). Default is set to `false`.
+| 5 | `save_intermediate_files` | no | boolean | Save intermediate files. If yes, not only the final BAM, but also the unmerged, unsorted, and duplicates unmarked BAM files will also be saved. Default is set to `false`. |
+| 6 | `cache_intermediate_pipeline_steps` | no | boolean | Enable caching to resume pipeline and the end of the last successful process completion when a pipeline fails (if true the default submission script must be modified). Default is set to `false`.
 
 ## Outputs
 
