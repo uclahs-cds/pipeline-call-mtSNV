@@ -84,7 +84,7 @@ Provide either a normal sample or tumor sample and leave the other entry blank i
 The data will be organized under the tumor sample ID.
 
 ### input.config
-The config file requires 6 arguments. See provided [template](./config/template.config).
+The config file can take 6 arguments. See provided [template](./config/template.config).
 || Input Parameter | Required | Type | Description |
 |:---|:----------------|:---------|:-----|:----------------------------|
 | 1 | `dataset_id` | yes | string | dataset identifier attached to pipeline output. |
