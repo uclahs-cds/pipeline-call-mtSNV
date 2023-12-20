@@ -64,7 +64,7 @@ Heteroplasmy is the presence of more than one type of organellar genome (mitocho
 ## Inputs
 
 ### input.yaml
-This input YAML must comply with the format in the provided [template](./input/template.yaml).
+This input YAML must comply with the format in the provided [template](./input/input-call-mtSNV-paired.yaml).
 
 | Field | Type | Description |
 |:------|:-----|:----------------------------|
