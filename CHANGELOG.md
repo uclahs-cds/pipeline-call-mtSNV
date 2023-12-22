@@ -16,7 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ---
 ## [3.0.2] - 2023-12-22
 ### Changed
-- Update nextflow.config version number to correct previous release
+- Update `nextflow.config` version number to correct previous release
 
 ## [3.0.1] - 2023-12-07
 ### Changed
