@@ -64,7 +64,7 @@ Heteroplasmy is the presence of more than one type of organellar genome (mitocho
 ## Inputs
 
 ### input.yaml
-This input YAML must comply with the format in the provided [template](./input/template.yaml).
+This input YAML must comply with the format in the provided [template](./input/input-call-mtSNV-paired.yaml).
 
 | Field | Type | Description |
 |:------|:-----|:----------------------------|
@@ -84,7 +84,7 @@ Provide either a normal sample or tumor sample and leave the other entry blank i
 The data will be organized under the tumor sample ID.
 
 ### input.config
-The config file requires 6 arguments. See provided [template](./config/template.config).
+The config file can take 6 arguments. See provided [template](./config/template.config).
 || Input Parameter | Required | Type | Description |
 |:---|:----------------|:---------|:-----|:----------------------------|
 | 1 | `dataset_id` | yes | string | dataset identifier attached to pipeline output. |

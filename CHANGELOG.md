@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Changed
 - Change input format to YAML.
 - Auto-detect sample mode.
+- Update `output_dir` parameter to support CLI argument input.
 ### Added
 ### Fixed
 
