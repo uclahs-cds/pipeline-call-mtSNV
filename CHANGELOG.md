@@ -10,7 +10,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Changed
 - Change input format to YAML.
 - Auto-detect sample mode.
+<<<<<<< HEAD
 - Update `output_dir` parameter to support CLI argument input.
+=======
+- Update `methods.config` to use external `set_env` function via `common_methods.config`
+- Add NFTest compatibility
+>>>>>>> fad30fd (update CHANGELOG to reflect NFTest and external set_env() changes)
 ### Added
 ### Fixed
 
