@@ -184,4 +184,3 @@ cases:
       # - actual: call-mtSNV-3.0.2/NFTEST_10_SINGLE_TUMOR/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_NFTEST-TUMOR-010_NFTEST-10-SINGLE-TUMOR_summary-20231222-230736.txt
       #   expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/tumor/call-mtSNV-3.0.2/REFERENCE_TUMOR_10/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-TUMOR-10_REFERENCE-TUMOR-10_summary-20231222-230736.txt
       #   method: md5
-
