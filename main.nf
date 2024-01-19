@@ -9,7 +9,12 @@ Nextflowization: Alfredo Enrique Gonzalez, Andrew Park
 nextflow.enable.dsl=2
 
 //// Import of Local Modules ////
-include { Validate_Inputs                    } from './module/validation'
+include { run_validate_PipeVal } from './external/nextflow-module/modules/PipeVal/validate/main.nf' addParams(
+    options: [
+        docker_image_version: params.pipeval_version,
+        main_process: "./" //Save logs in <log_dir>/process-log/run_validate_PipeVal
+        ]
+    )
 include { extract_mtDNA_BAMQL                } from './module/extract_mtDNA_BAMQL'
 include { align_mtDNA_MToolBox               } from './module/align_mtDNA_MToolBox'
 include { call_mtSNV_mitoCaller              } from './module/call_mtSNV_mitoCaller'
@@ -54,7 +59,12 @@ Channel
 workflow{
 
     //step 1: validation of inputs
-    Validate_Inputs( main_work_ch )
+    run_validate_PipeVal(main_work_ch)
+    // Collect and store input validation output
+    run_validate_PipeVal.out.validation_result.collectFile(
+        name: 'input_validation.txt',
+        storeDir: "${params.output_dir_base}/validation"
+        )
 
     //step 2: extraction of mitochondrial reads using BAMQL
     extract_mtDNA_BAMQL( main_work_ch )
