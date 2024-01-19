@@ -1,4 +1,5 @@
 #!/bin/bash
+# this function cuts around sample_ids so the contents of the CSV can be compared in an sample_id agnostic way
 function trim_and_md5 {
     cat $1 | cut -f 2 -d ',' | md5sum | cut -f 1 -d ' '
 }

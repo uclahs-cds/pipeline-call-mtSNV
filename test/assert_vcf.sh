@@ -1,4 +1,5 @@
 #!/bin/bash
+# changed grep pattern from '##' to cut out SAMPLE_ID in header
 function md5_vcf {
     cat $1 | grep -vE '^#+' | md5sum | cut -f 1 -d ' '
 }
