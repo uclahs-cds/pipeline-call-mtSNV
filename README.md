@@ -18,6 +18,7 @@
   - [Outputs](#outputs)
   - [Testing and Validation](#testing-and-validation)
     - [Test Data Set](#test-data-set)
+    - [Running Tests with NFTest](#running-tests-with-nftest)
     - [Validation Tool](#validation-tool)
   - [References](#references)
   - [Discussions](#discussions)
@@ -124,6 +125,20 @@ Both WGS and WES aligned BAM files were used to test in single and tumor-normal 
 |2|WES|Paired|4GB/4GB|72 | 12.317 GB |~8 min |
 |3|WGS|Single|399GB|72 | 21.042 GB | ~2h 40 min|
 |4|WGS|Paired|399GB/740GB|72 | 26.615 GB | ~5 hours|
+
+### Running Tests with NFTest
+
+Ensure NFTest is installed on your system. If it is not installed follow installation instructions in the [NFTest documentation](https://github.com/uclahs-cds/tool-NFTest).
+
+To test annotators run the command with the annotator of interest:
+```
+nftest run [test-paired-01 test-single-normal-01 test-single-tumor-01 test-paired-10 test-single-normal-10 test-single-tumor-10]
+```
+
+Additionally it is possible to modify the `nftest.yml` file to tune testing.
+All testing assets can be found in the `test/` directory.
+
+For larger jobs a [cluster submission tool](https://github.com/uclahs-cds/tool-submit-nf) is available for NFTest.
 
 ### Validation Tool
 

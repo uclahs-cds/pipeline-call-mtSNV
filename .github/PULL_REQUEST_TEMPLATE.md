@@ -6,17 +6,30 @@
 
 ## Testing Results
 
-- sample_mode = 'paired'
-	- sample_1:    <!-- e.g.BLCSNTGT0000011 -->
-	- sample_2:    <!-- e.g. BLCSNTGT000001_copy -->
-	- input yaml: <!-- path/to/input.yaml -->
-	- config:    <!-- path/to/xxx.config -->
-    - output_folder: <!-- path/to/output_folder -->
-- sample_mode = single
-	- sample:    <!-- e.g. BLCSNTGT000001 -->
-	- input yaml: <!-- path/to/input.yaml -->
-	- config:    <!-- path/to/xxx.config -->
-    - output_folder: <!-- path/to/output_folder -->
+<!-- If you did not run NFTest, please justify _why_ you feel your changes
+     don't need to be tested. -->
+
+- NFTest
+  - log:      /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/unreleased/\<branchname\>/log-nftest-\<datestamp\>.log
+  - cases:    default set <!-- update this if you made any changes to nftest.yml or ran default disabled test cases explicitly -->
+
+<!--
+    Include any non-NFTest test details here, using the "Additional Case"
+    template below as appropriate. Please make sure that a reviewer can
+    understand:
+    * How you tested the pipeline
+    * How others can test it (including paths to config and YAML files)
+    * How the results demonstrate the changes in this PR. Examples of this
+      might include:
+        * The run completed successfully, so nothing was broken
+        * An output file changed (this might require two pipeline runs, before
+          and after your changes, to demonstrate the difference)
+    -->
+- Additional Case 1
+  - sample:    <!-- e.g. A-mini S2.T-1, A-mini S2.T-n1 -->
+  - input csv: <!-- path/to/input.csv -->
+  - config:    <!-- path/to/xxx.config -->
+  - output:    <!-- path/to/output -->
 
 # Checklist
 <!--- Please read each of the following items and confirm by replacing the [ ] with a [X] --->
