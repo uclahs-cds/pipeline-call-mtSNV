@@ -7,7 +7,7 @@ output_dir:
   type: 'Path'
   mode: 'w'
   required: true
-  help:  'Absolute path to output directory'
+  help: 'Absolute path to output directory'
 mt_ref_genome_dir:
   type: 'Path'
   mode: 'r'
