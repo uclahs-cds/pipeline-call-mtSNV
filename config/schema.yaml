@@ -13,7 +13,7 @@ mt_ref_genome_dir:
   mode: 'r'
   required: true
   help: 'Absolute path to directory with mtDNA reference genome'
-  default: '/hot/ref/mitochondria_ref/gmapdb/gmapdb_2021-03-08'
+  default: '/hot/ref/mitochondria_ref/genome_fasta/'
 gmapdb:
   type: 'Path'
   mode: 'r'
@@ -22,12 +22,12 @@ gmapdb:
   default: '/hot/ref/mitochondria_ref/gmapdb/gmapdb_2021-03-08'
 save_intermediate_files:
   type: 'Bool'
-  required: false
+  required: true
   default: false
   help: 'Boolean value to indicate whether or not to save intermediate files'
 cache_intermediate_pipeline_steps:
   type: 'Bool'
-  required: false
+  required: true
   default: false
   help: 'Boolean value to indicate whether or not to cache intermediate pipeline steps'
 patient_id:
