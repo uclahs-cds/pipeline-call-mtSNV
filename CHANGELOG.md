@@ -15,6 +15,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Added
 - Add NFTest compatibility
+- Add parameter validation
+
 ### Fixed
 
 ---
