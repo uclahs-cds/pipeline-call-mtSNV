@@ -38,13 +38,12 @@ process convert_mitoCaller2vcf_mitoCaller {
             "${sample_name}",
             [:]
             )
-        var homoplasmy_column_header = '#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	!{type}_!{sample_name}_mitoCaller'
         '''
         echo '!{mitocaller_out.baseName} !{mitocaller_out}' > !{mitocaller_out.baseName}.list
         python3.8 /mitoCaller2vcf/mitoCaller2vcf.py -s ./!{mitocaller_out.baseName}.list -y !{sample_name}_homoplasmy.vcf -o !{sample_name}_output.vcf
         last_header_line=$(grep -n '^##' !{sample_name}_homoplasmy.vcf | tail -1 | cut -d: -f1)
         head -n $last_header_line !{sample_name}_homoplasmy.vcf > tmpfile
-        echo '#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	!{type}_!{sample_name}_mitoCaller' >> tmpfile
+        echo '#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\t!{type}_!{sample_name}_mitoCaller' >> tmpfile
         tail -n +$(($last_header_line + 1)) !{sample_name}_homoplasmy.vcf >> tmpfile
         mv tmpfile !{sample_name}_homoplasmy.vcf
         '''
