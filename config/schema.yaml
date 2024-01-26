@@ -44,11 +44,6 @@ input:
       required: false
       help: 'normal sample id and absolute path to BAM'
       elements:
-        id:
-          type: 'String'
-          required: true
-          help: 'Normal sample ID'
-        BAM:
           type: 'Path'
           mode: 'r'
           required: true
@@ -58,10 +53,6 @@ input:
       required: false
       help: 'tumor sample id and absolute path to BAM'
       elements:
-        id:
-          type: 'String'
-          required: true
-          help: 'Tumor sample ID'
         BAM:
           type: 'Path'
           mode: 'r'
