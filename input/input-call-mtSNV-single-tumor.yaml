@@ -2,5 +2,4 @@
 patient_id: 'patient id'
 input:
   tumor:
-    id: tumor_sample_id
     BAM: /path/to/tumor.bam
