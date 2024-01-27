@@ -44,6 +44,7 @@ input:
       required: false
       help: 'normal sample id and absolute path to BAM'
       elements:
+        BAM:
           type: 'Path'
           mode: 'r'
           required: true
