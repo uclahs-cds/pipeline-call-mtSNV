@@ -20,12 +20,7 @@ include { align_mtDNA_MToolBox               } from './module/align_mtDNA_MToolB
 include { call_mtSNV_mitoCaller              } from './module/call_mtSNV_mitoCaller'
 include { convert_mitoCaller2vcf_mitoCaller  } from './module/convert_mitoCaller2vcf_mitoCaller'
 include { call_heteroplasmy                  } from './module/call_heteroplasmy'
-include { run_validate_PipeVal as validate_output } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main.nf' addParams(
-    options: [
-        docker_image_version: params.pipeval_version,
-        main_process: "./" //Save logs in <log_dir>/process-log/run_validate_PipeVal
-        ]
-    )
+
 
 log.info """\
 ======================================
@@ -62,7 +57,8 @@ Channel
     .set { main_work_ch }
 
 Channel
-    .fromList(params.input_validation_list)
+    //  collect BAM files from input_channel_list for validation
+    .fromList(params.input_channel_list.collect { it[2] } )
     .set { input_validation }
 
 workflow{
