@@ -69,11 +69,8 @@ This input YAML must comply with the format in the provided [template](./input/i
 
 | Field | Type | Description |
 |:------|:-----|:----------------------------|
-| project_id | string | Name of project. |
-| sample_id | string | Name of sample. |
-| normal_id | string | Identifier for normal samples. |
+| patient_id | string | Name of patient. |
 | normal_BAM | path | Absolute path to normal BAM file. |
-| tumor_id | string | Identifier for tumor samples. |
 | tumor_BAM | path | Absolute path to tumor BAM file. |
 
 #### Single Mode
