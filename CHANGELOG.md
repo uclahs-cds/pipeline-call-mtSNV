@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Update `output_dir` parameter to support CLI argument input.
 - Update `methods.config` to use external `set_env` function via `common_methods.config`.
 - Update sample ID handling to extract from supplied BAM files.
+- Update input and output validation to use external PipeVal module
 
 ### Added
 - Add NFTest compatibility
