@@ -52,13 +52,25 @@ Boutros Lab
     """
     .stripIndent()
 
+def indexFile(Object bam_or_vcf) {
+    if(bam_or_vcf.endsWith('.bam')) {
+        return "${bam_or_vcf}.bai"
+        }
+    else if(bam_or_vcf.endsWith('vcf.gz')) {
+        return "${bam_or_vcf}.tbi"
+        }
+    else {
+        throw new Exception("Index file for ${bam_or_vcf} file type not supported. Use .bam or .vcf.gz files.")
+        }
+    }
+
 Channel
-    .fromList(params.input_channel_list)
+    .fromList(params.input_channel_list.collect {it + [indexFile(it[2])]} )
     .set { main_work_ch }
 
 Channel
     //  collect BAM files from input_channel_list for validation
-    .fromList(params.input_channel_list.collect { it[2] } )
+    .fromList(params.input_channel_list.collectMany { [it[2], indexFile(it[2])] } )
     .set { input_validation }
 
 workflow{
