@@ -21,7 +21,8 @@ process extract_mtDNA_BAMQL {
         tuple(
             val(type),
             val(sample_name),
-            path(input_bam_file)
+            path(input_bam_file),
+            path(bam_index_file)
             )
 
     output:
