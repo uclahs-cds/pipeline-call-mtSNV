@@ -9,6 +9,7 @@ Nextflowization: Alfredo Enrique Gonzalez, Andrew Park
 nextflow.enable.dsl=2
 
 //// Import of Local Modules ////
+include { indexFile } from './external/pipeline-Nextflow-module/modules/common/indexFile/main.nf'
 include { run_validate_PipeVal as validate_input; run_validate_PipeVal as validate_output } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main.nf' addParams(
     options: [
         docker_image_version: params.pipeval_version,
@@ -51,18 +52,6 @@ Boutros Lab
     ------------------------------------
     """
     .stripIndent()
-
-def indexFile(Object bam_or_vcf) {
-    if(bam_or_vcf.endsWith('.bam')) {
-        return "${bam_or_vcf}.bai"
-        }
-    else if(bam_or_vcf.endsWith('vcf.gz')) {
-        return "${bam_or_vcf}.tbi"
-        }
-    else {
-        throw new Exception("Index file for ${bam_or_vcf} file type not supported. Use .bam or .vcf.gz files.")
-        }
-    }
 
 Channel
     .fromList(params.input_channel_list)
