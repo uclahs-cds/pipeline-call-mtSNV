@@ -9,6 +9,7 @@ Nextflowization: Alfredo Enrique Gonzalez, Andrew Park
 nextflow.enable.dsl=2
 
 //// Import of Local Modules ////
+include { indexFile } from './external/pipeline-Nextflow-module/modules/common/indexFile/main.nf'
 include { run_validate_PipeVal as validate_input; run_validate_PipeVal as validate_output } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main.nf' addParams(
     options: [
         docker_image_version: params.pipeval_version,
@@ -54,11 +55,22 @@ Boutros Lab
 
 Channel
     .fromList(params.input_channel_list)
-    .set { main_work_ch }
+    .map { it ->
+        [
+        it['sample_type'],
+        it['sample_ID'],
+        it['BAM'],
+        indexFile(it['BAM'])
+        ]
+    }
+    .set { ich }
 
 Channel
-    //  collect BAM files from input_channel_list for validation
-    .fromList(params.input_channel_list.collect { it[2] } )
+    .fromList(params.input_channel_list)
+    .flatMap { it ->
+        [it['BAM'],
+        indexFile(it['BAM'])]
+    }
     .set { input_validation }
 
 workflow{
@@ -71,7 +83,7 @@ workflow{
         )
 
     //step 2: extraction of mitochondrial reads using BAMQL
-    extract_mtDNA_BAMQL( main_work_ch )
+    extract_mtDNA_BAMQL(ich)
 
     //step 3: remapping reads with mtoolbox
     align_mtDNA_MToolBox( extract_mtDNA_BAMQL.out.extracted_mt_reads )
@@ -106,4 +118,3 @@ workflow{
         storeDir: "${params.output_dir_base}/validation"
         )
     }
-
