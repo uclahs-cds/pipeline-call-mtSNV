@@ -14,10 +14,12 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Update `methods.config` to use external `set_env` function via `common_methods.config`.
 - Update sample ID handling to extract from supplied BAM files.
 - Add resource retry mechanism for module processes.
+- Update input and output validation to use external PipeVal module.
 
 ### Added
 - Add NFTest compatibility
 - Add parameter validation
+- Add index files for sample BAMs to `extract_mtDNA_BAMQL` leading to significant runtime reduction.
 
 ### Fixed
 
