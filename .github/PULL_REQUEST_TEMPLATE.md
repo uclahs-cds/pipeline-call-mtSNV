@@ -1,6 +1,5 @@
 # Description
-<!--- Briefly describe the changes included in this pull request and the paths to the test cases below
- !--- starting with 'Closes #...' if appropriate --->
+<!-- Briefly describe the changes included in this pull request, starting with 'Closes #... if appropriate.  -->
 
 ### Closes #...
 
@@ -32,13 +31,13 @@
   - output:    <!-- path/to/output -->
 
 # Checklist
-<!--- Please read each of the following items and confirm by replacing the [ ] with a [X] --->
+<!-- Please read each of the following items and confirm by replacing the [ ] with a [X] -->
 
 - [ ] I have read the [code review guidelines](https://uclahs-cds.atlassian.net/wiki/spaces/BOUTROSLAB/pages/3187646/Code+Review+Guidelines) and the [code review best practice on GitHub check-list](https://uclahs-cds.atlassian.net/wiki/spaces/BOUTROSLAB/pages/3189956/Code+Review+Best+Practice+on+GitHub+-+Check+List).
 
 - [ ] I have reviewed the [Nextflow pipeline standards](https://uclahs-cds.atlassian.net/wiki/spaces/BOUTROSLAB/pages/3193890/Nextflow+pipeline+standardization).
 
-- [ ] The name of the branch is meaningful and well formatted following the [standards](https://uclahs-cds.atlassian.net/wiki/spaces/BOUTROSLAB/pages/3189956/Code+Review+Best+Practice+on+GitHub+-+Check+List), using \[AD_username (or 5 letters of AD if AD is too long)]-\[brief_description_of_branch].
+- [ ] The name of the branch is meaningful and well formatted following the [standards](https://uclahs-cds.atlassian.net/wiki/spaces/BOUTROSLAB/pages/3189956/Code+Review+Best+Practice+on+GitHub+-+Check+List), using \[AD\_username (or 5 letters of AD if AD is too long)]-\[brief\_description\_of\_branch\].
 
 - [ ] I have set up or verified the branch protection rule following the [github standards](https://uclahs-cds.atlassian.net/wiki/spaces/BOUTROSLAB/pages/3190380/GitHub+Standards#GitHubStandards-Branchprotectionrule) before opening this pull request.
 
@@ -49,4 +48,4 @@ already, or do not wish to be listed. (*This acknowledgement is optional.*)
 
 - [ ] I have updated the version number in the `metadata.yaml` and `manifest` block of the `nextflow.config` file following [semver](https://semver.org/), or the version number has already been updated. (*Leave it unchecked if you are unsure about new version number and discuss it with the infrastructure team in this PR.*)
 
-- [ ] I have tested the pipeline with whole-genome or whole-exome samples in both the 'paired' and 'single' configuration. The paths to the test config files and output directories were attached below.
+- [ ] I have tested the pipeline using NFTest, _or_ I have justified why I did not need to run NFTest above.
