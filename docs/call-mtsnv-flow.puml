@@ -1,0 +1,30 @@
+@startuml
+skinparam SwimlaneTitleFontStyle bold
+
+
+:==Input Validation
+----
+Validate the input BAM and corresponding index file;
+:==BAMQL
+----
+Extract mitochondrial Reads;
+:==MToolBox
+----
+Align to mitochondrial genome;
+:==MitoCaller
+----
+Call mitochondrial variants;
+:==MitoCaller2VCF
+----
+Convert results to VCF;
+if (paired sample) then (yes)
+  :==Call_Heteroplasmy
+  ----
+  Extract heteroplasmy scores;
+else (no)
+endif
+:==Output Validation
+----
+Validate output VCF files;
+
+@enduml
