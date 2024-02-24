@@ -37,7 +37,7 @@ Samples can be run by specifying file locations in the [`input.yaml`](./input/te
 ___
 
 ## Flow Diagram
-![flowchart_call-mtSNV](flowchart_call-mtSNV.png)
+![flowchart_call-mtSNV](./docs/call-mtsnv-flow.svg)
 ___
 ## Pipeline Steps
 

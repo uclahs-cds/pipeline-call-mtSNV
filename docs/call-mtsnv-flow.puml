@@ -7,7 +7,7 @@ skinparam SwimlaneTitleFontStyle bold
 Validate the input BAM and corresponding index file;
 :==BAMQL
 ----
-Extract mitochondrial Reads;
+Extract mitochondrial reads;
 :==MToolBox
 ----
 Align to mitochondrial genome;
