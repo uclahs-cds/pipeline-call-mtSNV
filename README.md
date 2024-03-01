@@ -15,6 +15,7 @@
       - [Single Mode](#single-mode)
       - [Paired Mode](#paired-mode)
     - [input.config](#inputconfig)
+      - [Base resource allocation updaters](#base-resource-allocation-updaters)
   - [Outputs](#outputs)
   - [Testing and Validation](#testing-and-validation)
     - [Test Data Set](#test-data-set)
@@ -90,7 +91,56 @@ The config file can take 6 arguments. See provided [template](./config/template.
 | 3 | `mt_ref_genome_dir` | yes | path | Absolute path to directory containing mitochondrial ref genome and mt ref genome index files. Path: `/hot/ref/mitochondria_ref/genome_fasta`|
 | 4 | `gmapdb` | yes | path | Absolute path to to gmapdb directory. Path: `/hot/ref/mitochondria_ref/gmapdb/gmapdb_2021-03-08` |
 | 5 | `save_intermediate_files` | no | boolean | Save intermediate files. If yes, not only the final BAM, but also the unmerged, unsorted, and duplicates unmarked BAM files will also be saved. Default is set to `false`. |
-| 6 | `cache_intermediate_pipeline_steps` | no | boolean | Enable caching to resume pipeline and the end of the last successful process completion when a pipeline fails (if true the default submission script must be modified). Default is set to `false`.
+| 6 | `cache_intermediate_pipeline_steps` | no | boolean | Enable caching to resume pipeline and the end of the last successful process completion when a pipeline fails (if true the default submission script must be modified). Default is set to `false`. |
+| 7 | `base_resource_update` | no | namespace | Namespace of parameters to update base resource allocations in the pipeline. Usage and structure are detailed in `template.config` and below. |
+
+ #### Base resource allocation updaters
+To optionally update the base resource (cpus or memory) allocations for processes, use the following structure and add the necessary parts. The default allocations can be found in the [node-specific config files](./config/)
+
+```Nextflow
+base_resource_update {
+    memory = [
+        [['process_name', 'process_name2'], <multiplier for resource>],
+        [['process_name3', 'process_name4'], <different multiplier for resource>]
+    ]
+    cpus = [
+        [['process_name', 'process_name2'], <multiplier for resource>],
+        [['process_name3', 'process_name4'], <different multiplier for resource>]
+    ]
+}
+```
+> **Note** Resource updates will be applied in the order they're provided so if a process is included twice in the memory list, it will be updated twice in the order it's given.
+
+Examples:
+
+- To double memory of all processes:
+```Nextflow
+base_resource_update {
+    memory = [
+        [[], 2]
+    ]
+}
+```
+- To double memory for `convert_mitoCaller2vcf_mitoCaller` and triple memory for `Validate_Inputs` and `call_heteroplasmy `:
+```Nextflow
+base_resource_update {
+    memory = [
+        ['convert_mitoCaller2vcf_mitoCaller', 2],
+        [['Validate_Inputs', 'call_heteroplasmy'], 3]
+    ]
+}
+```
+- To double CPUs and memory for `convert_mitoCaller2vcf_mitoCaller` and double memory for `Validate_Inputs`:
+```Nextflow
+base_resource_update {
+    cpus = [
+        ['convert_mitoCaller2vcf_mitoCaller', 2]
+    ]
+    memory = [
+        [['convert_mitoCaller2vcf_mitoCaller', 'Validate_Inputs'], 2]
+    ]
+}
+```
 
 ## Outputs
 
