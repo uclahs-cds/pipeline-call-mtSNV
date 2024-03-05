@@ -21,6 +21,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add parameter validation
 - Add index files for sample BAMs to `extract_mtDNA_BAMQL` leading to significant runtime reduction.
 - Add base resource modification functionality.
+- Add `methods.setup_docker_cpus()` to `methods.config` setup.
 
 ### Fixed
 
