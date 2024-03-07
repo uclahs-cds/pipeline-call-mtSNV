@@ -42,11 +42,12 @@
       "author": [
         "Alfredo Enrique Gonzalez",
         "Takafumi Yamaguchi",
-        "Jieun Oh"
+        "Jieun Oh",
+        "Kiarod Pashminehazar"
       ],
       "description": "Pipeline for calling mitochonrdial SNVs",
       "name": "call-mtSNV",
-      "version": "3.0.2"
+      "version": "4.0.0-rc.1"
     },
     "params": {
       "BAMQL_docker_image": "ghcr.io/uclahs-cds/bamql:1.6.1",
@@ -76,7 +77,7 @@
         "{sample_type=tumor, sample_ID=6236134, BAM=/hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/input/data/test-bams/tcga_test_file_tumor_01prct.bam}"
       ],
       "input_string": "normal: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/input/data/test-bams/tcga_test_file_normal_01prct.bam\\n        tumor: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/input/data/test-bams/tcga_test_file_tumor_01prct.bam",
-      "log_output_dir": "/tmp/outputs/call-mtSNV-3.0.2/6236134/log-call-mtSNV-3.0.2-19970704T165655Z//process-log/",
+      "log_output_dir": "/tmp/outputs/call-mtSNV-4.0.0-rc.1/6236134/log-call-mtSNV-4.0.0-rc.1-19970704T165655Z/process-log/",
       "max_cpus": "16",
       "max_memory": "31 GB",
       "min_cpus": "1",
@@ -87,10 +88,10 @@
       "mitocaller_version": "1.0.0",
       "mt_ref_genome_dir": "/hot/ref/mitochondria_ref/genome_fasta/",
       "mtoolbox_version": "1.2.1-b52269e",
-      "nextflow_log_dir": "/tmp/outputs/call-mtSNV-3.0.2/6236134/log-call-mtSNV-3.0.2-19970704T165655Z/",
+      "nextflow_log_dir": "/tmp/outputs/call-mtSNV-4.0.0-rc.1/6236134/log-call-mtSNV-4.0.0-rc.1-19970704T165655Z/",
       "output_dir": "/tmp/outputs",
-      "output_dir_base": "/tmp/outputs/call-mtSNV-3.0.2/6236134/mitoCaller-1.0.0/",
-      "output_dir_prefix": "/tmp/outputs/call-mtSNV-3.0.2/6236134",
+      "output_dir_base": "/tmp/outputs/call-mtSNV-4.0.0-rc.1/6236134/mitoCaller-1.0.0/",
+      "output_dir_prefix": "/tmp/outputs/call-mtSNV-4.0.0-rc.1/6236134",
       "patient_id": "NFTEST_01_PAIRED",
       "pipeval_version": "4.0.0-rc.2",
       "proc_resource_params": {
@@ -381,15 +382,15 @@
     },
     "report": {
       "enabled": true,
-      "file": "/tmp/outputs/call-mtSNV-3.0.2/6236134/log-call-mtSNV-3.0.2-19970704T165655Z//nextflow-log/report.html"
+      "file": "/tmp/outputs/call-mtSNV-4.0.0-rc.1/6236134/log-call-mtSNV-4.0.0-rc.1-19970704T165655Z/nextflow-log/report.html"
     },
     "timeline": {
       "enabled": true,
-      "file": "/tmp/outputs/call-mtSNV-3.0.2/6236134/log-call-mtSNV-3.0.2-19970704T165655Z//nextflow-log/timeline.html"
+      "file": "/tmp/outputs/call-mtSNV-4.0.0-rc.1/6236134/log-call-mtSNV-4.0.0-rc.1-19970704T165655Z/nextflow-log/timeline.html"
     },
     "trace": {
       "enabled": true,
-      "file": "/tmp/outputs/call-mtSNV-3.0.2/6236134/log-call-mtSNV-3.0.2-19970704T165655Z//nextflow-log/trace.txt"
+      "file": "/tmp/outputs/call-mtSNV-4.0.0-rc.1/6236134/log-call-mtSNV-4.0.0-rc.1-19970704T165655Z/nextflow-log/trace.txt"
     },
     "workDir": "/scratch/8543",
     "yaml": {
