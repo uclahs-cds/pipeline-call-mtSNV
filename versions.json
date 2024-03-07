@@ -9,12 +9,21 @@
     }
   },
   {
+    "version": "v3.0.2",
+    "title": "v3.0.2",
+    "aliases": [
+      "latest",
+      "release-candidate"
+    ],
+    "properties": {
+      "commit": "be902e20178b45f14550961ee8b704b9ccb6a466",
+      "date": "2023-12-22T11:29:02-08:00"
+    }
+  },
+  {
     "version": "v3.0.1",
     "title": "v3.0.1",
-    "aliases": [
-      "release-candidate",
-      "latest"
-    ],
+    "aliases": [],
     "properties": {
       "commit": "f7d7c4defdc0696a6b74eda255071186d9e05481",
       "date": "2023-12-11T15:16:45-08:00"
