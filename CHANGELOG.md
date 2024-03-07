@@ -7,16 +7,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 ## [4.0.0-rc.1] 2024-03-06
-### Changed
-- Change input format to YAML.
-- Auto-detect sample mode.
-- Update `output_dir` parameter to support CLI argument input.
-- Update `methods.config` to use external `set_env` function via `common_methods.config`.
-- Update sample ID handling to extract from supplied BAM files.
-- Add resource retry mechanism for module processes.
-- Update input and output validation to use external PipeVal module.
-- Change `methods.check_max` to modularized `methods.check_limits`.
-
 ### Added
 - Add NFTest compatibility
 - Add parameter validation
@@ -26,6 +16,16 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add workflow to build and push documentation to GitHub Pages
 - Add workflow to run Nextflow configuration regression tests
 - Add one regression test
+
+### Changed
+- Change input format to YAML.
+- Auto-detect sample mode.
+- Update `output_dir` parameter to support CLI argument input.
+- Update `methods.config` to use external `set_env` function via `common_methods.config`.
+- Update sample ID handling to extract from supplied BAM files.
+- Add resource retry mechanism for module processes.
+- Update input and output validation to use external PipeVal module.
+- Change `methods.check_max` to modularized `methods.check_limits`.
 
 ---
 ## [3.0.2] - 2023-12-22
