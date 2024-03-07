@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Update sample ID handling to extract from supplied BAM files.
 - Add resource retry mechanism for module processes.
 - Update input and output validation to use external PipeVal module.
+- Change `methods.check_max` to modularized `methods.check_limits`.
 
 ### Added
 - Add NFTest compatibility
@@ -25,8 +26,6 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add workflow to build and push documentation to GitHub Pages
 - Add workflow to run Nextflow configuration regression tests
 - Add one regression test
-
-### Fixed
 
 ---
 ## [3.0.2] - 2023-12-22
