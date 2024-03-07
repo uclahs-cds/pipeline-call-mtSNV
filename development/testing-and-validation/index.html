@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link rel="shortcut icon" href="../img/favicon.ico" />
+    <title>Testing and Validation - pipeline-call-mtSNV</title>
+    <link rel="stylesheet" href="../css/theme.css" />
+    <link rel="stylesheet" href="../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" />
+        <link href="../css/version-select.css" rel="stylesheet" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Testing and Validation";
+        var mkdocs_page_input_path = "testing-and-validation.md";
+        var mkdocs_page_url = null;
+      </script>
+    
+    <!--[if lt IE 9]>
+      <script src="../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+      <script>hljs.highlightAll();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href=".." class="icon icon-home"> pipeline-call-mtSNV
+        </a>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../overview/">Overview</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../how-to-run/">How To Run</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../flow-diagram/">Flow Diagram</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../pipeline-steps/">Pipeline Steps</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../inputs/">Inputs</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../outputs/">Outputs</a>
+                </li>
+              </ul>
+              <ul class="current">
+                <li class="toctree-l1 current"><a class="reference internal current" href="./">Testing and Validation</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#test-data-set">Test Data Set</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#running-tests-with-nftest">Running Tests with NFTest</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#validation-tool">Validation Tool</a>
+    </li>
+    </ul>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../references/">References</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../discussions/">Discussions</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../contributors/">Contributors</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../please-see-list-of-contributors-at-github/">Please see list of Contributors at GitHub.</a>
+                </li>
+              </ul>
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../license/">License</a>
+                </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="..">pipeline-call-mtSNV</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
+      <li class="breadcrumb-item active">Testing and Validation</li>
+    <li class="wy-breadcrumbs-aside">
+          <a href="https://github.com/uclahs-cds/pipeline-call-mtSNV/blob/d46c4be37b4ab44db649c827a69af214bba4bf17/README.md" class="icon icon-github"> Edit on GitHub</a>
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h2 id="testing-and-validation">Testing and Validation</h2>
+<h3 id="test-data-set">Test Data Set</h3>
+<p>Both WGS and WES aligned BAM files were used to test in single and tumor-normal paired modes.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;"></th>
+<th style="text-align: left;">Type</th>
+<th style="text-align: left;">Mode</th>
+<th style="text-align: left;">Size</th>
+<th style="text-align: left;">CPU threads</th>
+<th style="text-align: left;">PeakVMemory</th>
+<th style="text-align: left;">Run Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">WES</td>
+<td style="text-align: left;">Single</td>
+<td style="text-align: left;">4GB</td>
+<td style="text-align: left;">72</td>
+<td style="text-align: left;">9.381 GB</td>
+<td style="text-align: left;">~4 min</td>
+</tr>
+<tr>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">WES</td>
+<td style="text-align: left;">Paired</td>
+<td style="text-align: left;">4GB/4GB</td>
+<td style="text-align: left;">72</td>
+<td style="text-align: left;">12.317 GB</td>
+<td style="text-align: left;">~8 min</td>
+</tr>
+<tr>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">WGS</td>
+<td style="text-align: left;">Single</td>
+<td style="text-align: left;">399GB</td>
+<td style="text-align: left;">72</td>
+<td style="text-align: left;">21.042 GB</td>
+<td style="text-align: left;">~2h 40 min</td>
+</tr>
+<tr>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">WGS</td>
+<td style="text-align: left;">Paired</td>
+<td style="text-align: left;">399GB/740GB</td>
+<td style="text-align: left;">72</td>
+<td style="text-align: left;">26.615 GB</td>
+<td style="text-align: left;">~5 hours</td>
+</tr>
+</tbody>
+</table>
+<h3 id="running-tests-with-nftest">Running Tests with NFTest</h3>
+<p>Ensure NFTest is installed on your system. If it is not installed follow installation instructions in the <a href="https://github.com/uclahs-cds/tool-NFTest">NFTest documentation</a>.</p>
+<p>To test annotators run the command with the annotator of interest:</p>
+<pre><code>nftest run [test-paired-01 test-single-normal-01 test-single-tumor-01 test-paired-10 test-single-normal-10 test-single-tumor-10]
+</code></pre>
+<p>Additionally it is possible to modify the <code>nftest.yml</code> file to tune testing.
+All testing assets can be found in the <code>test/</code> directory.</p>
+<p>For larger jobs a <a href="https://github.com/uclahs-cds/tool-submit-nf">cluster submission tool</a> is available for NFTest.</p>
+<h3 id="validation-tool">Validation Tool</h3>
+<p>Included is a template for validating your input files. For more information on the tool check out: https://github.com/uclahs-cds/tool-validate-nf</p>
+<hr />
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../outputs/" class="btn btn-neutral float-left" title="Outputs"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../references/" class="btn btn-neutral float-right" title="References">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+        <span>
+          <a href="https://github.com/uclahs-cds/pipeline-call-mtSNV" class="fa fa-github" style="color: #fcfcfc"> GitHub</a>
+        </span>
+    
+    
+      <span><a href="../outputs/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../references/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script src="../js/jquery-3.6.0.min.js"></script>
+    <script>var base_url = "..";</script>
+    <script src="../js/theme_extra.js"></script>
+    <script src="../js/theme.js"></script>
+      <script src="../js/version-select.js"></script>
+    <script>
+        jQuery(function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        });
+    </script>
+
+</body>
+</html>
