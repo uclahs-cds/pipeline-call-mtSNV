@@ -1,0 +1,16 @@
+---
+global:
+  temp_dir: ./test/work
+  nf_config: test/global.config
+  remove_temp: true
+  clean_logs: true
+
+cases:
+  - name:
+    message:
+    nf_script:
+    nf_config:
+    params_file:
+    skip: true
+    verbose: true
+    asserts:
