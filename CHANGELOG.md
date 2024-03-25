@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ---
 ## [unreleased]
 ## Changed
-
+- Change NFTest to use illumina samples.
 ## Added
 ## Fixed
 
