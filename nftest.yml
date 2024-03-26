@@ -6,181 +6,92 @@ global:
   clean_logs: true
 
 cases:
-  - name: test-paired-01
-    message: Test Paired Mode [1%]
+  - name: single-normal
+    message: Test pipeline in single mode with a normal sample
     nf_script: main.nf
-    nf_config: test/test-paired-001/test.config
-    params_file: test/yaml/tcga/01-percent/paired.yaml
+    nf_config: test/input.config
+    params_file: test/yaml/illumina/normal.yaml
     skip: true
     verbose: true
     asserts:
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/call-heteroplasmy-*_NFTEST-PAIRED-001_H-MV-IW-A3M5-01A-22D-A21Q-09_filtered.tsv
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_01/mitoCaller-1.0.0/output/call-heteroplasmy-1.0.1_REFERENCE-PAIRED-01_REFERENCE-PAIRED-TUMOR-01_filtered.tsv
+      - actual: call-mtSNV-*/NA24149/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149_homoplasmy.vcf
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/normal/call-mtSNV-4.0.0/NA24149/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149_homoplasmy.vcf
+        script: test/assert_vcf.sh
+      - actual: call-mtSNV-*/NA24149/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149.vcf
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/normal/call-mtSNV-4.0.0/NA24149/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149.vcf
+        script: test/assert_vcf.sh
+      - actual: call-mtSNV-*/NA24149/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST_NA24149.bam
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/normal/call-mtSNV-4.0.0/NA24149/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24149.bam
         method: md5
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST-PAIRED-001_H-MV-IW-A3M5-10A-01D-A21Q-09_homoplasmy.vcf
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_01/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE-PAIRED-01_REFERENCE-PAIRED-NORMAL-01_homoplasmy.vcf
-        script: test/assert_vcf.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST-PAIRED-001_H-MV-IW-A3M5-10A-01D-A21Q-09.vcf
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_01/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE-PAIRED-01_REFERENCE-PAIRED-NORMAL-01.vcf
-        script: test/assert_vcf.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST-PAIRED-001_H-MV-IW-A3M5-01A-22D-A21Q-09_homoplasmy.vcf
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_01/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE-PAIRED-01_REFERENCE-PAIRED-TUMOR-01_homoplasmy.vcf
-        script: test/assert_vcf.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST-PAIRED-001_H-MV-IW-A3M5-01A-22D-A21Q-09.vcf
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_01/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE-PAIRED-01_REFERENCE-PAIRED-TUMOR-01.vcf
-        script: test/assert_vcf.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-PAIRED-001_H-MV-IW-A3M5-10A-01D-A21Q-09.bam
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_01/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-PAIRED-01_REFERENCE-PAIRED-NORMAL-01.bam
-        method: md5
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-PAIRED-001_H-MV-IW-A3M5-10A-01D-A21Q-09_mt-classification-best-results.csv
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_01/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-PAIRED-01_REFERENCE-PAIRED-NORMAL-01_mt-classification-best-results.csv
+      - actual: call-mtSNV-*/NA24149/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST_NA24149_mt-classification-best-results.csv
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/normal/call-mtSNV-4.0.0/NA24149/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24149_mt-classification-best-results.csv
         script: test/assert_MToolBox_csv.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-PAIRED-001_H-MV-IW-A3M5-10A-01D-A21Q-09_summary*.txt
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_01/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-PAIRED-01_REFERENCE-PAIRED-NORMAL-01_summary-20231222-230556.txt
-        script: test/assert_MToolBox_summary.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-PAIRED-001_H-MV-IW-A3M5-01A-22D-A21Q-09.bam
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_01/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-PAIRED-01_REFERENCE-PAIRED-TUMOR-01.bam
-        method: md5
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-PAIRED-001_H-MV-IW-A3M5-01A-22D-A21Q-09_mt-classification-best-results.csv
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_01/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-PAIRED-01_REFERENCE-PAIRED-TUMOR-01_mt-classification-best-results.csv
-        script: test/assert_MToolBox_csv.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-PAIRED-001_H-MV-IW-A3M5-01A-22D-A21Q-09_summary*.txt
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_01/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-PAIRED-01_REFERENCE-PAIRED-TUMOR-01_summary-20231222-230547.txt
+      - actual: call-mtSNV-*/NA24149/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST_NA24149_summary*.txt
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/normal/call-mtSNV-4.0.0/NA24149/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24149_summary-20240325-204026.txt
         script: test/assert_MToolBox_summary.sh
 
-  - name: test-single-normal-01
-    message: Test Single Mode for Normal Samples [1%]
+  - name: single-tumor
+    message: Test pipeline in single mode with a tumor sample
     nf_script: main.nf
-    nf_config: test/test-normal-001/test.config
-    params_file: test/yaml/tcga/01-percent/single-normal.yaml
+    nf_config: test/input.config
+    params_file: test/yaml/illumina/tumor.yaml
     skip: true
     verbose: true
     asserts:
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-10A-01D-A21Q-09/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST-NORMAL-001_H-MV-IW-A3M5-10A-01D-A21Q-09_homoplasmy.vcf
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/normal/call-mtSNV-*/REFERENCE_NORMAL_01/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE-NORMAL-01_REFERENCE-NORMAL-01_homoplasmy.vcf
+      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143_homoplasmy.vcf
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/tumor/call-mtSNV-4.0.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143_homoplasmy.vcf
         script: test/assert_vcf.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-10A-01D-A21Q-09/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST-NORMAL-001_H-MV-IW-A3M5-10A-01D-A21Q-09.vcf
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/normal/call-mtSNV-*/REFERENCE_NORMAL_01/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE-NORMAL-01_REFERENCE-NORMAL-01.vcf
+      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143.vcf
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/tumor/call-mtSNV-4.0.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143.vcf
         script: test/assert_vcf.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-10A-01D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-NORMAL-001_H-MV-IW-A3M5-10A-01D-A21Q-09.bam
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/normal/call-mtSNV-*/REFERENCE_NORMAL_01/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-NORMAL-01_REFERENCE-NORMAL-01.bam
+      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST_NA24143.bam
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/tumor/call-mtSNV-4.0.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24143.bam
         method: md5
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-10A-01D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-NORMAL-001_H-MV-IW-A3M5-10A-01D-A21Q-09_mt-classification-best-results.csv
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/normal/call-mtSNV-*/REFERENCE_NORMAL_01/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-NORMAL-01_REFERENCE-NORMAL-01_mt-classification-best-results.csv
+      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST_NA24143_mt-classification-best-results.csv
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/tumor/call-mtSNV-4.0.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24143_mt-classification-best-results.csv
         script: test/assert_MToolBox_csv.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-10A-01D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-NORMAL-001_H-MV-IW-A3M5-10A-01D-A21Q-09_summary*.txt
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/normal/call-mtSNV-*/REFERENCE_NORMAL_01/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-NORMAL-01_REFERENCE-NORMAL-01_summary-20231222-230543.txt
+      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST_NA24143_summary*.txt
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/tumor/call-mtSNV-4.0.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24143_summary-20240325-204303.txt
         script: test/assert_MToolBox_summary.sh
 
-  - name: test-single-tumor-01
-    message: Test Single Mode for Tumor Samples [1%]
+  - name: paired
+    message: Test pipeline in paired mode.
     nf_script: main.nf
-    nf_config: test/test-tumor-001/test.config
-    params_file: test/yaml/tcga/01-percent/single-tumor.yaml
+    nf_config: test/input.config
+    params_file: test/yaml/illumina/paired.yaml
     skip: true
     verbose: true
     asserts:
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST-TUMOR-001_H-MV-IW-A3M5-01A-22D-A21Q-09_homoplasmy.vcf
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/tumor/call-mtSNV-*/REFERENCE_TUMOR_01/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE-TUMOR-01_REFERENCE-TUMOR-01_homoplasmy.vcf
-        script: test/assert_vcf.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST-TUMOR-001_H-MV-IW-A3M5-01A-22D-A21Q-09.vcf
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/tumor/call-mtSNV-*/REFERENCE_TUMOR_01/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE-TUMOR-01_REFERENCE-TUMOR-01.vcf
-        script: test/assert_vcf.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-TUMOR-001_H-MV-IW-A3M5-01A-22D-A21Q-09.bam
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/tumor/call-mtSNV-*/REFERENCE_TUMOR_01/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-TUMOR-01_REFERENCE-TUMOR-01.bam
+      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/call-heteroplasmy-*_NFTEST_NA24143_filtered.tsv
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-4.0.0/NA24143/mitoCaller-1.0.0/output/call-heteroplasmy-1.0.1_REFERENCE_NA24143_filtered.tsv
         method: md5
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-TUMOR-001_H-MV-IW-A3M5-01A-22D-A21Q-09_mt-classification-best-results.csv
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/tumor/call-mtSNV-*/REFERENCE_TUMOR_01/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-TUMOR-01_REFERENCE-TUMOR-01_mt-classification-best-results.csv
+      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143_homoplasmy.vcf
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-4.0.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143_homoplasmy.vcf
+        script: test/assert_vcf.sh
+      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143.vcf
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-4.0.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143.vcf
+        script: test/assert_vcf.sh
+      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149_homoplasmy.vcf
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-4.0.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149_homoplasmy.vcf
+        script: test/assert_vcf.sh
+      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149.vcf
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-4.0.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149.vcf
+        script: test/assert_vcf.sh
+      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST_NA24143.bam
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-4.0.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24143.bam
+        method: md5
+      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST_NA24143_mt-classification-best-results.csv
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-4.0.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24143_mt-classification-best-results.csv
         script: test/assert_MToolBox_csv.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-TUMOR-001_H-MV-IW-A3M5-01A-22D-A21Q-09_summary*.txt
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/001-percent/tumor/call-mtSNV-*/REFERENCE_TUMOR_01/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-TUMOR-01_REFERENCE-TUMOR-01_summary-20231222-230534.txt
+      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST_NA24143_summary*.txt
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-4.0.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24143_summary-*.txt
         script: test/assert_MToolBox_summary.sh
-
-  - name: test-paired-10
-    message: Test Paired Mode [10%]
-    nf_script: main.nf
-    nf_config: test/test-paired-010/test.config
-    params_file: test/yaml/tcga/10-percent/paired.yaml
-    skip: true
-    verbose: true
-    asserts:
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/call-heteroplasmy-*_NFTEST-PAIRED-010_H-MV-IW-A3M5-01A-22D-A21Q-09_filtered.tsv
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_10/mitoCaller-1.0.0/output/call-heteroplasmy-1.0.1_REFERENCE-PAIRED-10_REFERENCE-PAIRED-TUMOR-10_filtered.tsv
+      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST_NA24149.bam
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-4.0.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24149.bam
         method: md5
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST-PAIRED-010_H-MV-IW-A3M5-10A-01D-A21Q-09_homoplasmy.vcf
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_10/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE-PAIRED-10_REFERENCE-PAIRED-NORMAL-10_homoplasmy.vcf
-        script: test/assert_vcf.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST-PAIRED-010_H-MV-IW-A3M5-10A-01D-A21Q-09.vcf
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_10/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE-PAIRED-10_REFERENCE-PAIRED-NORMAL-10.vcf
-        script: test/assert_vcf.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST-PAIRED-010_H-MV-IW-A3M5-01A-22D-A21Q-09_homoplasmy.vcf
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_10/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE-PAIRED-10_REFERENCE-PAIRED-TUMOR-10_homoplasmy.vcf
-        script: test/assert_vcf.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST-PAIRED-010_H-MV-IW-A3M5-01A-22D-A21Q-09.vcf
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_10/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE-PAIRED-10_REFERENCE-PAIRED-TUMOR-10.vcf
-        script: test/assert_vcf.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-PAIRED-010_H-MV-IW-A3M5-10A-01D-A21Q-09.bam
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_10/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-PAIRED-10_REFERENCE-PAIRED-NORMAL-10.bam
-        method: md5
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-PAIRED-010_H-MV-IW-A3M5-10A-01D-A21Q-09_mt-classification-best-results.csv
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_10/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-PAIRED-10_REFERENCE-PAIRED-NORMAL-10_mt-classification-best-results.csv
+      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST_NA24149_mt-classification-best-results.csv
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-4.0.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24149_mt-classification-best-results.csv
         script: test/assert_MToolBox_csv.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-PAIRED-010_H-MV-IW-A3M5-10A-01D-A21Q-09_summary*.txt
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_10/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-PAIRED-10_REFERENCE-PAIRED-NORMAL-10_summary-20240103-212832.txt
-        script: test/assert_MToolBox_summary.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-PAIRED-010_H-MV-IW-A3M5-01A-22D-A21Q-09.bam
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_10/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-PAIRED-10_REFERENCE-PAIRED-TUMOR-10.bam
-        method: md5
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-PAIRED-010_H-MV-IW-A3M5-01A-22D-A21Q-09_mt-classification-best-results.csv
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_10/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-PAIRED-10_REFERENCE-PAIRED-TUMOR-10_mt-classification-best-results.csv
-        script: test/assert_MToolBox_csv.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-PAIRED-010_H-MV-IW-A3M5-01A-22D-A21Q-09_summary*.txt
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/paired/call-mtSNV-*/REFERENCE_PAIRED_10/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-PAIRED-10_REFERENCE-PAIRED-TUMOR-10_summary-20240103-212905.txt
-        script: test/assert_MToolBox_summary.sh
-  - name: test-single-normal-10
-    message: Test Single Mode for Normal Samples [10%]
-    nf_script: main.nf
-    nf_config: test/test-normal-010/test.config
-    params_file: test/yaml/tcga/10-percent/single-normal.yaml
-    skip: true
-    verbose: true
-    asserts:
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-10A-01D-A21Q-09/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST-NORMAL-010_H-MV-IW-A3M5-10A-01D-A21Q-09_homoplasmy.vcf
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/normal/call-mtSNV-*/REFERENCE_NORMAL_10/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE-NORMAL-10_REFERENCE-NORMAL-10_homoplasmy.vcf
-        script: test/assert_vcf.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-10A-01D-A21Q-09/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST-NORMAL-010_H-MV-IW-A3M5-10A-01D-A21Q-09.vcf
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/normal/call-mtSNV-*/REFERENCE_NORMAL_10/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE-NORMAL-10_REFERENCE-NORMAL-10.vcf
-        script: test/assert_vcf.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-10A-01D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-NORMAL-010_H-MV-IW-A3M5-10A-01D-A21Q-09.bam
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/normal/call-mtSNV-*/REFERENCE_NORMAL_10/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-NORMAL-10_REFERENCE-NORMAL-10.bam
-        method: md5
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-10A-01D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-NORMAL-010_H-MV-IW-A3M5-10A-01D-A21Q-09_mt-classification-best-results.csv
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/normal/call-mtSNV-*/REFERENCE_NORMAL_10/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-NORMAL-10_REFERENCE-NORMAL-10_mt-classification-best-results.csv
-        script: test/assert_MToolBox_csv.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-10A-01D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-NORMAL-010_H-MV-IW-A3M5-10A-01D-A21Q-09_summary*.txt
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/normal/call-mtSNV-*/REFERENCE_NORMAL_10/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-NORMAL-10_REFERENCE-NORMAL-10_summary-20240103-212425.txt
-        script: test/assert_MToolBox_summary.sh
-
-  - name: test-single-tumor-10
-    message: Test Single Mode for Tumor Samples [10%]
-    nf_script: main.nf
-    nf_config: test/test-tumor-010/test.config
-    params_file: test/yaml/tcga/10-percent/single-tumor.yaml
-    skip: true
-    verbose: true
-    asserts:
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST-TUMOR-010_H-MV-IW-A3M5-01A-22D-A21Q-09_homoplasmy.vcf
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/tumor/call-mtSNV-*/REFERENCE_TUMOR_10/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE-TUMOR-10_REFERENCE-TUMOR-10_homoplasmy.vcf
-        script: test/assert_vcf.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST-TUMOR-010_H-MV-IW-A3M5-01A-22D-A21Q-09.vcf
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/tumor/call-mtSNV-*/REFERENCE_TUMOR_10/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE-TUMOR-10_REFERENCE-TUMOR-10.vcf
-        script: test/assert_vcf.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-TUMOR-010_H-MV-IW-A3M5-01A-22D-A21Q-09.bam
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/tumor/call-mtSNV-*/REFERENCE_TUMOR_10/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-TUMOR-10_REFERENCE-TUMOR-10.bam
-        method: md5
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-TUMOR-010_H-MV-IW-A3M5-01A-22D-A21Q-09_mt-classification-best-results.csv
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/tumor/call-mtSNV-*/REFERENCE_TUMOR_10/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-TUMOR-10_REFERENCE-TUMOR-10_mt-classification-best-results.csv
-        script: test/assert_MToolBox_csv.sh
-      - actual: call-mtSNV-*/H-MV-IW-A3M5-01A-22D-A21Q-09/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST-TUMOR-010_H-MV-IW-A3M5-01A-22D-A21Q-09_summary*.txt
-        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/test-bam-output/010-percent/tumor/call-mtSNV-*/REFERENCE_TUMOR_10/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE-TUMOR-10_REFERENCE-TUMOR-10_summary-20231222-230736.txt
+      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*-b52269e_NFTEST_NA24149_summary*.txt
+        expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-4.0.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24149_summary-*.txt
         script: test/assert_MToolBox_summary.sh
