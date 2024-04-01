@@ -1,6 +1,6 @@
 ---
 Category: "pipeline"
-Description: "Nextflow pipeline to extract mt reads, remaps the reads to mitochondrial reference genome, and calls variants using mitoCaller and gives heteroplasmy"
+Description: "Nextflow pipeline for mtSNV detection from Normal/Tumour BAMs: extracts and remaps reads then calls variants"
 Maintainers: "Takafumi Yamaguchi, Alfredo Enrique Gonzalez, Jieun Oh, Kiarod Pashminehazar"
 Contributors: "Takafumi Yamaguchi, Alfredo Enrique Gonzalez, Andrew Park, Jieun Oh, Kiarod Pashminehazar"
 Languages: ["Nextflow", "Docker"]
