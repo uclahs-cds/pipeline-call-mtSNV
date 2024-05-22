@@ -109,10 +109,10 @@ sub main {
 				}
 
 			close $fh_ascat_stat;
-				} elsif ($opts{tumour_purity}) {
-					$tumour_purity = $opts{tumour_purity};
+			} elsif ($opts{tumour_purity}) {
+				$tumour_purity = $opts{tumour_purity};
 				} else {
-					print "No ascat stat found and purity estimation will be 1\n";
+					print "No ascat stat found or tumour purity provided, purity estimation will be 1\n";
 					$tumour_purity = 1;
 				}
 
