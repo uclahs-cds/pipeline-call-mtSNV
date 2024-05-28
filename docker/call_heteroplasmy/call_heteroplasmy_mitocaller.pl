@@ -338,6 +338,10 @@ Normal BAM file.
 
 Tumour BAM file.
 
+=item B<--purity>
+
+Tumour Purity Value.
+
 =item B<--ref>
 
 Reference genome in FASTA format.
