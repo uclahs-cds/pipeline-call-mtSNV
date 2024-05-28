@@ -30,6 +30,7 @@ our %opts = (
 	tumour_table  => undef,
 	min_coverage => 100,
 	het_fraction => 0.2,
+	purity => 1,
 	output  => 'heteroplasmy_call.tsv'
 	);
 
@@ -58,7 +59,7 @@ sub main {
 		"ascat_stat:s"       => \$opts{'ascat_stat'},
 		"min_coverage=s"     => \$opts{'min_coverage'},
 		"het_fraction=s"     => \$opts{'het_fraction'},
-		"tumour_purity=s"    => \$opts{'tumour_purity'},
+		"purity=s"    => \$opts{'purity'},
 		"output=s"     => \$opts{'output'}
 	) or pod2usage(64);
 
@@ -109,8 +110,8 @@ sub main {
 				}
 
 			close $fh_ascat_stat;
-			} elsif ($opts{tumour_purity}) {
-				$tumour_purity = $opts{tumour_purity};
+			} elsif ($opts{purity}) {
+				$tumour_purity = $opts{purity};
 				} else {
 					print "No ascat stat found or tumour purity provided, purity estimation will be 1\n";
 					$tumour_purity = 1;
