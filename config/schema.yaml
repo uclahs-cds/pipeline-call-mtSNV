@@ -60,8 +60,13 @@ input:
         BAM:
           type: 'Path'
           mode: 'r'
-          required: true
+          required: false
           help: 'Absolute path to normal sample BAM'
+        CRAM:
+          type: 'Path'
+          mode: 'r'
+          required: false
+          help: 'Absolute path to normal sample CRAM'
     tumor:
       type: 'Namespace'
       required: false
@@ -70,5 +75,10 @@ input:
         BAM:
           type: 'Path'
           mode: 'r'
-          required: true
+          required: false
           help: 'Absolute path to tumor sample BAM'
+        CRAM:
+          type: 'Path'
+          mode: 'r'
+          required: false
+          help: 'Absolute path to tumor sample CRAM'
