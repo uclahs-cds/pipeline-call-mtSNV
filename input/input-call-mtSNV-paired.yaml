@@ -5,3 +5,4 @@ input:
     BAM: /path/to/normal.bam
   tumor:
     BAM: /path/to/tumor.bam
+    purity: 0.5

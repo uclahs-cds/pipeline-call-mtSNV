@@ -60,6 +60,7 @@ process call_heteroplasmy {
         --normal ${normal_mitocaller_out} \
         --tumour ${tumor_mitocaller_out} \
         --output heteroplasmy_call.tsv \
+        --purity ${params.purity} \
         --ascat_stat
         """
 }
