@@ -2,4 +2,5 @@
 patient_id: 'patient id'
 input:
   normal:
-    BAM: /path/to/normal.bam
+    sample_id: 'sample id'
+    data: /path/to/normal.bam/or/normal.cram
