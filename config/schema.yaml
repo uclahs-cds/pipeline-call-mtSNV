@@ -57,28 +57,26 @@ input:
       required: false
       help: 'normal sample id and absolute path to BAM'
       elements:
-        BAM:
+        sample_id:
+          type: 'String'
+          required: false
+          help: 'data sample identifier'
+        data:
           type: 'Path'
           mode: 'r'
           required: false
-          help: 'Absolute path to normal sample BAM'
-        CRAM:
-          type: 'Path'
-          mode: 'r'
-          required: false
-          help: 'Absolute path to normal sample CRAM'
+          help: 'Absolute path to normal sample BAM/CRAM'
     tumor:
       type: 'Namespace'
       required: false
       help: 'tumor sample id and absolute path to BAM'
       elements:
-        BAM:
+        sample_id:
+          type: 'String'
+          required: false
+          help: 'data sample identifier'
+        data:
           type: 'Path'
           mode: 'r'
           required: false
-          help: 'Absolute path to tumor sample BAM'
-        CRAM:
-          type: 'Path'
-          mode: 'r'
-          required: false
-          help: 'Absolute path to tumor sample CRAM'
+          help: 'Absolute path to tumor sample BAM/CRAM'
