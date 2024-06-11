@@ -55,12 +55,13 @@ process call_heteroplasmy {
             "${tumor_sample_name}",
             [:]
             )
+        purity = params.purity
         """
         perl /src/script/call_heteroplasmy_mitocaller.pl \
         --normal ${normal_mitocaller_out} \
         --tumour ${tumor_mitocaller_out} \
         --output heteroplasmy_call.tsv \
-        --purity ${params.purity} \
+        --purity purity \
         --ascat_stat
         """
 }
