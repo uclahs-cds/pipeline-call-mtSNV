@@ -57,10 +57,10 @@ Channel
     .fromList(params.input_channel_list)
     .map { it ->
         [
-        it['sample_type'],
-        it['sample_ID'],
-        it['BAM'],
-        indexFile(it['BAM'])
+        it.sample_type,
+        it.sample_id,
+        it.data_path,
+        indexFile(it.data_path)
         ]
     }
     .set { ich }
@@ -68,8 +68,10 @@ Channel
 Channel
     .fromList(params.input_channel_list)
     .flatMap { it ->
-        [it['BAM'],
-        indexFile(it['BAM'])]
+        [
+        it.data_path,
+        indexFile(it.data_path)
+        ]
     }
     .set { input_validation }
 
@@ -83,10 +85,16 @@ workflow{
         )
 
     //step 2: extraction of mitochondrial reads using BAMQL
-    extract_mtDNA_BAMQL(ich)
-
+    if (params.input_type == 'BAM') {
+        extract_mtDNA_BAMQL(ich)
+        extracted_mt_reads = extract_mtDNA_BAMQL.out.extracted_mt_reads
+    }
+    else { // input_type == CRAM
+        extract_mtDNA_SAMtools(ich)
+        extracted_mt_reads = extract_mtDNA_SAMtools.out.extracted_mt_reads
+    }
     //step 3: remapping reads with mtoolbox
-    align_mtDNA_MToolBox( extract_mtDNA_BAMQL.out.extracted_mt_reads )
+    align_mtDNA_MToolBox( extracted_mt_reads )
 
     //step 4: variant calling with mitocaller
     call_mtSNV_mitoCaller( align_mtDNA_MToolBox.out.aligned_mt_reads )
