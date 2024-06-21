@@ -9,9 +9,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [unreleased]
 ## Changed
 - Change NFTest to use Illumina samples.
-- Update Nextflow configuration test workflows
+- Update Nextflow configuration test workflows.
 ## Added
 ## Fixed
+- Fix NFTest global.config.
 
 ## [4.0.0] 2024-03-22
 ### Changed
