@@ -1,0 +1,6 @@
+---
+patient_id: NFTEST_10_SINGLE_TUMOR
+input:
+  tumor:
+    id: NFTEST_10_SINGLE_TUMOR
+    BAM: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/input/data/test-bams/tcga_test_file_tumor_10prct.bam
