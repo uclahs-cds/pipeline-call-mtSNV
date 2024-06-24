@@ -47,7 +47,7 @@ Boutros Lab
         mt_reference_genome = ${params.mt_ref_genome_dir}
         cram_reference_genome = ${params.cram_reference_genome}
 
-    - output: x
+    - output:
         output_dir: ${params.output_dir_base}
 
     - options:
