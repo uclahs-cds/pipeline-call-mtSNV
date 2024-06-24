@@ -30,6 +30,11 @@ cache_intermediate_pipeline_steps:
   required: true
   default: false
   help: 'Boolean value to indicate whether or not to cache intermediate pipeline steps'
+reference_genome:
+  type: 'Path'
+  mode: 'r'
+  required: false
+  help: 'Reference genome for cram validation'
 base_resource_update:
   type: 'ResourceUpdateNamespace'
   required: false
