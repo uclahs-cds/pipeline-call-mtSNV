@@ -9,8 +9,7 @@ Nextflowization: Alfredo Enrique Gonzalez, Andrew Park
 nextflow.enable.dsl=2
 
 //// Import of Local Modules ////
-// include { indexFile } from './external/pipeline-Nextflow-module/modules/common/indexFile/main.nf'
-include { indexFile } from './module/index_file'
+include { indexFile } from './external/pipeline-Nextflow-module/modules/common/indexFile/main.nf'
 include { run_validate_PipeVal as validate_input } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main.nf' addParams(
         options: [
         docker_image_version: params.pipeval_version,
