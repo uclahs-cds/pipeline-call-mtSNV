@@ -9,11 +9,13 @@ Nextflowization: Alfredo Enrique Gonzalez, Andrew Park
 nextflow.enable.dsl=2
 
 //// Import of Local Modules ////
-include { indexFile } from './external/pipeline-Nextflow-module/modules/common/indexFile/main.nf'
-include { run_validate_PipeVal as validate_input; run_validate_PipeVal as validate_output } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main.nf' addParams(
-    options: [
+// include { indexFile } from './external/pipeline-Nextflow-module/modules/common/indexFile/main.nf'
+include { indexFile } from './module/index_file'
+include { run_validate_PipeVal as validate_input } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main.nf' addParams(
+        options: [
         docker_image_version: params.pipeval_version,
-        main_process: "./" //Save logs in <log_dir>/process-log/run_validate_PipeVal
+        main_process: "./", //Save logs in <log_dir>/process-log/run_validate_PipeVal
+        validate_extra_args: params.validate_extra_args
         ]
     )
 include { extract_mtDNA_BAMQL                } from './module/extract_mtDNA_BAMQL'
@@ -22,7 +24,12 @@ include { align_mtDNA_MToolBox               } from './module/align_mtDNA_MToolB
 include { call_mtSNV_mitoCaller              } from './module/call_mtSNV_mitoCaller'
 include { convert_mitoCaller2vcf_mitoCaller  } from './module/convert_mitoCaller2vcf_mitoCaller'
 include { call_heteroplasmy                  } from './module/call_heteroplasmy'
-
+include { run_validate_PipeVal as validate_output } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main.nf' addParams(
+    options: [
+        docker_image_version: params.pipeval_version,
+        main_process: "./" //Save logs in <log_dir>/process-log/run_validate_PipeVal
+        ]
+    )
 
 log.info """\
 ======================================
@@ -54,14 +61,16 @@ Boutros Lab
     """
     .stripIndent()
 
+log.info "${params.input_channel_list}"
+
 Channel
     .fromList(params.input_channel_list)
     .map { it ->
         [
         it.sample_type,
         it.sample_id,
-        it.data_path,
-        indexFile(it.data_path)
+        it.sample_data,
+        indexFile(it.sample_data)
         ]
     }
     .set { ich }
@@ -70,8 +79,8 @@ Channel
     .fromList(params.input_channel_list)
     .flatMap { it ->
         [
-        it.data_path,
-        indexFile(it.data_path)
+        it.sample_data,
+        indexFile(it.sample_data)
         ]
     }
     .set { input_validation }
