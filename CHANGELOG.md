@@ -12,7 +12,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Update Nextflow configuration test workflows.
 - Change input template to require sample id's with data.
 ## Added
-- Add cram input support.
+- Add `CRAM` input support.
 ## Fixed
 - Fix NFTest global.config.
 
