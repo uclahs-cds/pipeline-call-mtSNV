@@ -3,4 +3,4 @@ patient_id: 'patient id'
 input:
   tumor:
     sample_id: 'sample id'
-    data: /path/to/tumor.bam/or/tumor.cram
+    alignment_file: /path/to/tumor.bam/or/tumor.cram
