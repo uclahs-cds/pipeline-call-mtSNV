@@ -34,7 +34,7 @@ cram_reference_genome:
   type: 'Path'
   mode: 'r'
   required: false
-  help: 'Reference genome for cram validation'
+  help: 'Reference genome for CRAM validation'
 base_resource_update:
   type: 'ResourceUpdateNamespace'
   required: false
