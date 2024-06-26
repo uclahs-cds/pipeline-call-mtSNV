@@ -3,4 +3,4 @@ patient_id: 'patient id'
 input:
   normal:
     sample_id: 'sample id'
-    data: /path/to/normal.bam/or/normal.cram
+    alignment_file: /path/to/normal.bam/or/normal.cram

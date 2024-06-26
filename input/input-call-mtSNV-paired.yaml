@@ -3,7 +3,7 @@ patient_id: 'patient id'
 input:
   normal:
     sample_id: 'sample id'
-    data: /path/to/normal.bam/or/normal.cram
+    alignment_file: /path/to/normal.bam/or/normal.cram
   tumor:
     sample_id: 'sample id'
-    data: /path/to/tumor.bam/or/tumor.cram
+    alignment_file: /path/to/tumor.bam/or/tumor.cram
