@@ -1,6 +1,11 @@
 ---
 patient_id: 'patient id'
 input:
-  tumor:
-    sample_id: 'sample id'
-    alignment_file: /path/to/tumor.bam/or/tumor.cram
+  BAM:
+    tumor:
+      sample_id: 'sample id'
+      path: /path/to/tumor.bam
+  CRAM:
+    tumor:
+      sample_id: 'sample id'
+      path: /path/to/tumor.cram
