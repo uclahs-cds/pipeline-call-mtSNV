@@ -3,7 +3,6 @@ include {generate_standard_filename; sanitize_string} from "${projectDir}/extern
 process align_mtDNA_MToolBox {
     container params.MToolBox_docker_image
     containerOptions "--volume \"${params.gmapdb}:/src/gmapdb/\" --volume \"${params.mt_ref_genome_dir}:/src/genome_fasta/\""
-    label 'process_high'
 
     // Main ouput recalibrated & reheadered reads
     publishDir {"${params.output_dir_base}/output/"},

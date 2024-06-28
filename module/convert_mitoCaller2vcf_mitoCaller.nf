@@ -2,7 +2,6 @@ include {generate_standard_filename} from "${projectDir}/external/pipeline-Nextf
 
 process convert_mitoCaller2vcf_mitoCaller {
     container params.mitoCaller2vcf_docker_image
-    label 'process_medium'
 
     publishDir {"${params.output_dir_base}/output/"},
         pattern: "*output.vcf",

@@ -2,7 +2,6 @@ include {generate_standard_filename} from "${projectDir}/external/pipeline-Nextf
 
 process extract_mtDNA_BAMQL {
     container params.BAMQL_docker_image
-    label 'process_medium'
 
     //  extracted mt DNA
     publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
