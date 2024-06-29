@@ -61,8 +61,6 @@ Boutros Lab
     """
     .stripIndent()
 
-log.info "${params.input_channel_list}"
-
 Channel
     .fromList(params.input_channel_list)
     .map { it ->
