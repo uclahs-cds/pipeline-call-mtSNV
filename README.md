@@ -6,7 +6,9 @@
     - [Requirements](#requirements)
   - [Flow Diagram](#flow-diagram)
   - [Pipeline Steps](#pipeline-steps)
-    - [1. Extract mtDNA with BAMQL](#1-extract-mtdna-with-bamql)
+    - [1. Extract mtDNA](#1-extract-mtdna)
+      - [a. BAM Processing BAMQL](#a-bam-processing-bamql)
+      - [b. CRAM processing with SAMTools](#b-cram-processing-with-samtools)
     - [2. Align mtDNA with MToolBox](#2-align-mtdna-with-mtoolbox)
     - [3. Call mtSNV with mitoCaller](#3-call-mtsnv-with-mitocaller)
     - [4. Convert mitoCaller output with Mito2VCF](#4-convert-mitocaller-output-with-mito2vcf)
@@ -29,7 +31,7 @@
   - [License](#license)
 
 ## Overview
-This Nextflow pipeline takes as input either a single aligned BAM or paired normal-tumor BAMs and extracts mitochondrial DNA reads, remaps the reads to a mitochondrial reference genome, and subsequently calls variants. Paired mode gives an additional heteroplasmy comparison.
+This Nextflow pipeline takes either a single alignment file or paired normal-tumor alignment files in the BAM or CRAM format and extracts mitochondrial DNA reads, remaps the reads to a mitochondrial reference genome, and subsequently calls variants. Paired mode gives an additional heteroplasmy comparison.
 ___
 
 ## How To Run
@@ -46,22 +48,27 @@ ___
 ___
 ## Pipeline Steps
 
-### 1. Extract mtDNA with BAMQL
+### 1. Extract mtDNA
+#### a. BAM Processing BAMQL
 
 [BAMQL](https://doi.org/10.1186/s12859-016-1162-y) is a package or query language published by the Boutros lab for extracting reads from BAM files.<sup>1-2</sup>
+
+#### b. CRAM processing with SAMTools
+
+SAMTools is a suite of programs for interacting with high-throughput sequencing dat<sup>3</sup>. This pipeline uses the SAMTools View command to extract reads from CRAM files.
 
 ### 2. Align mtDNA with MToolBox
 ![flowchart_mtoolbox_overview](flowchart_mtoolbox_overview.png)
 
-MToolBox is used to align the extracted mitochondrial reads. It can accept as input either raw data or prealigned reads.<sup>3</sup> In both cases, reads are mapped by the mapExome.py script to a mitochondrial reference genome. The current pipeline uses the Reconstructed Sapiens Reference Sequence(RSRS).<sup>4</sup> This generates a dataset of reliable mitochondrial aligned reads.
+MToolBox is used to align the extracted mitochondrial reads. It can accept as input either raw data or prealigned reads.<sup>4</sup> In both cases, reads are mapped by the mapExome.py script to a mitochondrial reference genome. The current pipeline uses the Reconstructed Sapiens Reference Sequence(RSRS).<sup>5</sup> This generates a dataset of reliable mitochondrial aligned reads.
 
 ### 3. Call mtSNV with mitoCaller
 
-While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 copies.  The resultant high coverage in bulk sequencing data allows for the sensitive detection of low frequency variation seen with mitoCaller. [mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a script which uses a mitochondrial specific algorithm designed to account for these unique factors to identify mtDNA variants.<sup>5-6</sup>
+While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 copies.  The resultant high coverage in bulk sequencing data allows for the sensitive detection of low frequency variation seen with mitoCaller. [mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a script which uses a mitochondrial specific algorithm designed to account for these unique factors to identify mtDNA variants.<sup>6-7</sup>
 
 ### 4. Convert mitoCaller output with Mito2VCF
 
-mitoCaller2VCF converts results from mitoCaller to VCF format as the output of mitoCaller is a TSV file and must be processed to increase legibility.<sup>5</sup>
+mitoCaller2VCF converts results from mitoCaller to VCF format as the output of mitoCaller is a TSV file and must be processed to increase legibility.<sup>6</sup>
 
 ### 5. Call Heteroplasmy on Paired Samples
 
@@ -198,12 +205,13 @@ Included is a template for validating your input files. For more information on 
 ---
 
 ## References
-01. [Masella, A.P., Lalansingh, C.M., Sivasundaram, P. et al. BAMQL: a query language for extracting reads from BAM files. BMC Bioinformatics 17, 305 (2016)](https://doi.org/10.1186/s12859-016-1162-y)
-02. [BAMQL github](https://github.com/BoutrosLaboratory/bamql/releases/tag/v1.6)
-03. [Calabrese C, Simone D, Diroma MA, et al. MToolBox: a highly automated pipeline for heteroplasmy annotation and prioritization analysis of human mitochondrial variants in high-throughput sequencing. Bioinformatics. 2014;30(21):3115-3117](https://pubmed.ncbi.nlm.nih.gov/25028726/)
-04. [MToolBox github](https://github.com/mitoNGS/MToolBox)
-05. [mitoCaller](https://lgsun.irp.nia.nih.gov/hsgu/software/mitoAnalyzer/mitoAnalyzer.htm)
-06. [Ding J, Sidore C, Butler TJ, Wing MK, Qian Y, et al. (2015) Correction: Assessing Mitochondrial DNA Variation and Copy Number in Lymphocytes of ~2,000 Sardinians Using Tailored Sequencing Analysis Tools](https://doi.org/10.1371/journal.pgen.1005306)
+1. [Masella, A.P., Lalansingh, C.M., Sivasundaram, P. et al. BAMQL: a query language for extracting reads from BAM files. BMC Bioinformatics 17, 305 (2016)](https://doi.org/10.1186/s12859-016-1162-y)
+2. [BAMQL github](https://github.com/BoutrosLaboratory/bamql/releases/tag/v1.6)
+3.  [SAMTools](https://www.htslib.org/)
+4.  [Calabrese C, Simone D, Diroma MA, et al. MToolBox: a highly automated pipeline for heteroplasmy annotation and prioritization analysis of human mitochondrial variants in high-throughput sequencing. Bioinformatics. 2014;30(21):3115-3117](https://pubmed.ncbi.nlm.nih.gov/25028726/)
+5.  [MToolBox github](https://github.com/mitoNGS/MToolBox)
+6.  [mitoCaller](https://lgsun.irp.nia.nih.gov/hsgu/software/mitoAnalyzer/mitoAnalyzer.htm)
+7.  [Ding J, Sidore C, Butler TJ, Wing MK, Qian Y, et al. (2015) Correction: Assessing Mitochondrial DNA Variation and Copy Number in Lymphocytes of ~2,000 Sardinians Using Tailored Sequencing Analysis Tools](https://doi.org/10.1371/journal.pgen.1005306)
 
 ---
 

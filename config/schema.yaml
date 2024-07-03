@@ -30,6 +30,11 @@ cache_intermediate_pipeline_steps:
   required: true
   default: false
   help: 'Boolean value to indicate whether or not to cache intermediate pipeline steps'
+cram_reference_genome:
+  type: 'Path'
+  mode: 'r'
+  required: false
+  help: 'Reference genome for CRAM validation'
 base_resource_update:
   type: 'ResourceUpdateNamespace'
   required: false
@@ -48,27 +53,73 @@ patient_id:
   required: true
   help: 'Patient identifier'
 input:
-  type: 'InputBAMNamespace'
+  type: 'Namespace'
   required: true
   help: 'Input samples'
   elements:
-    normal:
-      type: 'Namespace'
+    BAM:
+      type: 'InputBAMNamespace'
       required: false
-      help: 'normal sample id and absolute path to BAM'
+      help: 'Input samples'
       elements:
-        BAM:
-          type: 'Path'
-          mode: 'r'
-          required: true
-          help: 'Absolute path to normal sample BAM'
-    tumor:
-      type: 'Namespace'
+        normal:
+          type: 'Namespace'
+          required: false
+          help: 'normal sample id and absolute path to BAM'
+          elements:
+            sample_id:
+              type: 'String'
+              required: false
+              help: 'data sample identifier'
+            data:
+              type: 'Path'
+              mode: 'r'
+              required: false
+              help: 'Absolute path to normal sample BAM'
+        tumor:
+          type: 'Namespace'
+          required: false
+          help: 'tumor sample id and absolute path to BAM'
+          elements:
+            sample_id:
+              type: 'String'
+              required: false
+              help: 'data sample identifier'
+            data:
+              type: 'Path'
+              mode: 'r'
+              required: false
+              help: 'Absolute path to tumor sample BAM'
+    CRAM:
+      type: 'InputBAMNamespace'
       required: false
-      help: 'tumor sample id and absolute path to BAM'
+      help: 'Input samples'
       elements:
-        BAM:
-          type: 'Path'
-          mode: 'r'
-          required: true
-          help: 'Absolute path to tumor sample BAM'
+        normal:
+          type: 'Namespace'
+          required: false
+          help: 'normal sample id and absolute path to CRAM'
+          elements:
+            sample_id:
+              type: 'String'
+              required: false
+              help: 'data sample identifier'
+            data:
+              type: 'Path'
+              mode: 'r'
+              required: false
+              help: 'Absolute path to normal sample CRAM'
+        tumor:
+          type: 'Namespace'
+          required: false
+          help: 'tumor sample id and absolute path to CRAM'
+          elements:
+            sample_id:
+              type: 'String'
+              required: false
+              help: 'data sample identifier'
+            data:
+              type: 'Path'
+              mode: 'r'
+              required: false
+              help: 'Absolute path to tumor sample CRAM'

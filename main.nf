@@ -10,18 +10,25 @@ nextflow.enable.dsl=2
 
 //// Import of Local Modules ////
 include { indexFile } from './external/pipeline-Nextflow-module/modules/common/indexFile/main.nf'
-include { run_validate_PipeVal as validate_input; run_validate_PipeVal as validate_output } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main.nf' addParams(
+include { run_validate_PipeVal as validate_input } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main.nf' addParams(
+        options: [
+        docker_image_version: params.pipeval_version,
+        main_process: "./", //Save logs in <log_dir>/process-log/run_validate_PipeVal
+        validate_extra_args: params.validate_extra_args
+        ]
+    )
+include { extract_mtDNA_BAMQL                } from './module/extract_mtDNA_BAMQL'
+include { extract_mtDNA_SAMtools             } from './module/extract_mtDNA_SAMtools'
+include { align_mtDNA_MToolBox               } from './module/align_mtDNA_MToolBox'
+include { call_mtSNV_mitoCaller              } from './module/call_mtSNV_mitoCaller'
+include { convert_mitoCaller2vcf_mitoCaller  } from './module/convert_mitoCaller2vcf_mitoCaller'
+include { call_heteroplasmy                  } from './module/call_heteroplasmy'
+include { run_validate_PipeVal as validate_output } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main.nf' addParams(
     options: [
         docker_image_version: params.pipeval_version,
         main_process: "./" //Save logs in <log_dir>/process-log/run_validate_PipeVal
         ]
     )
-include { extract_mtDNA_BAMQL                } from './module/extract_mtDNA_BAMQL'
-include { align_mtDNA_MToolBox               } from './module/align_mtDNA_MToolBox'
-include { call_mtSNV_mitoCaller              } from './module/call_mtSNV_mitoCaller'
-include { convert_mitoCaller2vcf_mitoCaller  } from './module/convert_mitoCaller2vcf_mitoCaller'
-include { call_heteroplasmy                  } from './module/call_heteroplasmy'
-
 
 log.info """\
 ======================================
@@ -38,8 +45,9 @@ Boutros Lab
         ${params.input_string}
         gmapdb = ${params.gmapdb}
         mt_reference_genome = ${params.mt_ref_genome_dir}
+        cram_reference_genome = ${params.cram_reference_genome}
 
-    - output: x
+    - output:
         output_dir: ${params.output_dir_base}
 
     - options:
@@ -57,10 +65,10 @@ Channel
     .fromList(params.input_channel_list)
     .map { it ->
         [
-        it['sample_type'],
-        it['sample_ID'],
-        it['BAM'],
-        indexFile(it['BAM'])
+        it.sample_type,
+        it.sample_id,
+        it.sample_data,
+        indexFile(it.sample_data)
         ]
     }
     .set { ich }
@@ -68,8 +76,10 @@ Channel
 Channel
     .fromList(params.input_channel_list)
     .flatMap { it ->
-        [it['BAM'],
-        indexFile(it['BAM'])]
+        [
+        it.sample_data,
+        indexFile(it.sample_data)
+        ]
     }
     .set { input_validation }
 
@@ -83,10 +93,16 @@ workflow{
         )
 
     //step 2: extraction of mitochondrial reads using BAMQL
-    extract_mtDNA_BAMQL(ich)
-
+    if (params.input_type == 'BAM') {
+        extract_mtDNA_BAMQL(ich)
+        extracted_mt_reads = extract_mtDNA_BAMQL.out.extracted_mt_reads
+    }
+    else { // input_type == CRAM
+        extract_mtDNA_SAMtools(ich)
+        extracted_mt_reads = extract_mtDNA_SAMtools.out.extracted_mt_reads
+    }
     //step 3: remapping reads with mtoolbox
-    align_mtDNA_MToolBox( extract_mtDNA_BAMQL.out.extracted_mt_reads )
+    align_mtDNA_MToolBox( extracted_mt_reads )
 
     //step 4: variant calling with mitocaller
     call_mtSNV_mitoCaller( align_mtDNA_MToolBox.out.aligned_mt_reads )

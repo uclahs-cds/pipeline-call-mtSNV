@@ -2,7 +2,6 @@ include {generate_standard_filename; sanitize_string} from "${projectDir}/extern
 
 process call_heteroplasmy {
     container params.heteroplasmy_script_docker_image
-    label 'process_medium'
 
     // filtered tsv
     publishDir {"${params.output_dir_base}/output/"},
