@@ -10,7 +10,7 @@ cases:
     message: Test pipeline in single mode with a normal sample
     nf_script: main.nf
     nf_config: test/input.config
-    params_file: test/yaml/illumina/normal.yaml
+    params_file: test/yaml/illumina/BAM/normal.yaml
     skip: true
     verbose: true
     asserts:
@@ -34,7 +34,7 @@ cases:
     message: Test pipeline in single mode with a tumor sample
     nf_script: main.nf
     nf_config: test/input.config
-    params_file: test/yaml/illumina/tumor.yaml
+    params_file: test/yaml/illumina/BAM/tumor.yaml
     skip: true
     verbose: true
     asserts:
@@ -58,7 +58,7 @@ cases:
     message: Test pipeline in paired mode.
     nf_script: main.nf
     nf_config: test/input.config
-    params_file: test/yaml/illumina/paired.yaml
+    params_file: test/yaml/illumina/BAM/paired.yaml
     skip: true
     verbose: true
     asserts:
