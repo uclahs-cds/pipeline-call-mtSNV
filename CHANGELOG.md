@@ -15,6 +15,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add `CRAM` input support.
 ## Fixed
 - Fix NFTest global.config.
+- Fix NFTest assert scripts to remove linter errors.
 
 ## [4.0.0] 2024-03-22
 ### Changed
