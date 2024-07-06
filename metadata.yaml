@@ -1,6 +1,6 @@
 ---
 category: "pipeline"
-description: "Nextflow pipeline for mtSNV detection from normal/tumour BAMs: extracts and remaps mitochondorial reads then calls variants"
+description: "Nextflow pipeline to detect mitochondrial SNV from normal or tumour BAMs or CRAMs: extracts and remaps mitochondorial reads then calls variants"
 maintainers: "Takafumi Yamaguchi <tyamaguchi@mednet.ucla.edu>, Alfredo Enrique Gonzalez <alfgonzalez@mednet.ucla.edu>, Jieun Oh <JieunOh@mednet.ucla.edu>, Kiarod Pashminehazar <kpashminehazar@mednet.ucla.edu"
 languages: ["Nextflow", "Docker"]
 dependencies: ["Java", "Nextflow", "Docker"]
