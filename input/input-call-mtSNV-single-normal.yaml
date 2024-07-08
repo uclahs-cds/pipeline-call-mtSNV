@@ -1,5 +1,11 @@
 ---
 patient_id: 'patient id'
 input:
-  normal:
-    BAM: /path/to/normal.bam
+  BAM:
+    normal:
+      sample_id: 'sample id'
+      path: /path/to/normal.bam
+  CRAM:
+    normal:
+      sample_id: 'sample id'
+      path: /path/to/normal.cram
