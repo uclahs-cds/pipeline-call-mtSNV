@@ -1,7 +1,7 @@
 #!/bin/bash
 # this function cuts around sample_ids so the contents of the CSV can be compared in an sample_id agnostic way
 function remove_sample_id_and_md5 {
-    cat "$1" | sed "s/extracted_mt_reads[A-Za-z0-9\_\-]*/extracted_mt_reads/g" | md5sum | cut -f 1 -d " "
+    sed "s/extracted_mt_reads[A-Za-z0-9\_\-]*/extracted_mt_reads/g" "$1" | md5sum | cut -f 1 -d " "
 }
 
 received=$(remove_sample_id_and_md5 "$1")

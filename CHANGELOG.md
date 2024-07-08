@@ -13,8 +13,10 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Change input template to require sample ID's with data.
 ## Added
 - Add `CRAM` input support.
+- Add CRAM cases to NFTest.
 ## Fixed
 - Fix NFTest global.config.
+- Fix NFTest assert scripts to remove linter errors.
 
 ## [4.0.0] 2024-03-22
 ### Changed
