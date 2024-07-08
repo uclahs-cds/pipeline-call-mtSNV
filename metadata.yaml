@@ -1,9 +1,8 @@
 ---
-Category: "pipeline"
-Description: "Nextflow pipeline to extract mt reads, remaps the reads to mitochondrial reference genome, and calls variants using mitoCaller and gives heteroplasmy"
-Maintainers: "Takafumi Yamaguchi, Alfredo Enrique Gonzalez, Jieun Oh, Kiarod Pashminehazar"
-Contributors: "Takafumi Yamaguchi, Alfredo Enrique Gonzalez, Andrew Park, Jieun Oh, Kiarod Pashminehazar"
-Languages: ["Nextflow", "Docker"]
-Dependencies: ["Java", "Nextflow", "Docker"]
-References: "https://github.com/uclahs-cds/pipeline-call-mtSNV/"
-Tools: ["Bamql 1.5.1", "MtoolBox 1.2.1", "Picard Tools 2.23.3", "MitoCaller"]
+category: "pipeline"
+description: "Nextflow pipeline to detect mitochondrial SNV from normal or tumor BAMs or CRAMs: extracts and remaps mitochondorial reads then calls variants"
+maintainers: "Takafumi Yamaguchi <tyamaguchi@mednet.ucla.edu>, Alfredo Enrique Gonzalez <alfgonzalez@mednet.ucla.edu>, Jieun Oh <JieunOh@mednet.ucla.edu>, Kiarod Pashminehazar <kpashminehazar@mednet.ucla.edu"
+languages: ["Nextflow", "Docker"]
+dependencies: ["Java", "Nextflow", "Docker"]
+references: "https://github.com/uclahs-cds/pipeline-call-mtSNV/"
+tools: ["Bamql:v1.5.1", "MToolBox:v1.2.1", "Picard Tools:v2.23.3", "MitoCaller:v1.0"]
