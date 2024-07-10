@@ -12,7 +12,7 @@ process call_mtSNV_mitoCaller {
         saveAs: { "${output_filename_base}.tsv" }
 
     //logs
-    ext log_dir { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" }
+    ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" }
 
     input:
         tuple(

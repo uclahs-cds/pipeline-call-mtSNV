@@ -24,7 +24,7 @@ process call_heteroplasmy {
         saveAs: { "${output_filename_base}.pl.programinfo" }
 
     //logs
-    ext log_dir { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" }
+    ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" }
 
     input:
         tuple(
