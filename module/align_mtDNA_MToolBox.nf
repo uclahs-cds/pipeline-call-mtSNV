@@ -35,7 +35,7 @@ process align_mtDNA_MToolBox {
         saveAs: {"${output_filename_base}_${sanitize_string(file(it).getName())}"}
 
     //logs
-    ext log_dir { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" }
+    ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" }
 
     input:
         tuple(
