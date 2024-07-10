@@ -1,9 +1,0 @@
----
-patient_id: NFTEST_10_PAIRED
-input:
-  normal:
-    id: NFTEST_10_PAIRED_NORMAL
-    BAM: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/input/data/test-bams/tcga_test_file_normal_10prct.bam
-  tumor:
-    id: NFTEST_10_PAIRED_TUMOR
-    BAM: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/input/data/test-bams/tcga_test_file_tumor_10prct.bam
