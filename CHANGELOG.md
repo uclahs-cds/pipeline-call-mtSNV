@@ -11,6 +11,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Change NFTest to use Illumina samples.
 - Update Nextflow configuration test workflows.
 - Change input template to require sample ID's with data.
+- Update process log capturing mechanism to utilize `methods.setup_process_afterscript()`.
 ## Added
 - Add `CRAM` input support.
 - Add CRAM cases to NFTest.

@@ -14,10 +14,7 @@ process convert_mitoCaller2vcf_mitoCaller {
         saveAs: { "${output_filename_base}_homoplasmy.vcf" }
 
     //logs
-    publishDir "${params.log_output_dir}/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/",
-        pattern: ".command.*",
-        mode: "copy",
-        saveAs: {"log${file(it).getName()}" }
+    ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" }
 
     input:
         tuple(

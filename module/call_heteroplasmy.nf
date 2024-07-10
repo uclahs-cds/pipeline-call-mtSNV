@@ -24,10 +24,7 @@ process call_heteroplasmy {
         saveAs: { "${output_filename_base}.pl.programinfo" }
 
     //logs
-    publishDir "${params.log_output_dir}/${task.process.split(':')[-1].replace('_', '-')}/",
-        pattern: ".command.*",
-        mode: "copy",
-        saveAs: {"log${file(it).getName()}" }
+    ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}" }
 
     input:
         tuple(
