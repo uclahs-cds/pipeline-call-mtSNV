@@ -11,10 +11,7 @@ process extract_mtDNA_BAMQL {
         saveAs: {"${output_filename_base}.bam"}
 
     //logs
-    publishDir "${params.log_output_dir}/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/",
-        pattern: ".command.*",
-        mode: "copy",
-        saveAs: { "log${file(it).getName()}" }
+    ext log_dir { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" }
 
     input:
         tuple(
