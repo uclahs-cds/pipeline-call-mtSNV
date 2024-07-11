@@ -1,0 +1,351 @@
+{
+    "nextflow_version": "23.10.0",
+    "config": [
+      "test/global.config",
+      "test/input.config"
+    ],
+    "params_file": "test/yaml/illumina/BAM/normal.yaml",
+    "cpus": 72,
+    "memory_gb": 136,
+    "nf_params": {
+      "output_dir": "/tmp/outputs"
+    },
+    "envvars": {
+      "SLURM_JOB_ID": "8543"
+    },
+    "mocks": {
+      "check_path": "",
+      "parse_bam_header": {
+        "read_group": [
+          {
+            "SM": "6236134"
+          }
+        ]
+      }
+    },
+    "dated_fields": [
+      "params.log_output_dir",
+      "params.nextflow_log_dir",
+      "report.file",
+      "timeline.file",
+      "trace.file",
+      "params.date"
+    ],
+    "expected_result": {
+      "docker": {
+        "all_group_ids": "$(for i in `id --real --groups`; do echo -n \"--group-add=$i \"; done)",
+        "enabled": true,
+        "runOptions": "-u $(id -u):$(id -g) $(for i in `id --real --groups`; do echo -n \"--group-add=$i \"; done)",
+        "uid_and_gid": "-u $(id -u):$(id -g)"
+      },
+      "manifest": {
+        "author": [
+          "Alfredo Enrique Gonzalez",
+          "Takafumi Yamaguchi",
+          "Jieun Oh",
+          "Kiarod Pashminehazar"
+        ],
+        "description": "Pipeline for calling mitochondrial SNVs",
+        "name": "call-mtSNV",
+        "version": "4.0.0"
+      },
+      "params": {
+        "BAMQL_docker_image": "ghcr.io/uclahs-cds/bamql:1.6.1",
+        "MToolBox_docker_image": "ghcr.io/uclahs-cds/mtoolbox:1.2.1-b52269e",
+        "SAMtools_docker_image": "ghcr.io/uclahs-cds/samtools:1.20",
+        "bamql_version": "1.6.1",
+        "cache_intermediate_pipeline_steps": false,
+        "call_heteroplasmy_version": "1.0.1",
+        "cram_reference_genome": "/hot/ref/reference/GRCh38-BI-20160721/Homo_sapiens_assembly38.fasta",
+        "dataset_id": "NFTEST",
+        "date": "19970704T165655Z",
+        "docker_container_registry": "ghcr.io/uclahs-cds",
+        "gmapdb": "/hot/ref/mitochondria_ref/gmapdb/gmapdb_2021-03-08",
+        "heteroplasmy_script_docker_image": "ghcr.io/uclahs-cds/call-heteroplasmy-script:1.0.1",
+        "input": {
+          "BAM": {
+            "normal": {
+              "path": "/hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24149/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24149.bam",
+              "sample_id": "NA24149"
+            },
+            "tumor": {
+              "path": "/hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24143/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.bam",
+              "sample_id": "NA24143"
+            }
+          }
+        },
+        "input_channel_list": [
+          {
+            "sample_data": "/hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24149/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24149.bam",
+            "sample_id": "NA24149",
+            "sample_type": "normal"
+          },
+          "{sample_type=tumor, sample_id=NA24143, sample_data=/hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24143/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.bam}"
+        ],
+        "input_string": "normal: /hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24149/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24149.bam\\n        tumor: /hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24143/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.bam",
+        "input_type": "BAM",
+        "log_output_dir": "/tmp/outputs/call-mtSNV-4.0.0/NA24143/log-call-mtSNV-4.0.0-19970704T165655Z",
+        "max_cpus": "16",
+        "max_memory": "31 GB",
+        "min_cpus": "1",
+        "min_memory": "1 MB",
+        "mitoCaller2vcf_docker_image": "ghcr.io/uclahs-cds/mitocaller2vcf:1.0.0",
+        "mitoCaller2vcf_version": "1.0.0",
+        "mitocaller_docker_image": "ghcr.io/uclahs-cds/mitocaller:1.0.0",
+        "mitocaller_version": "1.0.0",
+        "mt_ref_genome_dir": "/hot/ref/mitochondria_ref/genome_fasta/",
+        "mtoolbox_version": "1.2.1-b52269e",
+        "output_dir": "/tmp/outputs",
+        "output_dir_base": "/tmp/outputs/call-mtSNV-4.0.0/NA24143/mitoCaller-1.0.0/",
+        "output_dir_prefix": "/tmp/outputs/call-mtSNV-4.0.0/NA24143",
+        "patient_id": "illumina",
+        "pipeval_version": "5.0.0-rc.3",
+        "proc_resource_params": {
+          "align_mtDNA_MToolBox": {
+            "cpus": "6",
+            "memory": "20 GB",
+            "retry_strategy": {
+              "memory": {
+                "operand": "12 GB",
+                "strategy": "add"
+              }
+            }
+          },
+          "call_heteroplasmy": {
+            "cpus": "2",
+            "memory": "2 GB",
+            "retry_strategy": {
+              "memory": {
+                "operand": "3",
+                "strategy": "exponential"
+              }
+            }
+          },
+          "call_mtSNV_mitoCaller": {
+            "cpus": "1",
+            "memory": "2 GB",
+            "retry_strategy": {
+              "memory": {
+                "operand": "3",
+                "strategy": "exponential"
+              }
+            }
+          },
+          "convert_mitoCaller2vcf_mitoCaller": {
+            "cpus": "2",
+            "memory": "10 GB",
+            "retry_strategy": {
+              "memory": {
+                "operand": "5 GB",
+                "strategy": "add"
+              }
+            }
+          },
+          "extract_mtDNA_BAMQL": {
+            "cpus": "1",
+            "memory": "2 GB",
+            "retry_strategy": {
+              "memory": {
+                "operand": "3",
+                "strategy": "exponential"
+              }
+            }
+          },
+          "extract_mtDNA_SAMtools": {
+            "cpus": "1",
+            "memory": "8 GB",
+            "retry_strategy": {
+              "memory": {
+                "operand": "3",
+                "strategy": "exponential"
+              }
+            }
+          },
+          "validate_input": {
+            "cpus": "1",
+            "memory": "2 GB"
+          },
+          "validate_output": {
+            "cpus": "1",
+            "memory": "2 GB"
+          }
+        },
+        "sample_id": "NA24143",
+        "sample_mode": "paired",
+        "samtools_version": "1.20",
+        "save_intermediate_files": false,
+        "ucla_cds": true,
+        "validate_extra_args": "",
+        "work_dir": "/scratch/8543"
+      },
+      "process": {
+        "afterScript": {
+          "1": "",
+          "2": "",
+          "3": "",
+          "closure": ""
+        },
+        "cache": true,
+        "containerOptions": {
+          "1": "--cpu-shares 1024 --cpus $task.cpus",
+          "2": "--cpu-shares 1024 --cpus $task.cpus",
+          "3": "--cpu-shares 1024 --cpus $task.cpus",
+          "closure": "--cpu-shares 1024 --cpus $task.cpus"
+        },
+        "cpus": {
+          "1": "1",
+          "2": "2",
+          "3": "3",
+          "closure": "closure()"
+        },
+        "echo": true,
+        "errorStrategy": {
+          "1": "finish",
+          "2": "finish",
+          "3": "finish",
+          "closure": "finish"
+        },
+        "executor": "local",
+        "ext": {
+          "capture_logs": true,
+          "commonAfterScript": {
+            "1": "",
+            "2": "",
+            "3": "",
+            "closure": ""
+          },
+          "log_dir": {
+            "1": "ext",
+            "2": "ext",
+            "3": "ext",
+            "closure": "ext"
+          }
+        },
+        "maxRetries": "1",
+        "memory": {
+          "1": "3 GB",
+          "2": "6 GB",
+          "3": "9 GB",
+          "closure": "closure()"
+        },
+        "withLabel:process_high": {
+          "cpus": {
+            "1": "16",
+            "2": "16",
+            "3": "16",
+            "closure": "closure()"
+          },
+          "memory": {
+            "1": "31 GB",
+            "2": "31 GB",
+            "3": "31 GB",
+            "closure": "closure()"
+          }
+        },
+        "withLabel:process_low": {
+          "cpus": {
+            "1": "2",
+            "2": "4",
+            "3": "6",
+            "closure": "closure()"
+          },
+          "memory": {
+            "1": "4 GB",
+            "2": "8 GB",
+            "3": "12 GB",
+            "closure": "closure()"
+          }
+        },
+        "withLabel:process_medium": {
+          "cpus": {
+            "1": "6",
+            "2": "12",
+            "3": "16",
+            "closure": "closure()"
+          },
+          "memory": {
+            "1": "31 GB",
+            "2": "31 GB",
+            "3": "31 GB",
+            "closure": "closure()"
+          }
+        },
+        "withName:align_mtDNA_MToolBox": {
+          "cpus": "6",
+          "memory": {
+            "1": "20 GB",
+            "2": "31 GB",
+            "3": "31 GB",
+            "closure": "retry_updater(20 GB, add, 12 GB, $task.attempt, memory)"
+          }
+        },
+        "withName:call_heteroplasmy": {
+          "cpus": "2",
+          "memory": {
+            "1": "2 GB",
+            "2": "6 GB",
+            "3": "18 GB",
+            "closure": "retry_updater(2 GB, exponential, 3, $task.attempt, memory)"
+          }
+        },
+        "withName:call_mtSNV_mitoCaller": {
+          "cpus": "1",
+          "memory": {
+            "1": "2 GB",
+            "2": "6 GB",
+            "3": "18 GB",
+            "closure": "retry_updater(2 GB, exponential, 3, $task.attempt, memory)"
+          }
+        },
+        "withName:convert_mitoCaller2vcf_mitoCaller": {
+          "cpus": "2",
+          "memory": {
+            "1": "10 GB",
+            "2": "15 GB",
+            "3": "20 GB",
+            "closure": "retry_updater(10 GB, add, 5 GB, $task.attempt, memory)"
+          }
+        },
+        "withName:extract_mtDNA_BAMQL": {
+          "cpus": "1",
+          "memory": {
+            "1": "2 GB",
+            "2": "6 GB",
+            "3": "18 GB",
+            "closure": "retry_updater(2 GB, exponential, 3, $task.attempt, memory)"
+          }
+        },
+        "withName:extract_mtDNA_SAMtools": {
+          "cpus": "1",
+          "memory": {
+            "1": "8 GB",
+            "2": "24 GB",
+            "3": "31 GB",
+            "closure": "retry_updater(8 GB, exponential, 3, $task.attempt, memory)"
+          }
+        },
+        "withName:validate_input": {
+          "cpus": "1",
+          "memory": "2 GB"
+        },
+        "withName:validate_output": {
+          "cpus": "1",
+          "memory": "2 GB"
+        }
+      },
+      "report": {
+        "enabled": true,
+        "file": "/tmp/outputs/call-mtSNV-4.0.0/NA24143/log-call-mtSNV-4.0.0-19970704T165655Z/nextflow-log/report.html"
+      },
+      "timeline": {
+        "enabled": true,
+        "file": "/tmp/outputs/call-mtSNV-4.0.0/NA24143/log-call-mtSNV-4.0.0-19970704T165655Z/nextflow-log/timeline.html"
+      },
+      "trace": {
+        "enabled": true,
+        "file": "/tmp/outputs/call-mtSNV-4.0.0/NA24143/log-call-mtSNV-4.0.0-19970704T165655Z/nextflow-log/trace.txt"
+      },
+      "workDir": "/scratch/8543"
+    }
+  }
+  
