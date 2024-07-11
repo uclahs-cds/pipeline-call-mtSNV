@@ -45,7 +45,7 @@
         "Jieun Oh",
         "Kiarod Pashminehazar"
       ],
-      "description": "Pipeline for calling mitochondrial SNVs",
+      "description": "Nextflow pipeline to detect mitochondrial SNV from normal or tumor BAMs or CRAMs: extracts and remaps mitochondorial reads then calls variants",
       "name": "call-mtSNV",
       "version": "4.0.0"
     },
