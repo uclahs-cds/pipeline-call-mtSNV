@@ -85,8 +85,8 @@
       "input_string": "normal: /hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24149/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24149.bam\\n        tumor: /hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24143/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.bam",
       "input_type": "BAM",
       "log_output_dir": "/tmp/outputs/call-mtSNV-4.0.0/NA24143/log-call-mtSNV-4.0.0-19970704T165655Z",
-      "max_cpus": "16",
-      "max_memory": "31 GB",
+      "max_cpus": "32",
+      "max_memory": "60 GB",
       "min_cpus": "1",
       "min_memory": "1 MB",
       "mitoCaller2vcf_docker_image": "ghcr.io/uclahs-cds/mitocaller2vcf:1.0.0",
@@ -103,11 +103,11 @@
       "proc_resource_params": {
         "align_mtDNA_MToolBox": {
           "cpus": "6",
-          "memory": "20 GB",
+          "memory": "32 GB",
           "retry_strategy": {
             "memory": {
-              "operand": "12 GB",
-              "strategy": "add"
+              "operand": "2",
+              "strategy": "exponential"
             }
           }
         },
@@ -136,8 +136,8 @@
           "memory": "10 GB",
           "retry_strategy": {
             "memory": {
-              "operand": "5 GB",
-              "strategy": "add"
+              "operand": "2",
+              "strategy": "exponential"
             }
           }
         },
@@ -230,15 +230,15 @@
       },
       "withLabel:process_high": {
         "cpus": {
-          "1": "16",
-          "2": "16",
-          "3": "16",
+          "1": "32",
+          "2": "32",
+          "3": "32",
           "closure": "closure()"
         },
         "memory": {
-          "1": "31 GB",
-          "2": "31 GB",
-          "3": "31 GB",
+          "1": "60 GB",
+          "2": "60 GB",
+          "3": "60 GB",
           "closure": "closure()"
         }
       },
@@ -260,23 +260,23 @@
         "cpus": {
           "1": "6",
           "2": "12",
-          "3": "16",
+          "3": "18",
           "closure": "closure()"
         },
         "memory": {
-          "1": "31 GB",
-          "2": "31 GB",
-          "3": "31 GB",
+          "1": "42 GB",
+          "2": "60 GB",
+          "3": "60 GB",
           "closure": "closure()"
         }
       },
       "withName:align_mtDNA_MToolBox": {
         "cpus": "6",
         "memory": {
-          "1": "20 GB",
-          "2": "31 GB",
-          "3": "31 GB",
-          "closure": "retry_updater(20 GB, add, 12 GB, $task.attempt, memory)"
+          "1": "32 GB",
+          "2": "60 GB",
+          "3": "60 GB",
+          "closure": "retry_updater(32 GB, exponential, 2, $task.attempt, memory)"
         }
       },
       "withName:call_heteroplasmy": {
@@ -301,9 +301,9 @@
         "cpus": "2",
         "memory": {
           "1": "10 GB",
-          "2": "15 GB",
-          "3": "20 GB",
-          "closure": "retry_updater(10 GB, add, 5 GB, $task.attempt, memory)"
+          "2": "20 GB",
+          "3": "40 GB",
+          "closure": "retry_updater(10 GB, exponential, 2, $task.attempt, memory)"
         }
       },
       "withName:extract_mtDNA_BAMQL": {
@@ -320,7 +320,7 @@
         "memory": {
           "1": "8 GB",
           "2": "24 GB",
-          "3": "31 GB",
+          "3": "60 GB",
           "closure": "retry_updater(8 GB, exponential, 3, $task.attempt, memory)"
         }
       },
