@@ -31,6 +31,15 @@
     "trace.file",
     "params.date"
   ],
+  "version_fields": [
+    "manifest.version",
+    "params.log_output_dir",
+    "params.output_dir_base",
+    "params.output_dir_prefix",
+    "report.file",
+    "trace.file",
+    "timeline.file"
+  ],
   "expected_result": {
     "docker": {
       "all_group_ids": "$(for i in `id --real --groups`; do echo -n \"--group-add=$i \"; done)",
@@ -47,7 +56,7 @@
       ],
       "description": "Nextflow pipeline to detect mitochondrial SNV from normal or tumor BAMs or CRAMs: extracts and remaps mitochondorial reads then calls variants",
       "name": "call-mtSNV",
-      "version": "4.0.0"
+      "version": "VER.SI.ON"
     },
     "params": {
       "BAMQL_docker_image": "ghcr.io/uclahs-cds/bamql:1.6.1",
@@ -84,7 +93,7 @@
       ],
       "input_string": "normal: /hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24149/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24149.bam\\n        tumor: /hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24143/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.bam",
       "input_type": "BAM",
-      "log_output_dir": "/tmp/outputs/call-mtSNV-4.0.0/NA24143/log-call-mtSNV-4.0.0-19970704T165655Z",
+      "log_output_dir": "/tmp/outputs/call-mtSNV-VER.SI.ON/NA24143/log-call-mtSNV-VER.SI.ON-19970704T165655Z",
       "max_cpus": "32",
       "max_memory": "60 GB",
       "min_cpus": "1",
@@ -96,8 +105,8 @@
       "mt_ref_genome_dir": "/hot/ref/mitochondria_ref/genome_fasta/",
       "mtoolbox_version": "1.2.1-b52269e",
       "output_dir": "/tmp/outputs",
-      "output_dir_base": "/tmp/outputs/call-mtSNV-4.0.0/NA24143/mitoCaller-1.0.0/",
-      "output_dir_prefix": "/tmp/outputs/call-mtSNV-4.0.0/NA24143",
+      "output_dir_base": "/tmp/outputs/call-mtSNV-VER.SI.ON/NA24143/mitoCaller-1.0.0/",
+      "output_dir_prefix": "/tmp/outputs/call-mtSNV-VER.SI.ON/NA24143",
       "patient_id": "illumina",
       "pipeval_version": "5.0.0-rc.3",
       "proc_resource_params": {
@@ -335,15 +344,15 @@
     },
     "report": {
       "enabled": true,
-      "file": "/tmp/outputs/call-mtSNV-4.0.0/NA24143/log-call-mtSNV-4.0.0-19970704T165655Z/nextflow-log/report.html"
+      "file": "/tmp/outputs/call-mtSNV-VER.SI.ON/NA24143/log-call-mtSNV-VER.SI.ON-19970704T165655Z/nextflow-log/report.html"
     },
     "timeline": {
       "enabled": true,
-      "file": "/tmp/outputs/call-mtSNV-4.0.0/NA24143/log-call-mtSNV-4.0.0-19970704T165655Z/nextflow-log/timeline.html"
+      "file": "/tmp/outputs/call-mtSNV-VER.SI.ON/NA24143/log-call-mtSNV-VER.SI.ON-19970704T165655Z/nextflow-log/timeline.html"
     },
     "trace": {
       "enabled": true,
-      "file": "/tmp/outputs/call-mtSNV-4.0.0/NA24143/log-call-mtSNV-4.0.0-19970704T165655Z/nextflow-log/trace.txt"
+      "file": "/tmp/outputs/call-mtSNV-VER.SI.ON/NA24143/log-call-mtSNV-VER.SI.ON-19970704T165655Z/nextflow-log/trace.txt"
     },
     "workDir": "/scratch/8543"
   }
