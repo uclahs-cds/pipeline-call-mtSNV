@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ---
 ## [unreleased]
 ### Changed
-- Changed indexFile to source from local module to allow for flexible index file naming conventions
+- Change indexFile to source from local module to allow for flexible index file naming conventions
 
 ## [5.0.0] 2024-07-23
 ### Changed
