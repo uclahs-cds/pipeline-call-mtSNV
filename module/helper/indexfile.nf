@@ -10,9 +10,8 @@ def indexFile(Object given_file) {
         throw new Exception()
         }
     def index_extension = index_extension_map[file_extension]
-
     def index_file_name = given_file+index_extension
-    log.info "${index_file_name}"
+
     def index_file = new File(index_file_name)
     if(index_file.exists()) {
         return index_file_name
