@@ -1,16 +1,16 @@
-def indexFile(Object given_file) {
+String indexFile(String file_name) {
     def index_extension_map = [
         '.bam' : '.bai',
         '.cram' : '.crai'
-    ]
-    def base_name = given_file.substring(0, given_file.lastIndexOf('.'))
-    def file_extension = given_file - base_name
+        ]
+    def base_name = file_name.substring(0, file_name.lastIndexOf('.'))
+    def file_extension = file_name - base_name
     if (!index_extension_map.containsKey(file_extension)){
-        log.error "Invalid file type. ${given_file} is not supported"
+        log.error "Invalid file type. ${file_name} is not supported"
         throw new Exception()
         }
     def index_extension = index_extension_map[file_extension]
-    def index_file_name = given_file+index_extension
+    def index_file_name = file_name+index_extension
 
     def index_file = new File(index_file_name)
     if(index_file.exists()) {
@@ -23,7 +23,8 @@ def indexFile(Object given_file) {
         return index_file_name
         }
     else {
-        log.error "Index file for ${given_file} not found."
-        throw new Exception()
-    }
+        def err_msg = "Index file for ${file_name} not found."
+        log.error err_msg
+        throw new Exception(err_msg)
+        }
     }
