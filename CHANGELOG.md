@@ -6,9 +6,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [unreleased]
-### Changed
-- Change indexFile to source from local module to allow for flexible index file naming conventions
+## [5.1.0] 2024-07-30
+### Added
+- Add support for abbreviated index file extensions *.bai and *.crai to indexFile function
 
 ## [5.0.0] 2024-07-23
 ### Changed
