@@ -15,13 +15,7 @@
   },
   "mocks": {
     "check_path": "",
-    "parse_bam_header": {
-      "read_group": [
-        {
-          "SM": "6236134"
-        }
-      ]
-    }
+    "get_index_file": "index"
   },
   "dated_fields": [
     "params.log_output_dir",
@@ -87,9 +81,20 @@
         {
           "sample_data": "/hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24149/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24149.bam",
           "sample_id": "NA24149",
+          "sample_index": "index",
           "sample_type": "normal"
         },
-        "{sample_type=tumor, sample_id=NA24143, sample_data=/hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24143/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.bam}"
+        "{sample_type=tumor, sample_id=NA24143, sample_data=/hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24143/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.bam, sample_index=index}"
+      ],
+      "input_list": [
+        "[normal",
+        "NA24149",
+        "/hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24149/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24149.bam",
+        "index]",
+        "[tumor",
+        "NA24143",
+        "/hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24143/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.bam",
+        "index]"
       ],
       "input_string": "normal: /hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24149/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24149.bam\\n        tumor: /hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24143/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.bam",
       "input_type": "BAM",
@@ -185,6 +190,12 @@
       "save_intermediate_files": false,
       "ucla_cds": true,
       "validate_extra_args": "",
+      "validation_list": [
+        "[/hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24149/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24149.bam",
+        "index]",
+        "[/hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24143/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.bam",
+        "index]"
+      ],
       "work_dir": "/scratch/8543"
     },
     "process": {

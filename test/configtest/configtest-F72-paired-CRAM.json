@@ -15,13 +15,7 @@
   },
   "mocks": {
     "check_path": "",
-    "parse_bam_header": {
-      "read_group": [
-        {
-          "SM": "6236134"
-        }
-      ]
-    }
+    "get_index_file": "index"
   },
   "dated_fields": [
     "params.log_output_dir",
@@ -87,9 +81,20 @@
         {
           "sample_data": "/hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/input/data/illumina/CRAM/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24149.cram",
           "sample_id": "NA24149",
+          "sample_index": "index",
           "sample_type": "normal"
         },
-        "{sample_type=tumor, sample_id=NA24143, sample_data=/hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/input/data/illumina/CRAM/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.cram}"
+        "{sample_type=tumor, sample_id=NA24143, sample_data=/hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/input/data/illumina/CRAM/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.cram, sample_index=index}"
+      ],
+      "input_list": [
+        "[normal",
+        "NA24149",
+        "/hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/input/data/illumina/CRAM/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24149.cram",
+        "index]",
+        "[tumor",
+        "NA24143",
+        "/hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/input/data/illumina/CRAM/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.cram",
+        "index]"
       ],
       "input_string": "normal: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/input/data/illumina/CRAM/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24149.cram\\n        tumor: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/input/data/illumina/CRAM/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.cram",
       "input_type": "CRAM",
@@ -185,6 +190,12 @@
       "save_intermediate_files": false,
       "ucla_cds": true,
       "validate_extra_args": "-r /hot/ref/reference/GRCh38-BI-20160721/Homo_sapiens_assembly38.fasta",
+      "validation_list": [
+        "[/hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/input/data/illumina/CRAM/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24149.cram",
+        "index]",
+        "[/hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/input/data/illumina/CRAM/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.cram",
+        "index]"
+      ],
       "work_dir": "/scratch/8543"
     },
     "process": {
