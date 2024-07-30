@@ -8,7 +8,9 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ---
 ## [5.1.0] 2024-07-30
 ### Added
-- Add support for abbreviated index file extensions *.bai and *.crai to indexFile function
+- Add support for abbreviated index file extensions *.bai and *.crai
+### Changed
+- Move index file discovery to methods.config
 
 ## [5.0.0] 2024-07-23
 ### Changed
