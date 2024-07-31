@@ -63,6 +63,7 @@
       "dataset_id": "NFTEST",
       "date": "19970704T165655Z",
       "docker_container_registry": "ghcr.io/uclahs-cds",
+      "extraction_region": "57000000",
       "gmapdb": "/hot/ref/mitochondria_ref/gmapdb/gmapdb_2021-03-08",
       "heteroplasmy_script_docker_image": "ghcr.io/uclahs-cds/call-heteroplasmy-script:1.0.1",
       "input": {
@@ -175,6 +176,7 @@
           "memory": "2 GB"
         }
       },
+      "reference_genome_version": "GRCh38",
       "sample_id": "NA24143",
       "sample_mode": "single",
       "samtools_version": "1.20",
