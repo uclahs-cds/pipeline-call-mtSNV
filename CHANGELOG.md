@@ -6,17 +6,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [unreleased]
-## Changed
+## [5.1.0] 2024-07-30
+### Added
+- Add support for abbreviated index file extensions *.bai and *.crai
+### Changed
+- Move index file discovery to methods.config
+
+## [5.0.0] 2024-07-23
+### Changed
 - Change NFTest to use Illumina samples.
 - Update Nextflow configuration test workflows.
 - Change input template to require sample ID's with data.
 - Update process log capturing mechanism to utilize `methods.setup_process_afterscript()`.
-## Added
+### Added
 - Add `CRAM` input support.
 - Add CRAM cases to NFTest.
 - Add additional regression tests for all nodes and input types.
-## Fixed
+### Fixed
 - Fix NFTest global.config.
 - Fix NFTest assert scripts to remove linter errors.
 
