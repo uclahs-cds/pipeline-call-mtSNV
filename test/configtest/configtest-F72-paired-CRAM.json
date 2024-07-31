@@ -59,11 +59,11 @@
       "bamql_version": "1.6.1",
       "cache_intermediate_pipeline_steps": false,
       "call_heteroplasmy_version": "1.0.1",
+      "chrY_extraction_region": "57000000",
       "cram_reference_genome": "/hot/ref/reference/GRCh38-BI-20160721/Homo_sapiens_assembly38.fasta",
       "dataset_id": "NFTEST",
       "date": "19970704T165655Z",
       "docker_container_registry": "ghcr.io/uclahs-cds",
-      "extraction_region": "57000000",
       "gmapdb": "/hot/ref/mitochondria_ref/gmapdb/gmapdb_2021-03-08",
       "heteroplasmy_script_docker_image": "ghcr.io/uclahs-cds/call-heteroplasmy-script:1.0.1",
       "input": {
