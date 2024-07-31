@@ -34,6 +34,6 @@ process extract_mtDNA_SAMtools {
             )
         """
         set -euo pipefail
-        samtools view --bam --with-header --use-index --fetch-pairs --expr 'mrname=="chrM"' --reference ${params.cram_reference_genome} --output "extracted_mt_reads_${type}_${sample_name}.bam" "${input_cram_file}" chrM chrY:57000000
+        samtools view --bam --with-header --use-index --fetch-pairs --expr 'mrname=="chrM"' --reference ${params.cram_reference_genome} --output "extracted_mt_reads_${type}_${sample_name}.bam" "${input_cram_file}" chrM chrY:${params.extraction_region}
         """
 }

@@ -92,7 +92,7 @@ workflow{
         storeDir: "${params.output_dir_base}/validation"
         )
 
-    //step 2: extraction of mitochondrial reads using BAMQL
+    //step 2: extraction of mitochondrial reads
     if (params.input_type == 'BAM') {
         extract_mtDNA_BAMQL(ich)
         extracted_mt_reads = extract_mtDNA_BAMQL.out.extracted_mt_reads
