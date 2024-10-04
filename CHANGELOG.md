@@ -22,6 +22,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Add `CRAM` input support.
 - Add CRAM cases to NFTest.
 - Add additional regression tests for all nodes and input types.
+- Output pipeline parameters to log directory using `store_object_as_json`
+
 ### Fixed
 - Fix NFTest global.config.
 - Fix NFTest assert scripts to remove linter errors.
