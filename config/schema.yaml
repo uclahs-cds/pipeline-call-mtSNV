@@ -20,6 +20,14 @@ gmapdb:
   required: true
   help: 'Directory to gmapdb genomic index files'
   default: '/hot/ref/mitochondria_ref/gmapdb/gmapdb_2021-03-08'
+reference_genome_version:
+  type: 'String'
+  required: true
+  help: 'Version of reference genome for processing'
+  default: 'GRCh38'
+  choices:
+    - GRCh37
+    - GRCh38
 save_intermediate_files:
   type: 'Bool'
   required: true
