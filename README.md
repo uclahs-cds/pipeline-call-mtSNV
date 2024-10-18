@@ -1,5 +1,7 @@
 # Boutros Lab call-mtSNV pipeline
 
+[![Prepare release](https://img.shields.io/badge/Action-Create%20New%20Release-blue)](https://github.com/uclahs-cds/pipeline-call-mtSNV/actions/workflows/prepare-release.yaml)
+
 - [Boutros Lab call-mtSNV pipeline](#boutros-lab-call-mtsnv-pipeline)
   - [Overview](#overview)
   - [How To Run](#how-to-run)
