@@ -60,11 +60,11 @@
       "cache_intermediate_pipeline_steps": false,
       "call_heteroplasmy_version": "1.0.1",
       "chrY_extraction_region": "57000000",
-      "cram_reference_genome": "/hot/ref/reference/GRCh38-BI-20160721/Homo_sapiens_assembly38.fasta",
+      "cram_reference_genome": "/hot/resource/reference-genome/GRCh38-BI-20160721/Homo_sapiens_assembly38.fasta",
       "dataset_id": "NFTEST",
       "date": "19970704T165655Z",
       "docker_container_registry": "ghcr.io/uclahs-cds",
-      "gmapdb": "/hot/ref/mitochondria_ref/gmapdb/gmapdb_2021-03-08",
+      "gmapdb": "/hot/resource/mitochondria_ref/gmapdb/gmapdb_2021-03-08",
       "heteroplasmy_script_docker_image": "ghcr.io/uclahs-cds/call-heteroplasmy-script:1.0.1",
       "input": {
         "CRAM": {
@@ -99,7 +99,7 @@
       "mitoCaller2vcf_version": "1.0.0",
       "mitocaller_docker_image": "ghcr.io/uclahs-cds/mitocaller:1.0.0",
       "mitocaller_version": "1.0.0",
-      "mt_ref_genome_dir": "/hot/ref/mitochondria_ref/genome_fasta/",
+      "mt_ref_genome_dir": "/hot/resource/mitochondria_ref/genome_fasta/",
       "mtoolbox_version": "1.2.1-b52269e",
       "output_dir": "/tmp/outputs",
       "output_dir_base": "/tmp/outputs/call-mtSNV-VER.SI.ON/NA24143/mitoCaller-1.0.0/",
@@ -182,7 +182,7 @@
       "samtools_version": "1.20",
       "save_intermediate_files": false,
       "ucla_cds": true,
-      "validate_extra_args": "-r /hot/ref/reference/GRCh38-BI-20160721/Homo_sapiens_assembly38.fasta",
+      "validate_extra_args": "-r /hot/resource/reference-genome/GRCh38-BI-20160721/Homo_sapiens_assembly38.fasta",
       "validation_list": [
         "[/hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/input/data/illumina/CRAM/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.cram",
         "index]"
@@ -327,7 +327,7 @@
         }
       },
       "withName:extract_mtDNA_SAMtools": {
-        "containerOptions": "--volume /hot/ref/reference/GRCh38-BI-20160721:/hot/ref/reference/GRCh38-BI-20160721",
+        "containerOptions": "--volume /hot/resource/reference-genome/GRCh38-BI-20160721:/hot/resource/reference-genome/GRCh38-BI-20160721",
         "cpus": "1",
         "memory": {
           "1": "8 GB",
@@ -337,7 +337,7 @@
         }
       },
       "withName:validate_input": {
-        "containerOptions": "--volume /hot/ref/reference/GRCh38-BI-20160721:/hot/ref/reference/GRCh38-BI-20160721",
+        "containerOptions": "--volume /hot/resource/reference-genome/GRCh38-BI-20160721:/hot/resource/reference-genome/GRCh38-BI-20160721",
         "cpus": "1",
         "memory": "2 GB"
       },
