@@ -101,8 +101,8 @@ The config file can take 6 arguments. See provided [template](./config/template.
 |:---|:----------------|:---------|:-----|:----------------------------|
 | 1 | `dataset_id` | yes | string | dataset identifier attached to pipeline output. |
 | 2 | `output_dir` | yes | path | Absolute path to location of output. |
-| 3 | `mt_ref_genome_dir` | yes | path | Absolute path to directory containing mitochondrial ref genome and mt ref genome index files. Path: `/hot/ref/mitochondria_ref/genome_fasta`|
-| 4 | `gmapdb` | yes | path | Absolute path to to gmapdb directory. Path: `/hot/ref/mitochondria_ref/gmapdb/gmapdb_2021-03-08` |
+| 3 | `mt_ref_genome_dir` | yes | path | Absolute path to directory containing mitochondrial ref genome and mt ref genome index files. Path: `/hot/resource/mitochondria_ref/genome_fasta`|
+| 4 | `gmapdb` | yes | path | Absolute path to to gmapdb directory. Path: `/hot/resource/mitochondria_ref/gmapdb/gmapdb_2021-03-08` |
 | 5 | `save_intermediate_files` | no | boolean | Save intermediate files. If yes, not only the final BAM, but also the unmerged, unsorted, and duplicates unmarked BAM files will also be saved. Default is set to `false`. |
 | 6 | `cache_intermediate_pipeline_steps` | no | boolean | Enable caching to resume pipeline and the end of the last successful process completion when a pipeline fails (if true the default submission script must be modified). Default is set to `false`. |
 | 7 | `base_resource_update` | no | namespace | Namespace of parameters to update base resource allocations in the pipeline. Usage and structure are detailed in `template.config` and below. |
