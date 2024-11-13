@@ -55,7 +55,7 @@
     "params": {
       "BAMQL_docker_image": "ghcr.io/uclahs-cds/bamql:1.6.1",
       "MToolBox_docker_image": "ghcr.io/uclahs-cds/mtoolbox:1.2.1-b52269e",
-      "SAMtools_docker_image": "ghcr.io/uclahs-cds/samtools:1.20",
+      "SAMtools_docker_image": "ghcr.io/uclahs-cds/samtools:1.21",
       "bamql_version": "1.6.1",
       "cache_intermediate_pipeline_steps": false,
       "call_heteroplasmy_version": "1.0.1",
@@ -179,7 +179,7 @@
       "reference_genome_version": "GRCh38",
       "sample_id": "NA24149",
       "sample_mode": "single",
-      "samtools_version": "1.20",
+      "samtools_version": "1.21",
       "save_intermediate_files": false,
       "ucla_cds": true,
       "validate_extra_args": "-r /hot/resource/reference-genome/GRCh38-BI-20160721/Homo_sapiens_assembly38.fasta",
