@@ -17,6 +17,7 @@ include { run_validate_PipeVal as validate_input } from './external/pipeline-Nex
     )
 include { extract_mtDNA_BAMQL                } from './module/extract_mtDNA_BAMQL'
 include { extract_mtDNA_SAMtools             } from './module/extract_mtDNA_SAMtools'
+include { downsample_SAM_picard              } from './module/downsample_SAM_picard'
 include { align_mtDNA_MToolBox               } from './module/align_mtDNA_MToolBox'
 include { call_mtSNV_mitoCaller              } from './module/call_mtSNV_mitoCaller'
 include { convert_mitoCaller2vcf_mitoCaller  } from './module/convert_mitoCaller2vcf_mitoCaller'
@@ -88,8 +89,16 @@ workflow{
     //step 3: remapping reads with mtoolbox
     align_mtDNA_MToolBox( extracted_mt_reads )
 
-    //step 4: variant calling with mitocaller
-    call_mtSNV_mitoCaller( align_mtDNA_MToolBox.out.aligned_mt_reads )
+    //step 4a: downsample MToolBox BAM to account for mitoCaller's memory limitations
+    if (params.downsample_mtoolbox_bam) {
+        downsample_SAM_picard( align_mtDNA_MToolBox.out.aligned_mt_reads )
+        bam_for_mitoCaller = downsample_SAM_picard.out.downsampled_mt_reads
+        }
+    else {
+        bam_for_mitoCaller = align_mtDNA_MToolBox.out.aligned_mt_reads
+        }
+    //step 4b: variant calling with mitocaller
+    call_mtSNV_mitoCaller( bam_for_mitoCaller )
 
     //step 5: change mitocaller output to vcf
     convert_mitoCaller2vcf_mitoCaller(  call_mtSNV_mitoCaller.out.mt_variants_tsv )
