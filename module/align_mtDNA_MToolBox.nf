@@ -4,7 +4,7 @@ process align_mtDNA_MToolBox {
     container params.MToolBox_docker_image
     containerOptions "--volume \"${params.gmapdb}:/src/gmapdb/\" --volume \"${params.mt_ref_genome_dir}:/src/genome_fasta/\""
 
-    // Main ouput recalibrated & reheadered reads
+    // Main output recalibrated & reheadered reads
     publishDir {"${params.output_dir_base}/output/"},
         pattern: "{OUT_${bamql_out.baseName}/OUT2-sorted.bam}",
         mode: 'copy',
