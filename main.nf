@@ -17,8 +17,8 @@ include { run_validate_PipeVal as validate_input } from './external/pipeline-Nex
     )
 include { extract_mtDNA_BAMQL                } from './module/extract_mtDNA_BAMQL'
 include { extract_mtDNA_SAMtools             } from './module/extract_mtDNA_SAMtools'
-include { downsample_SAM_picard              } from './module/downsample_SAM_picard'
 include { align_mtDNA_MToolBox               } from './module/align_mtDNA_MToolBox'
+include { downsample_SAM_picard              } from './module/downsample_SAM_picard'
 include { call_mtSNV_mitoCaller              } from './module/call_mtSNV_mitoCaller'
 include { convert_mitoCaller2vcf_mitoCaller  } from './module/convert_mitoCaller2vcf_mitoCaller'
 include { call_heteroplasmy                  } from './module/call_heteroplasmy'
