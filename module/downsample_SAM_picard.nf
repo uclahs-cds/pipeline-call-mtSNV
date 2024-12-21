@@ -9,17 +9,17 @@ process downsample_SAM_picard {
         mode: 'copy',
         saveAs: { "${output_filename_base}_downsampled.bam" }
 
-    // publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
-    //         enabled: params.save_intermediate_files,
-    //         pattern: "*.bam.bai",
-    //         mode: 'copy',
-    //         saveAs: { "${output_filename_base}_downsampled.bam.bai" }
+    publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
+            enabled: params.save_intermediate_files,
+            pattern: "*.bai",
+            mode: 'copy',
+            saveAs: { "${output_filename_base}_downsampled.bam.bai" }
 
-    // publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
-    //     enabled: params.save_intermediate_files,
-    //     pattern: "*.md5",
-    //     mode: 'copy',
-    //     saveAs: { "${output_filename_base}_downsampled.bam.md5" }
+    publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
+        enabled: params.save_intermediate_files,
+        pattern: "*.md5",
+        mode: 'copy',
+        saveAs: { "${output_filename_base}_downsampled.bam.md5" }
 
     publishDir {"${params.output_dir_base}/QC/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
@@ -40,9 +40,9 @@ process downsample_SAM_picard {
     output:
         tuple val(type), val(sample_name), path("*.bam"), emit: downsampled_mt_reads
         path '.command.*'
-        path '*downsampleSAM-metrics.txt'
-        //path '*.bam.bai'
-        //path '*.md5'
+        path("*downsampleSAM-metrics.txt")
+        path("*.bai"), optional: true
+        path("*.md5"), optional: true
 
     script:
         output_filename_base = generate_standard_filename(
@@ -54,16 +54,16 @@ process downsample_SAM_picard {
         """
         java -jar /usr/local/share/picard-slim-${params.picard_version}-0/picard.jar \
         DownsampleSam \
-            --INPUT $mtoolbox_out \
-            --OUTPUT ${output_filename_base}_downsampled.bam \
-            --METRICS_FILE ${output_filename_base}_downsampleSAM-metrics.txt \
-            --ACCURACY ${params.downsample_accuracy} \
-            --PROBABILITY ${params.percent_downsample} \
-            --RANDOM_SEED ${params.downsample_seed} \
-            --STRATEGY ${params.downsample_strategy} \
-            --CREATE_INDEX ${params.downsample_index} \
-            --CREATE_MD5_FILE ${params.downsample_md5} \
-            --TMP_DIR "/scratch"
+            I=$mtoolbox_out \
+            O=${output_filename_base}_downsampled.bam \
+            M=${output_filename_base}_downsampleSAM-metrics.txt \
+            A=${params.downsample_accuracy} \
+            P=${params.percent_downsample} \
+            R=${params.downsample_seed} \
+            S=${params.downsample_strategy} \
+            CREATE_INDEX=${params.downsample_index} \
+            CREATE_MD5_FILE=${params.downsample_md5} \
+            TMP_DIR="/scratch"
         """
     }
 
