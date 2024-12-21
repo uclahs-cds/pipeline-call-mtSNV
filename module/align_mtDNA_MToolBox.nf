@@ -57,7 +57,7 @@ process align_mtDNA_MToolBox {
         path("tmp")
         path("*.conf")
 
-// !!!NOTE!!! Output file location can not be spceified withing the mtoolbox command or it breaks mtoolbox script when running a BAM file
+// !!!NOTE!!! Output file location can not be specified withing the mtoolbox command or it breaks mtoolbox script when running a BAM file
 // !!!NOTE!!! Location of the directory with the reference genome needs to be mounted on docker image. The actual file can not be called on. This is because MToolBox uses a script as an input that requires this file location.
 
     script:
