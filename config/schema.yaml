@@ -60,6 +60,39 @@ patient_id:
   type: 'String'
   required: true
   help: 'Patient identifier'
+downsample_mtoolbox_bam:
+  type: 'Bool'
+  required: true
+  default: false
+  help: 'Boolean value to indicate whether the MToolBox aligned BAM should be downsampled before mitoCaller is called'
+downsample_seed:
+  type: 'Integer'
+  required: false
+  help: 'Random seed for the downsampling process'
+downsample_index:
+  type: 'Bool'
+  required: false
+  help: 'Boolean value controlling whether an index file is created for the downsampled BAM'
+downsample_md5:
+  type: 'Bool'
+  required: false
+  help: 'Boolean value controlling whether an md5 checksum is created for the downsampled BAM'
+percent_downsample:
+  type: 'Number'
+  required: false
+  help: 'Specifies the fraction of reads to retain during downsampling.'
+downsample_strategy:
+  type: 'String'
+  required: false
+  help: 'Determines the algorithm used for downsampling'
+  choices:
+    - HighAccuracy
+    - ConstantMemory
+    - Chained
+downsample_accuracy:
+  type: 'String'
+  required: false
+  help: 'Defines the desired accuracy level for the downsampling process'
 input:
   type: 'Namespace'
   required: true
