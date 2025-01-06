@@ -9,6 +9,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 ### Changed
 - Update SAMTools version to 1.21
+- Add down sample BAM functionality
 
 ## [5.1.0] 2024-07-30
 ### Added
