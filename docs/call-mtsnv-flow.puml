@@ -12,7 +12,7 @@ Extract mitochondrial reads;
 ----
 Align to mitochondrial genome;
 if (downsample_mtoolbox_bam) then (yes)
-  :==downsample_SAM_picard
+  :==downsample_SAM_Picard
   ----
   downsample BAM;
 else (no)

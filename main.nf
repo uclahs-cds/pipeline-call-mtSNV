@@ -18,7 +18,7 @@ include { run_validate_PipeVal as validate_input } from './external/pipeline-Nex
 include { extract_mtDNA_BAMQL                } from './module/extract_mtDNA_BAMQL'
 include { extract_mtDNA_SAMtools             } from './module/extract_mtDNA_SAMtools'
 include { align_mtDNA_MToolBox               } from './module/align_mtDNA_MToolBox'
-include { downsample_SAM_picard              } from './module/downsample_SAM_picard'
+include { downsample_SAM_Picard              } from './module/downsample_SAM_Picard'
 include { call_mtSNV_mitoCaller              } from './module/call_mtSNV_mitoCaller'
 include { convert_mitoCaller2vcf_mitoCaller  } from './module/convert_mitoCaller2vcf_mitoCaller'
 include { call_heteroplasmy                  } from './module/call_heteroplasmy'
@@ -91,8 +91,8 @@ workflow{
 
     //step 4a: downsample MToolBox BAM to account for mitoCaller's memory limitations
     if (params.downsample_mtoolbox_bam) {
-        downsample_SAM_picard( align_mtDNA_MToolBox.out.aligned_mt_reads )
-        bam_for_mitoCaller = downsample_SAM_picard.out.downsampled_mt_reads
+        downsample_SAM_Picard( align_mtDNA_MToolBox.out.aligned_mt_reads )
+        bam_for_mitoCaller = downsample_SAM_Picard.out.downsampled_mt_reads
         }
     else {
         bam_for_mitoCaller = align_mtDNA_MToolBox.out.aligned_mt_reads
