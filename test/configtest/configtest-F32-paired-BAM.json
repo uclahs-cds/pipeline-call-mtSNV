@@ -127,6 +127,9 @@
       "proc_resource_params": {
         "align_mtDNA_MToolBox": {
           "cpus": "6",
+          "ext": {
+            "retry_codes": []
+          },
           "memory": "32 GB",
           "retry_strategy": {
             "memory": {
@@ -147,6 +150,9 @@
         },
         "call_mtSNV_mitoCaller": {
           "cpus": "1",
+          "ext": {
+            "retry_codes": []
+          },
           "memory": "2 GB",
           "retry_strategy": {
             "memory": {
@@ -227,6 +233,14 @@
         "closure": ""
       },
       "cache": true,
+      "common_retry_codes": [
+        "104",
+        "134",
+        "137",
+        "139",
+        "143",
+        "247"
+      ],
       "containerOptions": {
         "1": "--cpu-shares 1024 --cpus $task.cpus",
         "2": "--cpu-shares 1024 --cpus $task.cpus",
@@ -241,10 +255,10 @@
       },
       "echo": true,
       "errorStrategy": {
-        "1": "finish",
-        "2": "finish",
-        "3": "finish",
-        "closure": "finish"
+        "1": "terminate",
+        "2": "terminate",
+        "3": "terminate",
+        "closure": "terminate"
       },
       "executor": "local",
       "ext": {
@@ -313,6 +327,9 @@
       },
       "withName:align_mtDNA_MToolBox": {
         "cpus": "6",
+        "ext": {
+          "retry_codes": []
+        },
         "memory": {
           "1": "32 GB",
           "2": "60 GB",
@@ -331,6 +348,9 @@
       },
       "withName:call_mtSNV_mitoCaller": {
         "cpus": "1",
+        "ext": {
+          "retry_codes": []
+        },
         "memory": {
           "1": "2 GB",
           "2": "6 GB",
