@@ -112,7 +112,7 @@ The config file can take 11 arguments. See provided [template](./config/template
 | 6 | `cache_intermediate_pipeline_steps` | no | boolean | Enable caching to resume pipeline and the end of the last successful process completion when a pipeline fails (if true the default submission script must be modified). Default is set to `false`. |
 | 7 | `base_resource_update` | no | namespace | Namespace of parameters to update base resource allocations in the pipeline. Usage and structure are detailed in `template.config` and below. |
 | 8 | `downsample_mtoolbox_bam` | no | boolean |  |
-| 9 | `percent_downsample` | no | float | Corresponds to the PROBABILITY parameter in DownsampleSam. Specifies the fraction of reads to retain during downsampling. |
+| 9 | `probability_downsample` | no | float | Corresponds to the PROBABILITY parameter in DownsampleSam. Specifies the fraction of reads to retain during downsampling. |
 | 10 |`downsample_strategy`  | no | string | Corresponds to the STRATEGY parameter in DownsampleSam. Determines the algorithm used for downsampling. Options include ConstantMemory, HighAccuracy, and Chained. |
 | 11 |`downsample_accuracy`  | no | string | Corresponds to the ACCURACY parameter in DownsampleSam. Defines the desired accuracy level for the downsampling process. A smaller value indicates higher accuracy but may require more memory. |
 

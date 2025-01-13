@@ -58,7 +58,7 @@ process downsample_SAM_Picard {
             O=${output_filename_base}_downsampled.bam \
             M=${output_filename_base}_downsampleSAM-metrics.txt \
             A=${params.downsample_accuracy} \
-            P=${params.percent_downsample} \
+            P=${params.probability_downsample} \
             R=${params.downsample_seed} \
             S=${params.downsample_strategy} \
             CREATE_INDEX=${params.downsample_index} \

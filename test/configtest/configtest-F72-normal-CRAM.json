@@ -111,7 +111,7 @@
       "output_dir_base": "/tmp/outputs/call-mtSNV-VER.SI.ON/NA24149/mitoCaller-1.0.0/",
       "output_dir_prefix": "/tmp/outputs/call-mtSNV-VER.SI.ON/NA24149",
       "patient_id": "illumina",
-      "percent_downsample": "0.5",
+      "probability_downsample": "0.5",
       "picard_docker_image": "ghcr.io/uclahs-cds/picard:3.3.0",
       "picard_version": "3.3.0",
       "pipeval_version": "5.0.0-rc.3",
