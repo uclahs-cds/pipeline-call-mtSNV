@@ -63,7 +63,7 @@ process downsample_SAM_Picard {
             STRATEGY=${params.downsample_strategy} \
             CREATE_INDEX=${params.downsample_index} \
             CREATE_MD5_FILE=${params.downsample_md5} \
-            TMP_DIR=${workDir}
+            TMP_DIR=${task.workDir}
         """
     }
 
