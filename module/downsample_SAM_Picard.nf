@@ -54,16 +54,16 @@ process downsample_SAM_Picard {
         """
         java -jar /usr/local/share/picard-slim-${params.picard_version}-0/picard.jar \
         DownsampleSam \
-            I=$mtoolbox_out \
-            O=${output_filename_base}_downsampled.bam \
-            M=${output_filename_base}_downsampleSAM-metrics.txt \
-            A=${params.downsample_accuracy} \
-            P=${params.probability_downsample} \
-            R=${params.downsample_seed} \
-            S=${params.downsample_strategy} \
+            INPUT=$mtoolbox_out \
+            OUTPUT=${output_filename_base}_downsampled.bam \
+            METRICS_FILE=${output_filename_base}_downsampleSAM-metrics.txt \
+            ACCURACY=${params.downsample_accuracy} \
+            PROBABILITY=${params.probability_downsample} \
+            RANDOM_SEED=${params.downsample_seed} \
+            STRATEGY=${params.downsample_strategy} \
             CREATE_INDEX=${params.downsample_index} \
             CREATE_MD5_FILE=${params.downsample_md5} \
-            TMP_DIR="/scratch"
+            TMP_DIR=${workDir}
         """
     }
 
