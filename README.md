@@ -67,7 +67,7 @@ MToolBox is used to align the extracted mitochondrial reads. It can accept as in
 
 ### 3.[Optional] Downsample BAM
 
-To manage potential memory constraints when processing BAM files with a high volume of reads, our pipeline incorporates Picard's DownsampleSAM tool. This utility reduces the dataset size by randomly selecting a subset of reads, thereby decreasing memory usage in subsequent analysis steps.<sup>6</sup>
+To manage potential memory constraints when processing BAM files with a high volume of reads, our pipeline incorporates Picard's DownsampleSam tool. This utility reduces the dataset size by randomly selecting a subset of reads, thereby decreasing memory usage in subsequent analysis steps.<sup>6</sup>
 
 ### 4. Call mtSNV with mitoCaller
 
