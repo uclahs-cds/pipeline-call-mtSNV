@@ -1,6 +1,6 @@
 include {generate_standard_filename} from "${projectDir}/external/pipeline-Nextflow-module/modules/common/generate_standardized_filename/main.nf"
 
-process downsample_SAM_Picard {
+process downsample_BAM_Picard {
     container params.picard_docker_image
 
     publishDir {"${params.output_dir_base}/output/"},

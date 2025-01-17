@@ -171,7 +171,7 @@
             }
           }
         },
-        "downsample_SAM_Picard": {
+        "downsample_BAM_Picard": {
           "cpus": "1",
           "memory": "6 GB",
           "retry_strategy": {
@@ -367,7 +367,7 @@
           "closure": "retry_updater(10 GB, add, 5 GB, $task.attempt, memory)"
         }
       },
-      "withName:downsample_SAM_Picard": {
+      "withName:downsample_BAM_Picard": {
         "cpus": "1",
         "memory": {
           "1": "6 GB",
