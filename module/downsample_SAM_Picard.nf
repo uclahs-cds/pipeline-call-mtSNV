@@ -3,13 +3,13 @@ include {generate_standard_filename} from "${projectDir}/external/pipeline-Nextf
 process downsample_SAM_Picard {
     container params.picard_docker_image
 
-    publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.output_dir_base}/output/"},
         enabled: params.save_intermediate_files,
         pattern: "*.bam",
         mode: 'copy',
         saveAs: { "${output_filename_base}_downsampled.bam" }
 
-    publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.output_dir_base}/output/"},
             enabled: params.save_intermediate_files,
             pattern: "*.bai",
             mode: 'copy',
