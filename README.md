@@ -12,7 +12,7 @@
       - [a. BAM Processing BAMQL](#a-bam-processing-bamql)
       - [b. CRAM processing with SAMTools](#b-cram-processing-with-samtools)
     - [2. Align mtDNA with MToolBox](#2-align-mtdna-with-mtoolbox)
-    - [3.\[Optional\] Down Sample BAM](#3optional-down-sample-bam)
+    - [3.\[Optional\] Downsample BAM](#3optional-downsample-bam)
     - [4. Call mtSNV with mitoCaller](#4-call-mtsnv-with-mitocaller)
     - [5. Convert mitoCaller output with Mito2VCF](#5-convert-mitocaller-output-with-mito2vcf)
     - [6. Call Heteroplasmy on Paired Samples](#6-call-heteroplasmy-on-paired-samples)
@@ -65,17 +65,17 @@ SAMTools is a suite of programs for interacting with high-throughput sequencing 
 
 MToolBox is used to align the extracted mitochondrial reads. It can accept as input either raw data or prealigned reads.<sup>4</sup> In both cases, reads are mapped by the mapExome.py script to a mitochondrial reference genome. The current pipeline uses the Reconstructed Sapiens Reference Sequence(RSRS).<sup>5</sup> This generates a dataset of reliable mitochondrial aligned reads.
 
-### 3.[Optional] Down Sample BAM
+### 3.[Optional] Downsample BAM
 
-To manage potential memory constraints when processing BAM files with a high volume of reads, our pipeline incorporates Picard's DownsampleSam tool. This utility reduces the dataset size by randomly selecting a subset of reads, thereby decreasing memory usage in subsequent analysis steps.
+To manage potential memory constraints when processing BAM files with a high volume of reads, our pipeline incorporates Picard's DownsampleSAM tool. This utility reduces the dataset size by randomly selecting a subset of reads, thereby decreasing memory usage in subsequent analysis steps.<sup>6</sup>
 
 ### 4. Call mtSNV with mitoCaller
 
-While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 copies.  The resultant high coverage in bulk sequencing data allows for the sensitive detection of low frequency variation seen with mitoCaller. [mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a script which uses a mitochondrial specific algorithm designed to account for these unique factors to identify mtDNA variants.<sup>6-7</sup>
+While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 copies.  The resultant high coverage in bulk sequencing data allows for the sensitive detection of low frequency variation seen with mitoCaller. [mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a script which uses a mitochondrial specific algorithm designed to account for these unique factors to identify mtDNA variants.<sup>7-8</sup>
 
 ### 5. Convert mitoCaller output with Mito2VCF
 
-mitoCaller2VCF converts results from mitoCaller to VCF format as the output of mitoCaller is a TSV file and must be processed to increase legibility.<sup>6</sup>
+mitoCaller2VCF converts results from mitoCaller to VCF format as the output of mitoCaller is a TSV file and must be processed to increase legibility.<sup>7</sup>
 
 ### 6. Call Heteroplasmy on Paired Samples
 
@@ -221,8 +221,9 @@ Included is a template for validating your input files. For more information on 
 3.  [SAMTools](https://www.htslib.org/)
 4.  [Calabrese C, Simone D, Diroma MA, et al. MToolBox: a highly automated pipeline for heteroplasmy annotation and prioritization analysis of human mitochondrial variants in high-throughput sequencing. Bioinformatics. 2014;30(21):3115-3117](https://pubmed.ncbi.nlm.nih.gov/25028726/)
 5.  [MToolBox github](https://github.com/mitoNGS/MToolBox)
-6.  [mitoCaller](https://lgsun.irp.nia.nih.gov/hsgu/software/mitoAnalyzer/mitoAnalyzer.htm)
-7.  [Ding J, Sidore C, Butler TJ, Wing MK, Qian Y, et al. (2015) Correction: Assessing Mitochondrial DNA Variation and Copy Number in Lymphocytes of ~2,000 Sardinians Using Tailored Sequencing Analysis Tools](https://doi.org/10.1371/journal.pgen.1005306)
+6.  [DownsampleSAM](https://gatk.broadinstitute.org/hc/en-us/articles/360037056792-DownsampleSam-Picard)
+7.  [mitoCaller](https://lgsun.irp.nia.nih.gov/hsgu/software/mitoAnalyzer/mitoAnalyzer.htm)
+8.  [Ding J, Sidore C, Butler TJ, Wing MK, Qian Y, et al. (2015) Correction: Assessing Mitochondrial DNA Variation and Copy Number in Lymphocytes of ~2,000 Sardinians Using Tailored Sequencing Analysis Tools](https://doi.org/10.1371/journal.pgen.1005306)
 
 ---
 
