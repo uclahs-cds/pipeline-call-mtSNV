@@ -15,7 +15,7 @@ process downsample_BAM_Picard {
             mode: 'copy',
             saveAs: { "${output_filename_base}_downsampled.bam.bai" }
 
-    publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.output_dir_base}/output/"},
         enabled: params.save_intermediate_files,
         pattern: "*.md5",
         mode: 'copy',
