@@ -4,19 +4,16 @@ process downsample_BAM_Picard {
     container params.picard_docker_image
 
     publishDir {"${params.output_dir_base}/output/"},
-        enabled: params.save_intermediate_files,
         pattern: "*.bam",
         mode: 'copy',
         saveAs: { "${output_filename_base}_downsampled.bam" }
 
     publishDir {"${params.output_dir_base}/output/"},
-            enabled: params.save_intermediate_files,
-            pattern: "*.bai",
-            mode: 'copy',
-            saveAs: { "${output_filename_base}_downsampled.bam.bai" }
+        pattern: "*.bai",
+        mode: 'copy',
+        saveAs: { "${output_filename_base}_downsampled.bam.bai" }
 
     publishDir {"${params.output_dir_base}/output/"},
-        enabled: params.save_intermediate_files,
         pattern: "*.md5",
         mode: 'copy',
         saveAs: { "${output_filename_base}_downsampled.bam.md5" }
