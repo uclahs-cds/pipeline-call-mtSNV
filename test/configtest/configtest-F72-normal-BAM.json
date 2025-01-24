@@ -111,10 +111,10 @@
       "output_dir_base": "/tmp/outputs/call-mtSNV-VER.SI.ON/NA24149/mitoCaller-1.0.0/",
       "output_dir_prefix": "/tmp/outputs/call-mtSNV-VER.SI.ON/NA24149",
       "patient_id": "illumina",
-      "probability_downsample": "0.5",
       "picard_docker_image": "ghcr.io/uclahs-cds/picard:3.3.0",
       "picard_version": "3.3.0",
       "pipeval_version": "5.0.0-rc.3",
+      "probability_downsample": "0.5",
       "proc_resource_params": {
         "align_mtDNA_MToolBox": {
           "cpus": "6",
@@ -154,6 +154,9 @@
         },
         "convert_mitoCaller2vcf_mitoCaller": {
           "cpus": "2",
+          "ext": {
+            "retry_codes": []
+          },
           "memory": "10 GB",
           "retry_strategy": {
             "memory": {
@@ -349,6 +352,9 @@
       },
       "withName:convert_mitoCaller2vcf_mitoCaller": {
         "cpus": "2",
+        "ext": {
+          "retry_codes": []
+        },
         "memory": {
           "1": "10 GB",
           "2": "20 GB",
