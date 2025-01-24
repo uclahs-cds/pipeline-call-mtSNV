@@ -54,28 +54,28 @@ ___
 ### 1. Extract mtDNA
 #### a. BAM Processing BAMQL
 
-[BAMQL](https://doi.org/10.1186/s12859-016-1162-y) is a package or query language published by the Boutros lab for extracting reads from BAM files.<sup>1-2</sup>
+[BAMQL](https://doi.org/10.1186/s12859-016-1162-y) is a package or query language published by the Boutros lab for extracting reads from BAM files.[<sup>1-2</sup>](#references)
 
 #### b. CRAM processing with SAMTools
 
-SAMTools is a suite of programs for interacting with high-throughput sequencing dat<sup>3</sup>. This pipeline uses the SAMTools View command to extract reads from CRAM files.
+SAMTools is a suite of programs for interacting with high-throughput sequencing dat[<sup>3</sup>](#references). This pipeline uses the SAMTools View command to extract reads from CRAM files.
 
 ### 2. Align mtDNA with MToolBox
 ![flowchart_mtoolbox_overview](flowchart_mtoolbox_overview.png)
 
-MToolBox is used to align the extracted mitochondrial reads. It can accept as input either raw data or prealigned reads.<sup>4</sup> In both cases, reads are mapped by the mapExome.py script to a mitochondrial reference genome. The current pipeline uses the Reconstructed Sapiens Reference Sequence(RSRS).<sup>5</sup> This generates a dataset of reliable mitochondrial aligned reads.
+MToolBox is used to align the extracted mitochondrial reads. It can accept as input either raw data or prealigned reads.[<sup>4</sup>](#references) In both cases, reads are mapped by the mapExome.py script to a mitochondrial reference genome. The current pipeline uses the Reconstructed Sapiens Reference Sequence(RSRS).[<sup>5</sup>](#references) This generates a dataset of reliable mitochondrial aligned reads.
 
 ### 3.[Optional] Downsample BAM
 
-To manage potential memory constraints when processing BAM files with a high volume of reads, our pipeline incorporates Picard's DownsampleSam tool. This utility reduces the dataset size by randomly selecting a subset of reads, thereby decreasing memory usage in subsequent analysis steps.<sup>6</sup>
+To manage potential memory constraints when processing BAM files with a high volume of reads, our pipeline incorporates Picard's DownsampleSam tool. This utility reduces the dataset size by randomly selecting a subset of reads, thereby decreasing memory usage in subsequent analysis steps.[<sup>6</sup>](#references)
 
 ### 4. Call mtSNV with mitoCaller
 
-While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 copies.  The resultant high coverage in bulk sequencing data allows for the sensitive detection of low frequency variation seen with mitoCaller. [mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a script which uses a mitochondrial specific algorithm designed to account for these unique factors to identify mtDNA variants.<sup>7-8</sup>
+While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 copies.  The resultant high coverage in bulk sequencing data allows for the sensitive detection of low frequency variation seen with mitoCaller. [mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a script which uses a mitochondrial specific algorithm designed to account for these unique factors to identify mtDNA variants.[<sup>7-8</sup>](#references)
 
 ### 5. Convert mitoCaller output with Mito2VCF
 
-mitoCaller2VCF converts results from mitoCaller to VCF format as the output of mitoCaller is a TSV file and must be processed to increase legibility.<sup>7</sup>
+mitoCaller2VCF converts results from mitoCaller to VCF format as the output of mitoCaller is a TSV file and must be processed to increase legibility.[<sup>7</sup>](#references)
 
 ### 6. Call Heteroplasmy on Paired Samples
 
