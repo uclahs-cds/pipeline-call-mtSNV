@@ -29,7 +29,7 @@ include { run_validate_PipeVal as validate_output } from './external/pipeline-Ne
     )
 include { generate_checksum_PipeVal as generate_BAM_checksum } from './external/pipeline-Nextflow-module/modules/PipeVal/generate-checksum/main.nf' addParams(
     options: [
-        output_dir: "${params.output_dir_base}/output"
+        output_dir: "${params.output_dir_base}/output",
         docker_image_version: params.pipeval_version,
         main_process: "./",
         checksum_alg: 'sha512'
@@ -37,7 +37,7 @@ include { generate_checksum_PipeVal as generate_BAM_checksum } from './external/
     )
 include { generate_checksum_PipeVal as generate_VCF_checksum } from './external/pipeline-Nextflow-module/modules/PipeVal/generate-checksum/main.nf' addParams(
     options: [
-        output_dir: "${params.output_dir_base}/output"
+        output_dir: "${params.output_dir_base}/output",
         docker_image_version: params.pipeval_version,
         main_process: "./",
         checksum_alg: 'sha512'
