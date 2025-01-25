@@ -27,6 +27,22 @@ include { run_validate_PipeVal as validate_output } from './external/pipeline-Ne
         main_process: "./" //Save logs in <log_dir>/process-log/run_validate_PipeVal
         ]
     )
+include { generate_checksum_PipeVal as generate_BAM_checksum } from './external/pipeline-Nextflow-module/modules/PipeVal/generate-checksum/main.nf' addParams(
+    options: [
+        output_dir: "${params.output_dir_base}/output"
+        docker_image_version: params.pipeval_version,
+        main_process: "./",
+        checksum_alg: 'sha512'
+        ]
+    )
+include { generate_checksum_PipeVal as generate_VCF_checksum } from './external/pipeline-Nextflow-module/modules/PipeVal/generate-checksum/main.nf' addParams(
+    options: [
+        output_dir: "${params.output_dir_base}/output"
+        docker_image_version: params.pipeval_version,
+        main_process: "./",
+        checksum_alg: 'sha512'
+        ]
+    )
 
 log.info """\
 ======================================
@@ -88,6 +104,12 @@ workflow{
     //step 3: remapping reads with mtoolbox
     align_mtDNA_MToolBox( extracted_mt_reads )
 
+    generate_BAM_checksum(
+        align_mtDNA_MToolBox.out.aligned_mt_reads
+        .map{it -> it[2]} // [type, sample, path]
+        .flatten()
+        )
+
     //step 4: variant calling with mitocaller
     call_mtSNV_mitoCaller( align_mtDNA_MToolBox.out.aligned_mt_reads )
 
@@ -106,13 +128,10 @@ workflow{
         call_heteroplasmy( mitoCaller_forked_ch.normal, mitoCaller_forked_ch.tumor )
         }
 
+    generate_VCF_checksum(convert_mitoCaller2vcf_mitoCaller.out.vcf.flatten())
     //step 7: validate output script
-    validate_output(
-        convert_mitoCaller2vcf_mitoCaller
-        .out
-        .vcf
-        .flatten()
-        )
+    validate_output(convert_mitoCaller2vcf_mitoCaller.out.vcf.flatten())
+
     validate_output.out.validation_result.collectFile(
         name: 'output_validation.txt',
         storeDir: "${params.output_dir_base}/validation"
