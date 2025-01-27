@@ -4,14 +4,12 @@ process convert_mitoCaller2vcf_mitoCaller {
     container params.mitoCaller2vcf_docker_image
 
     publishDir {"${params.output_dir_base}/output/"},
-        pattern: "*output.vcf",
-        mode: 'copy',
-        saveAs: { "${output_filename_base}.vcf" }
+        pattern: "${output_filename_base}.vcf",
+        mode: 'copy'
 
     publishDir {"${params.output_dir_base}/output/"},
-        pattern: "*homoplasmy.vcf",
-        mode: 'copy',
-        saveAs: { "${output_filename_base}_homoplasmy.vcf" }
+        pattern: "${output_filename_base}_homoplasmy.vcf",
+        mode: 'copy'
 
     //logs
     ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" }
@@ -43,6 +41,9 @@ process convert_mitoCaller2vcf_mitoCaller {
         echo '${homoplasmy_vcf_header}' >> tmpfile
         tail -n +\$((\$last_header_line + 1)) ${sample_name}_homoplasmy.vcf >> tmpfile
         mv tmpfile ${sample_name}_homoplasmy.vcf
+
+        mv ${sample_name}_output.vcf ${output_filename_base}.vcf
+        mv ${sample_name}_homoplasmy.vcf ${output_filename_base}_homoplasmy.vcf
         """
 }
 

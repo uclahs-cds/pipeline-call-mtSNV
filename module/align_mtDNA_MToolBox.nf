@@ -6,9 +6,8 @@ process align_mtDNA_MToolBox {
 
     // Main ouput recalibrated & reheadered reads
     publishDir {"${params.output_dir_base}/output/"},
-        pattern: "{OUT_${bamql_out.baseName}/OUT2-sorted.bam}",
-        mode: 'copy',
-        saveAs: {"${output_filename_base}.bam"}
+        pattern: "${output_filename_base}.bam",
+        mode: 'copy'
 
     publishDir {"${params.output_dir_base}/output/"},
         pattern: "{mt_classification_best_results.csv,summary*.txt}",
@@ -45,7 +44,7 @@ process align_mtDNA_MToolBox {
             )
 
     output:
-        tuple val(type), val(sample_name), path("OUT_${bamql_out.baseName}/OUT2-sorted.bam"), emit: aligned_mt_reads
+        tuple val(type), val(sample_name), path("${output_filename_base}.bam"), emit: aligned_mt_reads
 
         path '.command.*'
         path("OUT_${bamql_out.baseName}/*")
@@ -70,5 +69,7 @@ process align_mtDNA_MToolBox {
         """
         printf "input_type='bam'\nref='RSRS'\ninput_path=${bamql_out}\ngsnapdb=/src/gmapdb/\nfasta_path=/src/genome_fasta/\n" > config_'${bamql_out.baseName}'.conf
         MToolBox.sh -i config_'${bamql_out.baseName}'.conf -m '-t ${task.cpus}'
+
+        mv OUT_${bamql_out.baseName}/OUT2-sorted.bam ${output_filename_base}.bam
         """
 }
