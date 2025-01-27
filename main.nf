@@ -44,6 +44,14 @@ include { generate_checksum_PipeVal as generate_VCF_checksum } from './external/
         checksum_alg: 'sha512'
         ]
     )
+include { generate_checksum_PipeVal as generate_downsampled_BAM_checksum } from './external/pipeline-Nextflow-module/modules/PipeVal/generate-checksum/main.nf' addParams(
+    options: [
+        output_dir: "${params.output_dir_base}/output",
+        docker_image_version: params.pipeval_version,
+        main_process: "./",
+        checksum_alg: 'sha512'
+        ]
+    )
 
 log.info """\
 ======================================
@@ -107,7 +115,7 @@ workflow{
 
     generate_BAM_checksum(
         align_mtDNA_MToolBox.out.aligned_mt_reads
-        .map{it -> it[2]} // [type, sample, path]
+        .map{ type, sample, bam -> bam } // [type, sample, path]
         .flatten()
         )
 
@@ -115,6 +123,13 @@ workflow{
     if (params.downsample_mtoolbox_bam) {
         downsample_BAM_Picard( align_mtDNA_MToolBox.out.aligned_mt_reads )
         bam_for_mitoCaller = downsample_BAM_Picard.out.downsampled_mt_reads
+
+        generate_downsampled_BAM_checksum(
+            downsample_BAM_Picard.out.downsampled_mt_reads
+            .map{ type, sample, bam -> bam }
+            .mix(downsample_BAM_Picard.out.bai_files)
+            .flatten()
+            )
         }
     else {
         bam_for_mitoCaller = align_mtDNA_MToolBox.out.aligned_mt_reads
