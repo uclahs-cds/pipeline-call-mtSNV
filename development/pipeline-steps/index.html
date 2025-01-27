@@ -65,11 +65,13 @@
     </li>
     <li class="toctree-l2"><a class="reference internal" href="#2-align-mtdna-with-mtoolbox">2. Align mtDNA with MToolBox</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#3-call-mtsnv-with-mitocaller">3. Call mtSNV with mitoCaller</a>
+    <li class="toctree-l2"><a class="reference internal" href="#3optional-downsample-bam">3.[Optional] Downsample BAM</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#4-convert-mitocaller-output-with-mito2vcf">4. Convert mitoCaller output with Mito2VCF</a>
+    <li class="toctree-l2"><a class="reference internal" href="#4-call-mtsnv-with-mitocaller">4. Call mtSNV with mitoCaller</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#5-call-heteroplasmy-on-paired-samples">5. Call Heteroplasmy on Paired Samples</a>
+    <li class="toctree-l2"><a class="reference internal" href="#5-convert-mitocaller-output-with-mito2vcf">5. Convert mitoCaller output with Mito2VCF</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#6-call-heteroplasmy-on-paired-samples">6. Call Heteroplasmy on Paired Samples</a>
     </li>
     </ul>
                 </li>
@@ -122,7 +124,7 @@
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">Pipeline Steps</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/uclahs-cds/pipeline-call-mtSNV/blob/321ceeb50a125e7a9dc09263bc02bdd9e6710068/README.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/uclahs-cds/pipeline-call-mtSNV/blob/a8661af190fef2dc7c1f873c553a8a75fa6135cf/README.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -133,17 +135,19 @@
                 <h2 id="pipeline-steps">Pipeline Steps</h2>
 <h3 id="1-extract-mtdna">1. Extract mtDNA</h3>
 <h4 id="a-bam-processing-bamql">a. BAM Processing BAMQL</h4>
-<p><a href="https://doi.org/10.1186/s12859-016-1162-y">BAMQL</a> is a package or query language published by the Boutros lab for extracting reads from BAM files.<sup>1-2</sup></p>
+<p><a href="https://doi.org/10.1186/s12859-016-1162-y">BAMQL</a> is a package or query language published by the Boutros lab for extracting reads from BAM files.<a href="../references/#references"><sup>1-2</sup></a></p>
 <h4 id="b-cram-processing-with-samtools">b. CRAM processing with SAMTools</h4>
-<p>SAMTools is a suite of programs for interacting with high-throughput sequencing dat<sup>3</sup>. This pipeline uses the SAMTools View command to extract reads from CRAM files.</p>
+<p>SAMTools is a suite of programs for interacting with high-throughput sequencing dat<a href="../references/#references"><sup>3</sup></a>. This pipeline uses the SAMTools View command to extract reads from CRAM files.</p>
 <h3 id="2-align-mtdna-with-mtoolbox">2. Align mtDNA with MToolBox</h3>
 <p><img alt="flowchart_mtoolbox_overview" src="../img/flowchart_mtoolbox_overview.png" /></p>
-<p>MToolBox is used to align the extracted mitochondrial reads. It can accept as input either raw data or prealigned reads.<sup>4</sup> In both cases, reads are mapped by the mapExome.py script to a mitochondrial reference genome. The current pipeline uses the Reconstructed Sapiens Reference Sequence(RSRS).<sup>5</sup> This generates a dataset of reliable mitochondrial aligned reads.</p>
-<h3 id="3-call-mtsnv-with-mitocaller">3. Call mtSNV with mitoCaller</h3>
-<p>While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 copies.  The resultant high coverage in bulk sequencing data allows for the sensitive detection of low frequency variation seen with mitoCaller. <a href="https://doi.org/10.1371/journal.pgen.1005306">mitoCaller</a> is a script which uses a mitochondrial specific algorithm designed to account for these unique factors to identify mtDNA variants.<sup>6-7</sup></p>
-<h3 id="4-convert-mitocaller-output-with-mito2vcf">4. Convert mitoCaller output with Mito2VCF</h3>
-<p>mitoCaller2VCF converts results from mitoCaller to VCF format as the output of mitoCaller is a TSV file and must be processed to increase legibility.<sup>6</sup></p>
-<h3 id="5-call-heteroplasmy-on-paired-samples">5. Call Heteroplasmy on Paired Samples</h3>
+<p>MToolBox is used to align the extracted mitochondrial reads. It can accept as input either raw data or prealigned reads.<a href="../references/#references"><sup>4</sup></a> In both cases, reads are mapped by the mapExome.py script to a mitochondrial reference genome. The current pipeline uses the Reconstructed Sapiens Reference Sequence(RSRS).<a href="../references/#references"><sup>5</sup></a> This generates a dataset of reliable mitochondrial aligned reads.</p>
+<h3 id="3optional-downsample-bam">3.[Optional] Downsample BAM</h3>
+<p>To manage potential memory constraints when processing BAM files with a high volume of reads, our pipeline incorporates Picard's DownsampleSam tool. This utility reduces the dataset size by randomly selecting a subset of reads, thereby decreasing memory usage in subsequent analysis steps.<a href="../references/#references"><sup>6</sup></a></p>
+<h3 id="4-call-mtsnv-with-mitocaller">4. Call mtSNV with mitoCaller</h3>
+<p>While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 copies.  The resultant high coverage in bulk sequencing data allows for the sensitive detection of low frequency variation seen with mitoCaller. <a href="https://doi.org/10.1371/journal.pgen.1005306">mitoCaller</a> is a script which uses a mitochondrial specific algorithm designed to account for these unique factors to identify mtDNA variants.<a href="../references/#references"><sup>7-8</sup></a></p>
+<h3 id="5-convert-mitocaller-output-with-mito2vcf">5. Convert mitoCaller output with Mito2VCF</h3>
+<p>mitoCaller2VCF converts results from mitoCaller to VCF format as the output of mitoCaller is a TSV file and must be processed to increase legibility.<a href="../references/#references"><sup>7</sup></a></p>
+<h3 id="6-call-heteroplasmy-on-paired-samples">6. Call Heteroplasmy on Paired Samples</h3>
 <p>Heteroplasmy is the presence of more than one type of organellar genome (mitochondrial DNA or plastid DNA) within a cell or individual. This script compares heteroplasmy using the normal sample as a reference point.</p>
               
             </div>
