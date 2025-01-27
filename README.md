@@ -12,9 +12,10 @@
       - [a. BAM Processing BAMQL](#a-bam-processing-bamql)
       - [b. CRAM processing with SAMTools](#b-cram-processing-with-samtools)
     - [2. Align mtDNA with MToolBox](#2-align-mtdna-with-mtoolbox)
-    - [3. Call mtSNV with mitoCaller](#3-call-mtsnv-with-mitocaller)
-    - [4. Convert mitoCaller output with Mito2VCF](#4-convert-mitocaller-output-with-mito2vcf)
-    - [5. Call Heteroplasmy on Paired Samples](#5-call-heteroplasmy-on-paired-samples)
+    - [3.\[Optional\] Downsample BAM](#3optional-downsample-bam)
+    - [4. Call mtSNV with mitoCaller](#4-call-mtsnv-with-mitocaller)
+    - [5. Convert mitoCaller output with Mito2VCF](#5-convert-mitocaller-output-with-mito2vcf)
+    - [6. Call Heteroplasmy on Paired Samples](#6-call-heteroplasmy-on-paired-samples)
   - [Inputs](#inputs)
     - [input.yaml](#inputyaml)
       - [Single Mode](#single-mode)
@@ -53,26 +54,30 @@ ___
 ### 1. Extract mtDNA
 #### a. BAM Processing BAMQL
 
-[BAMQL](https://doi.org/10.1186/s12859-016-1162-y) is a package or query language published by the Boutros lab for extracting reads from BAM files.<sup>1-2</sup>
+[BAMQL](https://doi.org/10.1186/s12859-016-1162-y) is a package or query language published by the Boutros lab for extracting reads from BAM files.[<sup>1-2</sup>](#references)
 
 #### b. CRAM processing with SAMTools
 
-SAMTools is a suite of programs for interacting with high-throughput sequencing dat<sup>3</sup>. This pipeline uses the SAMTools View command to extract reads from CRAM files.
+SAMTools is a suite of programs for interacting with high-throughput sequencing dat[<sup>3</sup>](#references). This pipeline uses the SAMTools View command to extract reads from CRAM files.
 
 ### 2. Align mtDNA with MToolBox
 ![flowchart_mtoolbox_overview](flowchart_mtoolbox_overview.png)
 
-MToolBox is used to align the extracted mitochondrial reads. It can accept as input either raw data or prealigned reads.<sup>4</sup> In both cases, reads are mapped by the mapExome.py script to a mitochondrial reference genome. The current pipeline uses the Reconstructed Sapiens Reference Sequence(RSRS).<sup>5</sup> This generates a dataset of reliable mitochondrial aligned reads.
+MToolBox is used to align the extracted mitochondrial reads. It can accept as input either raw data or prealigned reads.[<sup>4</sup>](#references) In both cases, reads are mapped by the mapExome.py script to a mitochondrial reference genome. The current pipeline uses the Reconstructed Sapiens Reference Sequence(RSRS).[<sup>5</sup>](#references) This generates a dataset of reliable mitochondrial aligned reads.
 
-### 3. Call mtSNV with mitoCaller
+### 3.[Optional] Downsample BAM
 
-While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 copies.  The resultant high coverage in bulk sequencing data allows for the sensitive detection of low frequency variation seen with mitoCaller. [mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a script which uses a mitochondrial specific algorithm designed to account for these unique factors to identify mtDNA variants.<sup>6-7</sup>
+To manage potential memory constraints when processing BAM files with a high volume of reads, our pipeline incorporates Picard's DownsampleSam tool. This utility reduces the dataset size by randomly selecting a subset of reads, thereby decreasing memory usage in subsequent analysis steps.[<sup>6</sup>](#references)
 
-### 4. Convert mitoCaller output with Mito2VCF
+### 4. Call mtSNV with mitoCaller
 
-mitoCaller2VCF converts results from mitoCaller to VCF format as the output of mitoCaller is a TSV file and must be processed to increase legibility.<sup>6</sup>
+While human diploid cells have two copies of each chromosome, human cells can have a varying quantity of mtDNA ranging from 100-10,000 copies.  The resultant high coverage in bulk sequencing data allows for the sensitive detection of low frequency variation seen with mitoCaller. [mitoCaller](https://doi.org/10.1371/journal.pgen.1005306) is a script which uses a mitochondrial specific algorithm designed to account for these unique factors to identify mtDNA variants.[<sup>7-8</sup>](#references)
 
-### 5. Call Heteroplasmy on Paired Samples
+### 5. Convert mitoCaller output with Mito2VCF
+
+mitoCaller2VCF converts results from mitoCaller to VCF format as the output of mitoCaller is a TSV file and must be processed to increase legibility.[<sup>7</sup>](#references)
+
+### 6. Call Heteroplasmy on Paired Samples
 
 Heteroplasmy is the presence of more than one type of organellar genome (mitochondrial DNA or plastid DNA) within a cell or individual. This script compares heteroplasmy using the normal sample as a reference point.
 
@@ -96,7 +101,7 @@ Provide either a normal sample or tumor sample and leave the other entry blank i
 The data will be organized under the tumor sample ID.
 
 ### input.config
-The config file can take 6 arguments. See provided [template](./config/template.config).
+The config file can take 11 arguments. See provided [template](./config/template.config).
 || Input Parameter | Required | Type | Description |
 |:---|:----------------|:---------|:-----|:----------------------------|
 | 1 | `dataset_id` | yes | string | dataset identifier attached to pipeline output. |
@@ -106,6 +111,10 @@ The config file can take 6 arguments. See provided [template](./config/template.
 | 5 | `save_intermediate_files` | no | boolean | Save intermediate files. If yes, not only the final BAM, but also the unmerged, unsorted, and duplicates unmarked BAM files will also be saved. Default is set to `false`. |
 | 6 | `cache_intermediate_pipeline_steps` | no | boolean | Enable caching to resume pipeline and the end of the last successful process completion when a pipeline fails (if true the default submission script must be modified). Default is set to `false`. |
 | 7 | `base_resource_update` | no | namespace | Namespace of parameters to update base resource allocations in the pipeline. Usage and structure are detailed in `template.config` and below. |
+| 8 | `downsample_mtoolbox_bam` | no | boolean |  |
+| 9 | `probability_downsample` | no | float | Corresponds to the PROBABILITY parameter in DownsampleSam. Specifies the fraction of reads to retain during downsampling. |
+| 10 |`downsample_strategy`  | no | string | Corresponds to the STRATEGY parameter in DownsampleSam. Determines the algorithm used for downsampling. Options include ConstantMemory, HighAccuracy, and Chained. |
+| 11 |`downsample_accuracy`  | no | string | Corresponds to the ACCURACY parameter in DownsampleSam. Defines the desired accuracy level for the downsampling process. A smaller value indicates higher accuracy but may require more memory. |
 
  #### Base resource allocation updaters
 To optionally update the base resource (cpus or memory) allocations for processes, use the following structure and add the necessary parts. The default allocations can be found in the [node-specific config files](./config/)
@@ -212,8 +221,9 @@ Included is a template for validating your input files. For more information on 
 3.  [SAMTools](https://www.htslib.org/)
 4.  [Calabrese C, Simone D, Diroma MA, et al. MToolBox: a highly automated pipeline for heteroplasmy annotation and prioritization analysis of human mitochondrial variants in high-throughput sequencing. Bioinformatics. 2014;30(21):3115-3117](https://pubmed.ncbi.nlm.nih.gov/25028726/)
 5.  [MToolBox github](https://github.com/mitoNGS/MToolBox)
-6.  [mitoCaller](https://lgsun.irp.nia.nih.gov/hsgu/software/mitoAnalyzer/mitoAnalyzer.htm)
-7.  [Ding J, Sidore C, Butler TJ, Wing MK, Qian Y, et al. (2015) Correction: Assessing Mitochondrial DNA Variation and Copy Number in Lymphocytes of ~2,000 Sardinians Using Tailored Sequencing Analysis Tools](https://doi.org/10.1371/journal.pgen.1005306)
+6.  [DownsampleSAM](https://gatk.broadinstitute.org/hc/en-us/articles/360037056792-DownsampleSam-Picard)
+7.  [mitoCaller](https://lgsun.irp.nia.nih.gov/hsgu/software/mitoAnalyzer/mitoAnalyzer.htm)
+8.  [Ding J, Sidore C, Butler TJ, Wing MK, Qian Y, et al. (2015) Correction: Assessing Mitochondrial DNA Variation and Copy Number in Lymphocytes of ~2,000 Sardinians Using Tailored Sequencing Analysis Tools](https://doi.org/10.1371/journal.pgen.1005306)
 
 ---
 

@@ -64,6 +64,12 @@
       "dataset_id": "NFTEST",
       "date": "19970704T165655Z",
       "docker_container_registry": "ghcr.io/uclahs-cds",
+      "downsample_accuracy": "1.0E-4",
+      "downsample_index": true,
+      "downsample_md5": true,
+      "downsample_mtoolbox_bam": false,
+      "downsample_seed": "1",
+      "downsample_strategy": "HighAccuracy",
       "gmapdb": "/hot/resource/mitochondria_ref/gmapdb/gmapdb_2021-03-08",
       "heteroplasmy_script_docker_image": "ghcr.io/uclahs-cds/call-heteroplasmy-script:1.0.1",
       "input": {
@@ -105,10 +111,16 @@
       "output_dir_base": "/tmp/outputs/call-mtSNV-VER.SI.ON/NA24149/mitoCaller-1.0.0/",
       "output_dir_prefix": "/tmp/outputs/call-mtSNV-VER.SI.ON/NA24149",
       "patient_id": "illumina",
+      "picard_docker_image": "ghcr.io/uclahs-cds/picard:3.3.0",
+      "picard_version": "3.3.0",
       "pipeval_version": "5.0.0-rc.3",
+      "probability_downsample": "0.5",
       "proc_resource_params": {
         "align_mtDNA_MToolBox": {
           "cpus": "6",
+          "ext": {
+            "retry_codes": []
+          },
           "memory": "35 GB",
           "retry_strategy": {
             "memory": {
@@ -129,6 +141,9 @@
         },
         "call_mtSNV_mitoCaller": {
           "cpus": "1",
+          "ext": {
+            "retry_codes": []
+          },
           "memory": "2 GB",
           "retry_strategy": {
             "memory": {
@@ -139,10 +154,23 @@
         },
         "convert_mitoCaller2vcf_mitoCaller": {
           "cpus": "2",
+          "ext": {
+            "retry_codes": []
+          },
           "memory": "10 GB",
           "retry_strategy": {
             "memory": {
               "operand": "2",
+              "strategy": "exponential"
+            }
+          }
+        },
+        "downsample_BAM_Picard": {
+          "cpus": "1",
+          "memory": "10 GB",
+          "retry_strategy": {
+            "memory": {
+              "operand": "3",
               "strategy": "exponential"
             }
           }
@@ -197,6 +225,14 @@
         "closure": ""
       },
       "cache": true,
+      "common_retry_codes": [
+        "104",
+        "134",
+        "137",
+        "139",
+        "143",
+        "247"
+      ],
       "containerOptions": {
         "1": "--cpu-shares 1024 --cpus $task.cpus",
         "2": "--cpu-shares 1024 --cpus $task.cpus",
@@ -211,10 +247,10 @@
       },
       "echo": true,
       "errorStrategy": {
-        "1": "finish",
-        "2": "finish",
-        "3": "finish",
-        "closure": "finish"
+        "1": "terminate",
+        "2": "terminate",
+        "3": "terminate",
+        "closure": "terminate"
       },
       "executor": "local",
       "ext": {
@@ -283,6 +319,9 @@
       },
       "withName:align_mtDNA_MToolBox": {
         "cpus": "6",
+        "ext": {
+          "retry_codes": []
+        },
         "memory": {
           "1": "35 GB",
           "2": "70 GB",
@@ -301,6 +340,9 @@
       },
       "withName:call_mtSNV_mitoCaller": {
         "cpus": "1",
+        "ext": {
+          "retry_codes": []
+        },
         "memory": {
           "1": "2 GB",
           "2": "6 GB",
@@ -310,11 +352,23 @@
       },
       "withName:convert_mitoCaller2vcf_mitoCaller": {
         "cpus": "2",
+        "ext": {
+          "retry_codes": []
+        },
         "memory": {
           "1": "10 GB",
           "2": "20 GB",
           "3": "40 GB",
           "closure": "retry_updater(10 GB, exponential, 2, $task.attempt, memory)"
+        }
+      },
+      "withName:downsample_BAM_Picard": {
+        "cpus": "1",
+        "memory": {
+          "1": "10 GB",
+          "2": "30 GB",
+          "3": "90 GB",
+          "closure": "retry_updater(10 GB, exponential, 3, $task.attempt, memory)"
         }
       },
       "withName:extract_mtDNA_BAMQL": {
