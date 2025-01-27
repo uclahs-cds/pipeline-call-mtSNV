@@ -11,6 +11,12 @@ Extract mitochondrial reads;
 :==MToolBox
 ----
 Align to mitochondrial genome;
+if (downsampling enabled) then (yes)
+  :==downsample_BAM_Picard
+  ----
+  downsample BAM;
+else (no)
+endif
 :==MitoCaller
 ----
 Call mitochondrial variants;

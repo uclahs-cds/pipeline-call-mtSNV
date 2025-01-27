@@ -4,7 +4,7 @@ process align_mtDNA_MToolBox {
     container params.MToolBox_docker_image
     containerOptions "--volume \"${params.gmapdb}:/src/gmapdb/\" --volume \"${params.mt_ref_genome_dir}:/src/genome_fasta/\""
 
-    // Main ouput recalibrated & reheadered reads
+    // Main output recalibrated & reheadered reads
     publishDir {"${params.output_dir_base}/output/"},
         pattern: "${output_filename_base}.bam",
         mode: 'copy'
@@ -56,7 +56,7 @@ process align_mtDNA_MToolBox {
         path("tmp")
         path("*.conf")
 
-// !!!NOTE!!! Output file location can not be spceified withing the mtoolbox command or it breaks mtoolbox script when running a BAM file
+// !!!NOTE!!! Output file location can not be specified withing the mtoolbox command or it breaks mtoolbox script when running a BAM file
 // !!!NOTE!!! Location of the directory with the reference genome needs to be mounted on docker image. The actual file can not be called on. This is because MToolBox uses a script as an input that requires this file location.
 
     script:
