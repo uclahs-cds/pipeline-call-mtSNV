@@ -60,6 +60,7 @@ process downsample_BAM_Picard {
             STRATEGY=${params.downsample_strategy} \
             CREATE_INDEX=${params.downsample_index} \
             CREATE_MD5_FILE=${params.downsample_md5} \
+            VALIDATION_STRINGENCY=${params.validation_stringency} \
             TMP_DIR=${task.workDir}
         """
     }
