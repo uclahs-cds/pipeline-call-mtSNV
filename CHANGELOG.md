@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Changed
 - Update SAMTools version to 1.21
 - Add downsample BAM functionality
+- Reclassify MToolBox output prioritized_variants as a primary output
 
 ## [5.1.0] 2024-07-30
 ### Added
