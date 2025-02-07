@@ -67,19 +67,19 @@ downsample_mtoolbox_bam:
   help: 'Boolean value to indicate whether the MToolBox aligned BAM should be downsampled before mitoCaller is called'
 downsample_seed:
   type: 'Integer'
-  required: false
+  required: true
   help: 'Random seed for the downsampling process'
 downsample_index:
   type: 'Bool'
-  required: false
+  required: true
   help: 'Boolean value controlling whether an index file is created for the downsampled BAM'
 downsample_md5:
   type: 'Bool'
-  required: false
+  required: true
   help: 'Boolean value controlling whether an md5 checksum is created for the downsampled BAM'
 downsample_validation_stringency:
   type: 'String'
-  required: false
+  required: true
   help: 'validation stringency for downsample BAM process'
   default: 'LENIENT'
   choices:
