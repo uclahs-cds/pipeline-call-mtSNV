@@ -70,6 +70,7 @@
       "downsample_mtoolbox_bam": false,
       "downsample_seed": "1",
       "downsample_strategy": "HighAccuracy",
+      "downsample_validation_stringency": "LENIENT",
       "gmapdb": "/hot/resource/mitochondria_ref/gmapdb/gmapdb_2021-03-08",
       "heteroplasmy_script_docker_image": "ghcr.io/uclahs-cds/call-heteroplasmy-script:1.0.1",
       "input": {
@@ -215,7 +216,6 @@
         "[/hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/input/data/illumina/CRAM/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24149.cram",
         "index]"
       ],
-      "validation_stringency": "LENIENT",
       "work_dir": "/scratch/8543"
     },
     "process": {
