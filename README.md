@@ -101,7 +101,7 @@ Provide either a normal sample or tumor sample and leave the other entry blank i
 The data will be organized under the tumor sample ID.
 
 ### input.config
-The config file can take 12 arguments. See provided [template](./config/template.config).
+The config file can take 11 arguments. See provided [template](./config/template.config).
 || Input Parameter | Required | Type | Description |
 |:---|:----------------|:---------|:-----|:----------------------------|
 | 1 | `dataset_id` | yes | string | dataset identifier attached to pipeline output. |
@@ -115,7 +115,15 @@ The config file can take 12 arguments. See provided [template](./config/template
 | 9 | `probability_downsample` | no | float | Corresponds to the PROBABILITY parameter in DownsampleSam. Specifies the fraction of reads to retain during downsampling. |
 | 10 |`downsample_strategy`  | no | string | Corresponds to the STRATEGY parameter in DownsampleSam. Determines the algorithm used for downsampling. Options include ConstantMemory, HighAccuracy, and Chained. |
 | 11 |`downsample_accuracy`  | no | string | Corresponds to the ACCURACY parameter in DownsampleSam. Defines the desired accuracy level for the downsampling process. A smaller value indicates higher accuracy but may require more memory. |
-| 12 | `validation_stringency` | no | string | Corresponds to VALIDATION_STRINGENCY in DownsampleSam. Default is 'LENIENT' choices: 'STRICT', 'LENIENT', 'SILENT'. |
+
+Additionally, There are 4 parameters which are defined in a [default config](./config/default.config) but can be optionally included and overwritten in the `input.config`.
+
+|| Parameter | Type | Default | Description |
+|:---|:----------------|:-----|:-----|:----------------------------|
+| 1 | downsample_seed | int | 1 | Random seed used for downsample process |
+| 2 | downsample_index | boolean | true | Whether to create a BAM index of downsampled BAM |
+| 3 | downsample_md5| boolean | true | Whether to create an MD5 digest of downsampled BAM |
+| 4 | downsample_validation_stringency | string | 'LENIENT' | Corresponds to the VALIDATION_STRINGENCY paramter of DownsampleSam. Choices: STRICT, LENIENT, SILENT|
 
  #### Base resource allocation updaters
 To optionally update the base resource (cpus or memory) allocations for processes, use the following structure and add the necessary parts. The default allocations can be found in the [node-specific config files](./config/)
