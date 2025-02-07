@@ -77,6 +77,15 @@ downsample_md5:
   type: 'Bool'
   required: false
   help: 'Boolean value controlling whether an md5 checksum is created for the downsampled BAM'
+validation_stringency:
+  type: 'String'
+  required: false
+  help: 'validation stringency for downsample BAM process'
+  default: 'LENIENT'
+  choices:
+    - STRICT
+    - LENIENT
+    - SILENT
 probability_downsample:
   type: 'Number'
   required: false
