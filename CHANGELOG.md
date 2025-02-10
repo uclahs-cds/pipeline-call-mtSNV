@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Changed
 - Update SAMTools version to 1.21
 - Add downsample BAM functionality
+- Add ability to modulate validation stringency level for downsample BAM process
 - Generate sha512 Checksums for *.bam and *.vcf files
 
 ## [5.1.0] 2024-07-30

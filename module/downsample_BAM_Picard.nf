@@ -52,6 +52,7 @@ process downsample_BAM_Picard {
             RANDOM_SEED=${params.downsample_seed} \
             STRATEGY=${params.downsample_strategy} \
             CREATE_INDEX=${params.downsample_index} \
+            VALIDATION_STRINGENCY=${params.downsample_validation_stringency} \
             TMP_DIR=${task.workDir}
         """
     }

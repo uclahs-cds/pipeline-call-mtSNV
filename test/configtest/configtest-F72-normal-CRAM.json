@@ -70,6 +70,7 @@
       "downsample_mtoolbox_bam": false,
       "downsample_seed": "1",
       "downsample_strategy": "HighAccuracy",
+      "downsample_validation_stringency": "LENIENT",
       "gmapdb": "/hot/resource/mitochondria_ref/gmapdb/gmapdb_2021-03-08",
       "heteroplasmy_script_docker_image": "ghcr.io/uclahs-cds/call-heteroplasmy-script:1.0.1",
       "input": {
