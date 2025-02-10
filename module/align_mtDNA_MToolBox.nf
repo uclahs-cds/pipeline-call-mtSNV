@@ -10,7 +10,7 @@ process align_mtDNA_MToolBox {
         mode: 'copy'
 
     publishDir {"${params.output_dir_base}/output/"},
-        pattern: "{mt_classification_best_results.csv,summary*.txt}",
+        pattern: "{mt_classification_best_results.csv,summary*.txt,prioritized_variants.txt}",
         mode: 'copy',
         saveAs: {"${output_filename_base}_${sanitize_string(file(it).getName())}"}
 
