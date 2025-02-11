@@ -4,11 +4,7 @@ process convert_mitoCaller2vcf_mitoCaller {
     container params.mitoCaller2vcf_docker_image
 
     publishDir {"${params.output_dir_base}/output/"},
-        pattern: "${output_filename_base}.vcf",
-        mode: 'copy'
-
-    publishDir {"${params.output_dir_base}/output/"},
-        pattern: "${output_filename_base}_homoplasmy.vcf",
+        pattern: "*.vcf",
         mode: 'copy'
 
     //logs
@@ -35,15 +31,12 @@ process convert_mitoCaller2vcf_mitoCaller {
         homoplasmy_vcf_header = "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\t${sample_name}"
         """
         echo '${mitocaller_out.baseName} ${mitocaller_out}' > ${mitocaller_out.baseName}.list
-        python3.8 /mitoCaller2vcf/mitoCaller2vcf.py -s ./${mitocaller_out.baseName}.list -y ${sample_name}_homoplasmy.vcf -o ${sample_name}_output.vcf
+        python3.8 /mitoCaller2vcf/mitoCaller2vcf.py -s ./${mitocaller_out.baseName}.list -y ${sample_name}_homoplasmy.vcf -o {output_filename_base}.vcf
         last_header_line=\$(grep -n '^##' ${sample_name}_homoplasmy.vcf | tail -1 | cut -d: -f1)
         head -n \$last_header_line ${sample_name}_homoplasmy.vcf > tmpfile
         echo '${homoplasmy_vcf_header}' >> tmpfile
         tail -n +\$((\$last_header_line + 1)) ${sample_name}_homoplasmy.vcf >> tmpfile
-        mv tmpfile ${sample_name}_homoplasmy.vcf
-
-        mv ${sample_name}_output.vcf ${output_filename_base}.vcf
-        mv ${sample_name}_homoplasmy.vcf ${output_filename_base}_homoplasmy.vcf
+        mv tmpfile ${output_filename_base}_homoplasmy.vcf
         """
 }
 
