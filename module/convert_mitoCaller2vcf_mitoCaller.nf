@@ -29,14 +29,16 @@ process convert_mitoCaller2vcf_mitoCaller {
             [:]
             )
         homoplasmy_vcf_header = "#CHROM\tPOS\tID\tREF\tALT\tQUAL\tFILTER\tINFO\tFORMAT\t${sample_name}"
+        output_file = "${output_filename_base}.vcf"
+        output_file_homoplasmy = "${output_filename_base}_homoplasmy.vcf"
         """
         echo '${mitocaller_out.baseName} ${mitocaller_out}' > ${mitocaller_out.baseName}.list
-        python3.8 /mitoCaller2vcf/mitoCaller2vcf.py -s ./${mitocaller_out.baseName}.list -y ${output_filename_base}_homoplasmy.vcf -o ${output_filename_base}.vcf
-        last_header_line=\$(grep -n '^##' ${output_filename_base}_homoplasmy.vcf | tail -1 | cut -d: -f1)
-        head -n \$last_header_line ${output_filename_base}_homoplasmy.vcf > tmpfile
+        python3.8 /mitoCaller2vcf/mitoCaller2vcf.py -s ./${mitocaller_out.baseName}.list -y ${output_file_homoplasmy} -o ${output_file}
+        last_header_line=\$(grep -n '^##' ${output_file_homoplasmy} | tail -1 | cut -d: -f1)
+        head -n \$last_header_line ${output_file_homoplasmy} > tmpfile
         echo '${homoplasmy_vcf_header}' >> tmpfile
-        tail -n +\$((\$last_header_line + 1)) ${output_filename_base}_homoplasmy.vcf >> tmpfile
-        mv tmpfile ${output_filename_base}_homoplasmy.vcf
+        tail -n +\$((\$last_header_line + 1)) ${output_file_homoplasmy} >> tmpfile
+        mv tmpfile ${output_file_homoplasmy}
         """
 }
 
