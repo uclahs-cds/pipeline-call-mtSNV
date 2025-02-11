@@ -3,14 +3,6 @@ include {generate_standard_filename} from "${projectDir}/external/pipeline-Nextf
 process convert_mitoCaller2vcf_mitoCaller {
     container params.mitoCaller2vcf_docker_image
 
-    // publishDir {"${params.output_dir_base}/output/"},
-    //     pattern: "${output_filename_base}.vcf",
-    //     mode: 'copy'
-
-    // publishDir {"${params.output_dir_base}/output/"},
-    //     pattern: "${output_filename_base}_homoplasmy.vcf",
-    //     mode: 'copy'
-
     publishDir {"${params.output_dir_base}/output/"},
         pattern: "*.vcf",
         mode: 'copy'
