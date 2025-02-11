@@ -121,7 +121,8 @@ Additionally, There are 3 parameters which are defined in a [default config](./c
 || Parameter | Type | Default | Description |
 |:---|:----------------|:-----|:-----|:----------------------------|
 | 1 | downsample_seed | int | 1 | Random seed used for downsample process |
-| 2 | downsample_index | boolean | true | Whether to create a BAM index of downsample | downsample_validation_stringency | string | 'LENIENT' | Corresponds to the VALIDATION_STRINGENCY paramter of DownsampleSam. Choices: STRICT, LENIENT, SILENT|
+| 2 | downsample_index | boolean | true | Whether to create a BAM index of downsample |
+| 3 | downsample_validation_stringency | string | 'LENIENT' | Corresponds to the VALIDATION_STRINGENCY paramter of DownsampleSam. Choices: STRICT, LENIENT, SILENT|
 
  #### Base resource allocation updaters
 To optionally update the base resource (cpus or memory) allocations for processes, use the following structure and add the necessary parts. The default allocations can be found in the [node-specific config files](./config/)
