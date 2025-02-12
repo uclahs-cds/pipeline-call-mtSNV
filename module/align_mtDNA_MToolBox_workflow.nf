@@ -25,26 +25,26 @@ workflow align_mtDNA {
     align_mtDNA_MToolBox.out.aligned_mt_reads
         .map{ type, sample, bam -> bam } // [type, sample, path]
         .flatten()
-        .set { bam_channel }
+        .set { bam_ch }
 
     if (params.downsample_mtoolbox_bam) {
         downsample_BAM_Picard(align_mtDNA_MToolBox.out.aligned_mt_reads)
         bam_for_mitoCaller = downsample_BAM_Picard.out.downsampled_mt_reads
 
-        generate_checksum_input.mix(
+        bam_ch.mix(
             bam_for_mitoCaller
                 .map{ type, sample, bam -> bam }
                 .flatten()
             )
-            .set{ bam_channel }
+            .set{ bam_ch }
         }
     else {
         bam_for_mitoCaller = align_mtDNA_MToolBox.out.aligned_mt_reads
         }
 
     // generate_checksum_PipeVal(bam_channel)
-    run_index_SAMtools(bam_channel)
-    generate_checksum_PipeVal(bam_channel.mix(run_index_SAMtools.out.index))
+    run_index_SAMtools(bam_ch)
+    generate_checksum_PipeVal(bam_ch.mix(run_index_SAMtools.out.index))
 
     emit:
     bam_for_mitoCaller
