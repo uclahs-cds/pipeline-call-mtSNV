@@ -7,7 +7,7 @@ include { generate_checksum_PipeVal                 } from '../external/pipeline
         checksum_alg: 'sha512'
         ]
     )
-include { run_index_SAMtools } from '/hot/code/kpashminehazar/GitHub/uclahs-cds/pipeline-Nextflow-module_development/worktree/kpash-add-index-file-module/modules/common/generate_index/main.nf' addParams(
+include { run_index_SAMtools } from '../external/pipeline-Nextflow-module/modules/common/generate_index/main.nf' addParams(
     options: [
         output_dir: "${params.output_dir_base}/output",
         docker_image_version: params.samtools_version,
