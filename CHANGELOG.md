@@ -8,7 +8,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ---
 ## [Unreleased]
 ### Add
-- Create index files for output `*.bam` files
+- Create index files for output `*.bam` amd output `*.vcf` files
 
 ### Changed
 - Update SAMTools version to 1.21
