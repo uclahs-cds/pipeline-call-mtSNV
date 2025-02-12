@@ -66,7 +66,6 @@
       "docker_container_registry": "ghcr.io/uclahs-cds",
       "downsample_accuracy": "1.0E-4",
       "downsample_index": true,
-      "downsample_md5": true,
       "downsample_mtoolbox_bam": false,
       "downsample_seed": "1",
       "downsample_strategy": "HighAccuracy",

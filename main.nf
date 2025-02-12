@@ -28,6 +28,30 @@ include { run_validate_PipeVal as validate_output } from './external/pipeline-Ne
         main_process: "./" //Save logs in <log_dir>/process-log/run_validate_PipeVal
         ]
     )
+include { generate_checksum_PipeVal as generate_BAM_checksum } from './external/pipeline-Nextflow-module/modules/PipeVal/generate-checksum/main.nf' addParams(
+    options: [
+        output_dir: "${params.output_dir_base}/output",
+        docker_image_version: params.pipeval_version,
+        main_process: "./",
+        checksum_alg: 'sha512'
+        ]
+    )
+include { generate_checksum_PipeVal as generate_VCF_checksum } from './external/pipeline-Nextflow-module/modules/PipeVal/generate-checksum/main.nf' addParams(
+    options: [
+        output_dir: "${params.output_dir_base}/output",
+        docker_image_version: params.pipeval_version,
+        main_process: "./",
+        checksum_alg: 'sha512'
+        ]
+    )
+include { generate_checksum_PipeVal as generate_downsampled_BAM_checksum } from './external/pipeline-Nextflow-module/modules/PipeVal/generate-checksum/main.nf' addParams(
+    options: [
+        output_dir: "${params.output_dir_base}/output",
+        docker_image_version: params.pipeval_version,
+        main_process: "./",
+        checksum_alg: 'sha512'
+        ]
+    )
 
 log.info """\
 ======================================
@@ -89,10 +113,23 @@ workflow{
     //step 3: remapping reads with mtoolbox
     align_mtDNA_MToolBox( extracted_mt_reads )
 
+    generate_BAM_checksum(
+        align_mtDNA_MToolBox.out.aligned_mt_reads
+        .map{ type, sample, bam -> bam } // [type, sample, path]
+        .flatten()
+        )
+
     //step 4a: downsample MToolBox BAM to account for mitoCaller's memory limitations
     if (params.downsample_mtoolbox_bam) {
         downsample_BAM_Picard( align_mtDNA_MToolBox.out.aligned_mt_reads )
         bam_for_mitoCaller = downsample_BAM_Picard.out.downsampled_mt_reads
+
+        generate_downsampled_BAM_checksum(
+            downsample_BAM_Picard.out.downsampled_mt_reads
+            .map{ type, sample, bam -> bam }
+            .mix(downsample_BAM_Picard.out.bai_files)
+            .flatten()
+            )
         }
     else {
         bam_for_mitoCaller = align_mtDNA_MToolBox.out.aligned_mt_reads
@@ -115,13 +152,10 @@ workflow{
         call_heteroplasmy( mitoCaller_forked_ch.normal, mitoCaller_forked_ch.tumor )
         }
 
+    generate_VCF_checksum(convert_mitoCaller2vcf_mitoCaller.out.vcf.flatten())
     //step 7: validate output script
-    validate_output(
-        convert_mitoCaller2vcf_mitoCaller
-        .out
-        .vcf
-        .flatten()
-        )
+    validate_output(convert_mitoCaller2vcf_mitoCaller.out.vcf.flatten())
+
     validate_output.out.validation_result.collectFile(
         name: 'output_validation.txt',
         storeDir: "${params.output_dir_base}/validation"

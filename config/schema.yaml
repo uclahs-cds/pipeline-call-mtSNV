@@ -73,10 +73,6 @@ downsample_index:
   type: 'Bool'
   required: true
   help: 'Boolean value controlling whether an index file is created for the downsampled BAM'
-downsample_md5:
-  type: 'Bool'
-  required: true
-  help: 'Boolean value controlling whether an md5 checksum is created for the downsampled BAM'
 downsample_validation_stringency:
   type: 'String'
   required: true

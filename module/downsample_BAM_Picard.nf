@@ -4,19 +4,13 @@ process downsample_BAM_Picard {
     container params.picard_docker_image
 
     publishDir {"${params.output_dir_base}/output/"},
-        pattern: "*.bam",
-        mode: 'copy',
-        saveAs: { "${output_filename_base}_downsampled.bam" }
+        pattern: "${output_filename_base}_downsampled.bam",
+        mode: 'copy'
 
     publishDir {"${params.output_dir_base}/output/"},
         pattern: "*.bai",
         mode: 'copy',
         saveAs: { "${output_filename_base}_downsampled.bam.bai" }
-
-    publishDir {"${params.output_dir_base}/output/"},
-        pattern: "*.md5",
-        mode: 'copy',
-        saveAs: { "${output_filename_base}_downsampled.bam.md5" }
 
     publishDir {"${params.output_dir_base}/QC/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
@@ -38,8 +32,7 @@ process downsample_BAM_Picard {
         tuple val(type), val(sample_name), path("*.bam"), emit: downsampled_mt_reads
         path '.command.*'
         path("*downsampleSAM-metrics.txt")
-        path("*.bai"), optional: true
-        path("*.md5"), optional: true
+        path("*.bai"), emit: bai_files, optional: true
 
     script:
         output_filename_base = generate_standard_filename(
@@ -59,7 +52,6 @@ process downsample_BAM_Picard {
             RANDOM_SEED=${params.downsample_seed} \
             STRATEGY=${params.downsample_strategy} \
             CREATE_INDEX=${params.downsample_index} \
-            CREATE_MD5_FILE=${params.downsample_md5} \
             VALIDATION_STRINGENCY=${params.downsample_validation_stringency} \
             TMP_DIR=${task.workDir}
         """
