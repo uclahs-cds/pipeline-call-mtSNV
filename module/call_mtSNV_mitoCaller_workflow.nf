@@ -7,6 +7,12 @@ include { generate_checksum_PipeVal  } from '../external/pipeline-Nextflow-modul
         checksum_alg: 'sha512'
         ]
     )
+include { compress_index_VCF         } from '../external/pipeline-Nextflow-module/modules/common/index_VCF_tabix/main.nf' addParams(
+    options: [
+        output_dir:  "${params.output_dir_base}",
+        docker_image:  params.SAMtools_docker_image
+    ]
+)
 
 workflow call_mtSNV {
     take:
@@ -15,7 +21,18 @@ workflow call_mtSNV {
     main:
     call_mtSNV_mitoCaller( bam_for_mitoCaller )
     convert_mitoCaller2vcf_mitoCaller( call_mtSNV_mitoCaller.out.mt_variants_tsv )
-    generate_checksum_PipeVal(convert_mitoCaller2vcf_mitoCaller.out.vcf.flatten())
+
+    convert_mitoCaller2vcf_mitoCaller.out.vcf_idx_ch
+        .mix(convert_mitoCaller2vcf_mitoCaller.out.homoplasmy_vcf_idx_ch)
+        .set{idx_ch}
+    compress_index_VCF(idx_ch)
+
+    compress_index_VCF.out.index_out
+        .map{sample, vcf, vcf_index -> vcf_index}.flatten()
+        .mix(convert_mitoCaller2vcf_mitoCaller.out.vcf.flatten())
+        .set{ checksum_ch }
+
+    generate_checksum_PipeVal(checksum_ch)
 
     if (params.sample_mode == 'paired') {
         call_mtSNV_mitoCaller.out.mt_variants_gz.branch{
@@ -89,6 +106,8 @@ process convert_mitoCaller2vcf_mitoCaller {
 
     output:
         path '*.vcf', emit: vcf
+        tuple val(sample_name), path("${output_file}"), emit: vcf_idx_ch
+        tuple val(sample_name), path("${output_file_homoplasmy}"), emit: homoplasmy_vcf_idx_ch
         path '.command.*'
 
     script:
