@@ -77,7 +77,7 @@ workflow{
 
     call_mtSNV(align_mtDNA.out.bam_for_mitoCaller)
 
-    validate_output(call_mtSNV.out.vcf.flatten())
+    validate_output(call_mtSNV.out.vcf_gz)
     validate_output.out.validation_result.collectFile(
         name: 'output_validation.txt',
         storeDir: "${params.output_dir_base}/validation"

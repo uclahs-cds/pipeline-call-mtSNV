@@ -28,6 +28,11 @@ workflow call_mtSNV {
     compress_index_VCF(idx_ch)
 
     compress_index_VCF.out.index_out
+        .map{sample, vcf_gz, vcf_index -> vcf_gz}
+        .flatten()
+        .set{ vcf_gz }
+
+    compress_index_VCF.out.index_out
         .map{sample, vcf, vcf_index -> vcf_index}.flatten()
         .mix(convert_mitoCaller2vcf_mitoCaller.out.vcf.flatten())
         .set{ checksum_ch }
@@ -44,7 +49,7 @@ workflow call_mtSNV {
         }
 
     emit:
-    vcf = convert_mitoCaller2vcf_mitoCaller.out.vcf
+    vcf_gz
 }
 
 process call_mtSNV_mitoCaller {
@@ -89,10 +94,6 @@ process call_mtSNV_mitoCaller {
 
 process convert_mitoCaller2vcf_mitoCaller {
     container params.mitoCaller2vcf_docker_image
-
-    publishDir {"${params.output_dir_base}/output/"},
-        pattern: "*.vcf",
-        mode: 'copy'
 
     //logs
     ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" }
