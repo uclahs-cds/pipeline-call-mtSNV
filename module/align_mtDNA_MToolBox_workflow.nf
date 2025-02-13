@@ -27,6 +27,7 @@ workflow align_mtDNA {
         .flatten()
         .set { bam_ch }
 
+    bam_for_mitoCaller = align_mtDNA_MToolBox.out.aligned_mt_reads
     if (params.downsample_mtoolbox_bam) {
         downsample_BAM_Picard(align_mtDNA_MToolBox.out.aligned_mt_reads)
         bam_for_mitoCaller = downsample_BAM_Picard.out.downsampled_mt_reads
@@ -37,9 +38,6 @@ workflow align_mtDNA {
                 .flatten()
             )
             .set{ bam_ch }
-        }
-    else {
-        bam_for_mitoCaller = align_mtDNA_MToolBox.out.aligned_mt_reads
         }
 
     // generate_checksum_PipeVal(bam_channel)
