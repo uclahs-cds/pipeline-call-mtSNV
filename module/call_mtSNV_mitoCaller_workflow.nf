@@ -33,8 +33,7 @@ workflow call_mtSNV {
         .set{ vcf_gz }
 
     compress_index_VCF.out.index_out
-        .map{sample, vcf, vcf_index -> vcf_index}.flatten()
-        .mix(convert_mitoCaller2vcf_mitoCaller.out.vcf.flatten())
+        .map{sample, vcf_gz, vcf_index -> [vcf_gz, vcf_index]}.flatten()
         .set{ checksum_ch }
 
     generate_checksum_PipeVal(checksum_ch)
@@ -106,7 +105,6 @@ process convert_mitoCaller2vcf_mitoCaller {
             )
 
     output:
-        path '*.vcf', emit: vcf
         tuple val(sample_name), path("${output_file}"), emit: vcf_idx_ch
         tuple val(sample_name), path("${output_file_homoplasmy}"), emit: homoplasmy_vcf_idx_ch
         path '.command.*'
