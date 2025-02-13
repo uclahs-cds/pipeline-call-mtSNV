@@ -10,6 +10,7 @@ include { generate_checksum_PipeVal                 } from '../external/pipeline
 include { run_index_SAMtools } from '../external/pipeline-Nextflow-module/modules/common/generate_index/main.nf' addParams(
     options: [
         output_dir: "${params.output_dir_base}/output",
+        log_output_dir: params.log_output_dir,
         docker_image_version: params.samtools_version,
         main_process: "./"
     ]
