@@ -7,12 +7,16 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 ## [Unreleased]
+### Add
+- Create index files for output `*.bam` and output `*.vcf.gz` files
+
 ### Changed
 - Update SAMTools version to 1.21
 - Add downsample BAM functionality
+- Generate sha512 Checksums for `*.bam` and `*.vcf.gz` files
 - Reclassify MToolBox output prioritized_variants as a primary output
 - Add ability to modulate validation stringency level for downsample BAM process
-- Generate sha512 Checksums for `*.bam` and `*.vcf` files
+- Reorganize processes into subworkflows
 
 ## [5.1.0] 2024-07-30
 ### Added
