@@ -7,7 +7,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ---
 ## [Unreleased]
-### Add
+### Added
 - Add downsample BAM functionality
 - Generate sha512 Checksums for `*.bam` and `*.vcf.gz` files
 - Create index files for output `*.bam` and output `*.vcf.gz` files
