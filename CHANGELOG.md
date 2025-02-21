@@ -9,6 +9,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [Unreleased]
 ### Add
 - Create index files for output `*.bam` and output `*.vcf.gz` files
+- Add NFtest asserts for index files
+- Add NFTest case coverage for the downsample BAM process
 
 ### Changed
 - Update SAMTools version to 1.21
@@ -17,6 +19,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Reclassify MToolBox output prioritized_variants as a primary output
 - Add ability to modulate validation stringency level for downsample BAM process
 - Reorganize processes into subworkflows
+- Change NFTest to accommodate for the change from `*.vcf` to `*.vcf.gz`
 
 ## [5.1.0] 2024-07-30
 ### Added
