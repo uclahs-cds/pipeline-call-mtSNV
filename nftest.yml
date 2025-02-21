@@ -22,13 +22,13 @@ cases:
         method: md5
       - actual: call-mtSNV-*/NA24149/mitoCaller-*/output/MToolBox-*_NFTEST_NA24149_mt-classification-best-results.csv
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/normal/call-mtSNV-5.1.0/NA24149/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24149_mt-classification-best-results.csv
-        method: test/assert_MToolBox_csv.sh
+        script: test/assert_MToolBox_csv.sh
       - actual: call-mtSNV-*/NA24149/mitoCaller-*/output/MToolBox-*_NFTEST_NA24149_summary.txt
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/normal/call-mtSNV-5.1.0/NA24149/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24149_summary.txt
-        method: test/assert_MToolBox_summary.sh
+        script: test/assert_MToolBox_summary.sh
       - actual: call-mtSNV-*/NA24149/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149.vcf.gz
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/normal/call-mtSNV-5.1.0/NA24149/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149.vcf.gz
-        method: test/assert_vcf.sh
+        script: test/assert_vcf.sh
       - actual: call-mtSNV-*/NA24149/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149.vcf.gz.tbi
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/normal/call-mtSNV-5.1.0/NA24149/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149.vcf.gz.tbi
         method: md5
@@ -37,7 +37,7 @@ cases:
         method: md5
       - actual: call-mtSNV-*/NA24149/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149_homoplasmy.vcf.gz
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/normal/call-mtSNV-5.1.0/NA24149/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149_homoplasmy.vcf.gz
-        method: test/assert_vcf.sh
+        script: test/assert_vcf.sh
 
   - name: single-tumor-BAM
     message: Test pipeline in single mode with a tumor sample
@@ -55,13 +55,13 @@ cases:
         method: md5
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*_NFTEST_NA24143_mt-classification-best-results.csv
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/tumor/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24143_mt-classification-best-results.csv
-        method: test/assert_MToolBox_csv.sh
+        script: test/assert_MToolBox_csv.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*_NFTEST_NA24143_summary.txt
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/tumor/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24143_summary.txt
-        method: test/assert_MToolBox_summary.sh
+        script: test/assert_MToolBox_summary.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143.vcf.gz
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/tumor/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143.vcf.gz
-        method: test/assert_vcf.sh
+        script: test/assert_vcf.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143.vcf.gz.tbi
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/tumor/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143.vcf.gz.tbi
         method: md5
@@ -70,7 +70,7 @@ cases:
         method: md5
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143_homoplasmy.vcf.gz
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/tumor/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143_homoplasmy.vcf.gz
-        method: test/assert_vcf.sh
+        script: test/assert_vcf.sh
 
   - name: paired-BAM
     message: Test pipeline in paired mode.
@@ -88,10 +88,10 @@ cases:
         method: md5
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*_NFTEST_NA24149_mt-classification-best-results.csv
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24149_mt-classification-best-results.csv
-        method: test/assert_MToolBox_csv.sh
+        script: test/assert_MToolBox_csv.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*_NFTEST_NA24149_summary.txt
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24149_summary.txt
-        method: test/assert_MToolBox_summary.sh
+        script: test/assert_MToolBox_summary.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*_NFTEST_NA24143.bam
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24143.bam
         method: md5
@@ -100,31 +100,31 @@ cases:
         method: md5
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*_NFTEST_NA24143_mt-classification-best-results.csv
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24143_mt-classification-best-results.csv
-        method: test/assert_MToolBox_csv.sh
+        script: test/assert_MToolBox_csv.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*_NFTEST_NA24143_summary.txt
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24143_summary.txt
-        method: test/assert_MToolBox_summary.sh
+        script: test/assert_MToolBox_summary.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149.vcf.gz
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149.vcf.gz
-        method: test/assert_vcf.sh
+        script: test/assert_vcf.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149.vcf.gz.tbi
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149.vcf.gz.tbi
         method: md5
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149_homoplasmy.vcf.gz
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149_homoplasmy.vcf.gz
-        method: test/assert_vcf.sh
+        script: test/assert_vcf.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149_homoplasmy.vcf.gz.tbi
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149_homoplasmy.vcf.gz.tbi
         method: md5
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143.vcf.gz
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143.vcf.gz
-        method: test/assert_vcf.sh
+        script: test/assert_vcf.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143.vcf.gz.tbi
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143.vcf.gz.tbi
         method: md5
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143_homoplasmy.vcf.gz
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143_homoplasmy.vcf.gz
-        method: test/assert_vcf.sh
+        script: test/assert_vcf.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143_homoplasmy.vcf.gz.tbi
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143_homoplasmy.vcf.gz.tbi
         method: md5
@@ -148,13 +148,13 @@ cases:
         method: md5
       - actual: call-mtSNV-*/NA24149/mitoCaller-*/output/MToolBox-*_NFTEST_NA24149_mt-classification-best-results.csv
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/normal/call-mtSNV-5.1.0/NA24149/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24149_mt-classification-best-results.csv
-        method: test/assert_MToolBox_csv.sh
+        script: test/assert_MToolBox_csv.sh
       - actual: call-mtSNV-*/NA24149/mitoCaller-*/output/MToolBox-*_NFTEST_NA24149_summary.txt
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/normal/call-mtSNV-5.1.0/NA24149/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24149_summary.txt
-        method: test/assert_MToolBox_summary.sh
+        script: test/assert_MToolBox_summary.sh
       - actual: call-mtSNV-*/NA24149/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149.vcf.gz
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/normal/call-mtSNV-5.1.0/NA24149/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149.vcf.gz
-        method: test/assert_vcf.sh
+        script: test/assert_vcf.sh
       - actual: call-mtSNV-*/NA24149/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149.vcf.gz.tbi
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/normal/call-mtSNV-5.1.0/NA24149/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149.vcf.gz.tbi
         method: md5
@@ -163,7 +163,7 @@ cases:
         method: md5
       - actual: call-mtSNV-*/NA24149/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149_homoplasmy.vcf.gz
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/normal/call-mtSNV-5.1.0/NA24149/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149_homoplasmy.vcf.gz
-        method: test/assert_vcf.sh
+        script: test/assert_vcf.sh
 
   - name: single-tumor-CRAM
     message: Test pipeline in single mode with a tumor sample
@@ -181,13 +181,13 @@ cases:
         method: md5
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*_NFTEST_NA24143_mt-classification-best-results.csv
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/tumor/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24143_mt-classification-best-results.csv
-        method: test/assert_MToolBox_csv.sh
+        script: test/assert_MToolBox_csv.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*_NFTEST_NA24143_summary.txt
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/tumor/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24143_summary.txt
-        method: test/assert_MToolBox_summary.sh
+        script: test/assert_MToolBox_summary.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143.vcf.gz
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/tumor/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143.vcf.gz
-        method: test/assert_vcf.sh
+        script: test/assert_vcf.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143.vcf.gz.tbi
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/tumor/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143.vcf.gz.tbi
         method: md5
@@ -196,7 +196,7 @@ cases:
         method: md5
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143_homoplasmy.vcf.gz
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/tumor/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143_homoplasmy.vcf.gz
-        method: test/assert_vcf.sh
+        script: test/assert_vcf.sh
 
   - name: paired-CRAM
     message: Test pipeline in paired mode.
@@ -214,10 +214,10 @@ cases:
         method: md5
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*_NFTEST_NA24149_mt-classification-best-results.csv
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24149_mt-classification-best-results.csv
-        method: test/assert_MToolBox_csv.sh
+        script: test/assert_MToolBox_csv.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*_NFTEST_NA24149_summary.txt
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24149_summary.txt
-        method: test/assert_MToolBox_summary.sh
+        script: test/assert_MToolBox_summary.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*_NFTEST_NA24143.bam
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24143.bam
         method: md5
@@ -226,31 +226,31 @@ cases:
         method: md5
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*_NFTEST_NA24143_mt-classification-best-results.csv
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24143_mt-classification-best-results.csv
-        method: test/assert_MToolBox_csv.sh
+        script: test/assert_MToolBox_csv.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*_NFTEST_NA24143_summary.txt
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24143_summary.txt
-        method: test/assert_MToolBox_summary.sh
+        script: test/assert_MToolBox_summary.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149.vcf.gz
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149.vcf.gz
-        method: test/assert_vcf.sh
+        script: test/assert_vcf.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149.vcf.gz.tbi
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149.vcf.gz.tbi
         method: md5
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149_homoplasmy.vcf.gz
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149_homoplasmy.vcf.gz
-        method: test/assert_vcf.sh
+        script: test/assert_vcf.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149_homoplasmy.vcf.gz.tbi
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149_homoplasmy.vcf.gz.tbi
         method: md5
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143.vcf.gz
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143.vcf.gz
-        method: test/assert_vcf.sh
+        script: test/assert_vcf.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143.vcf.gz.tbi
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143.vcf.gz.tbi
         method: md5
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143_homoplasmy.vcf.gz
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143_homoplasmy.vcf.gz
-        method: test/assert_vcf.sh
+        script: test/assert_vcf.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143_homoplasmy.vcf.gz.tbi
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143_homoplasmy.vcf.gz.tbi
         method: md5
@@ -274,10 +274,10 @@ cases:
         method: md5
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*_NFTEST_NA24149_mt-classification-best-results.csv
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/downsampled/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24149_mt-classification-best-results.csv
-        method: test/assert_MToolBox_csv.sh
+        script: test/assert_MToolBox_csv.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*_NFTEST_NA24149_summary.txt
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/downsampled/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24149_summary.txt
-        method: test/assert_MToolBox_summary.sh
+        script: test/assert_MToolBox_summary.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*_NFTEST_NA24143.bam
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/downsampled/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24143.bam
         method: md5
@@ -286,10 +286,10 @@ cases:
         method: md5
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*_NFTEST_NA24143_mt-classification-best-results.csv
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/downsampled/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24143_mt-classification-best-results.csv
-        method: test/assert_MToolBox_csv.sh
+        script: test/assert_MToolBox_csv.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*_NFTEST_NA24143_summary.txt
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/downsampled/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24143_summary.txt
-        method: test/assert_MToolBox_summary.sh
+        script: test/assert_MToolBox_summary.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/MToolBox-*_NFTEST_NA24149_downsampled.bam
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/downsampled/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/MToolBox-1.2.1-b52269e_REFERENCE_NA24149_downsampled.bam
         method: md5
@@ -304,25 +304,25 @@ cases:
         method: md5
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149.vcf.gz
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/downsampled/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149.vcf.gz
-        method: test/assert_vcf.sh
+        script: test/assert_vcf.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149.vcf.gz.tbi
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/downsampled/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149.vcf.gz.tbi
         method: md5
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143.vcf.gz
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/downsampled/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143.vcf.gz
-        method: test/assert_vcf.sh
+        script: test/assert_vcf.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143.vcf.gz.tbi
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/downsampled/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143.vcf.gz.tbi
         method: md5
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149_homoplasmy.vcf.gz
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/downsampled/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149_homoplasmy.vcf.gz
-        method: test/assert_vcf.sh
+        script: test/assert_vcf.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24149_homoplasmy.vcf.gz.tbi
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/downsampled/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24149_homoplasmy.vcf.gz.tbi
         method: md5
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143_homoplasmy.vcf.gz
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/downsampled/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143_homoplasmy.vcf.gz
-        method: test/assert_vcf.sh
+        script: test/assert_vcf.sh
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143_homoplasmy.vcf.gz.tbi
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/downsampled/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143_homoplasmy.vcf.gz.tbi
         method: md5
