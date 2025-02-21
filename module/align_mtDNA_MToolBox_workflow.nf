@@ -59,9 +59,14 @@ process align_mtDNA_MToolBox {
         mode: 'copy'
 
     publishDir {"${params.output_dir_base}/output/"},
-        pattern: "{mt_classification_best_results.csv,summary*.txt}",
+        pattern: "{mt_classification_best_results.csv}",
         mode: 'copy',
         saveAs: {"${output_filename_base}_${sanitize_string(file(it).getName())}"}
+
+    publishDir {"${params.output_dir_base}/output/"},
+        pattern: "summary*.txt",
+        mode: 'copy',
+        saveAs: {"${output_filename_base}_summary.txt"}
 
     publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
