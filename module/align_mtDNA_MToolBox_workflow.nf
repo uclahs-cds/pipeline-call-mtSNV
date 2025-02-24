@@ -51,7 +51,6 @@ workflow align_mtDNA {
 
 process align_mtDNA_MToolBox {
     container params.MToolBox_docker_image
-    containerOptions "--volume \"${params.gmapdb}:/src/gmapdb/\" --volume \"${params.mt_ref_genome_dir}:/src/genome_fasta/\""
 
     // Main output recalibrated & reheadered reads
     publishDir {"${params.output_dir_base}/output/"},
@@ -89,6 +88,8 @@ process align_mtDNA_MToolBox {
 
     //logs
     ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" }
+    ext containerOptions: { gmapdb, mt_ref_genome_dir -> "--volume \"${gmapdb}:/src/gmapdb/\" --volume \"${mt_ref_genome_dir}:/src/genome_fasta/\""}.curry(params.gmapdb, params.mt_ref_genome_dir)
+
 
     input:
         tuple(
@@ -114,6 +115,11 @@ process align_mtDNA_MToolBox {
 // !!!NOTE!!! Location of the directory with the reference genome needs to be mounted on docker image. The actual file can not be called on. This is because MToolBox uses a script as an input that requires this file location.
 
     script:
+        // log.info "[PROCESS] containerOptions: ${-> task.containerOptions}"
+        // log.info "[EXT] Process ${task.process} - task.ext keys: ${task.ext.keySet()}"
+        // task.ext.each { k, v ->
+        //     log.info "[EXT] task.ext[$k] = ${-> v.toString()}"
+        // }
         output_filename_base = generate_standard_filename(
             "MToolBox-${params.mtoolbox_version}",
             params.dataset_id,
