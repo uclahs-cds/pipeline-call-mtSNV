@@ -66,6 +66,7 @@ process extract_mtDNA_SAMtools {
 
     //logs
     ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" }
+    ext containerOptions: { cram_reference_genome -> "--volume ${cram_reference_genome}:${cram_reference_genome}"}(file(params.cram_reference_genome).getParent())
 
     input:
         tuple(
