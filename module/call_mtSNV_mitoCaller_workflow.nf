@@ -56,14 +56,14 @@ process call_mtSNV_mitoCaller {
     containerOptions "-v ${params.mt_ref_genome_dir}:/mitochondria-ref/"
     // Note - reference genome needs to be mounted otherwise mitocaller fails
 
-    publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.output_dir_base}/intermediate/${task.process.replace(':', '/').replace('_', '-')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "${type}_${sample_name}_mitoCaller.tsv",
         mode: 'copy',
         saveAs: { "${output_filename_base}.tsv" }
 
     //logs
-    ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" }
+    ext log_dir: { "${task.process.replace(':', '/').replace('_', '-')}_${sample_name}" }
 
     input:
         tuple(
@@ -95,7 +95,7 @@ process convert_mitoCaller2vcf_mitoCaller {
     container params.mitoCaller2vcf_docker_image
 
     //logs
-    ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" }
+    ext log_dir: { "${task.process.replace(':', '/').replace('_', '-')}_${sample_name}" }
 
     input:
         tuple(
@@ -140,21 +140,21 @@ process call_heteroplasmy {
         saveAs: { "${output_filename_base}_filtered.tsv" }
 
     // unfiltered tsv
-    publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
+    publishDir {"${params.output_dir_base}/intermediate/${task.process.replace(':', '/').replace('_', '-')}/"},
         enabled: params.save_intermediate_files,
         pattern: "*[!{filtered}]*heteroplasmy_call.tsv",
         mode: "copy",
         saveAs: { "${output_filename_base}.tsv" }
 
     // info
-    publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
+    publishDir {"${params.output_dir_base}/intermediate/${task.process.replace(':', '/').replace('_', '-')}/"},
         enabled: params.save_intermediate_files,
         pattern: "*info",
         mode: "copy",
         saveAs: { "${output_filename_base}.pl.programinfo" }
 
     //logs
-    ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}" }
+    ext log_dir: { "${task.process.replace(':', '/').replace('_', '-')}" }
 
     input:
         tuple(
