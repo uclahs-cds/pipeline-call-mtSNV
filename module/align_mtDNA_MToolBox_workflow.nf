@@ -88,7 +88,7 @@ process align_mtDNA_MToolBox {
 
     //logs
     ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" }
-    ext containerOptions: { gmapdb, mt_ref_genome_dir -> "--volume \"${gmapdb}:/src/gmapdb/\" --volume \"${mt_ref_genome_dir}:/src/genome_fasta/\""}.curry(params.gmapdb, params.mt_ref_genome_dir)
+    ext containerOptions: { gmapdb, mt_ref_genome_dir -> "--volume \"${gmapdb}:/src/gmapdb/\" --volume \"${mt_ref_genome_dir}:/src/genome_fasta/\""}(params.gmapdb, params.mt_ref_genome_dir)
 
 
     input:

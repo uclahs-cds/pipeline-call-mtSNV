@@ -63,7 +63,7 @@ process call_mtSNV_mitoCaller {
 
     //logs
     ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" }
-    ext containerOptions: { mt_ref_genome_dir -> "-v ${mt_ref_genome_dir}:/mitochondria-ref/"}.curry(params.mt_ref_genome_dir)
+    ext containerOptions: { mt_ref_genome_dir -> "-v ${mt_ref_genome_dir}:/mitochondria-ref/"}(params.mt_ref_genome_dir)
 
     input:
         tuple(
