@@ -16,6 +16,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Update SAMTools version to 1.21
 - Reclassify MToolBox output prioritized_variants as a primary output
 - Reorganize processes into subworkflows
+- filename standard from `processName/` to `workflowName/processName`
 
 ### Fixed
 - Add ability to modulate validation stringency level for downsample BAM process
