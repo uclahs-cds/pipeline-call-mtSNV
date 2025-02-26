@@ -36,7 +36,6 @@ workflow call_mtSNV {
         .map{sample, vcf_gz, vcf_index -> [vcf_gz, vcf_index]}.flatten()
         .set{ checksum_ch }
 
-    generate_checksum_PipeVal(checksum_ch)
 
     if (params.sample_mode == 'paired') {
         call_mtSNV_mitoCaller.out.mt_variants_gz.branch{
@@ -45,7 +44,11 @@ workflow call_mtSNV {
             }
             .set{ mitoCaller_forked_ch }
         call_heteroplasmy( mitoCaller_forked_ch.normal, mitoCaller_forked_ch.tumor )
+        checksum_ch.mix(call_heteroplasmy.out.tsv)
+            .set{ checksum_ch }
         }
+
+    generate_checksum_PipeVal(checksum_ch)
 
     emit:
     vcf_gz
@@ -170,7 +173,7 @@ process call_heteroplasmy {
             )
 
     output:
-        path '*.tsv'
+        path '*.tsv' emit: tsv
         path '.command.*'
         path '*info'
 
