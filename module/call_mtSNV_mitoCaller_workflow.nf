@@ -138,13 +138,13 @@ process call_heteroplasmy {
 
     // filtered tsv
     publishDir {"${params.output_dir_base}/output/"},
-        pattern: "${output_filename_base}_filtered.tsv",
+        pattern: "${output_filename_base}.tsv",
         mode: "copy"
 
     // unfiltered tsv
     publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
         enabled: params.save_intermediate_files,
-        pattern: "${output_filename_base}.tsv",
+        pattern: "${output_filename_base}_unfiltered.tsv",
         mode: "copy"
 
     // info
@@ -187,9 +187,9 @@ process call_heteroplasmy {
         perl /src/script/call_heteroplasmy_mitocaller.pl \
         --normal ${normal_mitocaller_out} \
         --tumour ${tumor_mitocaller_out} \
-        --output ${output_filename_base}.tsv \
+        --output ${output_filename_base}_unfiltered.tsv \
         --ascat_stat
 
-        mv filtered_${output_filename_base}.tsv ${output_filename_base}_filtered.tsv
+        mv filtered_${output_filename_base}_unfiltered.tsv ${output_filename_base}.tsv
         """
 }
