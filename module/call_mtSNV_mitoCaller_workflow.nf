@@ -63,7 +63,7 @@ process call_mtSNV_mitoCaller {
         saveAs: { "${output_filename_base}.tsv" }
 
     //logs
-    ext log_dir: { "${task.process.replace(':', '/')}_${sample_name}" }
+    ext log_dir_suffix: { "/${sample_name}" }
 
     input:
         tuple(
@@ -95,7 +95,7 @@ process convert_mitoCaller2vcf_mitoCaller {
     container params.mitoCaller2vcf_docker_image
 
     //logs
-    ext log_dir: { "${task.process.replace(':', '/')}_${sample_name}" }
+    ext log_dir_suffix: { "/${sample_name}" }
 
     input:
         tuple(
@@ -152,9 +152,6 @@ process call_heteroplasmy {
         pattern: "*info",
         mode: "copy",
         saveAs: { "${output_filename_base}.pl.programinfo" }
-
-    //logs
-    ext log_dir: { "${task.process.replace(':', '/')}" }
 
     input:
         tuple(

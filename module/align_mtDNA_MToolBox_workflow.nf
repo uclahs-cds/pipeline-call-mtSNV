@@ -7,7 +7,7 @@ include { generate_checksum_PipeVal                 } from '../external/pipeline
         checksum_alg: 'sha512'
         ]
     )
-include { run_index_SAMtools } from '/hot/code/kpashminehazar/GitHub/uclahs-cds/pipeline-Nextflow-module_development/worktree/kpash-fix-process-log/modules/SAMtools/index/main.nf' addParams(
+include { run_index_SAMtools } from '../external/pipeline-Nextflow-module/modules//SAMtools/index/main.nf' addParams(
     options: [
         output_dir: "${params.output_dir_base}/output",
         docker_image_version: params.samtools_version,
@@ -90,7 +90,7 @@ process align_mtDNA_MToolBox {
         saveAs: {"${output_filename_base}_${sanitize_string(file(it).getName())}"}
 
     //logs
-    ext log_dir: { "${task.process.replace(':', '/')}_${sample_name}" }
+    ext log_dir_suffix: {"/${sample_name}"}
 
     input:
         tuple(
@@ -149,7 +149,7 @@ process downsample_BAM_Picard {
         saveAs: { "${output_filename_base}_downsampleSAM-metrics.txt" }
 
     //logs
-    ext log_dir: { "${task.process.replace(':', '/')}_${sample_name}" }
+    ext log_dir_suffix: { "/${sample_name}" }
 
     input:
         tuple(

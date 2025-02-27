@@ -27,7 +27,7 @@ process extract_mtDNA_BAMQL {
         saveAs: {"${output_filename_base}.bam"}
 
     //logs
-    ext log_dir: { "${task.process.replace(':', '/')}_${sample_name}" }
+    ext log_dir_suffix: { "/${sample_name}" }
 
     input:
         tuple(
@@ -65,7 +65,7 @@ process extract_mtDNA_SAMtools {
         saveAs: {"${output_filename_base}.bam"}
 
     //logs
-    ext log_dir: { "${task.process.replace(':', '/')}_${sample_name}" }
+    ext log_dir_suffix: { "/${sample_name}" }
 
     input:
         tuple(
