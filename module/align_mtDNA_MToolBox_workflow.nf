@@ -51,7 +51,6 @@ workflow align_mtDNA {
 
 process align_mtDNA_MToolBox {
     container params.MToolBox_docker_image
-    containerOptions "--volume \"${params.gmapdb}:/src/gmapdb/\" --volume \"${params.mt_ref_genome_dir}:/src/genome_fasta/\""
 
     // Main output recalibrated & reheadered reads
     publishDir {"${params.output_dir_base}/output/"},
@@ -88,7 +87,9 @@ process align_mtDNA_MToolBox {
         saveAs: {"${output_filename_base}_${sanitize_string(file(it).getName())}"}
 
     //logs
-    ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" }
+    ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" },
+        containerOptions: { gmapdb, mt_ref_genome_dir -> "--volume \"${gmapdb}:/src/gmapdb/\" --volume \"${mt_ref_genome_dir}:/src/genome_fasta/\""}(params.gmapdb, params.mt_ref_genome_dir)
+
 
     input:
         tuple(
