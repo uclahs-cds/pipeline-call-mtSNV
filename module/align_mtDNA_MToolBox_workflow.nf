@@ -70,27 +70,27 @@ process align_mtDNA_MToolBox {
         mode: 'copy',
         saveAs: {"${output_filename_base}_summary.txt"}
 
-    publishDir {"${params.output_dir_base}/intermediate/${task.process.replace(':', '/').replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.output_dir_base}/intermediate/${task.process.replace(':', '/')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "OUT_${bamql_out.baseName}/*",
         mode: 'copy',
         saveAs: {"OUT_${bamql_out.baseName}/${sanitize_string(file(it).getName())}"}
 
-    publishDir {"${params.output_dir_base}/intermediate/${task.process.replace(':', '/').replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.output_dir_base}/intermediate/${task.process.replace(':', '/')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "{tmp,VCF_dict_tmp,test}",
         mode: 'copy',
         saveAs: {"${output_filename_base}_${sanitize_string(file(it).getName())}"}
 
     // mtoolbox folder with supplementary files
-    publishDir {"${params.output_dir_base}/intermediate/${task.process.replace(':', '/').replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.output_dir_base}/intermediate/${task.process.replace(':', '/')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "*.{txt,conf,vcf,gz}",
         mode: 'copy',
         saveAs: {"${output_filename_base}_${sanitize_string(file(it).getName())}"}
 
     //logs
-    ext log_dir: { "${task.process.replace(':', '/').replace('_', '-')}_${sample_name}" }
+    ext log_dir: { "${task.process.replace(':', '/')}_${sample_name}" }
 
     input:
         tuple(
@@ -142,14 +142,14 @@ process downsample_BAM_Picard {
         mode: 'copy',
         saveAs: { "${output_filename_base}_downsampled.bam.bai" }
 
-    publishDir {"${params.output_dir_base}/QC/${task.process.replace(':', '/').replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.output_dir_base}/QC/${task.process.replace(':', '/')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "*metrics.txt",
         mode: 'copy',
         saveAs: { "${output_filename_base}_downsampleSAM-metrics.txt" }
 
     //logs
-    ext log_dir: { "${task.process.replace(':', '/').replace('_', '-')}_${sample_name}" }
+    ext log_dir: { "${task.process.replace(':', '/')}_${sample_name}" }
 
     input:
         tuple(

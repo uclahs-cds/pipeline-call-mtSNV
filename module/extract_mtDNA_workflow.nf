@@ -20,14 +20,14 @@ process extract_mtDNA_BAMQL {
     container params.BAMQL_docker_image
 
     //  extracted mt DNA
-    publishDir {"${params.output_dir_base}/intermediate/${task.process.replace(':', '/').replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.output_dir_base}/intermediate/${task.process.replace(':', '/')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "extracted_mt_reads_*",
         mode: 'copy',
         saveAs: {"${output_filename_base}.bam"}
 
     //logs
-    ext log_dir: { "${task.process.replace(':', '/').replace('_', '-')}_${sample_name}" }
+    ext log_dir: { "${task.process.replace(':', '/')}_${sample_name}" }
 
     input:
         tuple(
@@ -58,14 +58,14 @@ process extract_mtDNA_SAMtools {
     container params.SAMtools_docker_image
 
     //  extracted mt DNA
-    publishDir {"${params.output_dir_base}/intermediate/${task.process.replace(':', '/').replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.output_dir_base}/intermediate/${task.process.replace(':', '/')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "extracted_mt_reads_*",
         mode: 'copy',
         saveAs: {"${output_filename_base}.bam"}
 
     //logs
-    ext log_dir: { "${task.process.replace(':', '/').replace('_', '-')}_${sample_name}" }
+    ext log_dir: { "${task.process.replace(':', '/')}_${sample_name}" }
 
     input:
         tuple(
