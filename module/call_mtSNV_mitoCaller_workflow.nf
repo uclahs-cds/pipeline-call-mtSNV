@@ -53,7 +53,6 @@ workflow call_mtSNV {
 
 process call_mtSNV_mitoCaller {
     container params.mitocaller_docker_image
-    containerOptions "-v ${params.mt_ref_genome_dir}:/mitochondria-ref/"
     // Note - reference genome needs to be mounted otherwise mitocaller fails
 
     publishDir {"${params.output_dir_base}/intermediate/${task.process.replace(':', '/')}_${sample_name}/"},
@@ -63,7 +62,8 @@ process call_mtSNV_mitoCaller {
         saveAs: { "${output_filename_base}.tsv" }
 
     //logs
-    ext log_dir_suffix: { "/${sample_name}" }
+    ext log_dir_suffix: { "/${sample_name}" },
+        containerOptions: { mt_ref_genome_dir -> "-v ${mt_ref_genome_dir}:/mitochondria-ref/"}(params.mt_ref_genome_dir)
 
     input:
         tuple(
