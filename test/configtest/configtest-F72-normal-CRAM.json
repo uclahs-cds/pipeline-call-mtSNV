@@ -377,7 +377,6 @@
         }
       },
       "withName:extract_mtDNA_SAMtools": {
-        "containerOptions": "--volume /hot/resource/reference-genome/GRCh38-BI-20160721:/hot/resource/reference-genome/GRCh38-BI-20160721",
         "cpus": "1",
         "memory": {
           "1": "8 GB",
@@ -388,6 +387,9 @@
       },
       "withName:run_validate_PipeVal": {
         "cpus": "1",
+        "ext": {
+          "containerOptions": "--volume /hot/resource/reference-genome/GRCh38-BI-20160721:/hot/resource/reference-genome/GRCh38-BI-20160721"
+        },
         "memory": "2 GB"
       },
       "withName:validate_input:run_validate_PipeVal": {

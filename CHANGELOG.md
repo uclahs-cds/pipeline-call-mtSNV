@@ -20,6 +20,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Reorganize processes into subworkflows
 - Change NFTest to accommodate for the change from `*.vcf` to `*.vcf.gz`
 - Move validation processes into workflows
+- Change process level `containerOptions` to be sourced from `ext` namespace
 
 ### Fixed
 - Add ability to modulate validation stringency level for downsample BAM process
