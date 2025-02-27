@@ -172,7 +172,7 @@ process call_heteroplasmy {
 
     output:
         path '*.tsv'
-        path("${output_filename_base}_filtered.tsv"), emit: tsv
+        path("${output_filename_base}.tsv"), emit: tsv
         path '.command.*'
         path '*info'
 
