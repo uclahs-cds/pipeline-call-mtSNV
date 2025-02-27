@@ -115,11 +115,6 @@ process align_mtDNA_MToolBox {
 // !!!NOTE!!! Location of the directory with the reference genome needs to be mounted on docker image. The actual file can not be called on. This is because MToolBox uses a script as an input that requires this file location.
 
     script:
-        // log.info "[PROCESS] containerOptions: ${-> task.containerOptions}"
-        // log.info "[EXT] Process ${task.process} - task.ext keys: ${task.ext.keySet()}"
-        // task.ext.each { k, v ->
-        //     log.info "[EXT] task.ext[$k] = ${-> v.toString()}"
-        // }
         output_filename_base = generate_standard_filename(
             "MToolBox-${params.mtoolbox_version}",
             params.dataset_id,
