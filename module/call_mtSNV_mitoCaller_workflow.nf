@@ -58,14 +58,14 @@ process call_mtSNV_mitoCaller {
     container params.mitocaller_docker_image
     // Note - reference genome needs to be mounted otherwise mitocaller fails
 
-    publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.output_dir_base}/intermediate/${task.process.replace(':', '/')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "${type}_${sample_name}_mitoCaller.tsv",
         mode: 'copy',
         saveAs: { "${output_filename_base}.tsv" }
 
     //logs
-    ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" },
+    ext log_dir_suffix: { "/${sample_name}" },
         containerOptions: { mt_ref_genome_dir -> "-v ${mt_ref_genome_dir}:/mitochondria-ref/"}(params.mt_ref_genome_dir)
 
     input:
@@ -98,7 +98,7 @@ process convert_mitoCaller2vcf_mitoCaller {
     container params.mitoCaller2vcf_docker_image
 
     //logs
-    ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" }
+    ext log_dir_suffix: { "/${sample_name}" }
 
     input:
         tuple(
@@ -142,20 +142,17 @@ process call_heteroplasmy {
         mode: "copy"
 
     // unfiltered tsv
-    publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
+    publishDir {"${params.output_dir_base}/intermediate/${task.process.replace(':', '/')}/"},
         enabled: params.save_intermediate_files,
         pattern: "${output_filename_base}_unfiltered.tsv",
         mode: "copy"
 
     // info
-    publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}/"},
+    publishDir {"${params.output_dir_base}/intermediate/${task.process.replace(':', '/')}/"},
         enabled: params.save_intermediate_files,
         pattern: "*info",
         mode: "copy",
         saveAs: { "${output_filename_base}.pl.programinfo" }
-
-    //logs
-    ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}" }
 
     input:
         tuple(
