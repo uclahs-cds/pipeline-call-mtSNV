@@ -7,10 +7,9 @@ include { generate_checksum_PipeVal                 } from '../external/pipeline
         checksum_alg: 'sha512'
         ]
     )
-include { run_index_SAMtools } from '../external/pipeline-Nextflow-module/modules/common/generate_index/main.nf' addParams(
+include { run_index_SAMtools } from '../external/pipeline-Nextflow-module/modules/SAMtools/index/main.nf' addParams(
     options: [
         output_dir: "${params.output_dir_base}/output",
-        log_output_dir: params.log_output_dir,
         docker_image_version: params.samtools_version,
         main_process: "./"
     ]
@@ -24,8 +23,7 @@ workflow align_mtDNA {
     align_mtDNA_MToolBox( extracted_mt_reads )
 
     align_mtDNA_MToolBox.out.aligned_mt_reads
-        .map{ type, sample, bam -> bam } // [type, sample, path]
-        .flatten()
+        .map{ type, sample, bam -> [sample, bam] } // [type, sample, path]
         .set { bam_ch }
 
     bam_for_mitoCaller = align_mtDNA_MToolBox.out.aligned_mt_reads
@@ -35,15 +33,19 @@ workflow align_mtDNA {
 
         bam_ch.mix(
             bam_for_mitoCaller
-                .map{ type, sample, bam -> bam }
-                .flatten()
+                .map{ type, sample, bam -> [sample, bam] }
             )
             .set{ bam_ch }
         }
 
     // generate_checksum_PipeVal(bam_channel)
     run_index_SAMtools(bam_ch)
-    generate_checksum_PipeVal(bam_ch.mix(run_index_SAMtools.out.index))
+    generate_checksum_PipeVal(
+        bam_ch
+        .map { sample, bam -> bam }
+        .flatten()
+        .mix(run_index_SAMtools.out.index)
+        )
 
     emit:
     bam_for_mitoCaller
@@ -67,29 +69,28 @@ process align_mtDNA_MToolBox {
         mode: 'copy',
         saveAs: {"${output_filename_base}_summary.txt"}
 
-    publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.output_dir_base}/intermediate/${task.process.replace(':', '/')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "OUT_${bamql_out.baseName}/*",
         mode: 'copy',
         saveAs: {"OUT_${bamql_out.baseName}/${sanitize_string(file(it).getName())}"}
 
-    publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.output_dir_base}/intermediate/${task.process.replace(':', '/')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "{tmp,VCF_dict_tmp,test}",
         mode: 'copy',
         saveAs: {"${output_filename_base}_${sanitize_string(file(it).getName())}"}
 
     // mtoolbox folder with supplementary files
-    publishDir {"${params.output_dir_base}/intermediate/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.output_dir_base}/intermediate/${task.process.replace(':', '/')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "*.{txt,conf,vcf,gz}",
         mode: 'copy',
         saveAs: {"${output_filename_base}_${sanitize_string(file(it).getName())}"}
 
     //logs
-    ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" },
+    ext log_dir_suffix: {"/${sample_name}"},
         containerOptions: { gmapdb, mt_ref_genome_dir -> "--volume \"${gmapdb}:/src/gmapdb/\" --volume \"${mt_ref_genome_dir}:/src/genome_fasta/\""}(params.gmapdb, params.mt_ref_genome_dir)
-
 
     input:
         tuple(
@@ -141,14 +142,14 @@ process downsample_BAM_Picard {
         mode: 'copy',
         saveAs: { "${output_filename_base}_downsampled.bam.bai" }
 
-    publishDir {"${params.output_dir_base}/QC/${task.process.split(':')[-1].replace('_', '-')}_${sample_name}/"},
+    publishDir {"${params.output_dir_base}/QC/${task.process.replace(':', '/')}_${sample_name}/"},
         enabled: params.save_intermediate_files,
         pattern: "*metrics.txt",
         mode: 'copy',
         saveAs: { "${output_filename_base}_downsampleSAM-metrics.txt" }
 
     //logs
-    ext log_dir: { "${task.process.split(':')[-1].replace('_', '-')}_${sample_name}" }
+    ext log_dir_suffix: { "/${sample_name}" }
 
     input:
         tuple(
