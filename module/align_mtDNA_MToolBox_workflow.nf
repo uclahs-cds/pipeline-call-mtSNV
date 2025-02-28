@@ -43,10 +43,12 @@ workflow align_mtDNA {
 
     // generate_checksum_PipeVal(bam_channel)
     run_index_SAMtools(bam_ch)
-    generate_checksum_PipeVal(bam_ch.mix(run_index_SAMtools.out.index))
+    bam_ch = bam_ch.mix(run_index_SAMtools.out.index)
+    generate_checksum_PipeVal(bam_ch)
 
     emit:
     bam_for_mitoCaller
+    bam_ch
 }
 
 process align_mtDNA_MToolBox {
