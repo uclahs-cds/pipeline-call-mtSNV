@@ -128,7 +128,7 @@ cases:
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143_homoplasmy.vcf.gz.tbi
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143_homoplasmy.vcf.gz.tbi
         method: md5
-      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/call-heteroplasmy-*_NFTEST_NA24143_filtered.tsv
+      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/call-heteroplasmy-*_NFTEST_NA24143.tsv
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/call-heteroplasmy-1.0.1_REFERENCE_NA24143_filtered.tsv
         method: md5
 
@@ -254,7 +254,7 @@ cases:
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_NFTEST_NA24143_homoplasmy.vcf.gz.tbi
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143_homoplasmy.vcf.gz.tbi
         method: md5
-      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/call-heteroplasmy-*_NFTEST_NA24143_filtered.tsv
+      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/call-heteroplasmy-*_NFTEST_NA24143.tsv
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/call-heteroplasmy-1.0.1_REFERENCE_NA24143_filtered.tsv
         method: md5
 
@@ -326,6 +326,6 @@ cases:
       - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/mitoCaller2vcf-*_REFERENCE_NA24143_homoplasmy.vcf.gz.tbi
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/downsampled/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/mitoCaller2vcf-1.0.0_REFERENCE_NA24143_homoplasmy.vcf.gz.tbi
         method: md5
-      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/call-heteroplasmy-*_REFERENCE_NA24143_filtered.tsv
+      - actual: call-mtSNV-*/NA24143/mitoCaller-*/output/call-heteroplasmy-*_REFERENCE_NA24143.tsv
         expect: /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/outputs/illumina/paired/downsampled/call-mtSNV-5.1.0/NA24143/mitoCaller-1.0.0/output/call-heteroplasmy-1.0.1_REFERENCE_NA24143_filtered.tsv
         method: md5

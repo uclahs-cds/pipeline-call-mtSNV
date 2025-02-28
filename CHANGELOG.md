@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Create index files for output `*.bam` and output `*.vcf.gz` files
 - Add NFtest asserts for index files
 - Add NFTest case coverage for the downsample BAM process
+- Generate sha512 checksum for heteroplasmy `*.tsv`
 
 ### Changed
 - Update SAMTools version to 1.21
