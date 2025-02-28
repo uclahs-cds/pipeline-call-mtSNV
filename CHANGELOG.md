@@ -20,6 +20,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Reclassify MToolBox output prioritized_variants as a primary output
 - Reorganize processes into subworkflows
 - Change NFTest to accommodate for the change from `*.vcf` to `*.vcf.gz`
+- Include `*.bam` and `*.bai` files for output validation
 - Move validation processes into workflows
 - Filename standard from `processName/` to `workflowName/processName`
 - Change process level `containerOptions` to be sourced from `ext` namespace

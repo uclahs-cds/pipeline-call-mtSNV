@@ -63,6 +63,6 @@ workflow{
 
     call_mtSNV(align_mtDNA.out.bam_for_mitoCaller)
 
-    validate_output(call_mtSNV.out.vcf_gz)
+    validate_output(align_mtDNA.out.bam_ch.mix(call_mtSNV.out.vcf_gz))
 
     }
