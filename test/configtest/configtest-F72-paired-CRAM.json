@@ -204,11 +204,7 @@
             }
           }
         },
-        "validate_input": {
-          "cpus": "1",
-          "memory": "2 GB"
-        },
-        "validate_output": {
+        "run_validate_PipeVal": {
           "cpus": "1",
           "memory": "2 GB"
         }
@@ -400,16 +396,14 @@
           "closure": "retry_updater(8 GB, exponential, 3, $task.attempt, memory)"
         }
       },
-      "withName:validate_input": {
+      "withName:run_validate_PipeVal": {
         "cpus": "1",
-        "ext": {
-          "containerOptions": "--volume /hot/resource/reference-genome/GRCh38-BI-20160721:/hot/resource/reference-genome/GRCh38-BI-20160721"
-        },
         "memory": "2 GB"
       },
-      "withName:validate_output": {
-        "cpus": "1",
-        "memory": "2 GB"
+      "withName:validate_input:run_validate_PipeVal": {
+        "ext": {
+          "containerOptions": "--volume /hot/resource/reference-genome/GRCh38-BI-20160721:/hot/resource/reference-genome/GRCh38-BI-20160721"
+        }
       }
     },
     "report": {

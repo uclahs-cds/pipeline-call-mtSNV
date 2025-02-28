@@ -195,11 +195,7 @@
             }
           }
         },
-        "validate_input": {
-          "cpus": "1",
-          "memory": "2 GB"
-        },
-        "validate_output": {
+        "run_validate_PipeVal": {
           "cpus": "1",
           "memory": "2 GB"
         }
@@ -389,11 +385,7 @@
           "closure": "retry_updater(8 GB, exponential, 3, $task.attempt, memory)"
         }
       },
-      "withName:validate_input": {
-        "cpus": "1",
-        "memory": "2 GB"
-      },
-      "withName:validate_output": {
+      "withName:run_validate_PipeVal": {
         "cpus": "1",
         "memory": "2 GB"
       }
