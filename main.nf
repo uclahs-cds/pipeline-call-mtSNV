@@ -8,11 +8,11 @@ Nextflowization: Alfredo Enrique Gonzalez, Andrew Park
 nextflow.enable.dsl=2
 
 //// Import of Local Modules ////
-include {validate_input                      } from './module/validate_input_workflow.nf'
+include { validate as validate_input         } from './module/validate_workflow.nf' addParams(validation_type: 'input')
 include { extract_mtDNA                      } from './module/extract_mtDNA_workflow.nf'
 include { align_mtDNA                        } from './module/align_mtDNA_MToolBox_workflow'
 include { call_mtSNV                         } from './module/call_mtSNV_mitoCaller_workflow'
-include {validate_output                     } from './module/validate_output_workflow.nf'
+include { validate as validate_output        } from './module/validate_workflow.nf' addParams(validation_type: 'output')
 
 log.info """\
 ======================================
@@ -49,9 +49,13 @@ Channel
     .fromList(params.input_list)
     .set { ich }
 
+Channel
+    .fromList(params.validation_list)
+    .set { input_validation }
+
 workflow{
 
-    validate_input()
+    validate_input(input_validation)
 
     extract_mtDNA(ich)
 
