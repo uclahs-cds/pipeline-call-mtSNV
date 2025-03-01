@@ -40,15 +40,16 @@ workflow align_mtDNA {
 
     // generate_checksum_PipeVal(bam_channel)
     run_index_SAMtools(bam_ch)
-    generate_checksum_PipeVal(
-        bam_ch
-        .map { sample, bam -> bam }
+    bam_ch
+        .map{ sample, bam -> bam }
         .flatten()
         .mix(run_index_SAMtools.out.index)
-        )
+        .set { bam_ch }
+    generate_checksum_PipeVal(bam_ch)
 
     emit:
     bam_for_mitoCaller
+    bam_ch
 }
 
 process align_mtDNA_MToolBox {
@@ -60,7 +61,7 @@ process align_mtDNA_MToolBox {
         mode: 'copy'
 
     publishDir {"${params.output_dir_base}/output/"},
-        pattern: "{mt_classification_best_results.csv}",
+        pattern: "{mt_classification_best_results.csv,prioritized_variants.txt}",
         mode: 'copy',
         saveAs: {"${output_filename_base}_${sanitize_string(file(it).getName())}"}
 

@@ -8,22 +8,11 @@ Nextflowization: Alfredo Enrique Gonzalez, Andrew Park
 nextflow.enable.dsl=2
 
 //// Import of Local Modules ////
-include { run_validate_PipeVal as validate_input } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main.nf' addParams(
-        options: [
-        docker_image_version: params.pipeval_version,
-        main_process: "./", //Save logs in <log_dir>/process-log/run_validate_PipeVal
-        validate_extra_args: params.validate_extra_args
-        ]
-    )
+include { validate as validate_input         } from './module/validate_workflow.nf' addParams(validation_type: 'input')
 include { extract_mtDNA                      } from './module/extract_mtDNA_workflow.nf'
 include { align_mtDNA                        } from './module/align_mtDNA_MToolBox_workflow'
 include { call_mtSNV                         } from './module/call_mtSNV_mitoCaller_workflow'
-include { run_validate_PipeVal as validate_output } from './external/pipeline-Nextflow-module/modules/PipeVal/validate/main.nf' addParams(
-    options: [
-        docker_image_version: params.pipeval_version,
-        main_process: "./" //Save logs in <log_dir>/process-log/run_validate_PipeVal
-        ]
-    )
+include { validate as validate_output        } from './module/validate_workflow.nf' addParams(validation_type: 'output')
 
 log.info """\
 ======================================
@@ -65,11 +54,8 @@ Channel
     .set { input_validation }
 
 workflow{
+
     validate_input(input_validation)
-    validate_input.out.validation_result.collectFile(
-        name: 'input_validation.txt',
-        storeDir: "${params.output_dir_base}/validation"
-        )
 
     extract_mtDNA(ich)
 
@@ -77,9 +63,6 @@ workflow{
 
     call_mtSNV(align_mtDNA.out.bam_for_mitoCaller)
 
-    validate_output(call_mtSNV.out.vcf_gz)
-    validate_output.out.validation_result.collectFile(
-        name: 'output_validation.txt',
-        storeDir: "${params.output_dir_base}/validation"
-        )
+    validate_output(align_mtDNA.out.bam_ch.mix(call_mtSNV.out.vcf_gz))
+
     }
