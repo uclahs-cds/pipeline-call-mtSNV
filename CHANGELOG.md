@@ -175,8 +175,8 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 [3.0.0-rc.1]: https://github.com/uclahs-cds/pipeline-call-mtSNV/compare/v2.0.0...v3.0.0-rc.1
 [3.0.1]: https://github.com/uclahs-cds/pipeline-call-mtSNV/compare/v3.0.0...v3.0.1
 [3.0.2]: https://github.com/uclahs-cds/pipeline-call-mtSNV/compare/v3.0.1...v3.0.2
-[4.0.0-rc.1] 2024-03-06]: https://github.com/uclahs-cds/pipeline-call-mtSNV/compare/v3.0.2...v4.0.0-rc.1] 2024-03-06
-[4.0.0] 2024-03-22]: https://github.com/uclahs-cds/pipeline-call-mtSNV/compare/v4.0.0-rc.1] 2024-03-06...v4.0.0] 2024-03-22
-[5.0.0] 2024-07-23]: https://github.com/uclahs-cds/pipeline-call-mtSNV/compare/v4.0.0] 2024-03-22...v5.0.0] 2024-07-23
-[5.1.0] 2024-07-30]: https://github.com/uclahs-cds/pipeline-call-mtSNV/compare/v5.0.0] 2024-07-23...v5.1.0] 2024-07-30
-[6.0.0-rc.1]: https://github.com/uclahs-cds/pipeline-call-mtSNV/compare/v5.1.0] 2024-07-30...v6.0.0-rc.1
+[4.0.0-rc.1]: https://github.com/uclahs-cds/pipeline-call-mtSNV/compare/v3.0.2...v4.0.0-rc.1
+[4.0.0]: https://github.com/uclahs-cds/pipeline-call-mtSNV/compare/v4.0.0-rc.1...v4.0.0
+[5.0.0]: https://github.com/uclahs-cds/pipeline-call-mtSNV/compare/v4.0.0...v5.0.0
+[5.1.0]: https://github.com/uclahs-cds/pipeline-call-mtSNV/compare/v5.0.0...v5.1.0
+[6.0.0-rc.1]: https://github.com/uclahs-cds/pipeline-call-mtSNV/compare/v5.1.0...v6.0.0-rc.1
