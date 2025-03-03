@@ -32,7 +32,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 - Add ability to modulate validation stringency level for downsample BAM process
 
-## [5.1.0\] 2024-07-30][5.1.0] 2024-07-30]
+## [5.1.0] - 2024-07-30
 
 ### Added
 
@@ -42,7 +42,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 - Move index file discovery to methods.config
 
-## [5.0.0\] 2024-07-23][5.0.0] 2024-07-23]
+## [5.0.0] - 2024-07-23
 
 ### Added
 
@@ -63,13 +63,13 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Fix NFTest global.config.
 - Fix NFTest assert scripts to remove linter errors.
 
-## [4.0.0\] 2024-03-22][4.0.0] 2024-03-22]
+## [4.0.0] - 2024-03-22
 
 ### Changed
 
 - Update `nextflow.config` version number.
 
-## [4.0.0-rc.1\] 2024-03-06][4.0.0-rc.1] 2024-03-06]
+## [4.0.0-rc.1] - 2024-03-06
 
 ### Added
 
