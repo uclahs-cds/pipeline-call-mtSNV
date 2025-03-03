@@ -142,7 +142,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ### Changed
 
 - Change input format
-- Change <http://main.nf> workflow logic
+- Change `main.nf` workflow logic
 - Update call-heteroplasmy docker image version from 1.0.0 -> 1.0.1
 - Modify output name to be more conventional
 - Update .gitignore
