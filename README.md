@@ -184,7 +184,7 @@ base_resource_update {
 |align_mtDNA_MToolBox|`*mt-classification-best-results.csv`| Contains the best haplogroup prediction for each sequence |
 |align_mtDNA_MToolBox|`*prioritized_variants.txt`| Contains annotation only for prioritized variants for each sample analyzed, sorted by increasing nucleotide variability |
 |align_mtDNA_MToolBox|`*summary.txt`|Summary of selected options. Includes predicted haplogroups, total and prioritized variants, coverage of reconstructed genomes, count of homoplasmic and heteroplasmic variants|
-|convert_mitoCaller2VCF|`*.vcf.gz`| VCF files containing mitoCaller calls in more legible format|
+|convert_mitoCaller2VCF|`*.vcf.gz`| mitoCaller variant calls in VCF format |
 |convert_mitoCaller2VCF|`*.vcf.gz.*`|Index files and checksums for generated VCF files|
 |call_heteroplasmy|`*.tsv`| [Paired mode only] A tsv table showing differences in the normal genotype vs tumor genotype. It also gives heteroplasmy_fraction if there is any|
 |call_heteroplasmy|`*.tsv.*`| [Paired mode only] Checksum for generated tsv file |
