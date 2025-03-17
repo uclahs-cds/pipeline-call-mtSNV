@@ -176,16 +176,16 @@ base_resource_update {
 
 ## Outputs
 
+> **Note:** All primary alignment (BAM) and variant call (VCF) outputs are indexed, with checksums generated for both the outputs and their index files
+
 ### Primary outputs
 |Process| Output | Description |
 |:------|:--------|:----------------|
 |align_mtDNA_MToolBox|`*.bam`| Aligned, sorted, mitochondrial reads in BAM format|
-|align_mtDNA_MToolBox|`*.bam.*`| Index files and checksums for generated BAM files |
 |align_mtDNA_MToolBox|`*mt-classification-best-results.csv`| Contains the best haplogroup prediction for each sequence |
 |align_mtDNA_MToolBox|`*prioritized_variants.txt`| Contains annotation only for prioritized variants for each sample analyzed, sorted by increasing nucleotide variability |
-|align_mtDNA_MToolBox|`*summary.txt`|Summary of selected options. Includes predicted haplogroups, total and prioritized variants, coverage of reconstructed genomes, count of homoplasmic and heteroplasmic variants|
-|convert_mitoCaller2VCF|`*.vcf.gz`| mitoCaller variant calls in VCF format |
-|convert_mitoCaller2VCF|`*.vcf.gz.*`|Index files and checksums for generated VCF files|
+|align_mtDNA_MToolBox|`*summary.txt`| Summary of selected options. Includes predicted haplogroups, total and prioritized variants, coverage of reconstructed genomes, count of homoplasmic and heteroplasmic variants|
+|convert_mitoCaller2VCF|`*.vcf.gz`| MitoCaller variant calls in VCF format |
 |call_heteroplasmy|`*.tsv`| [Paired mode only] A tsv table showing differences in the normal genotype vs tumor genotype. It also gives heteroplasmy_fraction if there is any|
 |call_heteroplasmy|`*.tsv.*`| [Paired mode only] Checksum for generated tsv file |
 
@@ -201,8 +201,8 @@ base_resource_update {
 |align_mtDNA_MToolBox | `*.conf` | Configuration file listing parameters used in an MToolBox run  |
 |align_mtDNA_MToolBox | `*sample.vcf` | Contains mitochondrial variant positions against reference genome |
 |call_mtSNV_mitoCaller | `*.tsv` | Contains mtDNA variants (i.e., homoplasmies and heteroplasmies)|
-|call_heteroplasmy | `*unfiltered.tsv` |  [Paired mode] unfiltered tsv table showing differences in the normal genotype vs tumor genotype. |
-|call_heteroplasmy | `*.pl.programinfo` | [Paired mode] FILL IN |
+|call_heteroplasmy | `*unfiltered.tsv` |  [Paired mode] Unfiltered tsv table showing differences in the normal genotype vs tumor genotype. |
+|call_heteroplasmy | `*.pl.programinfo` | [Paired mode] The log file generated for the heteroplasmy call process |
 ___
 
 ## Testing and Validation
@@ -269,7 +269,7 @@ Call-mtSNV is licensed under the GNU General Public License version 2. See the f
 
 Call-mtSNV takes a single aligned BAM or pair of normal tumor BAMs and does variant calling for mtDNA.
 
-Copyright (C) 2021-2024 University of California Los Angeles ("Boutros Lab") All rights reserved.
+Copyright (C) 2021-2025 University of California Los Angeles ("Boutros Lab") All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 
