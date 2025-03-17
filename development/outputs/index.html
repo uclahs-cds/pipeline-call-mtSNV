@@ -63,6 +63,10 @@
               <ul class="current">
                 <li class="toctree-l1 current"><a class="reference internal current" href="./">Outputs</a>
     <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#primary-outputs">Primary outputs</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#intermediate-outputs">Intermediate outputs</a>
+    </li>
     </ul>
                 </li>
               </ul>
@@ -106,7 +110,7 @@
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">Outputs</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/uclahs-cds/pipeline-call-mtSNV/blob/7bf4f27c583159ba84fb0b9ddf5c84803a576c3c/README.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/uclahs-cds/pipeline-call-mtSNV/blob/1bcef32f72c32c8df3f0a444eb26cb28c6073f8b/README.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -115,81 +119,115 @@
             <div class="section" itemprop="articleBody">
               
                 <h2 id="outputs">Outputs</h2>
+<blockquote>
+<p><strong>Note:</strong> All primary alignment (BAM) and variant call (VCF) outputs are indexed, with checksums generated for both the outputs and their index files</p>
+</blockquote>
+<h3 id="primary-outputs">Primary outputs</h3>
 <table>
 <thead>
 <tr>
 <th style="text-align: left;">Process</th>
 <th style="text-align: left;">Output</th>
-<th style="text-align: left;">category</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;">align_mtDNA_MToolBox</td>
+<td style="text-align: left;"><code>*.bam</code></td>
+<td style="text-align: left;">Aligned, sorted, mitochondrial reads in BAM format</td>
+</tr>
+<tr>
+<td style="text-align: left;">align_mtDNA_MToolBox</td>
+<td style="text-align: left;"><code>*mt-classification-best-results.csv</code></td>
+<td style="text-align: left;">Contains the best haplogroup prediction for each sequence</td>
+</tr>
+<tr>
+<td style="text-align: left;">align_mtDNA_MToolBox</td>
+<td style="text-align: left;"><code>*prioritized_variants.txt</code></td>
+<td style="text-align: left;">Contains annotation only for prioritized variants for each sample analyzed, sorted by increasing nucleotide variability</td>
+</tr>
+<tr>
+<td style="text-align: left;">align_mtDNA_MToolBox</td>
+<td style="text-align: left;"><code>*summary.txt</code></td>
+<td style="text-align: left;">Summary of selected options. Includes predicted haplogroups, total and prioritized variants, coverage of reconstructed genomes, count of homoplasmic and heteroplasmic variants</td>
+</tr>
+<tr>
+<td style="text-align: left;">convert_mitoCaller2VCF</td>
+<td style="text-align: left;"><code>*.vcf.gz</code></td>
+<td style="text-align: left;">MitoCaller variant calls in VCF format</td>
+</tr>
+<tr>
+<td style="text-align: left;">call_heteroplasmy</td>
+<td style="text-align: left;"><code>*.tsv</code></td>
+<td style="text-align: left;">[Paired mode only] A tsv table showing differences in the normal genotype vs tumor genotype. It also gives heteroplasmy_fraction if there is any</td>
+</tr>
+<tr>
+<td style="text-align: left;">call_heteroplasmy</td>
+<td style="text-align: left;"><code>*.tsv.*</code></td>
+<td style="text-align: left;">[Paired mode only] Checksum for generated tsv file</td>
+</tr>
+</tbody>
+</table>
+<h3 id="intermediate-outputs">Intermediate outputs</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Process</th>
+<th style="text-align: left;">Output</th>
 <th style="text-align: left;">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td style="text-align: left;">extract_mtDNA_BAMQL</td>
-<td style="text-align: left;">*OUT2-sorted.bam</td>
-<td style="text-align: left;">main</td>
-<td style="text-align: left;">Outputs BAM file with only mitochondrial reads</td>
+<td style="text-align: left;"><code>*.bam</code></td>
+<td style="text-align: left;">[bam input only] Outputs BAM file with only mitochondrial reads</td>
+</tr>
+<tr>
+<td style="text-align: left;">extract_mtDNA_SAMtools</td>
+<td style="text-align: left;"><code>*.bam</code></td>
+<td style="text-align: left;">[cram input only] Outputs BAM file with only mitochondrial reads</td>
 </tr>
 <tr>
 <td style="text-align: left;">align_mtDNA_MToolBox</td>
-<td style="text-align: left;">.bam</td>
-<td style="text-align: left;">main</td>
-<td style="text-align: left;">Aligned, sorted, mitochondrial reads in BAM format</td>
-</tr>
-<tr>
-<td style="text-align: left;">align_mtDNA_MToolBox</td>
-<td style="text-align: left;">prioritized_variants.txt</td>
-<td style="text-align: left;">main</td>
-<td style="text-align: left;">Contains annotation only for prioritized variants for each sample analyzed,sorted by increasing nucleotide variability</td>
-</tr>
-<tr>
-<td style="text-align: left;">align_mtDNA_MToolBox</td>
-<td style="text-align: left;">summary*.txt</td>
-<td style="text-align: left;">main</td>
-<td style="text-align: left;">Summary of selected options. Includes predicted haplogroups, total and prioritized variants, coverage of reconstructed genomes, count of homoplasmic and heteroplasmic variants</td>
-</tr>
-<tr>
-<td style="text-align: left;">align_mtDNA_MToolBox</td>
-<td style="text-align: left;">.vcf</td>
-<td style="text-align: left;">intermediate</td>
-<td style="text-align: left;">Contains mitochondrial variant positions against reference genome</td>
-</tr>
-<tr>
-<td style="text-align: left;">align_mtDNA_MToolBox</td>
-<td style="text-align: left;">.csv</td>
-<td style="text-align: left;">intermediate</td>
-<td style="text-align: left;">Contains the best haplogroup prediction for each sequence</td>
-</tr>
-<tr>
-<td style="text-align: left;">align_mtDNA_MToolBox</td>
-<td style="text-align: left;">folder OUT_*</td>
-<td style="text-align: left;">intermediate</td>
+<td style="text-align: left;"><code>OUT_*/</code></td>
 <td style="text-align: left;">This folder contains additional intermediate files. Description of the contents can be found <a href="https://github.com/mitoNGS/MToolBox/wiki/Output-files">here</a></td>
 </tr>
 <tr>
+<td style="text-align: left;">align_mtDNA_MToolBox</td>
+<td style="text-align: left;"><code>*logassemble.txt</code></td>
+<td style="text-align: left;">The log file of the assembleMTgenome.py script</td>
+</tr>
+<tr>
+<td style="text-align: left;">align_mtDNA_MToolBox</td>
+<td style="text-align: left;"><code>*processed-fastq.tar.gz</code></td>
+<td style="text-align: left;">Compressed FASTQ files generated from BAM input files</td>
+</tr>
+<tr>
+<td style="text-align: left;">align_mtDNA_MToolBox</td>
+<td style="text-align: left;"><code>*.conf</code></td>
+<td style="text-align: left;">Configuration file listing parameters used in an MToolBox run</td>
+</tr>
+<tr>
+<td style="text-align: left;">align_mtDNA_MToolBox</td>
+<td style="text-align: left;"><code>*sample.vcf</code></td>
+<td style="text-align: left;">Contains mitochondrial variant positions against reference genome</td>
+</tr>
+<tr>
 <td style="text-align: left;">call_mtSNV_mitoCaller</td>
-<td style="text-align: left;">*mitoCaller.tsv</td>
-<td style="text-align: left;">main</td>
+<td style="text-align: left;"><code>*.tsv</code></td>
 <td style="text-align: left;">Contains mtDNA variants (i.e., homoplasmies and heteroplasmies)</td>
 </tr>
 <tr>
-<td style="text-align: left;">call_mtSNV_mitoCaller</td>
-<td style="text-align: left;">*mitoCaller.tsv</td>
-<td style="text-align: left;">intermediate</td>
-<td style="text-align: left;">gzipped tsv file</td>
-</tr>
-<tr>
-<td style="text-align: left;">convert_mitoCaller2VCF</td>
-<td style="text-align: left;">*.vcf</td>
-<td style="text-align: left;">main</td>
-<td style="text-align: left;">2 *.VCF files containing mitoCaller calls in more legible format</td>
+<td style="text-align: left;">call_heteroplasmy</td>
+<td style="text-align: left;"><code>*unfiltered.tsv</code></td>
+<td style="text-align: left;">[Paired mode] Unfiltered tsv table showing differences in the normal genotype vs tumor genotype.</td>
 </tr>
 <tr>
 <td style="text-align: left;">call_heteroplasmy</td>
-<td style="text-align: left;">*.tsv</td>
-<td style="text-align: left;">main</td>
-<td style="text-align: left;">a *.tsv table showing differences in the normal genotype vs tumor genotype. It also gives heteroplasmy_fraction if there is any.</td>
+<td style="text-align: left;"><code>*.pl.programinfo</code></td>
+<td style="text-align: left;">[Paired mode] The log file generated for the heteroplasmy call process</td>
 </tr>
 </tbody>
 </table>
