@@ -23,6 +23,8 @@
     - [input.config](#inputconfig)
       - [Base resource allocation updaters](#base-resource-allocation-updaters)
   - [Outputs](#outputs)
+    - [Primary outputs](#primary-outputs)
+    - [Intermediate outputs](#intermediate-outputs)
   - [Testing and Validation](#testing-and-validation)
     - [Test Data Set](#test-data-set)
     - [Running Tests with NFTest](#running-tests-with-nftest)
@@ -174,20 +176,33 @@ base_resource_update {
 
 ## Outputs
 
-|Process| Output | category| Description |
-|:------|:--------|:--------|:----------------|
-|extract_mtDNA_BAMQL|*OUT2-sorted.bam|main|Outputs BAM file with only mitochondrial reads|
-|align_mtDNA_MToolBox|.bam|main|Aligned, sorted, mitochondrial reads in BAM format|
-|align_mtDNA_MToolBox|prioritized_variants.txt|main|Contains annotation only for prioritized variants for each sample analyzed,sorted by increasing nucleotide variability|
-|align_mtDNA_MToolBox|summary*.txt|main|Summary of selected options. Includes predicted haplogroups, total and prioritized variants, coverage of reconstructed genomes, count of homoplasmic and heteroplasmic variants|
-|align_mtDNA_MToolBox|.vcf|intermediate|Contains mitochondrial variant positions against reference genome|
-|align_mtDNA_MToolBox|.csv|intermediate|Contains the best haplogroup prediction for each sequence|
-|align_mtDNA_MToolBox|folder OUT_*|intermediate|This folder contains additional intermediate files. Description of the contents can be found [here](https://github.com/mitoNGS/MToolBox/wiki/Output-files)|
-|call_mtSNV_mitoCaller|*mitoCaller.tsv|main|Contains mtDNA variants (i.e., homoplasmies and heteroplasmies)|
-|call_mtSNV_mitoCaller|*mitoCaller.tsv|intermediate|gzipped tsv file|
-|convert_mitoCaller2VCF|*.vcf|main|2 *.VCF files containing mitoCaller calls in more legible format|
-|call_heteroplasmy|*.tsv|main|a *.tsv table showing differences in the normal genotype vs tumor genotype. It also gives heteroplasmy_fraction if there is any.|
+> **Note:** All primary alignment (BAM) and variant call (VCF) outputs are indexed, with checksums generated for both the outputs and their index files
 
+### Primary outputs
+|Process| Output | Description |
+|:------|:--------|:----------------|
+|align_mtDNA_MToolBox|`*.bam`| Aligned, sorted, mitochondrial reads in BAM format|
+|align_mtDNA_MToolBox|`*mt-classification-best-results.csv`| Contains the best haplogroup prediction for each sequence |
+|align_mtDNA_MToolBox|`*prioritized_variants.txt`| Contains annotation only for prioritized variants for each sample analyzed, sorted by increasing nucleotide variability |
+|align_mtDNA_MToolBox|`*summary.txt`| Summary of selected options. Includes predicted haplogroups, total and prioritized variants, coverage of reconstructed genomes, count of homoplasmic and heteroplasmic variants|
+|convert_mitoCaller2VCF|`*.vcf.gz`| MitoCaller variant calls in VCF format |
+|call_heteroplasmy|`*.tsv`| [Paired mode only] A tsv table showing differences in the normal genotype vs tumor genotype. It also gives heteroplasmy_fraction if there is any|
+|call_heteroplasmy|`*.tsv.*`| [Paired mode only] Checksum for generated tsv file |
+
+
+### Intermediate outputs
+|Process| Output | Description |
+|:------|:--------|:----------------|
+|extract_mtDNA_BAMQL|`*.bam`| [bam input only] Outputs BAM file with only mitochondrial reads |
+|extract_mtDNA_SAMtools|`*.bam`| [cram input only] Outputs BAM file with only mitochondrial reads |
+|align_mtDNA_MToolBox| `OUT_*/`| This folder contains additional intermediate files. Description of the contents can be found [here](https://github.com/mitoNGS/MToolBox/wiki/Output-files) |
+|align_mtDNA_MToolBox | `*logassemble.txt` | The log file of the assembleMTgenome.py script |
+|align_mtDNA_MToolBox | `*processed-fastq.tar.gz` | Compressed FASTQ files generated from BAM input files |
+|align_mtDNA_MToolBox | `*.conf` | Configuration file listing parameters used in an MToolBox run  |
+|align_mtDNA_MToolBox | `*sample.vcf` | Contains mitochondrial variant positions against reference genome |
+|call_mtSNV_mitoCaller | `*.tsv` | Contains mtDNA variants (i.e., homoplasmies and heteroplasmies)|
+|call_heteroplasmy | `*unfiltered.tsv` |  [Paired mode] Unfiltered tsv table showing differences in the normal genotype vs tumor genotype. |
+|call_heteroplasmy | `*.pl.programinfo` | [Paired mode] The log file generated for the heteroplasmy call process |
 ___
 
 ## Testing and Validation
@@ -254,7 +269,7 @@ Call-mtSNV is licensed under the GNU General Public License version 2. See the f
 
 Call-mtSNV takes a single aligned BAM or pair of normal tumor BAMs and does variant calling for mtDNA.
 
-Copyright (C) 2021-2024 University of California Los Angeles ("Boutros Lab") All rights reserved.
+Copyright (C) 2021-2025 University of California Los Angeles ("Boutros Lab") All rights reserved.
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
 

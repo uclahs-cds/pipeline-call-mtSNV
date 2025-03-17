@@ -27,6 +27,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Move validation processes into workflows
 - Filename standard from `processName/` to `workflowName/processName`
 - Change process level `containerOptions` to be sourced from `ext` namespace
+- Update `README.md` outputs section to match pipeline
 
 ### Fixed
 
