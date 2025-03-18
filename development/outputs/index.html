@@ -110,7 +110,7 @@
     <li><a href=".." class="icon icon-home" aria-label="Docs"></a></li>
       <li class="breadcrumb-item active">Outputs</li>
     <li class="wy-breadcrumbs-aside">
-          <a href="https://github.com/uclahs-cds/pipeline-call-mtSNV/blob/1bcef32f72c32c8df3f0a444eb26cb28c6073f8b/README.md" class="icon icon-github"> Edit on GitHub</a>
+          <a href="https://github.com/uclahs-cds/pipeline-call-mtSNV/blob/2082080b59f56da2be032b1fa236fa8e1e6f0fd6/README.md" class="icon icon-github"> Edit on GitHub</a>
     </li>
   </ul>
   <hr/>
@@ -160,12 +160,12 @@
 <tr>
 <td style="text-align: left;">call_heteroplasmy</td>
 <td style="text-align: left;"><code>*.tsv</code></td>
-<td style="text-align: left;">[Paired mode only] A tsv table showing differences in the normal genotype vs tumor genotype. It also gives heteroplasmy_fraction if there is any</td>
+<td style="text-align: left;"><strong>[Paired mode only]</strong> A TSV table showing differences between normal and tumor genotypes, along with variant allele frequencies (VAF). <strong>Note:</strong> Heteroplasmy sites appear in the file, only if the VAF difference between normal and tumor samples exceeds 20%. if no somatic event is detected in the tumor sample, the TSV output will contain only the header line.</td>
 </tr>
 <tr>
 <td style="text-align: left;">call_heteroplasmy</td>
 <td style="text-align: left;"><code>*.tsv.*</code></td>
-<td style="text-align: left;">[Paired mode only] Checksum for generated tsv file</td>
+<td style="text-align: left;"><strong>[Paired mode only]</strong> Checksum for generated TSV file</td>
 </tr>
 </tbody>
 </table>
@@ -182,12 +182,12 @@
 <tr>
 <td style="text-align: left;">extract_mtDNA_BAMQL</td>
 <td style="text-align: left;"><code>*.bam</code></td>
-<td style="text-align: left;">[bam input only] Outputs BAM file with only mitochondrial reads</td>
+<td style="text-align: left;"><strong>[BAM input only]</strong> Outputs BAM file with only mitochondrial reads</td>
 </tr>
 <tr>
 <td style="text-align: left;">extract_mtDNA_SAMtools</td>
 <td style="text-align: left;"><code>*.bam</code></td>
-<td style="text-align: left;">[cram input only] Outputs BAM file with only mitochondrial reads</td>
+<td style="text-align: left;"><strong>[CRAM input only]</strong> Outputs BAM file with only mitochondrial reads</td>
 </tr>
 <tr>
 <td style="text-align: left;">align_mtDNA_MToolBox</td>
@@ -222,12 +222,12 @@
 <tr>
 <td style="text-align: left;">call_heteroplasmy</td>
 <td style="text-align: left;"><code>*unfiltered.tsv</code></td>
-<td style="text-align: left;">[Paired mode] Unfiltered tsv table showing differences in the normal genotype vs tumor genotype.</td>
+<td style="text-align: left;"><strong>[Paired mode only]</strong> Unfiltered tsv table showing differences in the normal genotype vs tumor genotype.</td>
 </tr>
 <tr>
 <td style="text-align: left;">call_heteroplasmy</td>
 <td style="text-align: left;"><code>*.pl.programinfo</code></td>
-<td style="text-align: left;">[Paired mode] The log file generated for the heteroplasmy call process</td>
+<td style="text-align: left;"><strong>[Paired mode only]</strong> The log file generated for the heteroplasmy call process</td>
 </tr>
 </tbody>
 </table>
