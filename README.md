@@ -192,16 +192,16 @@ base_resource_update {
 ### Intermediate outputs
 |Process| Output | Description |
 |:------|:--------|:----------------|
-|extract_mtDNA_BAMQL|`*.bam`| [bam input only] Outputs BAM file with only mitochondrial reads |
-|extract_mtDNA_SAMtools|`*.bam`| [cram input only] Outputs BAM file with only mitochondrial reads |
+|extract_mtDNA_BAMQL|`*.bam`| **[BAM input only]** Outputs BAM file with only mitochondrial reads |
+|extract_mtDNA_SAMtools|`*.bam`| **[CRAM input only]** Outputs BAM file with only mitochondrial reads |
 |align_mtDNA_MToolBox| `OUT_*/`| This folder contains additional intermediate files. Description of the contents can be found [here](https://github.com/mitoNGS/MToolBox/wiki/Output-files) |
 |align_mtDNA_MToolBox | `*logassemble.txt` | The log file of the assembleMTgenome.py script |
 |align_mtDNA_MToolBox | `*processed-fastq.tar.gz` | Compressed FASTQ files generated from BAM input files |
 |align_mtDNA_MToolBox | `*.conf` | Configuration file listing parameters used in an MToolBox run  |
 |align_mtDNA_MToolBox | `*sample.vcf` | Contains mitochondrial variant positions against reference genome |
 |call_mtSNV_mitoCaller | `*.tsv` | Contains mtDNA variants (i.e., homoplasmies and heteroplasmies)|
-|call_heteroplasmy | `*unfiltered.tsv` |  [Paired mode] Unfiltered tsv table showing differences in the normal genotype vs tumor genotype. |
-|call_heteroplasmy | `*.pl.programinfo` | [Paired mode] The log file generated for the heteroplasmy call process |
+|call_heteroplasmy | `*unfiltered.tsv` |  **[Paired mode only]** Unfiltered tsv table showing differences in the normal genotype vs tumor genotype. |
+|call_heteroplasmy | `*.pl.programinfo` | **[Paired mode only]** The log file generated for the heteroplasmy call process |
 ___
 
 ## Testing and Validation
