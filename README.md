@@ -189,6 +189,7 @@ base_resource_update {
 |call_heteroplasmy|`*.tsv`| [Paired mode only] A tsv table showing differences in the normal genotype vs tumor genotype. It also gives heteroplasmy_fraction if there is any|
 |call_heteroplasmy|`*.tsv.*`| [Paired mode only] Checksum for generated tsv file |
 
+> **Note:** if no heteroplasmy is detected in the tumor sample, the TSV output will include only the header line.
 
 ### Intermediate outputs
 |Process| Output | Description |
