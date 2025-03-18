@@ -186,7 +186,7 @@ base_resource_update {
 |align_mtDNA_MToolBox|`*prioritized_variants.txt`| Contains annotation only for prioritized variants for each sample analyzed, sorted by increasing nucleotide variability |
 |align_mtDNA_MToolBox|`*summary.txt`| Summary of selected options. Includes predicted haplogroups, total and prioritized variants, coverage of reconstructed genomes, count of homoplasmic and heteroplasmic variants|
 |convert_mitoCaller2VCF|`*.vcf.gz`| MitoCaller variant calls in VCF format |
-|call_heteroplasmy|`*.tsv`| [Paired mode only] A TSV table showing differences in the normal genotype vs tumor genotype. It also gives heteroplasmy_fraction if there is any. **Note:** if no heteroplasmy is detected in the tumor sample, the TSV output will include only the header line.|
+|call_heteroplasmy|`*.tsv`| [Paired mode only] A TSV table showing differences in the normal genotype vs tumor genotype. It also gives heteroplasmy_fraction if there is any. **Note:** heteroplasmy sites will be presented in the file, only if there is a 20% VAF difference between the normal and the tumor samples. if no heteroplasmy is detected in the tumor sample, the TSV output will include only the header line.|
 |call_heteroplasmy|`*.tsv.*`| [Paired mode only] Checksum for generated TSV file |
 
 ### Intermediate outputs
