@@ -13,13 +13,21 @@ mt_ref_genome_dir:
   mode: 'r'
   required: true
   help: 'Absolute path to directory with mtDNA reference genome'
-  default: '/hot/ref/mitochondria_ref/genome_fasta/'
+  default: '/hot/resource/mitochondria_ref/genome_fasta/'
 gmapdb:
   type: 'Path'
   mode: 'r'
   required: true
   help: 'Directory to gmapdb genomic index files'
-  default: '/hot/ref/mitochondria_ref/gmapdb/gmapdb_2021-03-08'
+  default: '/hot/resource/mitochondria_ref/gmapdb/gmapdb_2021-03-08'
+reference_genome_version:
+  type: 'String'
+  required: true
+  help: 'Version of reference genome for processing'
+  default: 'GRCh38'
+  choices:
+    - GRCh37
+    - GRCh38
 save_intermediate_files:
   type: 'Bool'
   required: true
@@ -30,6 +38,11 @@ cache_intermediate_pipeline_steps:
   required: true
   default: false
   help: 'Boolean value to indicate whether or not to cache intermediate pipeline steps'
+cram_reference_genome:
+  type: 'Path'
+  mode: 'r'
+  required: false
+  help: 'Reference genome for CRAM validation'
 base_resource_update:
   type: 'ResourceUpdateNamespace'
   required: false
@@ -47,28 +60,112 @@ patient_id:
   type: 'String'
   required: true
   help: 'Patient identifier'
+downsample_mtoolbox_bam:
+  type: 'Bool'
+  required: true
+  default: false
+  help: 'Boolean value to indicate whether the MToolBox aligned BAM should be downsampled before mitoCaller is called'
+downsample_seed:
+  type: 'Integer'
+  required: true
+  help: 'Random seed for the downsampling process'
+downsample_index:
+  type: 'Bool'
+  required: true
+  help: 'Boolean value controlling whether an index file is created for the downsampled BAM'
+downsample_validation_stringency:
+  type: 'String'
+  required: true
+  help: 'validation stringency for downsample BAM process'
+  default: 'LENIENT'
+  choices:
+    - STRICT
+    - LENIENT
+    - SILENT
+probability_downsample:
+  type: 'Number'
+  required: false
+  help: 'Specifies the fraction of reads to retain during downsampling.'
+downsample_strategy:
+  type: 'String'
+  required: false
+  help: 'Determines the algorithm used for downsampling'
+  choices:
+    - HighAccuracy
+    - ConstantMemory
+    - Chained
+downsample_accuracy:
+  type: 'String'
+  required: false
+  help: 'Defines the desired accuracy level for the downsampling process'
 input:
-  type: 'InputBAMNamespace'
+  type: 'Namespace'
   required: true
   help: 'Input samples'
   elements:
-    normal:
-      type: 'Namespace'
+    BAM:
+      type: 'InputBAMNamespace'
       required: false
-      help: 'normal sample id and absolute path to BAM'
+      help: 'Input samples'
       elements:
-        BAM:
-          type: 'Path'
-          mode: 'r'
-          required: true
-          help: 'Absolute path to normal sample BAM'
-    tumor:
-      type: 'Namespace'
+        normal:
+          type: 'Namespace'
+          required: false
+          help: 'normal sample id and absolute path to BAM'
+          elements:
+            sample_id:
+              type: 'String'
+              required: false
+              help: 'data sample identifier'
+            data:
+              type: 'Path'
+              mode: 'r'
+              required: false
+              help: 'Absolute path to normal sample BAM'
+        tumor:
+          type: 'Namespace'
+          required: false
+          help: 'tumor sample id and absolute path to BAM'
+          elements:
+            sample_id:
+              type: 'String'
+              required: false
+              help: 'data sample identifier'
+            data:
+              type: 'Path'
+              mode: 'r'
+              required: false
+              help: 'Absolute path to tumor sample BAM'
+    CRAM:
+      type: 'InputBAMNamespace'
       required: false
-      help: 'tumor sample id and absolute path to BAM'
+      help: 'Input samples'
       elements:
-        BAM:
-          type: 'Path'
-          mode: 'r'
-          required: true
-          help: 'Absolute path to tumor sample BAM'
+        normal:
+          type: 'Namespace'
+          required: false
+          help: 'normal sample id and absolute path to CRAM'
+          elements:
+            sample_id:
+              type: 'String'
+              required: false
+              help: 'data sample identifier'
+            data:
+              type: 'Path'
+              mode: 'r'
+              required: false
+              help: 'Absolute path to normal sample CRAM'
+        tumor:
+          type: 'Namespace'
+          required: false
+          help: 'tumor sample id and absolute path to CRAM'
+          elements:
+            sample_id:
+              type: 'String'
+              required: false
+              help: 'data sample identifier'
+            data:
+              type: 'Path'
+              mode: 'r'
+              required: false
+              help: 'Absolute path to tumor sample CRAM'
