@@ -184,6 +184,7 @@ process call_heteroplasmy {
         perl /src/script/call_heteroplasmy_mitocaller.pl \
         --normal ${normal_mitocaller_out} \
         --tumour ${tumor_mitocaller_out} \
+        --purity ${params.purity} \
         --output ${output_filename_base}_unfiltered.tsv \
         --ascat_stat
 

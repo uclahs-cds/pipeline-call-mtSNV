@@ -58,7 +58,7 @@
       "SAMtools_docker_image": "ghcr.io/uclahs-cds/samtools:1.21",
       "bamql_version": "1.6.1",
       "cache_intermediate_pipeline_steps": false,
-      "call_heteroplasmy_version": "1.0.1",
+      "call_heteroplasmy_version": "1.1.0",
       "chrY_extraction_region": "57000000",
       "cram_reference_genome": "/hot/resource/reference-genome/GRCh38-BI-20160721/Homo_sapiens_assembly38.fasta",
       "dataset_id": "NFTEST",
@@ -71,7 +71,7 @@
       "downsample_strategy": "HighAccuracy",
       "downsample_validation_stringency": "LENIENT",
       "gmapdb": "/hot/resource/mitochondria_ref/gmapdb/gmapdb_2021-03-08",
-      "heteroplasmy_script_docker_image": "ghcr.io/uclahs-cds/call-heteroplasmy-script:1.0.1",
+      "heteroplasmy_script_docker_image": "ghcr.io/uclahs-cds/call-heteroplasmy:1.1.0",
       "input": {
         "BAM": {
           "normal": {
@@ -80,6 +80,7 @@
           },
           "tumor": {
             "path": "/hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24143/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.bam",
+            "purity": "1.0",
             "sample_id": "NA24143"
           }
         }
@@ -209,6 +210,7 @@
           "memory": "2 GB"
         }
       },
+      "purity": "1.0",
       "reference_genome_version": "GRCh38",
       "sample_id": "NA24143",
       "sample_mode": "paired",
