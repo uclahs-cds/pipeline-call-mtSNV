@@ -10,6 +10,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ### Added
 - tumor purity option for `call_heteroplasmy` process
+- Add option to start running from call_mtSNV and skip extract_mtDNA and align_mtDNA
 ---
 ## [6.0.0-rc.1] - 2025-03-03
 

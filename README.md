@@ -117,6 +117,7 @@ The config file can take 11 arguments. See provided [template](./config/template
 | 9 | `probability_downsample` | no | float | Corresponds to the PROBABILITY parameter in DownsampleSam. Specifies the fraction of reads to retain during downsampling. |
 | 10 |`downsample_strategy`  | no | string | Corresponds to the STRATEGY parameter in DownsampleSam. Determines the algorithm used for downsampling. Options include ConstantMemory, HighAccuracy, and Chained. |
 | 11 |`downsample_accuracy`  | no | string | Corresponds to the ACCURACY parameter in DownsampleSam. Defines the desired accuracy level for the downsampling process. A smaller value indicates higher accuracy but may require more memory. |
+| 12 | `mtbam_given` | boolean | string | Set to true if you want to skip mtDNA extraction and alignment - designed to run when you have existing mtDNA BAM outputs from MToolBox and want to rerun call-heteroplasmy to retrieve purity-adjusted values. Need to replace value in BAM key in input.yaml to mtDNA BAM outputs. Default is set to `false` |
 
 Additionally, There are 3 parameters which are defined in a [default config](./config/default.config) but can be optionally included and overwritten in the `input.config`.
 

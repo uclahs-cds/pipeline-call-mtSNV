@@ -36,6 +36,8 @@ Boutros Lab
 
     - options:
         sample_mode = ${params.sample_mode}
+        mtbam_input = ${params.mtbam_given}
+        purity = ${params.purity}
         save_intermediate_files = ${params.save_intermediate_files}
         cache_intermediate_pipeline_steps = ${params.cache_intermediate_pipeline_steps}
 
@@ -54,15 +56,22 @@ Channel
     .set { input_validation }
 
 workflow{
+    if (params.mtbam_given) {
+        Channel.fromList(params.input_list)
+            .map { type, sample_id, bam_path ->
+                tuple(type, sample_id, file(bam_path))
+            }
+            .set { mtbam_input_channel }
 
-    validate_input(input_validation)
 
-    extract_mtDNA(ich)
-
-    align_mtDNA(extract_mtDNA.out.extracted_mt_reads)
-
-    call_mtSNV(align_mtDNA.out.bam_for_mitoCaller)
-
-    validate_output(align_mtDNA.out.bam_ch.mix(call_mtSNV.out.vcf_gz))
-
+        call_mtSNV(mtbam_input_channel)
+        
+        } else {
+        // Original workflow
+        validate_input(input_validation)
+        extract_mtDNA(ich)
+        align_mtDNA(extract_mtDNA.out.extracted_mt_reads)
+        call_mtSNV(align_mtDNA.out.bam_for_mitoCaller)
+        validate_output(align_mtDNA.out.bam_ch.mix(call_mtSNV.out.vcf_gz))
+        }
     }
