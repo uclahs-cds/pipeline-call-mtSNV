@@ -13,13 +13,11 @@ mt_ref_genome_dir:
   mode: 'r'
   required: true
   help: 'Absolute path to directory with mtDNA reference genome'
-  default: '/hot/resource/mitochondria_ref/genome_fasta/'
 gmapdb:
   type: 'Path'
   mode: 'r'
   required: true
   help: 'Directory to gmapdb genomic index files'
-  default: '/hot/resource/mitochondria_ref/gmapdb/gmapdb_2021-03-08'
 reference_genome_version:
   type: 'String'
   required: true

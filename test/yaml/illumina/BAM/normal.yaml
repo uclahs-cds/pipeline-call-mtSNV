@@ -1,7 +1,0 @@
----
-patient_id: illumina
-input:
-  BAM:
-    normal:
-      sample_id: NA24149
-      path: /hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24149/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24149.bam

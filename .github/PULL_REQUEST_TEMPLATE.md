@@ -9,7 +9,7 @@
      don't need to be tested. -->
 
 - NFTest
-  - log:      /hot/software/pipeline/pipeline-call-mtSNV/Nextflow/development/unreleased/\<branchname\>/log-nftest-\<datestamp\>.log
+  - log name:      log-nftest-\<datestamp\>.log
   - cases:    default set <!-- update this if you made any changes to nftest.yml or ran default disabled test cases explicitly -->
 
 <!--
@@ -17,7 +17,7 @@
     template below as appropriate. Please make sure that a reviewer can
     understand:
     * How you tested the pipeline
-    * How others can test it (including paths to config and YAML files)
+    * How others can test it (including names of config and YAML files in dev directory)
     * How the results demonstrate the changes in this PR. Examples of this
       might include:
         * The run completed successfully, so nothing was broken
@@ -26,9 +26,9 @@
     -->
 - Additional Case 1
   - sample:    <!-- e.g. A-mini S2.T-1, A-mini S2.T-n1 -->
-  - input csv: <!-- path/to/input.csv -->
-  - config:    <!-- path/to/xxx.config -->
-  - output:    <!-- path/to/output -->
+  - input csv: <!-- input.csv -->
+  - config:    <!-- xxx.config -->
+  - output:    <!-- output -->
 
 # Checklist
 <!-- Please read each of the following items and confirm by replacing the [ ] with a [X] -->

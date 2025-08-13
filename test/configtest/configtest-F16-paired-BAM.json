@@ -1,10 +1,9 @@
 {
   "nextflow_version": "23.10.0",
   "config": [
-    "test/global.config",
-    "test/input.config"
+    "config/template.config"
   ],
-  "params_file": "test/yaml/illumina/BAM/paired.yaml",
+  "params_file": "input/input-call-mtSNV-paired.yaml",
   "cpus": 16,
   "memory_gb": 31,
   "nf_params": {
@@ -60,8 +59,7 @@
       "cache_intermediate_pipeline_steps": false,
       "call_heteroplasmy_version": "1.1.0",
       "chrY_extraction_region": "57000000",
-      "cram_reference_genome": "/hot/resource/reference-genome/GRCh38-BI-20160721/Homo_sapiens_assembly38.fasta",
-      "dataset_id": "NFTEST",
+      "dataset_id": "dataset_003",
       "date": "19970704T165655Z",
       "docker_container_registry": "ghcr.io/uclahs-cds",
       "downsample_accuracy": "1.0E-4",
@@ -70,43 +68,43 @@
       "downsample_seed": "1",
       "downsample_strategy": "HighAccuracy",
       "downsample_validation_stringency": "LENIENT",
-      "gmapdb": "/hot/resource/mitochondria_ref/gmapdb/gmapdb_2021-03-08",
+      "gmapdb": "/example/gmapdb/",
       "heteroplasmy_script_docker_image": "ghcr.io/uclahs-cds/call-heteroplasmy:1.1.0",
       "input": {
         "BAM": {
           "normal": {
-            "path": "/hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24149/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24149.bam",
-            "sample_id": "NA24149"
+            "path": "/path/to/normal.bam",
+            "sample_id": "sample id"
           },
           "tumor": {
-            "path": "/hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24143/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.bam",
-            "purity": "1.0",
-            "sample_id": "NA24143"
+            "path": "/path/to/tumor.bam",
+            "purity": "tumor_purity",
+            "sample_id": "sample id"
           }
         }
       },
       "input_channel_list": [
         {
-          "sample_data": "/hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24149/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24149.bam",
-          "sample_id": "NA24149",
+          "sample_data": "/path/to/normal.bam",
+          "sample_id": "sample id",
           "sample_index": "index",
           "sample_type": "normal"
         },
-        "{sample_type=tumor, sample_id=NA24143, sample_data=/hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24143/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.bam, sample_index=index}"
+        "{sample_type=tumor, sample_id=sample id, sample_data=/path/to/tumor.bam, sample_index=index}"
       ],
       "input_list": [
         "[normal",
-        "NA24149",
-        "/hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24149/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24149.bam",
+        "sample id",
+        "/path/to/normal.bam",
         "index]",
         "[tumor",
-        "NA24143",
-        "/hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24143/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.bam",
+        "sample id",
+        "/path/to/tumor.bam",
         "index]"
       ],
-      "input_string": "normal: /hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24149/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24149.bam\\n        tumor: /hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24143/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.bam",
+      "input_string": "normal: /path/to/normal.bam\\n        tumor: /path/to/tumor.bam",
       "input_type": "BAM",
-      "log_output_dir": "/tmp/outputs/call-mtSNV-VER.SI.ON/NA24143/log-call-mtSNV-VER.SI.ON-19970704T165655Z",
+      "log_output_dir": "/tmp/outputs/call-mtSNV-VER.SI.ON/sample id/log-call-mtSNV-VER.SI.ON-19970704T165655Z",
       "max_cpus": "16",
       "max_memory": "31 GB",
       "min_cpus": "1",
@@ -115,12 +113,12 @@
       "mitoCaller2vcf_version": "1.0.0",
       "mitocaller_docker_image": "ghcr.io/uclahs-cds/mitocaller:1.0.0",
       "mitocaller_version": "1.0.0",
-      "mt_ref_genome_dir": "/hot/resource/mitochondria_ref/genome_fasta/",
+      "mt_ref_genome_dir": "/example/genome/mitochondria/",
       "mtoolbox_version": "1.2.1-b52269e",
       "output_dir": "/tmp/outputs",
-      "output_dir_base": "/tmp/outputs/call-mtSNV-VER.SI.ON/NA24143/mitoCaller-1.0.0/",
-      "output_dir_prefix": "/tmp/outputs/call-mtSNV-VER.SI.ON/NA24143",
-      "patient_id": "illumina",
+      "output_dir_base": "/tmp/outputs/call-mtSNV-VER.SI.ON/sample id/mitoCaller-1.0.0/",
+      "output_dir_prefix": "/tmp/outputs/call-mtSNV-VER.SI.ON/sample id",
+      "patient_id": "patient id",
       "picard_docker_image": "ghcr.io/uclahs-cds/picard:3.3.0",
       "picard_version": "3.3.0",
       "pipeval_version": "5.0.0-rc.3",
@@ -210,18 +208,18 @@
           "memory": "2 GB"
         }
       },
-      "purity": "1.0",
+      "purity": "tumor_purity",
       "reference_genome_version": "GRCh38",
-      "sample_id": "NA24143",
+      "sample_id": "sample id",
       "sample_mode": "paired",
       "samtools_version": "1.21",
       "save_intermediate_files": false,
       "ucla_cds": true,
       "validate_extra_args": "",
       "validation_list": [
-        "[/hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24149/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24149.bam",
+        "[/path/to/normal.bam",
         "index]",
-        "[/hot/software/pipeline/metapipeline-DNA/Nextflow/development/input/data/BAM/NA24143/BWA-MEM2-2.2.1_GATK-4.2.4.1_IlluminaSampleTest_NA24143.bam",
+        "[/path/to/tumor.bam",
         "index]"
       ],
       "work_dir": "/scratch/8543"
@@ -405,15 +403,15 @@
     },
     "report": {
       "enabled": true,
-      "file": "/tmp/outputs/call-mtSNV-VER.SI.ON/NA24143/log-call-mtSNV-VER.SI.ON-19970704T165655Z/nextflow-log/report.html"
+      "file": "/tmp/outputs/call-mtSNV-VER.SI.ON/sample id/log-call-mtSNV-VER.SI.ON-19970704T165655Z/nextflow-log/report.html"
     },
     "timeline": {
       "enabled": true,
-      "file": "/tmp/outputs/call-mtSNV-VER.SI.ON/NA24143/log-call-mtSNV-VER.SI.ON-19970704T165655Z/nextflow-log/timeline.html"
+      "file": "/tmp/outputs/call-mtSNV-VER.SI.ON/sample id/log-call-mtSNV-VER.SI.ON-19970704T165655Z/nextflow-log/timeline.html"
     },
     "trace": {
       "enabled": true,
-      "file": "/tmp/outputs/call-mtSNV-VER.SI.ON/NA24143/log-call-mtSNV-VER.SI.ON-19970704T165655Z/nextflow-log/trace.txt"
+      "file": "/tmp/outputs/call-mtSNV-VER.SI.ON/sample id/log-call-mtSNV-VER.SI.ON-19970704T165655Z/nextflow-log/trace.txt"
     },
     "workDir": "/scratch/8543"
   }

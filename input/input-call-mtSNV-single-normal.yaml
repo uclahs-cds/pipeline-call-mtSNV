@@ -1,10 +1,7 @@
 ---
 patient_id: 'patient id'
 input:
-  BAM:
-    normal:
-      sample_id: 'sample id'
-      path: /path/to/normal.bam
+  # Either BAM or CRAM is supported
   CRAM:
     normal:
       sample_id: 'sample id'

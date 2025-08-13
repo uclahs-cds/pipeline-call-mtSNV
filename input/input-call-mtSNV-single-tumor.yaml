@@ -1,11 +1,8 @@
 ---
 patient_id: 'patient id'
 input:
+  # Either BAM or CRAM is supported
   BAM:
     tumor:
       sample_id: 'sample id'
       path: /path/to/tumor.bam
-  CRAM:
-    tumor:
-      sample_id: 'sample id'
-      path: /path/to/tumor.cram

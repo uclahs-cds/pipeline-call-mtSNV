@@ -1,6 +1,7 @@
 ---
 patient_id: 'patient id'
 input:
+  # Either BAM or CRAM is supported
   BAM:
     normal:
       sample_id: 'sample id'
@@ -8,12 +9,4 @@ input:
     tumor:
       sample_id: 'sample id'
       path: /path/to/tumor.bam
-      purity: tumor_purity
-  CRAM:
-    normal:
-      sample_id: 'sample id'
-      path: /path/to/normal.cram
-    tumor:
-      sample_id: 'sample id'
-      path: /path/to/tumor.cram
       purity: tumor_purity
